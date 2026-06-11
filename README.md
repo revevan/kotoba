@@ -54,20 +54,6 @@ and optionally Add to Home Screen.
 > Heads-up: if speech recognition misbehaves in the installed (home-screen) app,
 > run it as a normal Safari tab instead — everything else works the same.
 
-## Moving this folder to its own repo
-
-This app was developed inside another repo under `kotoba/`. To relocate it to a
-standalone repo (e.g. `revevan/kotoba`) with history not needed:
-
-```sh
-git clone --branch claude/japanese-learning-commute-app-rkk57d https://github.com/revevan/golf-course-sniper tmp
-cd tmp/kotoba && git init && git add -A && git commit -m "Kotoba: hands-free Japanese vocab trainer"
-git remote add origin https://github.com/revevan/kotoba && git branch -M main && git push -u origin main
-```
-
-Then enable Pages (Settings → Pages → Source: GitHub Actions) and the deploy
-workflow takes it from there.
-
 ## On-the-road controls
 
 Voice (during any listening moment): **repeat · skip · pause · resume**, and
