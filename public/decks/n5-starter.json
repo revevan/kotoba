@@ -1,0 +1,3497 @@
+{
+ "id": "n5-starter",
+ "name": "N5 Starter (Genki 1–6)",
+ "words": [
+  {
+   "id": "n5-1b7fe8fc",
+   "english": "doctor; physician",
+   "prompt": "doctor",
+   "kana": "いしゃ",
+   "written": [
+    "医者",
+    "いしゃ"
+   ],
+   "romaji": "isha",
+   "mora": [
+    "i",
+    "sha"
+   ],
+   "moraKana": [
+    "い",
+    "しゃ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "Genki_Ln.10",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.12",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-7cf28dc9",
+   "english": "now",
+   "prompt": "now",
+   "kana": "いま",
+   "written": [
+    "今",
+    "いま"
+   ],
+   "romaji": "ima",
+   "mora": [
+    "i",
+    "ma"
+   ],
+   "moraKana": [
+    "い",
+    "ま"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-17beb16f",
+   "english": "younger sister (humble)",
+   "prompt": "younger sister",
+   "kana": "いもうと",
+   "written": [
+    "妹",
+    "いもうと"
+   ],
+   "romaji": "imouto",
+   "mora": [
+    "i",
+    "mo",
+    "u",
+    "to"
+   ],
+   "moraKana": [
+    "い",
+    "も",
+    "う",
+    "と"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "Genki_Ln.7",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-bdf2796e",
+   "english": "English (language)",
+   "prompt": "English",
+   "kana": "えいご",
+   "written": [
+    "英語",
+    "えいご"
+   ],
+   "romaji": "eigo",
+   "mora": [
+    "e",
+    "i",
+    "go"
+   ],
+   "moraKana": [
+    "え",
+    "い",
+    "ご"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-b7966194",
+   "english": "yes",
+   "prompt": "yes",
+   "kana": "ええ",
+   "written": [
+    "ええ"
+   ],
+   "romaji": "ee",
+   "mora": [
+    "e",
+    "e"
+   ],
+   "moraKana": [
+    "え",
+    "え"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-51d0ab4a",
+   "english": "mother (formal)",
+   "prompt": "mother",
+   "kana": "おかあさん",
+   "written": [
+    "お母さん",
+    "おかあさん"
+   ],
+   "romaji": "okaasan",
+   "mora": [
+    "o",
+    "ka",
+    "a",
+    "sa",
+    "n"
+   ],
+   "moraKana": [
+    "お",
+    "か",
+    "あ",
+    "さ",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-2cbdefb8",
+   "english": "father (formal)",
+   "prompt": "father",
+   "kana": "おとうさん",
+   "written": [
+    "お父さん",
+    "おとうさん"
+   ],
+   "romaji": "otousan",
+   "mora": [
+    "o",
+    "to",
+    "u",
+    "sa",
+    "n"
+   ],
+   "moraKana": [
+    "お",
+    "と",
+    "う",
+    "さ",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-d9a6b4c3",
+   "english": "younger brother",
+   "prompt": "younger brother",
+   "kana": "おとうと",
+   "written": [
+    "弟",
+    "おとうと"
+   ],
+   "romaji": "otouto",
+   "mora": [
+    "o",
+    "to",
+    "u",
+    "to"
+   ],
+   "moraKana": [
+    "お",
+    "と",
+    "う",
+    "と"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "Genki_Ln.7",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-810354ac",
+   "english": "(someone else's) older brother (formal)",
+   "prompt": "older brother",
+   "kana": "おにいさん",
+   "written": [
+    "お兄さん",
+    "おにいさん"
+   ],
+   "romaji": "oniisan",
+   "mora": [
+    "o",
+    "ni",
+    "i",
+    "sa",
+    "n"
+   ],
+   "moraKana": [
+    "お",
+    "に",
+    "い",
+    "さ",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "Genki_Ln.7",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-a37813c9",
+   "english": "older sister (formal)",
+   "prompt": "older sister",
+   "kana": "おねえさん",
+   "written": [
+    "お姉さん",
+    "おねえさん"
+   ],
+   "romaji": "oneesan",
+   "mora": [
+    "o",
+    "ne",
+    "e",
+    "sa",
+    "n"
+   ],
+   "moraKana": [
+    "お",
+    "ね",
+    "え",
+    "さ",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "Genki_Ln.7",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-1d17bb25",
+   "english": "student",
+   "prompt": "student",
+   "kana": "がくせい",
+   "written": [
+    "学生",
+    "がくせい"
+   ],
+   "romaji": "gakusei",
+   "mora": [
+    "ga",
+    "ku",
+    "se",
+    "i"
+   ],
+   "moraKana": [
+    "が",
+    "く",
+    "せ",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-873bb133",
+   "english": "afternoon, P.M.",
+   "prompt": "afternoon",
+   "kana": "ごご",
+   "written": [
+    "午後",
+    "ごご"
+   ],
+   "romaji": "gogo",
+   "mora": [
+    "go",
+    "go"
+   ],
+   "moraKana": [
+    "ご",
+    "ご"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-2d128996",
+   "english": "morning, A.M.",
+   "prompt": "morning",
+   "kana": "ごぜん",
+   "written": [
+    "午前",
+    "ごぜん"
+   ],
+   "romaji": "gozen",
+   "mora": [
+    "go",
+    "ze",
+    "n"
+   ],
+   "moraKana": [
+    "ご",
+    "ぜ",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-a57d4660",
+   "english": "work, job, occupation, employment",
+   "prompt": "work",
+   "kana": "しごと",
+   "written": [
+    "仕事",
+    "しごと"
+   ],
+   "romaji": "shigoto",
+   "mora": [
+    "shi",
+    "go",
+    "to"
+   ],
+   "moraKana": [
+    "し",
+    "ご",
+    "と"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "Genki_Ln.8",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-ca5c6a1e",
+   "english": "teacher, professor; master; doctor",
+   "prompt": "teacher",
+   "kana": "せんせい",
+   "written": [
+    "先生",
+    "せんせい"
+   ],
+   "romaji": "sensei",
+   "mora": [
+    "se",
+    "n",
+    "se",
+    "i"
+   ],
+   "moraKana": [
+    "せ",
+    "ん",
+    "せ",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-f2549372",
+   "english": "college; university",
+   "prompt": "college",
+   "kana": "だいがく",
+   "written": [
+    "大学",
+    "だいがく"
+   ],
+   "romaji": "daigaku",
+   "mora": [
+    "da",
+    "i",
+    "ga",
+    "ku"
+   ],
+   "moraKana": [
+    "だ",
+    "い",
+    "が",
+    "く"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-33a1e265",
+   "english": "a telephone",
+   "prompt": "a telephone",
+   "kana": "でんわ",
+   "written": [
+    "電話",
+    "でんわ"
+   ],
+   "romaji": "denwa",
+   "mora": [
+    "de",
+    "n",
+    "wa"
+   ],
+   "moraKana": [
+    "で",
+    "ん",
+    "わ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-ac475c12",
+   "english": "friend",
+   "prompt": "friend",
+   "kana": "ともだち",
+   "written": [
+    "友達",
+    "ともだち"
+   ],
+   "romaji": "tomodachi",
+   "mora": [
+    "to",
+    "mo",
+    "da",
+    "chi"
+   ],
+   "moraKana": [
+    "と",
+    "も",
+    "だ",
+    "ち"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-f68273d2",
+   "english": "name",
+   "prompt": "name",
+   "kana": "なまえ",
+   "written": [
+    "名前",
+    "なまえ"
+   ],
+   "romaji": "namae",
+   "mora": [
+    "na",
+    "ma",
+    "e"
+   ],
+   "moraKana": [
+    "な",
+    "ま",
+    "え"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-2668a187",
+   "english": "yes",
+   "prompt": "yes",
+   "kana": "はい",
+   "written": [
+    "はい"
+   ],
+   "romaji": "hai",
+   "mora": [
+    "ha",
+    "i"
+   ],
+   "moraKana": [
+    "は",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-6208a56d",
+   "english": "half (e.g., にじはん | half-past two)",
+   "prompt": "half (e.g.",
+   "kana": "はん",
+   "written": [
+    "半",
+    "はん"
+   ],
+   "romaji": "han",
+   "mora": [
+    "ha",
+    "n"
+   ],
+   "moraKana": [
+    "は",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-41645a1f",
+   "english": "number, series of digits",
+   "prompt": "number",
+   "kana": "ばんごう",
+   "written": [
+    "番号",
+    "ばんごう"
+   ],
+   "romaji": "bangou",
+   "mora": [
+    "ba",
+    "n",
+    "go",
+    "u"
+   ],
+   "moraKana": [
+    "ば",
+    "ん",
+    "ご",
+    "う"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-c4e7aaa8",
+   "english": "international student",
+   "prompt": "international student",
+   "kana": "りゅうがくせい",
+   "written": [
+    "留学生",
+    "りゅうがくせい"
+   ],
+   "romaji": "ryuugakusei",
+   "mora": [
+    "ryu",
+    "u",
+    "ga",
+    "ku",
+    "se",
+    "i"
+   ],
+   "moraKana": [
+    "りゅ",
+    "う",
+    "が",
+    "く",
+    "せ",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-e1ea452d",
+   "english": "I, myself",
+   "prompt": "I",
+   "kana": "わたし",
+   "written": [
+    "私",
+    "わたし"
+   ],
+   "romaji": "watashi",
+   "mora": [
+    "wa",
+    "ta",
+    "shi"
+   ],
+   "moraKana": [
+    "わ",
+    "た",
+    "し"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-c2500e22",
+   "english": "there, over there, that place",
+   "prompt": "there",
+   "kana": "あそこ",
+   "written": [
+    "あそこ"
+   ],
+   "romaji": "asoko",
+   "mora": [
+    "a",
+    "so",
+    "ko"
+   ],
+   "moraKana": [
+    "あ",
+    "そ",
+    "こ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-af8fe633",
+   "english": "that one (over there)",
+   "prompt": "that one",
+   "kana": "あれ",
+   "written": [
+    "あれ"
+   ],
+   "romaji": "are",
+   "mora": [
+    "a",
+    "re"
+   ],
+   "moraKana": [
+    "あ",
+    "れ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-cd2f86ee",
+   "english": "how much, how many",
+   "prompt": "how much",
+   "kana": "いくら",
+   "written": [
+    "いくら"
+   ],
+   "romaji": "ikura",
+   "mora": [
+    "i",
+    "ku",
+    "ra"
+   ],
+   "moraKana": [
+    "い",
+    "く",
+    "ら"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-4bd5b091",
+   "english": "pencil",
+   "prompt": "pencil",
+   "kana": "えんぴつ",
+   "written": [
+    "鉛筆",
+    "えんぴつ"
+   ],
+   "romaji": "enpitsu",
+   "mora": [
+    "e",
+    "n",
+    "pi",
+    "tsu"
+   ],
+   "moraKana": [
+    "え",
+    "ん",
+    "ぴ",
+    "つ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-56e2ffcd",
+   "english": "toilet, restroom, bathroom (lit., a place to wash one's hands)",
+   "prompt": "toilet",
+   "kana": "おてあらい",
+   "written": [
+    "お手洗い",
+    "おてあらい"
+   ],
+   "romaji": "otearai",
+   "mora": [
+    "o",
+    "te",
+    "a",
+    "ra",
+    "i"
+   ],
+   "moraKana": [
+    "お",
+    "て",
+    "あ",
+    "ら",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.13",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-ad635933",
+   "english": "umbrella, parasol",
+   "prompt": "umbrella",
+   "kana": "かさ",
+   "written": [
+    "傘",
+    "かさ"
+   ],
+   "romaji": "kasa",
+   "mora": [
+    "ka",
+    "sa"
+   ],
+   "moraKana": [
+    "か",
+    "さ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-79cde3ad",
+   "english": "bag, basket",
+   "prompt": "bag",
+   "kana": "かばん",
+   "written": [
+    "かばん"
+   ],
+   "romaji": "kaban",
+   "mora": [
+    "ka",
+    "ba",
+    "n"
+   ],
+   "moraKana": [
+    "か",
+    "ば",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-e047c54d",
+   "english": "café",
+   "prompt": "café",
+   "kana": "きっさてん",
+   "written": [
+    "喫茶店",
+    "きっさてん"
+   ],
+   "romaji": "kissaten",
+   "mora": [
+    "ki",
+    "q",
+    "sa",
+    "te",
+    "n"
+   ],
+   "moraKana": [
+    "き",
+    "っ",
+    "さ",
+    "て",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.11",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-5ab550fc",
+   "english": "bank",
+   "prompt": "bank",
+   "kana": "ぎんこう",
+   "written": [
+    "銀行",
+    "ぎんこう"
+   ],
+   "romaji": "ginkou",
+   "mora": [
+    "gi",
+    "n",
+    "ko",
+    "u"
+   ],
+   "moraKana": [
+    "ぎ",
+    "ん",
+    "こ",
+    "う"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-a28c621e",
+   "english": "shoes, footwear",
+   "prompt": "shoes",
+   "kana": "くつ",
+   "written": [
+    "靴",
+    "くつ"
+   ],
+   "romaji": "kutsu",
+   "mora": [
+    "ku",
+    "tsu"
+   ],
+   "moraKana": [
+    "く",
+    "つ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-1fefdbdb",
+   "english": "this one",
+   "prompt": "this one",
+   "kana": "これ",
+   "written": [
+    "これ"
+   ],
+   "romaji": "kore",
+   "mora": [
+    "ko",
+    "re"
+   ],
+   "moraKana": [
+    "こ",
+    "れ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-9f5cf593",
+   "english": "wallet",
+   "prompt": "wallet",
+   "kana": "さいふ",
+   "written": [
+    "財布",
+    "さいふ"
+   ],
+   "romaji": "saifu",
+   "mora": [
+    "sa",
+    "i",
+    "fu"
+   ],
+   "moraKana": [
+    "さ",
+    "い",
+    "ふ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-a7294957",
+   "english": "fish",
+   "prompt": "fish",
+   "kana": "さかな",
+   "written": [
+    "魚",
+    "さかな"
+   ],
+   "romaji": "sakana",
+   "mora": [
+    "sa",
+    "ka",
+    "na"
+   ],
+   "moraKana": [
+    "さ",
+    "か",
+    "な"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-2e0ca17b",
+   "english": "dictionary",
+   "prompt": "dictionary",
+   "kana": "じしょ",
+   "written": [
+    "辞書",
+    "じしょ"
+   ],
+   "romaji": "jisho",
+   "mora": [
+    "ji",
+    "sho"
+   ],
+   "moraKana": [
+    "じ",
+    "しょ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-55d70f77",
+   "english": "bicycle",
+   "prompt": "bicycle",
+   "kana": "じてんしゃ",
+   "written": [
+    "自転車",
+    "じてんしゃ"
+   ],
+   "romaji": "jitensha",
+   "mora": [
+    "ji",
+    "te",
+    "n",
+    "sha"
+   ],
+   "moraKana": [
+    "じ",
+    "て",
+    "ん",
+    "しゃ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-3761f07c",
+   "english": "newspaper",
+   "prompt": "newspaper",
+   "kana": "しんぶん",
+   "written": [
+    "新聞",
+    "しんぶん"
+   ],
+   "romaji": "shinbun",
+   "mora": [
+    "shi",
+    "n",
+    "bu",
+    "n"
+   ],
+   "moraKana": [
+    "し",
+    "ん",
+    "ぶ",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-3906cbce",
+   "english": "that one",
+   "prompt": "that one",
+   "kana": "それ",
+   "written": [
+    "それ"
+   ],
+   "romaji": "sore",
+   "mora": [
+    "so",
+    "re"
+   ],
+   "moraKana": [
+    "そ",
+    "れ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-66b6e112",
+   "english": "tall, high; expensive",
+   "prompt": "tall",
+   "kana": "たかい",
+   "written": [
+    "高い",
+    "たかい"
+   ],
+   "romaji": "takai",
+   "mora": [
+    "ta",
+    "ka",
+    "i"
+   ],
+   "moraKana": [
+    "た",
+    "か",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-6e9eadcf",
+   "english": "who",
+   "prompt": "who",
+   "kana": "だれ",
+   "written": [
+    "誰",
+    "だれ"
+   ],
+   "romaji": "dare",
+   "mora": [
+    "da",
+    "re"
+   ],
+   "moraKana": [
+    "だ",
+    "れ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-b29e9540",
+   "english": "tape",
+   "prompt": "tape",
+   "kana": "てえぷ",
+   "written": [
+    "テープ",
+    "てえぷ"
+   ],
+   "romaji": "teepu",
+   "mora": [
+    "te",
+    "e",
+    "pu"
+   ],
+   "moraKana": [
+    "て",
+    "え",
+    "ぷ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-cfde36eb",
+   "english": "Thank you; somehow; no matter how hard one may try",
+   "prompt": "Thank you",
+   "kana": "どうも",
+   "written": [
+    "どうも"
+   ],
+   "romaji": "doumo",
+   "mora": [
+    "do",
+    "u",
+    "mo"
+   ],
+   "moraKana": [
+    "ど",
+    "う",
+    "も"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-176ff473",
+   "english": "a watch; a clock",
+   "prompt": "a watch",
+   "kana": "とけい",
+   "written": [
+    "時計",
+    "とけい"
+   ],
+   "romaji": "tokei",
+   "mora": [
+    "to",
+    "ke",
+    "i"
+   ],
+   "moraKana": [
+    "と",
+    "け",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-d7de52a7",
+   "english": "where, what place",
+   "prompt": "where",
+   "kana": "どこ",
+   "written": [
+    "どこ"
+   ],
+   "romaji": "doko",
+   "mora": [
+    "do",
+    "ko"
+   ],
+   "moraKana": [
+    "ど",
+    "こ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-71bc8ce6",
+   "english": "library",
+   "prompt": "library",
+   "kana": "としょかん",
+   "written": [
+    "図書館",
+    "としょかん"
+   ],
+   "romaji": "toshokan",
+   "mora": [
+    "to",
+    "sho",
+    "ka",
+    "n"
+   ],
+   "moraKana": [
+    "と",
+    "しょ",
+    "か",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.5",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-3850c3cd",
+   "english": "which one",
+   "prompt": "which one",
+   "kana": "どれ",
+   "written": [
+    "どれ"
+   ],
+   "romaji": "dore",
+   "mora": [
+    "do",
+    "re"
+   ],
+   "moraKana": [
+    "ど",
+    "れ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-df98d4e7",
+   "english": "meat",
+   "prompt": "meat",
+   "kana": "にく",
+   "written": [
+    "肉",
+    "にく"
+   ],
+   "romaji": "niku",
+   "mora": [
+    "ni",
+    "ku"
+   ],
+   "moraKana": [
+    "に",
+    "く"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-3e9768f9",
+   "english": "notebook",
+   "prompt": "notebook",
+   "kana": "のうと",
+   "written": [
+    "ノート",
+    "のうと"
+   ],
+   "romaji": "nouto",
+   "mora": [
+    "no",
+    "u",
+    "to"
+   ],
+   "moraKana": [
+    "の",
+    "う",
+    "と"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-ff720a94",
+   "english": "pen",
+   "prompt": "pen",
+   "kana": "ぺん",
+   "written": [
+    "ペン",
+    "ぺん"
+   ],
+   "romaji": "pen",
+   "mora": [
+    "pe",
+    "n"
+   ],
+   "moraKana": [
+    "ぺ",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-e2da2a2b",
+   "english": "hat; cap",
+   "prompt": "hat",
+   "kana": "ぼうし",
+   "written": [
+    "帽子",
+    "ぼうし"
+   ],
+   "romaji": "boushi",
+   "mora": [
+    "bo",
+    "u",
+    "shi"
+   ],
+   "moraKana": [
+    "ぼ",
+    "う",
+    "し"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-9fb45486",
+   "english": "book",
+   "prompt": "book",
+   "kana": "ほん",
+   "written": [
+    "本",
+    "ほん"
+   ],
+   "romaji": "hon",
+   "mora": [
+    "ho",
+    "n"
+   ],
+   "moraKana": [
+    "ほ",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-24aab5be",
+   "english": "vegetable",
+   "prompt": "vegetable",
+   "kana": "やさい",
+   "written": [
+    "野菜",
+    "やさい"
+   ],
+   "romaji": "yasai",
+   "mora": [
+    "ya",
+    "sa",
+    "i"
+   ],
+   "moraKana": [
+    "や",
+    "さ",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-1751a166",
+   "english": "post office",
+   "prompt": "post office",
+   "kana": "ゆうびんきょく",
+   "written": [
+    "郵便局",
+    "ゆうびんきょく"
+   ],
+   "romaji": "yuubinkyoku",
+   "mora": [
+    "yu",
+    "u",
+    "bi",
+    "n",
+    "kyo",
+    "ku"
+   ],
+   "moraKana": [
+    "ゆ",
+    "う",
+    "び",
+    "ん",
+    "きょ",
+    "く"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-b1fa407b",
+   "english": "morning",
+   "prompt": "morning",
+   "kana": "あさ",
+   "written": [
+    "朝",
+    "あさ"
+   ],
+   "romaji": "asa",
+   "mora": [
+    "a",
+    "sa"
+   ],
+   "moraKana": [
+    "あ",
+    "さ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-18bb555d",
+   "english": "breakfast",
+   "prompt": "breakfast",
+   "kana": "あさごはん",
+   "written": [
+    "朝御飯",
+    "あさごはん"
+   ],
+   "romaji": "asagohan",
+   "mora": [
+    "a",
+    "sa",
+    "go",
+    "ha",
+    "n"
+   ],
+   "moraKana": [
+    "あ",
+    "さ",
+    "ご",
+    "は",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-6b7cbce3",
+   "english": "tomorrow",
+   "prompt": "tomorrow",
+   "kana": "あした",
+   "written": [
+    "明日",
+    "あした"
+   ],
+   "romaji": "ashita",
+   "mora": [
+    "a",
+    "shi",
+    "ta"
+   ],
+   "moraKana": [
+    "あ",
+    "し",
+    "た"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.7",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-abe6f3d9",
+   "english": "house, home",
+   "prompt": "house",
+   "kana": "いえ",
+   "written": [
+    "家",
+    "いえ"
+   ],
+   "romaji": "ie",
+   "mora": [
+    "i",
+    "e"
+   ],
+   "moraKana": [
+    "い",
+    "え"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_2",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-0ef510d2",
+   "english": "when",
+   "prompt": "when",
+   "kana": "いつ",
+   "written": [
+    "いつ"
+   ],
+   "romaji": "itsu",
+   "mora": [
+    "i",
+    "tsu"
+   ],
+   "moraKana": [
+    "い",
+    "つ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_2",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-800ecd92",
+   "english": "home; house; my place",
+   "prompt": "home",
+   "kana": "うち",
+   "written": [
+    "うち"
+   ],
+   "romaji": "uchi",
+   "mora": [
+    "u",
+    "chi"
+   ],
+   "moraKana": [
+    "う",
+    "ち"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-b760061e",
+   "english": "movie, film",
+   "prompt": "movie",
+   "kana": "えいが",
+   "written": [
+    "映画",
+    "えいが"
+   ],
+   "romaji": "eiga",
+   "mora": [
+    "e",
+    "i",
+    "ga"
+   ],
+   "moraKana": [
+    "え",
+    "い",
+    "が"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.7",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-e2d50137",
+   "english": "to get up (e.g., from sleeping); to happen",
+   "prompt": "to get up (e.g.",
+   "kana": "おきる",
+   "written": [
+    "起きる",
+    "おきる"
+   ],
+   "romaji": "okiru",
+   "mora": [
+    "o",
+    "ki",
+    "ru"
+   ],
+   "moraKana": [
+    "お",
+    "き",
+    "る"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.12",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-fcd13124",
+   "english": "sake; alcohol",
+   "prompt": "sake",
+   "kana": "おさけ",
+   "written": [
+    "お酒",
+    "おさけ"
+   ],
+   "romaji": "osake",
+   "mora": [
+    "o",
+    "sa",
+    "ke"
+   ],
+   "moraKana": [
+    "お",
+    "さ",
+    "け"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-891adb67",
+   "english": "(green) tea",
+   "prompt": "tea",
+   "kana": "おちゃ",
+   "written": [
+    "お茶",
+    "おちゃ"
+   ],
+   "romaji": "ocha",
+   "mora": [
+    "o",
+    "cha"
+   ],
+   "moraKana": [
+    "お",
+    "ちゃ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.6",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-6cb1082c",
+   "english": "Music",
+   "prompt": "Music",
+   "kana": "おんがく",
+   "written": [
+    "音楽",
+    "おんがく"
+   ],
+   "romaji": "ongaku",
+   "mora": [
+    "o",
+    "n",
+    "ga",
+    "ku"
+   ],
+   "moraKana": [
+    "お",
+    "ん",
+    "が",
+    "く"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-beceac46",
+   "english": "a school",
+   "prompt": "a school",
+   "kana": "がっこう",
+   "written": [
+    "学校",
+    "がっこう"
+   ],
+   "romaji": "gakkou",
+   "mora": [
+    "ga",
+    "q",
+    "ko",
+    "u"
+   ],
+   "moraKana": [
+    "が",
+    "っ",
+    "こ",
+    "う"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-c6db0d79",
+   "english": "today, this day",
+   "prompt": "today",
+   "kana": "きょう",
+   "written": [
+    "今日",
+    "きょう"
+   ],
+   "romaji": "kyou",
+   "mora": [
+    "kyo",
+    "u"
+   ],
+   "moraKana": [
+    "きょ",
+    "う"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-99a8fca0",
+   "english": "coffee",
+   "prompt": "coffee",
+   "kana": "こうひい",
+   "written": [
+    "コーヒー",
+    "こうひい"
+   ],
+   "romaji": "kouhii",
+   "mora": [
+    "ko",
+    "u",
+    "hi",
+    "i"
+   ],
+   "moraKana": [
+    "こ",
+    "う",
+    "ひ",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-1f8742cc",
+   "english": "tonight, this evening",
+   "prompt": "tonight",
+   "kana": "こんばん",
+   "written": [
+    "今晩",
+    "こんばん"
+   ],
+   "romaji": "konban",
+   "mora": [
+    "ko",
+    "n",
+    "ba",
+    "n"
+   ],
+   "moraKana": [
+    "こ",
+    "ん",
+    "ば",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-e1245a11",
+   "english": "magazine, journal",
+   "prompt": "magazine",
+   "kana": "ざっし",
+   "written": [
+    "雑誌",
+    "ざっし"
+   ],
+   "romaji": "zasshi",
+   "mora": [
+    "za",
+    "q",
+    "shi"
+   ],
+   "moraKana": [
+    "ざ",
+    "っ",
+    "し"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.8",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-680166e9",
+   "english": "sport(s)",
+   "prompt": "sport",
+   "kana": "すぽうつ",
+   "written": [
+    "スポーツ",
+    "すぽうつ"
+   ],
+   "romaji": "supoutsu",
+   "mora": [
+    "su",
+    "po",
+    "u",
+    "tsu"
+   ],
+   "moraKana": [
+    "す",
+    "ぽ",
+    "う",
+    "つ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-78aa9dce",
+   "english": "a little, somewhat; just a little, somewhat",
+   "prompt": "a little",
+   "kana": "ちょっと",
+   "written": [
+    "ちょっと"
+   ],
+   "romaji": "chotto",
+   "mora": [
+    "cho",
+    "q",
+    "to"
+   ],
+   "moraKana": [
+    "ちょ",
+    "っ",
+    "と"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_2",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-b692a5e3",
+   "english": "television, TV",
+   "prompt": "television",
+   "kana": "てれび",
+   "written": [
+    "テレビ",
+    "てれび"
+   ],
+   "romaji": "terebi",
+   "mora": [
+    "te",
+    "re",
+    "bi"
+   ],
+   "moraKana": [
+    "て",
+    "れ",
+    "び"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-c29dae0c",
+   "english": "sometimes",
+   "prompt": "sometimes",
+   "kana": "ときどき",
+   "written": [
+    "時々",
+    "ときどき"
+   ],
+   "romaji": "tokidoki",
+   "mora": [
+    "to",
+    "ki",
+    "do",
+    "ki"
+   ],
+   "moraKana": [
+    "と",
+    "き",
+    "ど",
+    "き"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-de84238b",
+   "english": "Saturday",
+   "prompt": "Saturday",
+   "kana": "どようび",
+   "written": [
+    "土曜日",
+    "どようび"
+   ],
+   "romaji": "doyoubi",
+   "mora": [
+    "do",
+    "yo",
+    "u",
+    "bi"
+   ],
+   "moraKana": [
+    "ど",
+    "よ",
+    "う",
+    "び"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-c3d80f8c",
+   "english": "Sunday",
+   "prompt": "Sunday",
+   "kana": "にちようび",
+   "written": [
+    "日曜日",
+    "にちようび"
+   ],
+   "romaji": "nichiyoubi",
+   "mora": [
+    "ni",
+    "chi",
+    "yo",
+    "u",
+    "bi"
+   ],
+   "moraKana": [
+    "に",
+    "ち",
+    "よ",
+    "う",
+    "び"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-4a7000d6",
+   "english": "to sleep; to go to sleep; to go to bed",
+   "prompt": "to sleep",
+   "kana": "ねる",
+   "written": [
+    "寝る",
+    "ねる"
+   ],
+   "romaji": "neru",
+   "mora": [
+    "ne",
+    "ru"
+   ],
+   "moraKana": [
+    "ね",
+    "る"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-0ffd6115",
+   "english": "early",
+   "prompt": "early",
+   "kana": "はやい",
+   "written": [
+    "早い",
+    "はやい"
+   ],
+   "romaji": "hayai",
+   "mora": [
+    "ha",
+    "ya",
+    "i"
+   ],
+   "moraKana": [
+    "は",
+    "や",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-9f61ccc2",
+   "english": "dinner, evening meal",
+   "prompt": "dinner",
+   "kana": "ばんごはん",
+   "written": [
+    "晩御飯",
+    "ばんごはん"
+   ],
+   "romaji": "bangohan",
+   "mora": [
+    "ba",
+    "n",
+    "go",
+    "ha",
+    "n"
+   ],
+   "moraKana": [
+    "ば",
+    "ん",
+    "ご",
+    "は",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-a780acb0",
+   "english": "lunch, midday meal",
+   "prompt": "lunch",
+   "kana": "ひるごはん",
+   "written": [
+    "昼御飯",
+    "ひるごはん"
+   ],
+   "romaji": "hirugohan",
+   "mora": [
+    "hi",
+    "ru",
+    "go",
+    "ha",
+    "n"
+   ],
+   "moraKana": [
+    "ひ",
+    "る",
+    "ご",
+    "は",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-b4772e80",
+   "english": "every day",
+   "prompt": "every day",
+   "kana": "まいにち",
+   "written": [
+    "毎日",
+    "まいにち"
+   ],
+   "romaji": "mainichi",
+   "mora": [
+    "ma",
+    "i",
+    "ni",
+    "chi"
+   ],
+   "moraKana": [
+    "ま",
+    "い",
+    "に",
+    "ち"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-501ee091",
+   "english": "every night",
+   "prompt": "every night",
+   "kana": "まいばん",
+   "written": [
+    "毎晩",
+    "まいばん"
+   ],
+   "romaji": "maiban",
+   "mora": [
+    "ma",
+    "i",
+    "ba",
+    "n"
+   ],
+   "moraKana": [
+    "ま",
+    "い",
+    "ば",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-e3d391e7",
+   "english": "water",
+   "prompt": "water",
+   "kana": "みず",
+   "written": [
+    "水",
+    "みず"
+   ],
+   "romaji": "mizu",
+   "mora": [
+    "mi",
+    "zu"
+   ],
+   "moraKana": [
+    "み",
+    "ず"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.3",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-d7c45d9e",
+   "english": "you",
+   "prompt": "you",
+   "kana": "あなた",
+   "written": [
+    "あなた"
+   ],
+   "romaji": "anata",
+   "mora": [
+    "a",
+    "na",
+    "ta"
+   ],
+   "moraKana": [
+    "あ",
+    "な",
+    "た"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-7af94911",
+   "english": "dog",
+   "prompt": "dog",
+   "kana": "いぬ",
+   "written": [
+    "犬",
+    "いぬ"
+   ],
+   "romaji": "inu",
+   "mora": [
+    "i",
+    "nu"
+   ],
+   "moraKana": [
+    "い",
+    "ぬ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-b7ef783f",
+   "english": "shopping",
+   "prompt": "shopping",
+   "kana": "かいもの",
+   "written": [
+    "買い物",
+    "かいもの"
+   ],
+   "romaji": "kaimono",
+   "mora": [
+    "ka",
+    "i",
+    "mo",
+    "no"
+   ],
+   "moraKana": [
+    "か",
+    "い",
+    "も",
+    "の"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-90c36d1b",
+   "english": "Tuesday",
+   "prompt": "Tuesday",
+   "kana": "かようび",
+   "written": [
+    "火曜日",
+    "かようび"
+   ],
+   "romaji": "kayoubi",
+   "mora": [
+    "ka",
+    "yo",
+    "u",
+    "bi"
+   ],
+   "moraKana": [
+    "か",
+    "よ",
+    "う",
+    "び"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-05f1d2a5",
+   "english": "yesterday",
+   "prompt": "yesterday",
+   "kana": "きのう",
+   "written": [
+    "昨日",
+    "きのう"
+   ],
+   "romaji": "kinou",
+   "mora": [
+    "ki",
+    "no",
+    "u"
+   ],
+   "moraKana": [
+    "き",
+    "の",
+    "う"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-df1ca857",
+   "english": "Friday",
+   "prompt": "Friday",
+   "kana": "きんようび",
+   "written": [
+    "金曜日",
+    "きんようび"
+   ],
+   "romaji": "kin'youbi",
+   "mora": [
+    "ki",
+    "n",
+    "yo",
+    "u",
+    "bi"
+   ],
+   "moraKana": [
+    "き",
+    "ん",
+    "よ",
+    "う",
+    "び"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-c0b068d2",
+   "english": "a class",
+   "prompt": "a class",
+   "kana": "くらす",
+   "written": [
+    "クラス",
+    "くらす"
+   ],
+   "romaji": "kurasu",
+   "mora": [
+    "ku",
+    "ra",
+    "su"
+   ],
+   "moraKana": [
+    "く",
+    "ら",
+    "す"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-ddeded76",
+   "english": "Monday",
+   "prompt": "Monday",
+   "kana": "げつようび",
+   "written": [
+    "月曜日",
+    "げつようび"
+   ],
+   "romaji": "getsuyoubi",
+   "mora": [
+    "ge",
+    "tsu",
+    "yo",
+    "u",
+    "bi"
+   ],
+   "moraKana": [
+    "げ",
+    "つ",
+    "よ",
+    "う",
+    "び"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-e7e7c214",
+   "english": "a park",
+   "prompt": "a park",
+   "kana": "こうえん",
+   "written": [
+    "公園",
+    "こうえん"
+   ],
+   "romaji": "kouen",
+   "mora": [
+    "ko",
+    "u",
+    "e",
+    "n"
+   ],
+   "moraKana": [
+    "こ",
+    "う",
+    "え",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-60a62ace",
+   "english": "here, this place",
+   "prompt": "here",
+   "kana": "ここ",
+   "written": [
+    "ここ"
+   ],
+   "romaji": "koko",
+   "mora": [
+    "ko",
+    "ko"
+   ],
+   "moraKana": [
+    "こ",
+    "こ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-e14162ce",
+   "english": "child(ren)",
+   "prompt": "child",
+   "kana": "こども",
+   "written": [
+    "子供",
+    "こども"
+   ],
+   "romaji": "kodomo",
+   "mora": [
+    "ko",
+    "do",
+    "mo"
+   ],
+   "moraKana": [
+    "こ",
+    "ど",
+    "も"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.2",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-952a80fe",
+   "english": "rice (cooked); meal",
+   "prompt": "rice",
+   "kana": "ごはん",
+   "written": [
+    "御飯",
+    "ごはん"
+   ],
+   "romaji": "gohan",
+   "mora": [
+    "go",
+    "ha",
+    "n"
+   ],
+   "moraKana": [
+    "ご",
+    "は",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-e5a5f382",
+   "english": "a picture; a photograph",
+   "prompt": "a picture",
+   "kana": "しゃしん",
+   "written": [
+    "写真",
+    "しゃしん"
+   ],
+   "romaji": "shashin",
+   "mora": [
+    "sha",
+    "shi",
+    "n"
+   ],
+   "moraKana": [
+    "しゃ",
+    "し",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-225b351e",
+   "english": "Wednesday",
+   "prompt": "Wednesday",
+   "kana": "すいようび",
+   "written": [
+    "水曜日",
+    "すいようび"
+   ],
+   "romaji": "suiyoubi",
+   "mora": [
+    "su",
+    "i",
+    "yo",
+    "u",
+    "bi"
+   ],
+   "moraKana": [
+    "す",
+    "い",
+    "よ",
+    "う",
+    "び"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-7f4eaa15",
+   "english": "last week",
+   "prompt": "last week",
+   "kana": "せんしゅう",
+   "written": [
+    "先週",
+    "せんしゅう"
+   ],
+   "romaji": "senshuu",
+   "mora": [
+    "se",
+    "n",
+    "shu",
+    "u"
+   ],
+   "moraKana": [
+    "せ",
+    "ん",
+    "しゅ",
+    "う"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-fb182375",
+   "english": "that place, there; bottom, sole",
+   "prompt": "that place",
+   "kana": "そこ",
+   "written": [
+    "そこ"
+   ],
+   "romaji": "soko",
+   "mora": [
+    "so",
+    "ko"
+   ],
+   "moraKana": [
+    "そ",
+    "こ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_2",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-2bc551f3",
+   "english": "desk",
+   "prompt": "desk",
+   "kana": "つくえ",
+   "written": [
+    "机",
+    "つくえ"
+   ],
+   "romaji": "tsukue",
+   "mora": [
+    "tsu",
+    "ku",
+    "e"
+   ],
+   "moraKana": [
+    "つ",
+    "く",
+    "え"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.10",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-524dd5c8",
+   "english": "letter",
+   "prompt": "letter",
+   "kana": "てがみ",
+   "written": [
+    "手紙",
+    "てがみ"
+   ],
+   "romaji": "tegami",
+   "mora": [
+    "te",
+    "ga",
+    "mi"
+   ],
+   "moraKana": [
+    "て",
+    "が",
+    "み"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-000452af",
+   "english": "(abbr.) department store",
+   "prompt": "department store",
+   "kana": "でぱあと",
+   "written": [
+    "デパート",
+    "でぱあと"
+   ],
+   "romaji": "depaato",
+   "mora": [
+    "de",
+    "pa",
+    "a",
+    "to"
+   ],
+   "moraKana": [
+    "で",
+    "ぱ",
+    "あ",
+    "と"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-d52f01a9",
+   "english": "why, for what reason",
+   "prompt": "why",
+   "kana": "どうして",
+   "written": [
+    "どうして"
+   ],
+   "romaji": "doushite",
+   "mora": [
+    "do",
+    "u",
+    "shi",
+    "te"
+   ],
+   "moraKana": [
+    "ど",
+    "う",
+    "し",
+    "て"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-efcae8ab",
+   "english": "cat",
+   "prompt": "cat",
+   "kana": "ねこ",
+   "written": [
+    "猫",
+    "ねこ"
+   ],
+   "romaji": "neko",
+   "mora": [
+    "ne",
+    "ko"
+   ],
+   "moraKana": [
+    "ね",
+    "こ"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-b3adc95a",
+   "english": "bread",
+   "prompt": "bread",
+   "kana": "ぱん",
+   "written": [
+    "パン",
+    "ぱん"
+   ],
+   "romaji": "pan",
+   "mora": [
+    "pa",
+    "n"
+   ],
+   "moraKana": [
+    "ぱ",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-5cbd42db",
+   "english": "man, person",
+   "prompt": "man",
+   "kana": "ひと",
+   "written": [
+    "人",
+    "ひと"
+   ],
+   "romaji": "hito",
+   "mora": [
+    "hi",
+    "to"
+   ],
+   "moraKana": [
+    "ひ",
+    "と"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-d4b9e514",
+   "english": "hospital",
+   "prompt": "hospital",
+   "kana": "びょういん",
+   "written": [
+    "病院",
+    "びょういん"
+   ],
+   "romaji": "byouin",
+   "mora": [
+    "byo",
+    "u",
+    "i",
+    "n"
+   ],
+   "moraKana": [
+    "びょ",
+    "う",
+    "い",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-c367e3ed",
+   "english": "hotel",
+   "prompt": "hotel",
+   "kana": "ほてる",
+   "written": [
+    "ホテル",
+    "ほてる"
+   ],
+   "romaji": "hoteru",
+   "mora": [
+    "ho",
+    "te",
+    "ru"
+   ],
+   "moraKana": [
+    "ほ",
+    "て",
+    "る"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-da1ed6b9",
+   "english": "town; city",
+   "prompt": "town",
+   "kana": "まち",
+   "written": [
+    "町",
+    "まち"
+   ],
+   "romaji": "machi",
+   "mora": [
+    "ma",
+    "chi"
+   ],
+   "moraKana": [
+    "ま",
+    "ち"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.1",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-a6d7429d",
+   "english": "Thursday",
+   "prompt": "Thursday",
+   "kana": "もくようび",
+   "written": [
+    "木曜日",
+    "もくようび"
+   ],
+   "romaji": "mokuyoubi",
+   "mora": [
+    "mo",
+    "ku",
+    "yo",
+    "u",
+    "bi"
+   ],
+   "moraKana": [
+    "も",
+    "く",
+    "よ",
+    "う",
+    "び"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_3",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-7f51f5a9",
+   "english": "Hello? (used on the phone)",
+   "prompt": "Hello?",
+   "kana": "もしもし",
+   "written": [
+    "もしもし"
+   ],
+   "romaji": "moshimoshi",
+   "mora": [
+    "mo",
+    "shi",
+    "mo",
+    "shi"
+   ],
+   "moraKana": [
+    "も",
+    "し",
+    "も",
+    "し"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-835ca471",
+   "english": "restaurant",
+   "prompt": "restaurant",
+   "kana": "れすとらん",
+   "written": [
+    "レストラン",
+    "れすとらん"
+   ],
+   "romaji": "resutoran",
+   "mora": [
+    "re",
+    "su",
+    "to",
+    "ra",
+    "n"
+   ],
+   "moraKana": [
+    "れ",
+    "す",
+    "と",
+    "ら",
+    "ん"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-a375891d",
+   "english": "new",
+   "prompt": "new",
+   "kana": "あたらしい",
+   "written": [
+    "新しい",
+    "あたらしい"
+   ],
+   "romaji": "atarashii",
+   "mora": [
+    "a",
+    "ta",
+    "ra",
+    "shi",
+    "i"
+   ],
+   "moraKana": [
+    "あ",
+    "た",
+    "ら",
+    "し",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.5",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-e8684d8b",
+   "english": "hot (in reference to weather), warm",
+   "prompt": "hot",
+   "kana": "あつい",
+   "written": [
+    "暑い",
+    "あつい"
+   ],
+   "romaji": "atsui",
+   "mora": [
+    "a",
+    "tsu",
+    "i"
+   ],
+   "moraKana": [
+    "あ",
+    "つ",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.5",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-7cbd2223",
+   "english": "hot (objects)",
+   "prompt": "hot",
+   "kana": "あつい",
+   "written": [
+    "熱い",
+    "あつい"
+   ],
+   "romaji": "atsui",
+   "mora": [
+    "a",
+    "tsu",
+    "i"
+   ],
+   "moraKana": [
+    "あ",
+    "つ",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.5",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-ac62a5e9",
+   "english": "busy (people, days)",
+   "prompt": "busy (people",
+   "kana": "いそがしい",
+   "written": [
+    "忙しい",
+    "いそがしい"
+   ],
+   "romaji": "isogashii",
+   "mora": [
+    "i",
+    "so",
+    "ga",
+    "shi",
+    "i"
+   ],
+   "moraKana": [
+    "い",
+    "そ",
+    "が",
+    "し",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.5",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-b4aa466b",
+   "english": "sea, beach",
+   "prompt": "sea",
+   "kana": "うみ",
+   "written": [
+    "海",
+    "うみ"
+   ],
+   "romaji": "umi",
+   "mora": [
+    "u",
+    "mi"
+   ],
+   "moraKana": [
+    "う",
+    "み"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.5",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-856c8807",
+   "english": "big, large",
+   "prompt": "big",
+   "kana": "おおきい",
+   "written": [
+    "大きい",
+    "おおきい"
+   ],
+   "romaji": "ookii",
+   "mora": [
+    "o",
+    "o",
+    "ki",
+    "i"
+   ],
+   "moraKana": [
+    "お",
+    "お",
+    "き",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.5",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  }
+ ]
+}

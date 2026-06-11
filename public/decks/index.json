@@ -1,0 +1,20 @@
+[
+  {
+    "id": "n5-starter",
+    "name": "N5 Starter (Genki 1–6)",
+    "wordCount": 120,
+    "file": "n5-starter.json"
+  },
+  {
+    "id": "jlpt-n5",
+    "name": "JLPT N5",
+    "wordCount": 697,
+    "file": "jlpt-n5.json"
+  },
+  {
+    "id": "jlpt-n4",
+    "name": "JLPT N4",
+    "wordCount": 643,
+    "file": "jlpt-n4.json"
+  }
+]
