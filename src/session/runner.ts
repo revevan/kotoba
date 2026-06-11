@@ -7,6 +7,7 @@ import {
   revealSequence,
   teachSequence,
 } from '../audio/clips';
+import { dlog } from '../debug/log';
 import { gradeAnswer, isDontKnow } from '../matching/match';
 import { parseCommand } from '../speech/commands';
 import type { ListenFn } from '../speech/recognizer';
@@ -85,21 +86,37 @@ export class SessionRunner {
     if (this.stopped) return;
     const { state, effects } = reduce(this.state, ev);
     this.state = state;
-    this.deps.onChange(state, this.currentWord());
+    dlog('machine', `${ev.type}${'outcome' in ev ? `:${ev.outcome}` : ''}${'cmd' in ev ? `:${ev.cmd}` : ''} → ${state.phase} [${effects.map((e) => e.type).join(',')}]`);
+    try {
+      this.deps.onChange(state, this.currentWord());
+    } catch (e) {
+      dlog('runner', `onChange threw: ${e}`);
+    }
     for (const eff of effects) void this.execute(eff);
   }
 
   private async execute(eff: Effect): Promise<void> {
     switch (eff.type) {
       case 'play': {
-        const outcome = await this.deps.play(this.sequenceFor(eff.kind, eff.wordId));
+        let outcome: 'done' | 'cancelled';
+        try {
+          outcome = await this.deps.play(this.sequenceFor(eff.kind, eff.wordId));
+        } catch (e) {
+          // A playback failure must never strand the session.
+          dlog('runner', `play ${eff.kind} threw: ${e}`);
+          outcome = 'done';
+        }
         if (outcome === 'done' && !this.stopped) this.dispatch({ type: 'playDone' });
         return;
       }
       case 'listen':
         return this.runListen(eff.kind, eff.wordId);
       case 'rate':
-        await this.deps.rate(eff.wordId, eff.rating, eff.mode, eff.recognized);
+        try {
+          await this.deps.rate(eff.wordId, eff.rating, eff.mode, eff.recognized);
+        } catch (e) {
+          dlog('runner', `rate threw: ${e}`);
+        }
         return;
       case 'ended':
         this.deps.onEnded(this.state.counts);
@@ -132,44 +149,64 @@ export class SessionRunner {
   private async runListen(kind: ListenKind, wordId?: string): Promise<void> {
     const gen = ++this.listenGen;
     const timeoutMs = LISTEN_TIMEOUTS[kind];
+    const degraded = this.state.degraded || !this.deps.srAvailable();
+    const degradedWaitMs = kind === 'self-grade' ? 8000 : kind === 'resume' ? 10000 : 300;
 
-    // Degraded mode (no usable speech recognition): self-grade and resume
-    // become tap-or-timeout windows; other listens resolve as timeouts.
-    if (this.state.degraded || !this.deps.srAvailable()) {
-      await new Promise((r) => setTimeout(r, kind === 'self-grade' ? 8000 : kind === 'resume' ? 10000 : 300));
+    // Last line of defense: if the listen somehow never produces an event
+    // (recognizer wedged, exception below, …) force the session forward.
+    const watchdog = setTimeout(() => {
       if (gen !== this.listenGen || this.stopped) return;
+      dlog('runner', `WATCHDOG fired for ${kind} — forcing timeout`);
+      this.listenGen++;
+      this.deps.abortListen();
       this.dispatch({ type: 'listenResult', outcome: 'timeout' });
-      return;
-    }
+    }, (degraded ? degradedWaitMs : timeoutMs) + 3000);
 
-    const lang = kind === 'teach-echo' || kind === 'quiz-answer' ? 'ja-JP' : 'en-US';
-    const res = await this.deps.listen({ lang, timeoutMs });
-    if (gen !== this.listenGen || this.stopped || res.kind === 'aborted') return;
-
-    const word = wordId ? this.deps.words.get(wordId) : undefined;
-    let outcome: ListenOutcome;
-    let recognized: string | undefined;
-
-    switch (res.kind) {
-      case 'result': {
-        recognized = res.alternatives[0];
-        outcome = this.classify(kind, res.alternatives, word);
-        break;
+    try {
+      // Degraded mode (no usable speech recognition): self-grade and resume
+      // become tap-or-timeout windows; other listens resolve as timeouts.
+      if (degraded) {
+        await new Promise((r) => setTimeout(r, degradedWaitMs));
+        if (gen !== this.listenGen || this.stopped) return;
+        this.dispatch({ type: 'listenResult', outcome: 'timeout' });
+        return;
       }
-      case 'timeout':
-      case 'no-speech':
-        outcome = 'timeout';
-        break;
-      case 'denied':
-        outcome = 'denied';
-        break;
-      case 'unavailable':
-        outcome = 'unavailable';
-        break;
-      default:
-        outcome = 'error';
+
+      const lang = kind === 'teach-echo' || kind === 'quiz-answer' ? 'ja-JP' : 'en-US';
+      const res = await this.deps.listen({ lang, timeoutMs });
+      if (gen !== this.listenGen || this.stopped || res.kind === 'aborted') return;
+
+      const word = wordId ? this.deps.words.get(wordId) : undefined;
+      let outcome: ListenOutcome;
+      let recognized: string | undefined;
+
+      switch (res.kind) {
+        case 'result': {
+          recognized = res.alternatives[0];
+          outcome = this.classify(kind, res.alternatives, word);
+          break;
+        }
+        case 'timeout':
+        case 'no-speech':
+          outcome = 'timeout';
+          break;
+        case 'denied':
+          outcome = 'denied';
+          break;
+        case 'unavailable':
+          outcome = 'unavailable';
+          break;
+        default:
+          outcome = 'error';
+      }
+      this.dispatch({ type: 'listenResult', outcome, recognized });
+    } catch (e) {
+      dlog('runner', `listen ${kind} threw: ${e}`);
+      if (gen !== this.listenGen || this.stopped) return;
+      this.dispatch({ type: 'listenResult', outcome: 'error' });
+    } finally {
+      clearTimeout(watchdog);
     }
-    this.dispatch({ type: 'listenResult', outcome, recognized });
   }
 
   private classify(kind: ListenKind, alternatives: string[], word: Word | undefined): ListenOutcome {

@@ -27,6 +27,10 @@ npm run build        # typecheck + production build to dist/
 Add `?mock=1` to the URL to type answers instead of speaking them — fastest way
 to iterate on the session flow without a mic.
 
+Add `?debug=1` to show an on-screen diagnostics log (machine events, speech
+recognition lifecycle, audio failures). The log also persists to localStorage,
+so after something misbehaves you can reload with `?debug=1` and copy it out.
+
 ## Data & audio pipeline
 
 ```sh
@@ -36,9 +40,9 @@ npm run gen-audio n5-starter      # ...or just one deck
 ```
 
 `gen-audio` is idempotent: `tools/audio-manifest.json` records a content hash per
-clip, so re-runs only generate what's new. Voices: `ja-JP-NanamiNeural` (words +
-mora), `en-US-AriaNeural` (prompts). The mora breakdown is sequenced at runtime
-from ~150 shared syllable clips in `public/audio/mora/`.
+clip, so re-runs only generate what's new. Voices: `ja-JP-NanamiNeural` (words,
+plus a slowed `-40%` rendition in `public/audio/ja-slow/` used as the phonetic
+breakdown), `en-US-AriaNeural` (prompts).
 
 Word lists: Jonathan Waller's JLPT lists (tanos.co.uk, CC-BY) via the
 `elzup/jlpt-word-list` CSV mirror, kept in `tools/sources/`.

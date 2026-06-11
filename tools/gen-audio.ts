@@ -56,6 +56,7 @@ function collectJobs(decks: Deck[]): Job[] {
   for (const deck of decks) {
     for (const w of deck.words) {
       jobs.set(`ja/${w.id}.mp3`, { out: `ja/${w.id}.mp3`, text: w.kana, voice: JA_VOICE });
+      jobs.set(`ja-slow/${w.id}.mp3`, { out: `ja-slow/${w.id}.mp3`, text: w.kana, voice: JA_VOICE, rate: '-40%' });
       jobs.set(`en/${w.id}.mp3`, { out: `en/${w.id}.mp3`, text: w.prompt, voice: EN_VOICE });
       w.mora.forEach((key, i) => {
         if (key === 'q') return;
@@ -78,7 +79,7 @@ async function main() {
   });
   console.log(`to generate: ${jobs.length} clips`);
 
-  for (const sub of ['ja', 'en', 'mora', 'phrases']) mkdirSync(join(audioDir, sub), { recursive: true });
+  for (const sub of ['ja', 'ja-slow', 'en', 'mora', 'phrases']) mkdirSync(join(audioDir, sub), { recursive: true });
 
   // One TTS connection per (voice, rate) config; clips generated sequentially
   // to be polite to the free endpoint.

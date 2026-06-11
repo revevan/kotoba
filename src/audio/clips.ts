@@ -10,22 +10,17 @@ export interface ClipItem {
 const base = () => `${import.meta.env.BASE_URL}audio/`;
 
 export const jaClip = (id: string) => `${base()}ja/${id}.mp3`;
+export const jaSlowClip = (id: string) => `${base()}ja-slow/${id}.mp3`;
 export const enClip = (id: string) => `${base()}en/${id}.mp3`;
-export const moraClip = (key: string) => `${base()}mora/${key}.mp3`;
 export const phraseClip = (key: string) => `${base()}phrases/${key}.mp3`;
 
-function moraBreakdown(w: Word): ClipItem[] {
-  return w.mora.map((m) => (m === 'q' ? { gapMs: 300 } : { src: moraClip(m), gapMs: 350 }));
-}
-
-/** "apple … in Japanese … ringo … ri—n—go … ringo … repeat after me: ringo" */
+/** "apple … in Japanese … ringo … riiin—gooo … ringo … repeat after me: ringo" */
 export function teachSequence(w: Word): ClipItem[] {
   return [
     { src: enClip(w.id), gapMs: 400 },
     { src: phraseClip('in-japanese'), gapMs: 300 },
     { src: jaClip(w.id), gapMs: 600 },
-    ...moraBreakdown(w),
-    { gapMs: 250 },
+    { src: jaSlowClip(w.id), gapMs: 600 },
     { src: jaClip(w.id), gapMs: 500 },
     { src: phraseClip('repeat-after-me'), gapMs: 300 },
     { src: jaClip(w.id) },
@@ -45,8 +40,7 @@ export function revealSequence(w: Word): ClipItem[] {
   return [
     { src: phraseClip('the-answer-is'), gapMs: 300 },
     { src: jaClip(w.id), gapMs: 500 },
-    ...moraBreakdown(w),
-    { gapMs: 250 },
+    { src: jaSlowClip(w.id), gapMs: 600 },
     { src: jaClip(w.id), gapMs: 600 },
     { src: phraseClip('did-you-get-it') },
   ];
@@ -62,8 +56,8 @@ export function sessionClipUrls(words: Word[]): string[] {
   }
   for (const w of words) {
     urls.add(jaClip(w.id));
+    urls.add(jaSlowClip(w.id));
     urls.add(enClip(w.id));
-    for (const m of w.mora) if (m !== 'q') urls.add(moraClip(m));
   }
   return [...urls];
 }

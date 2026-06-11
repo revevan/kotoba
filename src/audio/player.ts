@@ -1,3 +1,4 @@
+import { dlog } from '../debug/log';
 import type { ClipItem } from './clips';
 
 // ~0.05s of silence (8kHz mono 16-bit WAV); played inside the start gesture
@@ -84,6 +85,7 @@ export class Player {
       };
       const onError = () => {
         // Missing/failed clip: skip it rather than wedge the session.
+        dlog('player', `clip failed (${el.error?.code ?? 'play-rejected'}): ${src.split('/').slice(-2).join('/')}`);
         cleanup();
         resolve(gen === this.generation ? 'done' : 'cancelled');
       };
