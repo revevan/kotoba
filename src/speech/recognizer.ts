@@ -44,8 +44,13 @@ export function srAvailable(): boolean {
 }
 
 let activeAbort: (() => void) | null = null;
+/** Set while a settled instance hasn't fired 'end' yet; next listen waits on it. */
+let draining: Promise<void> | null = null;
+/** Bumped per listen/abort so a listen superseded while draining never starts. */
+let listenSeq = 0;
 
 export function abortListening(): void {
+  listenSeq++;
   activeAbort?.();
 }
 
@@ -57,38 +62,76 @@ export function abortListening(): void {
  * iOS Safari often never marks a result as final (or delivers it only after
  * end), so interim results are captured and used as the answer whenever the
  * recognition ends or times out without a final result.
+ *
+ * Teardown must be gentle: abort()ing a live recognition (even after a final
+ * result) leaves iOS Safari's speech service in a state where every later
+ * recognition starts but never receives audio. So the happy path lets the
+ * recognition end on its own (nudged with stop()), and a new listen waits for
+ * the previous instance's 'end' before start()ing — beginning a recognition
+ * while another is winding down silently fails the same way.
  */
-export function listen(opts: ListenOptions): Promise<SRResult> {
+export async function listen(opts: ListenOptions): Promise<SRResult> {
   const C = ctor();
-  if (!C) return Promise.resolve({ kind: 'unavailable' });
+  if (!C) return { kind: 'unavailable' };
+
+  const seq = ++listenSeq;
 
   // Single-flight: a new listen aborts any active one.
   activeAbort?.();
 
+  if (draining) {
+    dlog('sr', 'waiting for previous instance to end');
+    await draining;
+    if (seq !== listenSeq) return { kind: 'aborted' };
+  }
+
   return new Promise<SRResult>((resolve) => {
     const rec = new C();
     let settled = false;
+    let ended = false;
     let stopping = false;
     let interim: string[] = [];
     let timer: ReturnType<typeof setTimeout> | null = null;
+    let releaseDrain: (() => void) | null = null;
 
-    const settle = (result: SRResult) => {
+    /** Block the next listen until this instance's 'end' fires (or a grace timeout). */
+    const beginDrain = () => {
+      if (ended || releaseDrain) return;
+      const mine = new Promise<void>((res) => {
+        const done = () => {
+          clearTimeout(guard);
+          if (draining === mine) draining = null;
+          releaseDrain = null;
+          res();
+        };
+        // Safari sometimes never fires 'end'; don't hold the session hostage.
+        const guard = setTimeout(done, 1500);
+        releaseDrain = done;
+      });
+      draining = mine;
+    };
+
+    const settle = (result: SRResult, wedged = false) => {
       if (settled) return;
       settled = true;
       if (timer) clearTimeout(timer);
       if (activeAbort === abort) activeAbort = null;
-      try {
-        rec.abort();
-      } catch {
-        /* already stopped */
+      if (!ended) {
+        beginDrain();
+        try {
+          if (wedged) rec.abort();
+          else rec.stop();
+        } catch {
+          /* already stopped */
+        }
       }
       dlog('sr', `settle ${result.kind}${result.kind === 'result' ? ` "${result.alternatives[0]}"` : ''}`);
       resolve(result);
     };
 
     /** Prefer whatever speech we heard over reporting silence/timeout. */
-    const settleWithInterim = (fallback: SRResult) => {
-      settle(interim.length > 0 ? { kind: 'result', alternatives: interim } : fallback);
+    const settleWithInterim = (fallback: SRResult, wedged = false) => {
+      settle(interim.length > 0 ? { kind: 'result', alternatives: interim } : fallback, wedged);
     };
 
     const abort = () => settle({ kind: 'aborted' });
@@ -130,6 +173,8 @@ export function listen(opts: ListenOptions): Promise<SRResult> {
     };
     rec.onend = () => {
       dlog('sr', 'end');
+      ended = true;
+      releaseDrain?.();
       // Ended without a final result: give a trailing result event a moment
       // to land, then fall back to whatever interim speech we captured.
       if (!settled) setTimeout(() => settleWithInterim({ kind: 'no-speech' }), 250);
@@ -143,7 +188,9 @@ export function listen(opts: ListenOptions): Promise<SRResult> {
       } catch {
         /* not started */
       }
-      setTimeout(() => settleWithInterim({ kind: 'timeout' }), 700);
+      // Nothing reacted to stop() within the grace period: the recognition is
+      // wedged, so abort() is the only teardown left.
+      setTimeout(() => settleWithInterim({ kind: 'timeout' }, true), 700);
     }, opts.timeoutMs);
 
     try {
@@ -151,6 +198,7 @@ export function listen(opts: ListenOptions): Promise<SRResult> {
       rec.start();
     } catch (e) {
       dlog('sr', `start threw: ${e}`);
+      ended = true; // never started; no 'end' will come, nothing to drain
       settle({ kind: 'error', code: 'start-failed' });
     }
   });
