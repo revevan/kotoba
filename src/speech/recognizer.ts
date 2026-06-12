@@ -49,52 +49,20 @@ let draining: Promise<void> | null = null;
 /** Bumped per listen/abort so a listen superseded while draining never starts. */
 let listenSeq = 0;
 /**
- * iOS Safari quirk (observed on device, strict alternation across 7 pickups):
- * a recognition that consumed speech leaves the service's NEXT session deaf —
- * it starts, captures nothing, and ends 'aborted' on stop(). A session that
- * heard nothing leaves the next one working. So after any speech-consuming
- * listen, a throwaway recognition burns the dead session immediately before
- * the next real one.
+ * One recognizer instance reused for every utterance. iOS Safari misbehaves
+ * badly with instance churn: a fresh instance per listen leaves recognitions
+ * after a speech-consuming one deaf (observed on device), and each new
+ * instance triggers an extra system dictation chime. The singleton pattern is
+ * the documented stabilization for iOS WebSpeech.
  */
-let burnNext = false;
+let singleton: SpeechRecognitionLike | null = null;
 
-/** Throwaway recognition to absorb a dead session slot; resolves after its 'end'. */
-function burnDeadSlot(C: new () => SpeechRecognitionLike): Promise<void> {
-  dlog('sr', 'burning dead slot');
-  return new Promise<void>((resolve) => {
-    const rec = new C();
-    let done = false;
-    let guard: ReturnType<typeof setTimeout> | null = null;
-    const finish = () => {
-      if (done) return;
-      done = true;
-      if (guard) clearTimeout(guard);
-      resolve();
-    };
-    rec.lang = 'ja-JP';
-    rec.continuous = false;
-    rec.interimResults = false;
-    rec.maxAlternatives = 1;
-    rec.onresult = () => {};
-    rec.onerror = () => {
-      /* 'aborted' is the expected outcome */
-    };
-    rec.onend = finish;
-    try {
-      rec.start();
-    } catch {
-      finish();
-      return;
-    }
-    setTimeout(() => {
-      try {
-        rec.stop();
-      } catch {
-        /* already stopped */
-      }
-    }, 300);
-    guard = setTimeout(finish, 1500); // never hold the session hostage
-  });
+function getRecognizer(): SpeechRecognitionLike | null {
+  if (singleton) return singleton;
+  const C = ctor();
+  if (!C) return null;
+  singleton = new C();
+  return singleton;
 }
 
 export function abortListening(): void {
@@ -103,22 +71,22 @@ export function abortListening(): void {
 }
 
 /**
- * One-shot recognition. Safari quirks handled: fresh instance per utterance,
- * our own timeout clock (Safari's silence timeout is inconsistent), and
- * resolve-exactly-once across the onresult/onerror/onend event soup.
+ * One-shot recognition. Safari quirks handled: a singleton instance reused
+ * for every utterance (see getRecognizer), our own timeout clock (Safari's
+ * silence timeout is inconsistent), and resolve-exactly-once across the
+ * onresult/onerror/onend event soup.
  *
  * iOS Safari often never marks a result as final (or delivers it only after
  * end), so interim results are captured and used as the answer whenever the
  * recognition ends or times out without a final result.
  *
  * Teardown must be gentle: recognitions already terminating on their own are
- * left untouched, and a new listen waits for the previous instance's 'end'
- * before start()ing. After a speech-consuming session the next one is dead
- * (see burnNext) and gets absorbed by a throwaway recognition first.
+ * left untouched, and a new listen waits for the previous one's 'end' before
+ * start()ing again.
  */
 export async function listen(opts: ListenOptions): Promise<SRResult> {
-  const C = ctor();
-  if (!C) return { kind: 'unavailable' };
+  const rec = getRecognizer();
+  if (!rec) return { kind: 'unavailable' };
 
   const seq = ++listenSeq;
 
@@ -126,19 +94,12 @@ export async function listen(opts: ListenOptions): Promise<SRResult> {
   activeAbort?.();
 
   if (draining) {
-    dlog('sr', 'waiting for previous instance to end');
+    dlog('sr', 'waiting for previous listen to end');
     await draining;
     if (seq !== listenSeq) return { kind: 'aborted' };
   }
 
-  if (burnNext) {
-    burnNext = false;
-    await burnDeadSlot(C);
-    if (seq !== listenSeq) return { kind: 'aborted' };
-  }
-
   return new Promise<SRResult>((resolve) => {
-    const rec = new C();
     let settled = false;
     let ended = false;
     let stopping = false;
@@ -180,9 +141,6 @@ export async function listen(opts: ListenOptions): Promise<SRResult> {
           /* already stopped */
         }
       }
-      // Speech was consumed (even if the listen was aborted mid-utterance):
-      // the next session will be deaf and must be burned first.
-      burnNext = result.kind === 'result' || interim.length > 0;
       dlog('sr', `settle ${result.kind}${result.kind === 'result' ? ` "${result.alternatives[0]}"` : ''}`);
       resolve(result);
     };
