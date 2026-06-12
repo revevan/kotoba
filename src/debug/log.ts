@@ -4,6 +4,8 @@
 
 import { signal } from '@preact/signals';
 
+declare const __BUILD_ID__: string;
+
 export interface LogEntry {
   t: number;
   tag: string;
@@ -60,5 +62,5 @@ export function formatLog(entries: LogEntry[]): string {
 if (hasDom) {
   window.addEventListener('error', (e) => dlog('js-error', `${e.message} @ ${e.filename}:${e.lineno}`));
   window.addEventListener('unhandledrejection', (e) => dlog('unhandled-rejection', String(e.reason)));
-  dlog('boot', `loaded ${new Date().toISOString()}`);
+  dlog('boot', `loaded ${new Date().toISOString()} build=${typeof __BUILD_ID__ === 'string' ? __BUILD_ID__ : 'dev'}`);
 }

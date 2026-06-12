@@ -98,6 +98,30 @@ function buildWord(level: string, expression: string, reading: string, meaning: 
   };
 }
 
+/**
+ * Words sharing a spoken prompt are indistinguishable when quizzed ("yes" is
+ * both ええ and はい in N5), so an answer matching any of them must count as
+ * correct for all of them. `written` only feeds answer grading, so widening
+ * it doesn't change what is taught or displayed.
+ */
+function crossAcceptSamePrompt(words: Word[]): void {
+  const byPrompt = new Map<string, Word[]>();
+  for (const w of words) {
+    const key = w.prompt.toLowerCase();
+    const group = byPrompt.get(key);
+    if (group) group.push(w);
+    else byPrompt.set(key, [w]);
+  }
+  let widened = 0;
+  for (const group of byPrompt.values()) {
+    if (group.length < 2) continue;
+    const merged = [...new Set(group.flatMap((w) => [...w.written, w.kana]))];
+    for (const w of group) w.written = [...new Set([...w.written, ...merged])];
+    widened += group.length;
+  }
+  console.log(`cross-accepted ${widened} words sharing a prompt`);
+}
+
 function genkiLesson(tags: string[]): number | null {
   for (const t of tags) {
     const m = /^Genki_Ln\.(\d+)$/.exec(t);
@@ -136,6 +160,7 @@ async function main() {
   const seen = new Set<string>();
   const n5 = await buildLevel('n5', seen);
   const n4 = await buildLevel('n4', seen);
+  crossAcceptSamePrompt([...n5, ...n4]);
 
   // Starter: early-Genki N5 vocabulary — common, pedagogically ordered.
   const starter = n5

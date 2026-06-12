@@ -1,11 +1,22 @@
+import { execSync } from 'node:child_process';
 import { defineConfig } from 'vite';
 import preact from '@preact/preset-vite';
 import { VitePWA } from 'vite-plugin-pwa';
+
+// Stamped into the boot log line so device logs identify the running build.
+function buildId(): string {
+  try {
+    return execSync('git rev-parse --short HEAD', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+  } catch {
+    return 'unknown';
+  }
+}
 
 export default defineConfig({
   // GitHub Pages serves project sites from a subpath (e.g. /kotoba/);
   // the deploy workflow sets BASE_PATH accordingly.
   base: process.env.BASE_PATH ?? '/',
+  define: { __BUILD_ID__: JSON.stringify(buildId()) },
   plugins: [
     preact(),
     VitePWA({
