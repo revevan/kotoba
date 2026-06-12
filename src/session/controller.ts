@@ -10,7 +10,7 @@ import { isDue, newCard, rateCard } from '../srs/scheduler';
 import { abortListening, listen, srAvailable } from '../speech/recognizer';
 import { mockAbort, mockListen, mockMode } from '../speech/mock';
 import { acquireWakeLock, keepWakeLockAlive, releaseWakeLock } from '../platform/wakeLock';
-import { closeMicSession, openMicSession } from '../platform/micSession';
+import { warmupMic } from '../platform/unlock';
 import type { Deck, Word } from '../types';
 import { buildQueue } from './queueBuilder';
 import { SessionRunner } from './runner';
@@ -92,7 +92,7 @@ export async function startSession(): Promise<void> {
   player.unlock(); // synchronous, inside the gesture
 
   void acquireWakeLock();
-  if (!mockMode) await openMicSession();
+  if (!mockMode) await warmupMic();
 
   const words = wordMap(loadedDecks);
   const cards = await getAllCards();
@@ -139,7 +139,6 @@ export async function startSession(): Promise<void> {
       sessionWord.value = word;
     },
     onEnded: () => {
-      closeMicSession();
       void loadHomeData();
     },
   });
@@ -155,7 +154,6 @@ export function tap(cmd: TapCommand): void {
 export function endSession(): void {
   runner?.stop();
   runner = null;
-  closeMicSession();
   sessionState.value = null;
   sessionWord.value = undefined;
   void releaseWakeLock();
