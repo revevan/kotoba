@@ -85,6 +85,29 @@ export async function listen(opts: ListenOptions): Promise<SRResult> {
     if (seq !== listenSeq) return { kind: 'aborted' };
   }
 
+  // iOS Safari routes mic audio only to the first recognition after the page
+  // takes the audio session; once clips have played, later recognitions start
+  // but never hear anything. Re-opening the mic just before start() — and
+  // holding the stream for the recognition's lifetime — forces the audio
+  // session back into record mode.
+  let micStream: MediaStream | null = null;
+  try {
+    micStream = navigator.mediaDevices?.getUserMedia
+      ? await navigator.mediaDevices.getUserMedia({ audio: true })
+      : null;
+  } catch {
+    micStream = null;
+  }
+  dlog('sr', `mic warmup ${micStream ? 'ok' : 'unavailable'}`);
+  const releaseMic = () => {
+    micStream?.getTracks().forEach((t) => t.stop());
+    micStream = null;
+  };
+  if (seq !== listenSeq) {
+    releaseMic();
+    return { kind: 'aborted' };
+  }
+
   return new Promise<SRResult>((resolve) => {
     const rec = new C();
     let settled = false;
@@ -125,6 +148,7 @@ export async function listen(opts: ListenOptions): Promise<SRResult> {
           /* already stopped */
         }
       }
+      releaseMic();
       dlog('sr', `settle ${result.kind}${result.kind === 'result' ? ` "${result.alternatives[0]}"` : ''}`);
       resolve(result);
     };
@@ -174,6 +198,7 @@ export async function listen(opts: ListenOptions): Promise<SRResult> {
     rec.onend = () => {
       dlog('sr', 'end');
       ended = true;
+      releaseMic();
       releaseDrain?.();
       // Ended without a final result: give a trailing result event a moment
       // to land, then fall back to whatever interim speech we captured.
