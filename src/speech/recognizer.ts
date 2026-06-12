@@ -68,6 +68,7 @@ export function listen(opts: ListenOptions): Promise<SRResult> {
   return new Promise<SRResult>((resolve) => {
     const rec = new C();
     let settled = false;
+    let stopping = false;
     let interim: string[] = [];
     let timer: ReturnType<typeof setTimeout> | null = null;
 
@@ -120,8 +121,12 @@ export function listen(opts: ListenOptions): Promise<SRResult> {
       dlog('sr', `error ${ev.error}`);
       if (ev.error === 'no-speech') settleWithInterim({ kind: 'no-speech' });
       else if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed') settle({ kind: 'denied' });
-      else if (ev.error === 'aborted') settleWithInterim({ kind: 'aborted' });
-      else settleWithInterim({ kind: 'error', code: ev.error });
+      else if (ev.error === 'aborted') {
+        // Our own abort() pre-settles before tearing down, so an 'aborted'
+        // error that arrives unsettled is Safari-initiated (e.g. it reacts to
+        // our timeout's stop() with this) — report it as silence, not abort.
+        settleWithInterim({ kind: stopping ? 'timeout' : 'no-speech' });
+      } else settleWithInterim({ kind: 'error', code: ev.error });
     };
     rec.onend = () => {
       dlog('sr', 'end');
@@ -132,6 +137,7 @@ export function listen(opts: ListenOptions): Promise<SRResult> {
 
     timer = setTimeout(() => {
       dlog('sr', `timeout after ${opts.timeoutMs}ms`);
+      stopping = true;
       try {
         rec.stop(); // give a trailing result a moment to land
       } catch {

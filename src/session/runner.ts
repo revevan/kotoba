@@ -174,7 +174,7 @@ export class SessionRunner {
 
       const lang = kind === 'teach-echo' || kind === 'quiz-answer' ? 'ja-JP' : 'en-US';
       const res = await this.deps.listen({ lang, timeoutMs });
-      if (gen !== this.listenGen || this.stopped || res.kind === 'aborted') return;
+      if (gen !== this.listenGen || this.stopped) return;
 
       const word = wordId ? this.deps.words.get(wordId) : undefined;
       let outcome: ListenOutcome;
@@ -188,6 +188,9 @@ export class SessionRunner {
         }
         case 'timeout':
         case 'no-speech':
+        // Still the current listen, so nothing else is driving the session:
+        // a Safari-initiated abort must advance it like silence would.
+        case 'aborted':
           outcome = 'timeout';
           break;
         case 'denied':
