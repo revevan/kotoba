@@ -1,4 +1,5 @@
 import { dlog } from '../debug/log';
+import { micState } from '../platform/micSession';
 
 export type SRResult =
   | { kind: 'result'; alternatives: string[] }
@@ -63,12 +64,12 @@ export function abortListening(): void {
  * end), so interim results are captured and used as the answer whenever the
  * recognition ends or times out without a final result.
  *
- * Teardown must be gentle: abort()ing a live recognition (even after a final
- * result) leaves iOS Safari's speech service in a state where every later
- * recognition starts but never receives audio. So the happy path lets the
- * recognition end on its own (nudged with stop()), and a new listen waits for
- * the previous instance's 'end' before start()ing — beginning a recognition
- * while another is winding down silently fails the same way.
+ * Teardown must be gentle: tearing down a live recognition leaves iOS
+ * Safari's speech service in a state where every later recognition starts but
+ * never receives audio. So recognitions already terminating on their own are
+ * left untouched, a new listen waits for the previous instance's 'end' before
+ * start()ing, and a session-wide mic stream (platform/micSession) keeps the
+ * audio session in record mode across clip playback.
  */
 export async function listen(opts: ListenOptions): Promise<SRResult> {
   const C = ctor();
@@ -85,28 +86,7 @@ export async function listen(opts: ListenOptions): Promise<SRResult> {
     if (seq !== listenSeq) return { kind: 'aborted' };
   }
 
-  // iOS Safari routes mic audio only to the first recognition after the page
-  // takes the audio session; once clips have played, later recognitions start
-  // but never hear anything. Re-opening the mic just before start() — and
-  // holding the stream for the recognition's lifetime — forces the audio
-  // session back into record mode.
-  let micStream: MediaStream | null = null;
-  try {
-    micStream = navigator.mediaDevices?.getUserMedia
-      ? await navigator.mediaDevices.getUserMedia({ audio: true })
-      : null;
-  } catch {
-    micStream = null;
-  }
-  dlog('sr', `mic warmup ${micStream ? 'ok' : 'unavailable'}`);
-  const releaseMic = () => {
-    micStream?.getTracks().forEach((t) => t.stop());
-    micStream = null;
-  };
-  if (seq !== listenSeq) {
-    releaseMic();
-    return { kind: 'aborted' };
-  }
+  dlog('sr', `mic ${micState()}`);
 
   return new Promise<SRResult>((resolve) => {
     const rec = new C();
@@ -134,7 +114,10 @@ export async function listen(opts: ListenOptions): Promise<SRResult> {
       draining = mine;
     };
 
-    const settle = (result: SRResult, wedged = false) => {
+    // 'none' for recognitions already terminating on their own (final result,
+    // error fired) — poking those with stop()/abort() risks wedging the
+    // service for the rest of the page's life on iOS.
+    const settle = (result: SRResult, teardown: 'none' | 'stop' | 'abort' = 'none') => {
       if (settled) return;
       settled = true;
       if (timer) clearTimeout(timer);
@@ -142,23 +125,22 @@ export async function listen(opts: ListenOptions): Promise<SRResult> {
       if (!ended) {
         beginDrain();
         try {
-          if (wedged) rec.abort();
-          else rec.stop();
+          if (teardown === 'abort') rec.abort();
+          else if (teardown === 'stop') rec.stop();
         } catch {
           /* already stopped */
         }
       }
-      releaseMic();
       dlog('sr', `settle ${result.kind}${result.kind === 'result' ? ` "${result.alternatives[0]}"` : ''}`);
       resolve(result);
     };
 
     /** Prefer whatever speech we heard over reporting silence/timeout. */
-    const settleWithInterim = (fallback: SRResult, wedged = false) => {
-      settle(interim.length > 0 ? { kind: 'result', alternatives: interim } : fallback, wedged);
+    const settleWithInterim = (fallback: SRResult, teardown: 'none' | 'stop' | 'abort' = 'none') => {
+      settle(interim.length > 0 ? { kind: 'result', alternatives: interim } : fallback, teardown);
     };
 
-    const abort = () => settle({ kind: 'aborted' });
+    const abort = () => settle({ kind: 'aborted' }, 'stop');
     activeAbort = abort;
 
     rec.lang = opts.lang;
@@ -181,7 +163,7 @@ export async function listen(opts: ListenOptions): Promise<SRResult> {
         if (last.isFinal) settleWithInterim({ kind: 'no-speech' });
       } catch (e) {
         dlog('sr', `onresult threw: ${e}`);
-        settleWithInterim({ kind: 'error', code: 'result-parse' });
+        settleWithInterim({ kind: 'error', code: 'result-parse' }, 'stop');
       }
     };
     rec.onerror = (ev) => {
@@ -198,7 +180,6 @@ export async function listen(opts: ListenOptions): Promise<SRResult> {
     rec.onend = () => {
       dlog('sr', 'end');
       ended = true;
-      releaseMic();
       releaseDrain?.();
       // Ended without a final result: give a trailing result event a moment
       // to land, then fall back to whatever interim speech we captured.
@@ -215,7 +196,7 @@ export async function listen(opts: ListenOptions): Promise<SRResult> {
       }
       // Nothing reacted to stop() within the grace period: the recognition is
       // wedged, so abort() is the only teardown left.
-      setTimeout(() => settleWithInterim({ kind: 'timeout' }, true), 700);
+      setTimeout(() => settleWithInterim({ kind: 'timeout' }, 'abort'), 700);
     }, opts.timeoutMs);
 
     try {
