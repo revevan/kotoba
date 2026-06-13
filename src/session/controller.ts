@@ -8,6 +8,8 @@ import { getAllCards, getCard, logReview, putCard } from '../data/db';
 import { fetchDeck, fetchDeckIndex, wordMap } from '../data/decks';
 import { isDue, newCard, rateCard } from '../srs/scheduler';
 import { abortListening, listen, srAvailable } from '../speech/recognizer';
+import { cloudAbort, cloudListen, cloudSrAvailable, primeCloudAudio } from '../speech/cloudRecognizer';
+import { cloudSttEnabled } from '../speech/sttConfig';
 import { mockAbort, mockListen, mockMode } from '../speech/mock';
 import { acquireWakeLock, keepWakeLockAlive, releaseWakeLock } from '../platform/wakeLock';
 import { warmupMic } from '../platform/unlock';
@@ -90,6 +92,7 @@ async function rate(wordId: string, rating: 'good' | 'again', mode: 'auto' | 'se
 /** Must be called directly from the START tap handler (audio unlock). */
 export async function startSession(): Promise<void> {
   player.unlock(); // synchronous, inside the gesture
+  if (cloudSttEnabled) primeCloudAudio(); // resume AudioContext inside the gesture
 
   void acquireWakeLock();
   if (!mockMode) await warmupMic();
@@ -129,9 +132,9 @@ export async function startSession(): Promise<void> {
   runner = new SessionRunner({
     play: (items) => player.play(items),
     cancelPlay: () => player.cancel(),
-    listen: mockMode ? mockListen : listen,
-    abortListen: mockMode ? mockAbort : abortListening,
-    srAvailable: () => mockMode || srAvailable(),
+    listen: mockMode ? mockListen : cloudSttEnabled ? cloudListen : listen,
+    abortListen: mockMode ? mockAbort : cloudSttEnabled ? cloudAbort : abortListening,
+    srAvailable: () => mockMode || (cloudSttEnabled ? cloudSrAvailable() : srAvailable()),
     rate,
     words,
     onChange: (state, word) => {

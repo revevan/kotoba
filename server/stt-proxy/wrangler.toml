@@ -1,0 +1,11 @@
+name = "kotoba-stt-proxy"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# CORS allow-list: the origin your PWA is served from (no trailing slash).
+# For GitHub Pages this is your user/site origin, NOT the /kotoba/ path.
+[vars]
+ALLOWED_ORIGIN = "https://revevan.github.io"
+
+# DEEPGRAM_API_KEY is a secret, set it with:
+#   wrangler secret put DEEPGRAM_API_KEY

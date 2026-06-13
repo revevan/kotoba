@@ -30,6 +30,9 @@ jobs:
       - run: npm run build
         env:
           BASE_PATH: /kotoba/
+          # URL of the deployed STT proxy (see server/stt-proxy). When unset the
+          # app falls back to the built-in Web Speech recognizer.
+          VITE_STT_ENDPOINT: ${{ secrets.STT_ENDPOINT }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
