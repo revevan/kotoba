@@ -14,6 +14,15 @@ export const jaSlowClip = (id: string) => `${base()}ja-slow/${id}.mp3`;
 export const enClip = (id: string) => `${base()}en/${id}.mp3`;
 export const phraseClip = (key: string) => `${base()}phrases/${key}.mp3`;
 
+/** Alternate readings: "you may also hear — ee". Empty when there are none. */
+function altReadings(w: Word): ClipItem[] {
+  if (!w.alts?.length) return [];
+  return [
+    { src: phraseClip('also-hear'), gapMs: 300 },
+    ...w.alts.flatMap((a) => [{ src: jaClip(a.id), gapMs: 350 }]),
+  ];
+}
+
 /** "apple … in Japanese … ringo … riiin—gooo … ringo … repeat after me: ringo" */
 export function teachSequence(w: Word): ClipItem[] {
   return [
@@ -22,6 +31,7 @@ export function teachSequence(w: Word): ClipItem[] {
     { src: jaClip(w.id), gapMs: 600 },
     { src: jaSlowClip(w.id), gapMs: 600 },
     { src: jaClip(w.id), gapMs: 500 },
+    ...altReadings(w),
     { src: phraseClip('repeat-after-me'), gapMs: 300 },
     { src: jaClip(w.id) },
   ];
@@ -56,13 +66,14 @@ export const phraseSequence = (key: string): ClipItem[] => [{ src: phraseClip(ke
 /** Every audio URL a session item set can need — used to warm the cache. */
 export function sessionClipUrls(words: Word[]): string[] {
   const urls = new Set<string>();
-  for (const key of ['in-japanese', 'repeat-after-me', 'how-do-you-say', 'correct', 'not-quite', 'the-answer-is', 'knew-it', 'session-start', 'session-done', 'paused', 'resuming']) {
+  for (const key of ['in-japanese', 'repeat-after-me', 'also-hear', 'how-do-you-say', 'correct', 'not-quite', 'the-answer-is', 'knew-it', 'session-start', 'session-done', 'paused', 'resuming']) {
     urls.add(phraseClip(key));
   }
   for (const w of words) {
     urls.add(jaClip(w.id));
     urls.add(jaSlowClip(w.id));
     urls.add(enClip(w.id));
+    for (const a of w.alts ?? []) urls.add(jaClip(a.id));
   }
   return [...urls];
 }

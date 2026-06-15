@@ -370,3 +370,9 @@ button:disabled {
   user-select: text;
   -webkit-user-select: text;
 }
+
+.word-ja .alts {
+  margin-top: 10px;
+  font-size: 18px;
+  color: var(--muted, #8a8a9a);
+}

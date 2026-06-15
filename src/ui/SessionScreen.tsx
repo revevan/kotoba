@@ -68,6 +68,9 @@ export function SessionScreen() {
                 <div class="kana">{word.kana}</div>
                 <div class="romaji">{word.romaji}</div>
                 <div class="mora">{word.moraKana.join(' ・ ')}</div>
+                {word.alts?.length ? (
+                  <div class="alts">also: {word.alts.map((a) => `${a.kana} (${a.romaji})`).join(', ')}</div>
+                ) : null}
               </div>
             )}
             {isQuizzing && <div class="word-ja mystery">?</div>}

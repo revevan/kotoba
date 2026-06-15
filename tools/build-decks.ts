@@ -8,6 +8,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { toHiragana, toRomaji } from 'wanakana';
 import { moraClipKeys, segmentMora } from '../src/matching/mora';
+import { barePrompt, resolvePrompts } from './prompt-resolve';
 import type { Deck, DeckInfo, Word } from '../src/types';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -76,14 +77,8 @@ function buildWord(level: string, expression: string, reading: string, meaning: 
   const expr = expression.replace(/[～〜\s]/g, '') || kana;
   const english = meaning.trim();
   if (!english) return null;
-  // Short form for the spoken prompt: first sense, parentheticals removed.
-  const prompt =
-    english
-      .split(';')[0]
-      .split(',')[0]
-      .replace(/\(.*?\)/g, '')
-      .replace(/\s+/g, ' ')
-      .trim() || english;
+  // Provisional prompt; resolvePrompts() finalizes it once collisions are known.
+  const prompt = barePrompt(english);
   const moraKana = segmentMora(kana);
   return {
     id: `${level}-${createHash('sha1').update(`${expr}|${kana}`).digest('hex').slice(0, 8)}`,
@@ -96,30 +91,6 @@ function buildWord(level: string, expression: string, reading: string, meaning: 
     moraKana,
     tags,
   };
-}
-
-/**
- * Words sharing a spoken prompt are indistinguishable when quizzed ("yes" is
- * both ええ and はい in N5), so an answer matching any of them must count as
- * correct for all of them. `written` only feeds answer grading, so widening
- * it doesn't change what is taught or displayed.
- */
-function crossAcceptSamePrompt(words: Word[]): void {
-  const byPrompt = new Map<string, Word[]>();
-  for (const w of words) {
-    const key = w.prompt.toLowerCase();
-    const group = byPrompt.get(key);
-    if (group) group.push(w);
-    else byPrompt.set(key, [w]);
-  }
-  let widened = 0;
-  for (const group of byPrompt.values()) {
-    if (group.length < 2) continue;
-    const merged = [...new Set(group.flatMap((w) => [...w.written, w.kana]))];
-    for (const w of group) w.written = [...new Set([...w.written, ...merged])];
-    widened += group.length;
-  }
-  console.log(`cross-accepted ${widened} words sharing a prompt`);
 }
 
 function genkiLesson(tags: string[]): number | null {
@@ -160,10 +131,17 @@ async function main() {
   const seen = new Set<string>();
   const n5 = await buildLevel('n5', seen);
   const n4 = await buildLevel('n4', seen);
-  crossAcceptSamePrompt([...n5, ...n4]);
+
+  // Finalize prompts and fold true synonyms across both levels.
+  const before = n5.length + n4.length;
+  const survive = new Set(resolvePrompts([...n5, ...n4]));
+  const n5r = n5.filter((w) => survive.has(w));
+  const n4r = n4.filter((w) => survive.has(w));
+  const folded = before - survive.size;
+  console.log(`folded ${folded} synonym readings into primaries`);
 
   // Starter: early-Genki N5 vocabulary — common, pedagogically ordered.
-  const starter = n5
+  const starter = n5r
     .map((w) => ({ w, lesson: genkiLesson(w.tags) }))
     .filter((x): x is { w: Word; lesson: number } => x.lesson !== null && x.lesson <= 6)
     .sort((a, b) => a.lesson - b.lesson)
@@ -172,8 +150,8 @@ async function main() {
 
   const infos = [
     writeDeck({ id: 'n5-starter', name: 'N5 Starter (Genki 1–6)', words: starter }),
-    writeDeck({ id: 'jlpt-n5', name: 'JLPT N5', words: n5 }),
-    writeDeck({ id: 'jlpt-n4', name: 'JLPT N4', words: n4 }),
+    writeDeck({ id: 'jlpt-n5', name: 'JLPT N5', words: n5r }),
+    writeDeck({ id: 'jlpt-n4', name: 'JLPT N4', words: n4r }),
   ];
   writeFileSync(join(decksDir, 'index.json'), JSON.stringify(infos, null, 2));
   console.log(`starter: ${starter.length} words`);

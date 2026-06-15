@@ -52,8 +52,7 @@
    "prompt": "straight",
    "kana": "すっと",
    "written": [
-    "すっと",
-    "まっすぐ"
+    "すっと"
    ],
    "romaji": "sutto",
    "mora": [
@@ -305,6 +304,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-846bdaa1",
+     "kana": "わかす",
+     "romaji": "wakasu"
+    }
    ]
   },
   {
@@ -563,14 +569,11 @@
   {
    "id": "n4-58524b90",
    "english": "I (used by men towards those of equal or lower status)",
-   "prompt": "I",
+   "prompt": "I (used by men towards those of equal or",
    "kana": "ぼく",
    "written": [
     "僕",
-    "ぼく",
-    "私",
-    "わたし",
-    "わたくし"
+    "ぼく"
    ],
    "romaji": "boku",
    "mora": [
@@ -584,64 +587,6 @@
    "tags": [
     "Genki",
     "Genki_Ln.5",
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-6295de94",
-   "english": "surely, certainly",
-   "prompt": "surely",
-   "kana": "かならず",
-   "written": [
-    "必ず",
-    "かならず",
-    "きっと"
-   ],
-   "romaji": "kanarazu",
-   "mora": [
-    "ka",
-    "na",
-    "ra",
-    "zu"
-   ],
-   "moraKana": [
-    "か",
-    "な",
-    "ら",
-    "ず"
-   ],
-   "tags": [
-    "Intermediate_Japanese_Ln.8",
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-9d265d02",
-   "english": "to break, to break down",
-   "prompt": "to break",
-   "kana": "こわす",
-   "written": [
-    "壊す",
-    "こわす",
-    "折れる",
-    "おれる",
-    "割れる",
-    "われる"
-   ],
-   "romaji": "kowasu",
-   "mora": [
-    "ko",
-    "wa",
-    "su"
-   ],
-   "moraKana": [
-    "こ",
-    "わ",
-    "す"
-   ],
-   "tags": [
     "JLPT",
     "JLPT_N4"
    ]
@@ -1005,18 +950,23 @@
     "Intermediate_Japanese_Ln.2",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-1dc60427",
+     "kana": "ずいぶん",
+     "romaji": "zuibun"
+    }
    ]
   },
   {
    "id": "n4-6a50d6e5",
    "english": "(someone else's) house; home -- polite word for 家 (いえ) --",
-   "prompt": "house",
+   "prompt": "(someone else's) house",
    "kana": "おたく",
    "written": [
     "お宅",
-    "おたく",
-    "家",
-    "いえ"
+    "おたく"
    ],
    "romaji": "otaku",
    "mora": [
@@ -1040,13 +990,11 @@
   {
    "id": "n4-8f614fd1",
    "english": "soft (in reference to texture), tender",
-   "prompt": "soft",
+   "prompt": "soft (in reference to texture)",
    "kana": "やわらかい",
    "written": [
     "柔らかい",
-    "やわらかい",
-    "ソフト",
-    "そふと"
+    "やわらかい"
    ],
    "romaji": "yawarakai",
    "mora": [
@@ -1098,16 +1046,10 @@
   {
    "id": "n4-107cecbf",
    "english": "to be (polite), to exist",
-   "prompt": "to be",
+   "prompt": "to be (polite)",
    "kana": "ございます",
    "written": [
-    "ございます",
-    "在る",
-    "ある",
-    "有る",
-    "居る",
-    "いる",
-    "おいでになる"
+    "ございます"
    ],
    "romaji": "gozaimasu",
    "mora": [
@@ -1357,12 +1299,10 @@
   {
    "id": "n4-760df900",
    "english": "yes (informal), all right (ok)",
-   "prompt": "yes",
+   "prompt": "yes (informal)",
    "kana": "うん",
    "written": [
-    "うん",
-    "ええ",
-    "はい"
+    "うん"
    ],
    "romaji": "un",
    "mora": [
@@ -1598,35 +1538,6 @@
    ]
   },
   {
-   "id": "n4-617eaab5",
-   "english": "now, this time, near future, one of these days, next time",
-   "prompt": "now",
-   "kana": "こんど",
-   "written": [
-    "今度",
-    "こんど",
-    "今",
-    "いま"
-   ],
-   "romaji": "kondo",
-   "mora": [
-    "ko",
-    "n",
-    "do"
-   ],
-   "moraKana": [
-    "こ",
-    "ん",
-    "ど"
-   ],
-   "tags": [
-    "Genki",
-    "Genki_Ln.9",
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-ea99a26d",
    "english": "chance, opportunity",
    "prompt": "chance",
@@ -1778,33 +1689,6 @@
     "ふ",
     "と",
     "ん"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-de4a90f5",
-   "english": "important, valuable, serious matter",
-   "prompt": "important",
-   "kana": "だいじ",
-   "written": [
-    "大事",
-    "だいじ",
-    "大切",
-    "たいせつ"
-   ],
-   "romaji": "daiji",
-   "mora": [
-    "da",
-    "i",
-    "ji"
-   ],
-   "moraKana": [
-    "だ",
-    "い",
-    "じ"
    ],
    "tags": [
     "JLPT",
@@ -2167,32 +2051,6 @@
    ]
   },
   {
-   "id": "n4-11e4bb65",
-   "english": "and, then",
-   "prompt": "and",
-   "kana": "すると",
-   "written": [
-    "すると",
-    "また",
-    "それで"
-   ],
-   "romaji": "suruto",
-   "mora": [
-    "su",
-    "ru",
-    "to"
-   ],
-   "moraKana": [
-    "す",
-    "る",
-    "と"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-73173362",
    "english": "to end, to stop",
    "prompt": "to end",
@@ -2384,12 +2242,10 @@
   {
    "id": "n4-0c1b6c1b",
    "english": "not at all (neg. verb)",
-   "prompt": "not at all",
+   "prompt": "not at all (neg. verb)",
    "kana": "ちっとも",
    "written": [
-    "ちっとも",
-    "全然",
-    "ぜんぜん"
+    "ちっとも"
    ],
    "romaji": "chittomo",
    "mora": [
@@ -2809,6 +2665,13 @@
     "Genki_Ln.21",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-8e537870",
+     "kana": "あかんぼう",
+     "romaji": "akanbou"
+    }
    ]
   },
   {
@@ -2950,9 +2813,7 @@
    "kana": "おもう",
    "written": [
     "思う",
-    "おもう",
-    "考える",
-    "かんがえる"
+    "おもう"
    ],
    "romaji": "omou",
    "mora": [
@@ -3000,13 +2861,11 @@
   {
    "id": "n4-f184339b",
    "english": "(humble)to say, to tell",
-   "prompt": "to say",
+   "prompt": "(humble)to say",
    "kana": "もうしあげる",
    "written": [
     "申し上げる",
-    "もうしあげる",
-    "言う",
-    "いう"
+    "もうしあげる"
    ],
    "romaji": "moushiageru",
    "mora": [
@@ -3343,35 +3202,6 @@
    ],
    "tags": [
     "Intermediate_Japanese_Ln.2",
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-43339c02",
-   "english": "to open; to hold (an event)",
-   "prompt": "to open",
-   "kana": "ひらく",
-   "written": [
-    "開く",
-    "ひらく",
-    "あく",
-    "開ける",
-    "あける",
-    "空く"
-   ],
-   "romaji": "hiraku",
-   "mora": [
-    "hi",
-    "ra",
-    "ku"
-   ],
-   "moraKana": [
-    "ひ",
-    "ら",
-    "く"
-   ],
-   "tags": [
     "JLPT",
     "JLPT_N4"
    ]
@@ -3938,13 +3768,11 @@
   {
    "id": "n4-0ca15d2b",
    "english": "(abbr.) building",
-   "prompt": "building",
+   "prompt": "(abbr.) building",
    "kana": "びる",
    "written": [
     "ビル",
-    "びる",
-    "建物",
-    "たてもの"
+    "びる"
    ],
    "romaji": "biru",
    "mora": [
@@ -4100,7 +3928,7 @@
   {
    "id": "n4-792651d5",
    "english": "to take (an examination, interview, etc.); to receive",
-   "prompt": "to take (an examination",
+   "prompt": "to take (an examination, interview, etc.)",
    "kana": "うける",
    "written": [
     "受ける",
@@ -4147,6 +3975,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-d114cef4",
+     "kana": "きもち",
+     "romaji": "kimochi"
+    }
    ]
   },
   {
@@ -4176,32 +4011,6 @@
    "tags": [
     "Genki",
     "Genki_Ln.21",
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-821f2c53",
-   "english": "such, like that, that sort of",
-   "prompt": "such",
-   "kana": "そんな",
-   "written": [
-    "そんな",
-    "こんな",
-    "あんな"
-   ],
-   "romaji": "sonna",
-   "mora": [
-    "so",
-    "n",
-    "na"
-   ],
-   "moraKana": [
-    "そ",
-    "ん",
-    "な"
-   ],
-   "tags": [
     "JLPT",
     "JLPT_N4"
    ]
@@ -4820,37 +4629,6 @@
    ]
   },
   {
-   "id": "n4-21f84858",
-   "english": "airport",
-   "prompt": "airport",
-   "kana": "ひこうじょう",
-   "written": [
-    "飛行場",
-    "ひこうじょう",
-    "空港",
-    "くうこう"
-   ],
-   "romaji": "hikoujou",
-   "mora": [
-    "hi",
-    "ko",
-    "u",
-    "jo",
-    "u"
-   ],
-   "moraKana": [
-    "ひ",
-    "こ",
-    "う",
-    "じょ",
-    "う"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-9ad9d5ac",
    "english": "judo",
    "prompt": "judo",
@@ -5125,13 +4903,11 @@
   {
    "id": "n4-125cd49c",
    "english": "thing(s), matter(s), fact",
-   "prompt": "thing",
+   "prompt": "thing(s)",
    "kana": "こと",
    "written": [
     "事",
-    "こと",
-    "物",
-    "もの"
+    "こと"
    ],
    "romaji": "koto",
    "mora": [
@@ -5203,6 +4979,13 @@
     "Intermediate_Japanese_Ln.7",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n5-fc8bf8e1",
+     "kana": "まっち",
+     "romaji": "matchi"
+    }
    ]
   },
   {
@@ -5759,37 +5542,6 @@
    ]
   },
   {
-   "id": "n4-8e537870",
-   "english": "baby",
-   "prompt": "baby",
-   "kana": "あかんぼう",
-   "written": [
-    "赤ん坊",
-    "あかんぼう",
-    "赤ちゃん",
-    "あかちゃん"
-   ],
-   "romaji": "akanbou",
-   "mora": [
-    "a",
-    "ka",
-    "n",
-    "bo",
-    "u"
-   ],
-   "moraKana": [
-    "あ",
-    "か",
-    "ん",
-    "ぼ",
-    "う"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-45c5e2d6",
    "english": "strange; odd; funny",
    "prompt": "strange",
@@ -5816,6 +5568,13 @@
     "Intermediate_Japanese_Ln.2",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-c037bc2b",
+     "kana": "へん",
+     "romaji": "hen"
+    }
    ]
   },
   {
@@ -5835,30 +5594,6 @@
    "moraKana": [
     "じ",
     "こ"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-c037bc2b",
-   "english": "strange, odd",
-   "prompt": "strange",
-   "kana": "へん",
-   "written": [
-    "変",
-    "へん",
-    "おかしい"
-   ],
-   "romaji": "hen",
-   "mora": [
-    "he",
-    "n"
-   ],
-   "moraKana": [
-    "へ",
-    "ん"
    ],
    "tags": [
     "JLPT",
@@ -5918,13 +5653,11 @@
   {
    "id": "n4-946d5f23",
    "english": "to stand (something) up, to erect (something)",
-   "prompt": "to stand up",
+   "prompt": "to stand (something) up",
    "kana": "たてる",
    "written": [
     "立てる",
-    "たてる",
-    "立つ",
-    "たつ"
+    "たてる"
    ],
    "romaji": "tateru",
    "mora": [
@@ -5935,32 +5668,6 @@
    "moraKana": [
     "た",
     "て",
-    "る"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-61e79ab7",
-   "english": "to give, to do for",
-   "prompt": "to give",
-   "kana": "くれる",
-   "written": [
-    "くれる",
-    "あげる",
-    "くださる"
-   ],
-   "romaji": "kureru",
-   "mora": [
-    "ku",
-    "re",
-    "ru"
-   ],
-   "moraKana": [
-    "く",
-    "れ",
     "る"
    ],
    "tags": [
@@ -6019,87 +5726,6 @@
    ]
   },
   {
-   "id": "n4-c545910a",
-   "english": "to be surprised, to be astonished",
-   "prompt": "to be surprised",
-   "kana": "おどろく",
-   "written": [
-    "驚く",
-    "おどろく",
-    "びっくりする"
-   ],
-   "romaji": "odoroku",
-   "mora": [
-    "o",
-    "do",
-    "ro",
-    "ku"
-   ],
-   "moraKana": [
-    "お",
-    "ど",
-    "ろ",
-    "く"
-   ],
-   "tags": [
-    "Intermediate_Japanese_Ln.8",
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-38b346ee",
-   "english": "grandmother",
-   "prompt": "grandmother",
-   "kana": "そぼ",
-   "written": [
-    "祖母",
-    "そぼ",
-    "おばあさん"
-   ],
-   "romaji": "sobo",
-   "mora": [
-    "so",
-    "bo"
-   ],
-   "moraKana": [
-    "そ",
-    "ぼ"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-3770e96d",
-   "english": "place, location",
-   "prompt": "place",
-   "kana": "ばしょ",
-   "written": [
-    "場所",
-    "ばしょ",
-    "所",
-    "ところ"
-   ],
-   "romaji": "basho",
-   "mora": [
-    "ba",
-    "sho"
-   ],
-   "moraKana": [
-    "ば",
-    "しょ"
-   ],
-   "tags": [
-    "Genki",
-    "Genki_Ln.23",
-    "Intermediate_Japanese_Ln.5",
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-b74f7415",
    "english": "answer, response",
    "prompt": "answer",
@@ -6153,6 +5779,13 @@
     "Intermediate_Japanese_Ln.5",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-48ad47de",
+     "kana": "ぜひ",
+     "romaji": "zehi"
+    }
    ]
   },
   {
@@ -6233,6 +5866,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-070b650c",
+     "kana": "いない",
+     "romaji": "inai"
+    }
    ]
   },
   {
@@ -6647,33 +6287,6 @@
    ]
   },
   {
-   "id": "n4-070b650c",
-   "english": "within, less (no more) than",
-   "prompt": "within",
-   "kana": "いない",
-   "written": [
-    "以内",
-    "いない",
-    "内",
-    "うち"
-   ],
-   "romaji": "inai",
-   "mora": [
-    "i",
-    "na",
-    "i"
-   ],
-   "moraKana": [
-    "い",
-    "な",
-    "い"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-04eac593",
    "english": "plans, arrangement, schedule",
    "prompt": "plans",
@@ -6834,37 +6447,6 @@
    ]
   },
   {
-   "id": "n4-bcac8cbc",
-   "english": "small; fine, minute",
-   "prompt": "small",
-   "kana": "こまかい",
-   "written": [
-    "細かい",
-    "こまかい",
-    "小さい",
-    "ちいさい",
-    "小さな",
-    "ちいさな"
-   ],
-   "romaji": "komakai",
-   "mora": [
-    "ko",
-    "ma",
-    "ka",
-    "i"
-   ],
-   "moraKana": [
-    "こ",
-    "ま",
-    "か",
-    "い"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-5081a333",
    "english": "to paint, to plaster",
    "prompt": "to paint",
@@ -6890,7 +6472,7 @@
   {
    "id": "n4-1a6822fb",
    "english": "(your, her) husband",
-   "prompt": "(your",
+   "prompt": "(your, her) husband",
    "kana": "ごしゅじん",
    "written": [
     "ご主人",
@@ -7002,13 +6584,11 @@
   {
    "id": "n4-ed532c7f",
    "english": "(someone's) daughter (polite)",
-   "prompt": "daughter",
+   "prompt": "(someone's) daughter (polite)",
    "kana": "おじょうさん",
    "written": [
     "お嬢さん",
-    "おじょうさん",
-    "娘",
-    "むすめ"
+    "おじょうさん"
    ],
    "romaji": "ojousan",
    "mora": [
@@ -7057,6 +6637,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-ff94d758",
+     "kana": "したくする",
+     "romaji": "shitakusuru"
+    }
    ]
   },
   {
@@ -7137,35 +6724,6 @@
     "ん",
     "す",
     "る"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-96b16a90",
-   "english": "all, completely",
-   "prompt": "all",
-   "kana": "すっかり",
-   "written": [
-    "すっかり",
-    "全部",
-    "ぜんぶ",
-    "みんな"
-   ],
-   "romaji": "sukkari",
-   "mora": [
-    "su",
-    "q",
-    "ka",
-    "ri"
-   ],
-   "moraKana": [
-    "す",
-    "っ",
-    "か",
-    "り"
    ],
    "tags": [
     "JLPT",
@@ -7364,18 +6922,23 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-ba762e59",
+     "kana": "かじ",
+     "romaji": "kaji"
+    }
    ]
   },
   {
    "id": "n4-2e40ef68",
    "english": "to raise (v.t.); to bring up",
-   "prompt": "to raise",
+   "prompt": "to raise (transitive)",
    "kana": "そだてる",
    "written": [
     "育てる",
-    "そだてる",
-    "上げる",
-    "あげる"
+    "そだてる"
    ],
    "romaji": "sodateru",
    "mora": [
@@ -8024,12 +7587,10 @@
   {
    "id": "n4-753d407a",
    "english": "(hon.) good, OK, all right",
-   "prompt": "good",
+   "prompt": "(honorific) good",
    "kana": "よろしい",
    "written": [
-    "よろしい",
-    "為",
-    "ため"
+    "よろしい"
    ],
    "romaji": "yoroshii",
    "mora": [
@@ -8363,6 +7924,13 @@
     "Genki_Ln.20",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-21f84858",
+     "kana": "ひこうじょう",
+     "romaji": "hikoujou"
+    }
    ]
   },
   {
@@ -8717,57 +8285,6 @@
    ]
   },
   {
-   "id": "n4-d114cef4",
-   "english": "feeling, sensation, mood",
-   "prompt": "feeling",
-   "kana": "きもち",
-   "written": [
-    "気持ち",
-    "きもち",
-    "気分",
-    "きぶん"
-   ],
-   "romaji": "kimochi",
-   "mora": [
-    "ki",
-    "mo",
-    "chi"
-   ],
-   "moraKana": [
-    "き",
-    "も",
-    "ち"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-e1382dfc",
-   "english": "grandfather",
-   "prompt": "grandfather",
-   "kana": "そふ",
-   "written": [
-    "祖父",
-    "そふ",
-    "おじいさん"
-   ],
-   "romaji": "sofu",
-   "mora": [
-    "so",
-    "fu"
-   ],
-   "moraKana": [
-    "そ",
-    "ふ"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-967c6df0",
    "english": "harbor, port",
    "prompt": "harbor",
@@ -8907,13 +8424,11 @@
   {
    "id": "n4-769756ee",
    "english": "to copy (v.t.); to photograph",
-   "prompt": "to copy",
+   "prompt": "to copy (transitive)",
    "kana": "うつす",
    "written": [
     "写す",
-    "うつす",
-    "コピーする",
-    "こぴいする"
+    "うつす"
    ],
    "romaji": "utsusu",
    "mora": [
@@ -8982,31 +8497,6 @@
     "Genki",
     "Genki_Ln.19",
     "Intermediate_Japanese_Ln.15",
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-ba762e59",
-   "english": "fire",
-   "prompt": "fire",
-   "kana": "かじ",
-   "written": [
-    "火事",
-    "かじ",
-    "火",
-    "ひ"
-   ],
-   "romaji": "kaji",
-   "mora": [
-    "ka",
-    "ji"
-   ],
-   "moraKana": [
-    "か",
-    "じ"
-   ],
-   "tags": [
     "JLPT",
     "JLPT_N4"
    ]
@@ -9113,64 +8603,6 @@
     "Genki",
     "Genki_Ln.1",
     "Genki_Ln.2",
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-4f782c5a",
-   "english": "man; male",
-   "prompt": "man",
-   "kana": "だんせい",
-   "written": [
-    "男性",
-    "だんせい",
-    "男",
-    "おとこ",
-    "人",
-    "ひと"
-   ],
-   "romaji": "dansei",
-   "mora": [
-    "da",
-    "n",
-    "se",
-    "i"
-   ],
-   "moraKana": [
-    "だ",
-    "ん",
-    "せ",
-    "い"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-b593255c",
-   "english": "reason",
-   "prompt": "reason",
-   "kana": "りゆう",
-   "written": [
-    "理由",
-    "りゆう",
-    "訳",
-    "わけ"
-   ],
-   "romaji": "riyuu",
-   "mora": [
-    "ri",
-    "yu",
-    "u"
-   ],
-   "moraKana": [
-    "り",
-    "ゆ",
-    "う"
-   ],
-   "tags": [
     "JLPT",
     "JLPT_N4"
    ]
@@ -9353,32 +8785,6 @@
    ]
   },
   {
-   "id": "n4-a8d83160",
-   "english": "such, like that",
-   "prompt": "such",
-   "kana": "あんな",
-   "written": [
-    "あんな",
-    "こんな",
-    "そんな"
-   ],
-   "romaji": "anna",
-   "mora": [
-    "a",
-    "n",
-    "na"
-   ],
-   "moraKana": [
-    "あ",
-    "ん",
-    "な"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-4c1490c4",
    "english": "to apologize",
    "prompt": "to apologize",
@@ -9451,33 +8857,6 @@
     "う",
     "い",
     "く"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-ef2f2dfd",
-   "english": "woman",
-   "prompt": "woman",
-   "kana": "じょせい",
-   "written": [
-    "女性",
-    "じょせい",
-    "女",
-    "おんな"
-   ],
-   "romaji": "josei",
-   "mora": [
-    "jo",
-    "se",
-    "i"
-   ],
-   "moraKana": [
-    "じょ",
-    "せ",
-    "い"
    ],
    "tags": [
     "JLPT",
@@ -9842,36 +9221,12 @@
    ]
   },
   {
-   "id": "n4-70a9c546",
-   "english": "hair, fur",
-   "prompt": "hair",
-   "kana": "け",
-   "written": [
-    "毛",
-    "け",
-    "髪",
-    "かみ"
-   ],
-   "romaji": "ke",
-   "mora": [
-    "ke"
-   ],
-   "moraKana": [
-    "け"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-e44c35a4",
    "english": "terrible, awful, unfair, cruel",
    "prompt": "terrible",
    "kana": "ひどい",
    "written": [
-    "ひどい",
-    "まずい"
+    "ひどい"
    ],
    "romaji": "hidoi",
    "mora": [
@@ -9918,65 +9273,6 @@
     "Genki",
     "Genki_Ln.17",
     "Intermediate_Japanese_Ln.2",
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-56f236aa",
-   "english": "very, considerably, quite",
-   "prompt": "very",
-   "kana": "なかなか",
-   "written": [
-    "中々",
-    "なかなか",
-    "大変",
-    "たいへん",
-    "とても"
-   ],
-   "romaji": "nakanaka",
-   "mora": [
-    "na",
-    "ka",
-    "na",
-    "ka"
-   ],
-   "moraKana": [
-    "な",
-    "か",
-    "な",
-    "か"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-1dc60427",
-   "english": "extremely",
-   "prompt": "extremely",
-   "kana": "ずいぶん",
-   "written": [
-    "随分",
-    "ずいぶん",
-    "非常に",
-    "ひじょうに"
-   ],
-   "romaji": "zuibun",
-   "mora": [
-    "zu",
-    "i",
-    "bu",
-    "n"
-   ],
-   "moraKana": [
-    "ず",
-    "い",
-    "ぶ",
-    "ん"
-   ],
-   "tags": [
     "JLPT",
     "JLPT_N4"
    ]
@@ -10143,32 +9439,13 @@
     "Genki_Ln.21",
     "JLPT",
     "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-e326c9ea",
-   "english": "delicious; skillful; fortunate",
-   "prompt": "delicious",
-   "kana": "うまい",
-   "written": [
-    "うまい",
-    "美味しい",
-    "おいしい"
    ],
-   "romaji": "umai",
-   "mora": [
-    "u",
-    "ma",
-    "i"
-   ],
-   "moraKana": [
-    "う",
-    "ま",
-    "い"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
+   "alts": [
+    {
+     "id": "n4-c545910a",
+     "kana": "おどろく",
+     "romaji": "odoroku"
+    }
    ]
   },
   {
@@ -10178,9 +9455,7 @@
    "kana": "かえる",
    "written": [
     "変える",
-    "かえる",
-    "変わる",
-    "かわる"
+    "かえる"
    ],
    "romaji": "kaeru",
    "mora": [
@@ -10232,11 +9507,7 @@
    "kana": "こ",
    "written": [
     "子",
-    "こ",
-    "子供",
-    "こども",
-    "お子さん",
-    "おこさん"
+    "こ"
    ],
    "romaji": "ko",
    "mora": [
@@ -10244,33 +9515,6 @@
    ],
    "moraKana": [
     "こ"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-846bdaa1",
-   "english": "to boil",
-   "prompt": "to boil",
-   "kana": "わかす",
-   "written": [
-    "沸かす",
-    "わかす",
-    "沸く",
-    "わく"
-   ],
-   "romaji": "wakasu",
-   "mora": [
-    "wa",
-    "ka",
-    "su"
-   ],
-   "moraKana": [
-    "わ",
-    "か",
-    "す"
    ],
    "tags": [
     "JLPT",
@@ -10348,33 +9592,6 @@
    ],
    "tags": [
     "Intermediate_Japanese_Ln.3",
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-e3e662f7",
-   "english": "to open, to become empty (vacant)",
-   "prompt": "to open",
-   "kana": "あく",
-   "written": [
-    "空く",
-    "あく",
-    "開く",
-    "開ける",
-    "あける",
-    "ひらく"
-   ],
-   "romaji": "aku",
-   "mora": [
-    "a",
-    "ku"
-   ],
-   "moraKana": [
-    "あ",
-    "く"
-   ],
-   "tags": [
     "JLPT",
     "JLPT_N4"
    ]
@@ -10510,34 +9727,6 @@
    ]
   },
   {
-   "id": "n4-48ad47de",
-   "english": "certainly, by all means; without fail",
-   "prompt": "certainly",
-   "kana": "ぜひ",
-   "written": [
-    "是非",
-    "ぜひ",
-    "もちろん"
-   ],
-   "romaji": "zehi",
-   "mora": [
-    "ze",
-    "hi"
-   ],
-   "moraKana": [
-    "ぜ",
-    "ひ"
-   ],
-   "tags": [
-    "Genki",
-    "Genki_Ln.9",
-    "Intermediate_Japanese_Ln.15",
-    "Intermediate_Japanese_Ln.8",
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-b8869db6",
    "english": "reverse side, back",
    "prompt": "reverse side",
@@ -10567,8 +9756,7 @@
    "kana": "ため",
    "written": [
     "為",
-    "ため",
-    "よろしい"
+    "ため"
    ],
    "romaji": "tame",
    "mora": [
@@ -10587,16 +9775,10 @@
   {
    "id": "n4-4134887d",
    "english": "(hon.) to be",
-   "prompt": "to be",
+   "prompt": "(honorific) to be",
    "kana": "おいでになる",
    "written": [
-    "おいでになる",
-    "在る",
-    "ある",
-    "有る",
-    "居る",
-    "いる",
-    "ございます"
+    "おいでになる"
    ],
    "romaji": "oideninaru",
    "mora": [
@@ -10623,13 +9805,11 @@
   {
    "id": "n4-e56a3d0e",
    "english": "to change (v.i.), to be transformed, to vary",
-   "prompt": "to change",
+   "prompt": "to change (intransitive)",
    "kana": "かわる",
    "written": [
     "変わる",
-    "かわる",
-    "変える",
-    "かえる"
+    "かわる"
    ],
    "romaji": "kawaru",
    "mora": [
@@ -10670,31 +9850,6 @@
    ],
    "tags": [
     "Intermediate_Japanese_Ln.3",
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-6b2ec0d0",
-   "english": "to finish, to end",
-   "prompt": "to finish",
-   "kana": "すむ",
-   "written": [
-    "済む",
-    "すむ",
-    "終る",
-    "おわる"
-   ],
-   "romaji": "sumu",
-   "mora": [
-    "su",
-    "mu"
-   ],
-   "moraKana": [
-    "す",
-    "む"
-   ],
-   "tags": [
     "JLPT",
     "JLPT_N4"
    ]
@@ -10795,37 +9950,6 @@
     "あ",
     "そ",
     "び"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-ff94d758",
-   "english": "preparation",
-   "prompt": "preparation",
-   "kana": "したくする",
-   "written": [
-    "支度",
-    "したくする",
-    "用意",
-    "ようい"
-   ],
-   "romaji": "shitakusuru",
-   "mora": [
-    "shi",
-    "ta",
-    "ku",
-    "su",
-    "ru"
-   ],
-   "moraKana": [
-    "し",
-    "た",
-    "く",
-    "す",
-    "る"
    ],
    "tags": [
     "JLPT",
@@ -10936,6 +10060,13 @@
     "Intermediate_Japanese_Ln.7",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-6295de94",
+     "kana": "かならず",
+     "romaji": "kanarazu"
+    }
    ]
   },
   {
@@ -11043,6 +10174,18 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-9d265d02",
+     "kana": "こわす",
+     "romaji": "kowasu"
+    },
+    {
+     "id": "n4-6e9aadab",
+     "kana": "われる",
+     "romaji": "wareru"
+    }
    ]
   },
   {
@@ -11150,9 +10293,7 @@
    "kana": "さんぎょう",
    "written": [
     "産業",
-    "さんぎょう",
-    "工業",
-    "こうぎょう"
+    "さんぎょう"
    ],
    "romaji": "sangyou",
    "mora": [
@@ -11437,15 +10578,11 @@
   {
    "id": "n4-95c55372",
    "english": "wife (humble)",
-   "prompt": "wife",
+   "prompt": "wife (humble)",
    "kana": "つま",
    "written": [
     "妻",
-    "つま",
-    "奥さん",
-    "おくさん",
-    "家内",
-    "かない"
+    "つま"
    ],
    "romaji": "tsuma",
    "mora": [
@@ -11641,6 +10778,13 @@
     "Genki_Ln.7",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-70a9c546",
+     "kana": "け",
+     "romaji": "ke"
+    }
    ]
   },
   {
@@ -11758,12 +10902,10 @@
   {
    "id": "n4-2ccdc20c",
    "english": "and (conj.), thereupon, because of that",
-   "prompt": "and",
+   "prompt": "and (conj.)",
    "kana": "それで",
    "written": [
-    "それで",
-    "また",
-    "すると"
+    "それで"
    ],
    "romaji": "sorede",
    "mora": [
@@ -11834,34 +10976,6 @@
    ]
   },
   {
-   "id": "n4-4caf2cab",
-   "english": "gradually, soon",
-   "prompt": "gradually",
-   "kana": "そろそろ",
-   "written": [
-    "そろそろ",
-    "段々",
-    "だんだん"
-   ],
-   "romaji": "sorosoro",
-   "mora": [
-    "so",
-    "ro",
-    "so",
-    "ro"
-   ],
-   "moraKana": [
-    "そ",
-    "ろ",
-    "そ",
-    "ろ"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-234246c2",
    "english": "to send, to dispatch",
    "prompt": "to send",
@@ -11896,8 +11010,7 @@
    "kana": "あげる",
    "written": [
     "あげる",
-    "くれる",
-    "くださる"
+    "くれる"
    ],
    "romaji": "ageru",
    "mora": [
@@ -11913,6 +11026,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-61e79ab7",
+     "kana": "くれる",
+     "romaji": "kureru"
+    }
    ]
   },
   {
@@ -12401,6 +11521,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n4-b593255c",
+     "kana": "りゆう",
+     "romaji": "riyuu"
+    }
    ]
   },
   {
@@ -12717,12 +11844,10 @@
   {
    "id": "n4-3299e174",
    "english": "(hon.) to give, to confer",
-   "prompt": "to give",
+   "prompt": "(honorific) to give",
    "kana": "くださる",
    "written": [
-    "くださる",
-    "くれる",
-    "あげる"
+    "くださる"
    ],
    "romaji": "kudasaru",
    "mora": [
@@ -12770,15 +11895,11 @@
   {
    "id": "n4-7637fee7",
    "english": "(someone else's) child (polite)",
-   "prompt": "child",
+   "prompt": "(someone else's) child (polite)",
    "kana": "おこさん",
    "written": [
     "お子さん",
-    "おこさん",
-    "子供",
-    "こども",
-    "子",
-    "こ"
+    "おこさん"
    ],
    "romaji": "okosan",
    "mora": [
@@ -12911,33 +12032,6 @@
    ]
   },
   {
-   "id": "n4-51c3a827",
-   "english": "light",
-   "prompt": "light",
-   "kana": "ひかり",
-   "written": [
-    "光",
-    "ひかり",
-    "軽い",
-    "かるい"
-   ],
-   "romaji": "hikari",
-   "mora": [
-    "hi",
-    "ka",
-    "ri"
-   ],
-   "moraKana": [
-    "ひ",
-    "か",
-    "り"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-95ea9917",
    "english": "calling on someone who is ill, visit",
    "prompt": "calling on someone who is ill",
@@ -13059,31 +12153,6 @@
     "る"
    ],
    "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
-   "id": "n4-3b9ebcef",
-   "english": "letter; character",
-   "prompt": "letter",
-   "kana": "じ",
-   "written": [
-    "字",
-    "じ",
-    "手紙",
-    "てがみ"
-   ],
-   "romaji": "ji",
-   "mora": [
-    "ji"
-   ],
-   "moraKana": [
-    "じ"
-   ],
-   "tags": [
-    "Genki",
-    "Genki_Ln.20",
     "JLPT",
     "JLPT_N4"
    ]
@@ -13600,9 +12669,7 @@
    "kana": "よう",
    "written": [
     "様",
-    "よう",
-    "仕方",
-    "しかた"
+    "よう"
    ],
    "romaji": "you",
    "mora": [
@@ -13641,41 +12708,13 @@
    ]
   },
   {
-   "id": "n4-096fb552",
-   "english": "beginning, first",
-   "prompt": "beginning",
-   "kana": "さいしょ",
-   "written": [
-    "最初",
-    "さいしょ",
-    "初め;始め",
-    "はじめ"
-   ],
-   "romaji": "saisho",
-   "mora": [
-    "sa",
-    "i",
-    "sho"
-   ],
-   "moraKana": [
-    "さ",
-    "い",
-    "しょ"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-6ad4057f",
    "english": "honorable ~",
    "prompt": "honorable ~",
    "kana": "ご",
    "written": [
     "御",
-    "ご",
-    "お"
+    "ご"
    ],
    "romaji": "go",
    "mora": [
@@ -13936,13 +12975,11 @@
   {
    "id": "n4-e322e8d7",
    "english": "(in the) future; prospects",
-   "prompt": "future",
+   "prompt": "(in the) future",
    "kana": "しょうらい",
    "written": [
     "将来",
-    "しょうらい",
-    "先",
-    "さき"
+    "しょうらい"
    ],
    "romaji": "shourai",
    "mora": [
@@ -14125,12 +13162,11 @@
   {
    "id": "n4-e3a84786",
    "english": "you (informal for men)",
-   "prompt": "you",
+   "prompt": "you (informal for men)",
    "kana": "きみ",
    "written": [
     "君",
-    "きみ",
-    "あなた"
+    "きみ"
    ],
    "romaji": "kimi",
    "mora": [
@@ -14251,30 +13287,6 @@
    ]
   },
   {
-   "id": "n4-e213b7c6",
-   "english": "tomorrow",
-   "prompt": "tomorrow",
-   "kana": "あす",
-   "written": [
-    "明日",
-    "あす",
-    "あした"
-   ],
-   "romaji": "asu",
-   "mora": [
-    "a",
-    "su"
-   ],
-   "moraKana": [
-    "あ",
-    "す"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-de74e19d",
    "english": "departure",
    "prompt": "departure",
@@ -14337,44 +13349,13 @@
    ]
   },
   {
-   "id": "n4-6e9aadab",
-   "english": "to break",
-   "prompt": "to break",
-   "kana": "われる",
-   "written": [
-    "割れる",
-    "われる",
-    "壊す",
-    "こわす",
-    "折れる",
-    "おれる"
-   ],
-   "romaji": "wareru",
-   "mora": [
-    "wa",
-    "re",
-    "ru"
-   ],
-   "moraKana": [
-    "わ",
-    "れ",
-    "る"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-67fdb78a",
    "english": "back (of body)",
-   "prompt": "back",
+   "prompt": "back (of body)",
    "kana": "せなか",
    "written": [
     "背中",
-    "せなか",
-    "後ろ",
-    "うしろ"
+    "せなか"
    ],
    "romaji": "senaka",
    "mora": [
@@ -14452,12 +13433,11 @@
   {
    "id": "n4-cfbf9fa6",
    "english": "Mr. (junior) ~, master ~",
-   "prompt": "Mr. ~",
+   "prompt": "Mr. (junior) ~",
    "kana": "くん",
    "written": [
     "君",
-    "くん",
-    "さん"
+    "くん"
    ],
    "romaji": "kun",
    "mora": [
@@ -14614,13 +13594,11 @@
   {
    "id": "n4-8fc5947d",
    "english": "to think (about); to consider",
-   "prompt": "to think",
+   "prompt": "to think (about)",
    "kana": "かんがえる",
    "written": [
     "考える",
-    "かんがえる",
-    "思う",
-    "おもう"
+    "かんがえる"
    ],
    "romaji": "kangaeru",
    "mora": [
@@ -14699,13 +13677,11 @@
   {
    "id": "n4-d84a22f6",
    "english": "way (of doing something)",
-   "prompt": "way",
+   "prompt": "way (of doing something)",
    "kana": "しかた",
    "written": [
     "仕方",
-    "しかた",
-    "様",
-    "よう"
+    "しかた"
    ],
    "romaji": "shikata",
    "mora": [
@@ -14824,13 +13800,11 @@
   {
    "id": "n4-c95f9011",
    "english": "(manufacturing) industry",
-   "prompt": "industry",
+   "prompt": "(manufacturing) industry",
    "kana": "こうぎょう",
    "written": [
     "工業",
-    "こうぎょう",
-    "産業",
-    "さんぎょう"
+    "こうぎょう"
    ],
    "romaji": "kougyou",
    "mora": [
@@ -14853,13 +13827,11 @@
   {
    "id": "n4-28a392a5",
    "english": "to move (from a house); to transfer (from a department); to shift",
-   "prompt": "to move",
+   "prompt": "to move (from a house)",
    "kana": "うつる",
    "written": [
     "移る",
-    "うつる",
-    "動く",
-    "うごく"
+    "うつる"
    ],
    "romaji": "utsuru",
    "mora": [
@@ -15051,9 +14023,7 @@
    "kana": "うごく",
    "written": [
     "動く",
-    "うごく",
-    "移る",
-    "うつる"
+    "うごく"
    ],
    "romaji": "ugoku",
    "mora": [
@@ -15128,13 +14098,11 @@
   {
    "id": "n4-85823228",
    "english": "kind (person), gentle (person), easy (problem)",
-   "prompt": "kind",
+   "prompt": "kind (person)",
    "kana": "やさしい",
    "written": [
     "優しい",
-    "やさしい",
-    "厚い",
-    "あつい"
+    "やさしい"
    ],
    "romaji": "yasashii",
    "mora": [
@@ -15487,8 +14455,7 @@
    "kana": "ぜんぜん",
    "written": [
     "全然",
-    "ぜんぜん",
-    "ちっとも"
+    "ぜんぜん"
    ],
    "romaji": "zenzen",
    "mora": [
@@ -16219,33 +15186,6 @@
    ]
   },
   {
-   "id": "n4-a73b02d6",
-   "english": "to sleep",
-   "prompt": "to sleep",
-   "kana": "ねむる",
-   "written": [
-    "眠る",
-    "ねむる",
-    "寝る",
-    "ねる"
-   ],
-   "romaji": "nemuru",
-   "mora": [
-    "ne",
-    "mu",
-    "ru"
-   ],
-   "moraKana": [
-    "ね",
-    "む",
-    "る"
-   ],
-   "tags": [
-    "JLPT",
-    "JLPT_N4"
-   ]
-  },
-  {
    "id": "n4-4f20e20c",
    "english": "to rise, to go up",
    "prompt": "to rise",
@@ -16330,13 +15270,11 @@
   {
    "id": "n4-2a097954",
    "english": "daughter (humble)",
-   "prompt": "daughter",
+   "prompt": "daughter (humble)",
    "kana": "むすめ",
    "written": [
     "娘",
-    "むすめ",
-    "お嬢さん",
-    "おじょうさん"
+    "むすめ"
    ],
    "romaji": "musume",
    "mora": [
@@ -16831,9 +15769,7 @@
    "kana": "そふと",
    "written": [
     "ソフト",
-    "そふと",
-    "柔らかい",
-    "やわらかい"
+    "そふと"
    ],
    "romaji": "sofuto",
    "mora": [
@@ -16984,15 +15920,11 @@
   {
    "id": "n4-ff181ea2",
    "english": "(one's own) wife",
-   "prompt": "wife",
+   "prompt": "(one's own) wife",
    "kana": "かない",
    "written": [
     "家内",
-    "かない",
-    "奥さん",
-    "おくさん",
-    "妻",
-    "つま"
+    "かない"
    ],
    "romaji": "kanai",
    "mora": [

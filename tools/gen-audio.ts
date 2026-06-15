@@ -27,6 +27,7 @@ const PHRASES: Record<string, string> = {
   'not-quite': 'Not quite.',
   'the-answer-is': 'The answer is —',
   'knew-it': 'Say — got it — if you knew it.',
+  'also-hear': 'You may also hear —',
   'paused': "Paused. Say resume when you're ready.",
   'resuming': 'Resuming!',
   'session-done': 'Session complete. Great work!',
@@ -59,6 +60,10 @@ function collectJobs(decks: Deck[]): Job[] {
       jobs.set(`ja/${w.id}.mp3`, { out: `ja/${w.id}.mp3`, text: w.kana, voice: JA_VOICE });
       jobs.set(`ja-slow/${w.id}.mp3`, { out: `ja-slow/${w.id}.mp3`, text: w.kana, voice: JA_VOICE, rate: '-40%' });
       jobs.set(`en/${w.id}.mp3`, { out: `en/${w.id}.mp3`, text: w.prompt, voice: EN_VOICE });
+      // Alternate readings reuse their original id; teach mentions them aloud.
+      for (const alt of w.alts ?? []) {
+        jobs.set(`ja/${alt.id}.mp3`, { out: `ja/${alt.id}.mp3`, text: alt.kana, voice: JA_VOICE });
+      }
       w.mora.forEach((key, i) => {
         if (key === 'q') return;
         jobs.set(`mora/${key}.mp3`, { out: `mora/${key}.mp3`, text: w.moraKana[i] === 'ー' ? w.moraKana[i - 1] ?? 'あ' : w.moraKana[i], voice: JA_VOICE, rate: '-20%' });

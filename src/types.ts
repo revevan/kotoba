@@ -1,3 +1,11 @@
+/** An alternate, less-common reading of the same meaning (taught + accepted). */
+export interface AltReading {
+  /** Word id of the original reading; reuses its existing ja audio clip. */
+  id: string;
+  kana: string;
+  romaji: string;
+}
+
 export interface Word {
   id: string;
   /** Full English meaning, for display. */
@@ -13,6 +21,8 @@ export interface Word {
   mora: string[];
   /** Hiragana morae, for display alongside the breakdown. */
   moraKana: string[];
+  /** Alternate readings of the same meaning, mentioned when teaching this word. */
+  alts?: AltReading[];
   tags: string[];
 }
 

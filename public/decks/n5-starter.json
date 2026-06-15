@@ -58,6 +58,13 @@
     "JLPT_3",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n4-617eaab5",
+     "kana": "こんど",
+     "romaji": "kondo"
+    }
    ]
   },
   {
@@ -120,42 +127,13 @@
    ]
   },
   {
-   "id": "n5-b7966194",
-   "english": "yes",
-   "prompt": "yes",
-   "kana": "ええ",
-   "written": [
-    "ええ",
-    "はい",
-    "うん"
-   ],
-   "romaji": "ee",
-   "mora": [
-    "e",
-    "e"
-   ],
-   "moraKana": [
-    "え",
-    "え"
-   ],
-   "tags": [
-    "Genki",
-    "Genki_Ln.1",
-    "JLPT",
-    "JLPT_5",
-    "JLPT_N5"
-   ]
-  },
-  {
    "id": "n5-51d0ab4a",
    "english": "mother (formal)",
-   "prompt": "mother",
+   "prompt": "mother (formal)",
    "kana": "おかあさん",
    "written": [
     "お母さん",
-    "おかあさん",
-    "母",
-    "はは"
+    "おかあさん"
    ],
    "romaji": "okaasan",
    "mora": [
@@ -184,13 +162,11 @@
   {
    "id": "n5-2cbdefb8",
    "english": "father (formal)",
-   "prompt": "father",
+   "prompt": "father (formal)",
    "kana": "おとうさん",
    "written": [
     "お父さん",
-    "おとうさん",
-    "父",
-    "ちち"
+    "おとうさん"
    ],
    "romaji": "otousan",
    "mora": [
@@ -250,13 +226,11 @@
   {
    "id": "n5-810354ac",
    "english": "(someone else's) older brother (formal)",
-   "prompt": "older brother",
+   "prompt": "(someone else's) older brother (formal)",
    "kana": "おにいさん",
    "written": [
     "お兄さん",
-    "おにいさん",
-    "兄",
-    "あに"
+    "おにいさん"
    ],
    "romaji": "oniisan",
    "mora": [
@@ -287,13 +261,11 @@
   {
    "id": "n5-a37813c9",
    "english": "older sister (formal)",
-   "prompt": "older sister",
+   "prompt": "older sister (formal)",
    "kana": "おねえさん",
    "written": [
     "お姉さん",
-    "おねえさん",
-    "姉",
-    "あね"
+    "おねえさん"
    ],
    "romaji": "oneesan",
    "mora": [
@@ -349,6 +321,13 @@
     "JLPT",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n5-b17d0ed2",
+     "kana": "せいと",
+     "romaji": "seito"
+    }
    ]
   },
   {
@@ -405,6 +384,13 @@
     "JLPT",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n5-b1fa407b",
+     "kana": "あさ",
+     "romaji": "asa"
+    }
    ]
   },
   {
@@ -591,8 +577,7 @@
    "kana": "はい",
    "written": [
     "はい",
-    "ええ",
-    "うん"
+    "ええ"
    ],
    "romaji": "hai",
    "mora": [
@@ -610,12 +595,19 @@
     "JLPT_3",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n5-b7966194",
+     "kana": "ええ",
+     "romaji": "ee"
+    }
    ]
   },
   {
    "id": "n5-6208a56d",
    "english": "half (e.g., にじはん | half-past two)",
-   "prompt": "half (e.g.",
+   "prompt": "half (e.g., にじはん | half-past two)",
    "kana": "はん",
    "written": [
     "半",
@@ -710,10 +702,7 @@
    "kana": "わたし",
    "written": [
     "私",
-    "わたし",
-    "わたくし",
-    "僕",
-    "ぼく"
+    "わたし"
    ],
    "romaji": "watashi",
    "mora": [
@@ -764,11 +753,10 @@
   {
    "id": "n5-af8fe633",
    "english": "that one (over there)",
-   "prompt": "that one",
+   "prompt": "that one (over there)",
    "kana": "あれ",
    "written": [
-    "あれ",
-    "それ"
+    "あれ"
    ],
    "romaji": "are",
    "mora": [
@@ -1131,6 +1119,13 @@
     "JLPT",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n5-0374abef",
+     "kana": "じびき",
+     "romaji": "jibiki"
+    }
    ]
   },
   {
@@ -1199,8 +1194,7 @@
    "prompt": "that one",
    "kana": "それ",
    "written": [
-    "それ",
-    "あれ"
+    "それ"
    ],
    "romaji": "sore",
    "mora": [
@@ -1273,6 +1267,13 @@
     "JLPT",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n5-69097659",
+     "kana": "どなた",
+     "romaji": "donata"
+    }
    ]
   },
   {
@@ -1444,6 +1445,13 @@
     "JLPT_3",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n5-dd51a345",
+     "kana": "どっち",
+     "romaji": "dotchi"
+    }
    ]
   },
   {
@@ -1643,36 +1651,6 @@
    ]
   },
   {
-   "id": "n5-b1fa407b",
-   "english": "morning",
-   "prompt": "morning",
-   "kana": "あさ",
-   "written": [
-    "朝",
-    "あさ",
-    "午前",
-    "ごぜん"
-   ],
-   "romaji": "asa",
-   "mora": [
-    "a",
-    "sa"
-   ],
-   "moraKana": [
-    "あ",
-    "さ"
-   ],
-   "tags": [
-    "Genki",
-    "Genki_Ln.3",
-    "Intermediate_Japanese",
-    "Intermediate_Japanese_Ln.2",
-    "JLPT",
-    "JLPT_5",
-    "JLPT_N5"
-   ]
-  },
-  {
    "id": "n5-18bb555d",
    "english": "breakfast",
    "prompt": "breakfast",
@@ -1734,6 +1712,13 @@
     "JLPT_3",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n4-e213b7c6",
+     "kana": "あす",
+     "romaji": "asu"
+    }
    ]
   },
   {
@@ -1743,9 +1728,7 @@
    "kana": "いえ",
    "written": [
     "家",
-    "いえ",
-    "お宅",
-    "おたく"
+    "いえ"
    ],
    "romaji": "ie",
    "mora": [
@@ -1818,6 +1801,13 @@
     "JLPT_3",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n5-d2c082d8",
+     "kana": "かてい",
+     "romaji": "katei"
+    }
    ]
   },
   {
@@ -1853,7 +1843,7 @@
   {
    "id": "n5-e2d50137",
    "english": "to get up (e.g., from sleeping); to happen",
-   "prompt": "to get up (e.g.",
+   "prompt": "to get up",
    "kana": "おきる",
    "written": [
     "起きる",
@@ -2175,6 +2165,13 @@
     "JLPT_2",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n5-8b5162f2",
+     "kana": "すくない",
+     "romaji": "sukunai"
+    }
    ]
   },
   {
@@ -2327,6 +2324,13 @@
     "JLPT",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n4-a73b02d6",
+     "kana": "ねむる",
+     "romaji": "nemuru"
+    }
    ]
   },
   {
@@ -2389,6 +2393,13 @@
     "JLPT",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n5-0ee6b272",
+     "kana": "ゆうはん",
+     "romaji": "yuuhan"
+    }
    ]
   },
   {
@@ -2515,9 +2526,7 @@
    "prompt": "you",
    "kana": "あなた",
    "written": [
-    "あなた",
-    "君",
-    "きみ"
+    "あなた"
    ],
    "romaji": "anata",
    "mora": [
@@ -2693,9 +2702,7 @@
    "kana": "くらす",
    "written": [
     "クラス",
-    "くらす",
-    "授業",
-    "じゅぎょう"
+    "くらす"
    ],
    "romaji": "kurasu",
    "mora": [
@@ -2809,15 +2816,11 @@
   {
    "id": "n5-e14162ce",
    "english": "child(ren)",
-   "prompt": "child",
+   "prompt": "child(ren)",
    "kana": "こども",
    "written": [
     "子供",
-    "こども",
-    "子",
-    "こ",
-    "お子さん",
-    "おこさん"
+    "こども"
    ],
    "romaji": "kodomo",
    "mora": [
@@ -3045,6 +3048,13 @@
     "JLPT",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n4-3b9ebcef",
+     "kana": "じ",
+     "romaji": "ji"
+    }
    ]
   },
   {
@@ -3083,8 +3093,7 @@
    "prompt": "why",
    "kana": "どうして",
    "written": [
-    "どうして",
-    "なぜ"
+    "どうして"
    ],
    "romaji": "doushite",
    "mora": [
@@ -3187,6 +3196,18 @@
     "JLPT",
     "JLPT_5",
     "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n5-d88fd1a9",
+     "kana": "おとこ",
+     "romaji": "otoko"
+    },
+    {
+     "id": "n4-4f782c5a",
+     "kana": "だんせい",
+     "romaji": "dansei"
+    }
    ]
   },
   {
@@ -3405,12 +3426,11 @@
   {
    "id": "n5-e8684d8b",
    "english": "hot (in reference to weather), warm",
-   "prompt": "hot",
+   "prompt": "hot (in reference to weather)",
    "kana": "あつい",
    "written": [
     "暑い",
-    "あつい",
-    "熱い"
+    "あつい"
    ],
    "romaji": "atsui",
    "mora": [
@@ -3436,12 +3456,11 @@
   {
    "id": "n5-7cbd2223",
    "english": "hot (objects)",
-   "prompt": "hot",
+   "prompt": "hot (objects)",
    "kana": "あつい",
    "written": [
     "熱い",
-    "あつい",
-    "暑い"
+    "あつい"
    ],
    "romaji": "atsui",
    "mora": [
@@ -3465,7 +3484,7 @@
   {
    "id": "n5-ac62a5e9",
    "english": "busy (people, days)",
-   "prompt": "busy (people",
+   "prompt": "busy",
    "kana": "いそがしい",
    "written": [
     "忙しい",
@@ -3543,6 +3562,75 @@
     "お",
     "き",
     "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.5",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ],
+   "alts": [
+    {
+     "id": "n5-3bc51f42",
+     "kana": "おおきな",
+     "romaji": "ookina"
+    }
+   ]
+  },
+  {
+   "id": "n5-dc5fa2ca",
+   "english": "interesting, amusing",
+   "prompt": "interesting",
+   "kana": "おもしろい",
+   "written": [
+    "面白い",
+    "おもしろい"
+   ],
+   "romaji": "omoshiroi",
+   "mora": [
+    "o",
+    "mo",
+    "shi",
+    "ro",
+    "i"
+   ],
+   "moraKana": [
+    "お",
+    "も",
+    "し",
+    "ろ",
+    "い"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.5",
+    "Intermediate_Japanese",
+    "Intermediate_Japanese_Ln.4",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-d10d2432",
+   "english": "to swim",
+   "prompt": "to swim",
+   "kana": "およぐ",
+   "written": [
+    "泳ぐ",
+    "およぐ"
+   ],
+   "romaji": "oyogu",
+   "mora": [
+    "o",
+    "yo",
+    "gu"
+   ],
+   "moraKana": [
+    "お",
+    "よ",
+    "ぐ"
    ],
    "tags": [
     "Genki",
