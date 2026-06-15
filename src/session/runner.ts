@@ -42,7 +42,9 @@ export interface RunnerDeps {
 const LISTEN_TIMEOUTS: Record<ListenKind, number> = {
   'teach-echo': 5000,
   'quiz-answer': 7000,
-  'self-grade': 6000,
+  // Short: the verdict is already in (missed), this is only the brief window
+  // to say "got it" and override. Don't make a real miss sit and wait.
+  'self-grade': 4000,
   resume: 10000,
 };
 
@@ -150,7 +152,7 @@ export class SessionRunner {
     const gen = ++this.listenGen;
     const timeoutMs = LISTEN_TIMEOUTS[kind];
     const degraded = this.state.degraded || !this.deps.srAvailable();
-    const degradedWaitMs = kind === 'self-grade' ? 8000 : kind === 'resume' ? 10000 : 300;
+    const degradedWaitMs = kind === 'self-grade' ? 5000 : kind === 'resume' ? 10000 : 300;
 
     // Last line of defense: if the listen somehow never produces an event
     // (recognizer wedged, exception below, …) force the session forward.

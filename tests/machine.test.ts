@@ -79,14 +79,22 @@ describe('session machine', () => {
     expect(s.state.counts.missed).toBe(1);
   });
 
-  it('self-grade retries once on timeout, then defaults to again', () => {
-    const s = run(start([quiz('w1')]), playDone, playDone, result('nomatch'), playDone);
-    const s2 = run(s, result('timeout'));
-    expect(s2.state.phase).toBe('self-grade-listening');
-    expect(s2.effects).toEqual([{ type: 'listen', kind: 'self-grade', wordId: 'w1' }]);
+  it('self-grade defaults to missed immediately — no retry/limbo', () => {
+    const s = run(start([quiz('w1'), quiz('w2')]), playDone, playDone, result('nomatch'), playDone);
+    expect(s.state.phase).toBe('self-grade-listening');
 
-    const s3 = run(s2, result('timeout'));
-    expect(s3.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'again', mode: 'timeout' });
+    const s2 = run(s, result('timeout'));
+    expect(s2.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'again', mode: 'timeout' });
+    expect(s2.state.counts.missed).toBe(1);
+    expect(s2.state.phase).toBe('quiz-playing'); // straight on to w2
+    expect(s2.state.idx).toBe(1);
+  });
+
+  it('self-grade "got it" overrides a missed answer to correct', () => {
+    const s = run(start([quiz('w1')]), playDone, playDone, result('nomatch'), playDone, result('gotit'));
+    expect(s.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'good', mode: 'self' });
+    expect(s.state.counts.correct).toBe(1);
+    expect(s.state.counts.missed).toBe(0);
   });
 
   it('skip during quiz listen rates again and advances', () => {

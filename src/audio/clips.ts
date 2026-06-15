@@ -35,14 +35,19 @@ export function correctSequence(w: Word): ClipItem[] {
   return [{ src: phraseClip('correct'), gapMs: 250 }, { src: jaClip(w.id) }];
 }
 
-/** Answer reveal followed by the self-grade question. */
+/**
+ * Wrong/unrecognized answer: clearly signal the miss, give the correct answer,
+ * then a brief "say got it if you knew it" override hint. The answer is graded
+ * as missed by default unless the user overrides.
+ */
 export function revealSequence(w: Word): ClipItem[] {
   return [
+    { src: phraseClip('not-quite'), gapMs: 250 },
     { src: phraseClip('the-answer-is'), gapMs: 300 },
     { src: jaClip(w.id), gapMs: 500 },
     { src: jaSlowClip(w.id), gapMs: 600 },
     { src: jaClip(w.id), gapMs: 600 },
-    { src: phraseClip('did-you-get-it') },
+    { src: phraseClip('knew-it') },
   ];
 }
 
@@ -51,7 +56,7 @@ export const phraseSequence = (key: string): ClipItem[] => [{ src: phraseClip(ke
 /** Every audio URL a session item set can need — used to warm the cache. */
 export function sessionClipUrls(words: Word[]): string[] {
   const urls = new Set<string>();
-  for (const key of ['in-japanese', 'repeat-after-me', 'how-do-you-say', 'correct', 'the-answer-is', 'did-you-get-it', 'session-start', 'session-done', 'paused', 'resuming']) {
+  for (const key of ['in-japanese', 'repeat-after-me', 'how-do-you-say', 'correct', 'not-quite', 'the-answer-is', 'knew-it', 'session-start', 'session-done', 'paused', 'resuming']) {
     urls.add(phraseClip(key));
   }
   for (const w of words) {

@@ -283,21 +283,17 @@ export function reduce(s: MachineState, ev: Event): Step {
       break;
 
     case 'self-grade-listening': {
+      // A revealed answer is a miss by default; "got it" is the override for a
+      // correct answer the recognizer didn't catch. Anything else (silence,
+      // an unrecognized utterance, an SR error) leaves it missed and moves on
+      // immediately — no retry, no waiting in limbo.
       if (outcome === 'gotit') return gradeSelf(s, 'good', 'self');
       if (outcome === 'missed') return gradeSelf(s, 'again', 'self');
       if (outcome === 'cmd-repeat') return toReveal(s);
       if (outcome === 'cmd-skip') return gradeSelf(s, 'again', 'skip');
-      if (outcome === 'denied' || outcome === 'unavailable') {
-        s = degrade(s);
-        // fall through to retry/timeout handling below
-      }
+      if (outcome === 'denied' || outcome === 'unavailable') s = degrade(s);
       if (outcome === 'error') s = bumpSrFailure(s);
-      if (outcome === 'timeout' || outcome === 'nomatch' || outcome === 'error' || outcome === 'denied' || outcome === 'unavailable') {
-        if (s.retries < 1) {
-          return step({ ...s, retries: s.retries + 1 }, { type: 'listen', kind: 'self-grade', wordId: currentItem(s)!.wordId });
-        }
-        return gradeSelf(s, 'again', 'timeout');
-      }
+      if (outcome) return gradeSelf(s, 'again', 'timeout');
       break;
     }
 
