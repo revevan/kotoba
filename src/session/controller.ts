@@ -13,6 +13,7 @@ import { cloudSttEnabled } from '../speech/sttConfig';
 import { mockAbort, mockListen, mockMode } from '../speech/mock';
 import { acquireWakeLock, keepWakeLockAlive, releaseWakeLock } from '../platform/wakeLock';
 import { warmupMic } from '../platform/unlock';
+import { requestPersistentStorage } from '../platform/storage';
 import type { Deck, Word } from '../types';
 import { buildQueue } from './queueBuilder';
 import { SessionRunner } from './runner';
@@ -35,6 +36,7 @@ import { getSetting, setSetting } from '../data/db';
 
 /** Restore persisted settings, then load deck/card data. */
 export async function initApp(): Promise<void> {
+  void requestPersistentStorage(); // don't block startup on it
   enabledDeckIds.value = await getSetting('enabledDecks', enabledDeckIds.value);
   newPerSession.value = await getSetting('newPerSession', newPerSession.value);
   maxReviews.value = await getSetting('maxReviews', maxReviews.value);
