@@ -1,0 +1,22 @@
+name = "kotoba-api"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+[vars]
+# The origin your app is served from (no trailing slash). Update if you move
+# the app to a custom domain.
+ALLOWED_ORIGIN = "https://revevan.github.io"
+APP_NAME = "Kotoba"
+# Set once your sending domain is verified in Resend, e.g.
+#   MAIL_FROM = "Kotoba <login@yourdomain.app>"
+# Until then it falls back to Resend's onboarding@resend.dev (your own inbox only).
+MAIL_FROM = "Kotoba <onboarding@resend.dev>"
+
+# Created with: wrangler d1 create kotoba  → paste the printed database_id here.
+[[d1_databases]]
+binding = "DB"
+database_name = "kotoba"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+# RESEND_API_KEY is a secret, set it with:
+#   wrangler secret put RESEND_API_KEY
