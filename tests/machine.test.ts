@@ -97,6 +97,17 @@ describe('session machine', () => {
     expect(s.state.counts.missed).toBe(0);
   });
 
+  it('recognized echo clears on the next word and ignores self-grade commands', () => {
+    // Wrong answer on w1 → reveal → "missed it" self-grade → on to w2.
+    let s = run(start([quiz('w1'), quiz('w2')]), playDone, playDone, result('nomatch', '一社'));
+    expect(s.state.lastRecognized).toBe('一社'); // shows what was heard on the miss
+    s = run(s, playDone, result('missed', 'Missed it.'));
+    // The self-grade phrase must not become the echo, and the new word starts clean.
+    expect(s.state.lastRecognized).not.toBe('Missed it.');
+    expect(s.state.phase).toBe('quiz-playing');
+    expect(s.state.lastRecognized).toBeNull();
+  });
+
   it('skip during quiz listen rates again and advances', () => {
     const s = run(start([quiz('w1'), quiz('w2')]), playDone, playDone, { type: 'tap', cmd: 'skip' });
     expect(s.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'again', mode: 'skip' });

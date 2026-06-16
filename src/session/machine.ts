@@ -97,6 +97,9 @@ export interface Step {
 
 const SR_FAILURE_LIMIT = 3;
 
+/** Outcomes that represent a spoken answer worth echoing on screen. */
+const WORD_ATTEMPT_OUTCOMES = new Set<ListenOutcome>(['match', 'nomatch', 'dontknow', 'speech']);
+
 export function initialState(): MachineState {
   return {
     phase: 'idle',
@@ -118,6 +121,8 @@ export function currentItem(s: MachineState): Item | undefined {
 const step = (state: MachineState, ...effects: Effect[]): Step => ({ state, effects });
 
 function enterItem(s: MachineState): Step {
+  // New item → clear the recognized-text echo so it never sticks to the next word.
+  s = { ...s, lastRecognized: null };
   const item = currentItem(s);
   if (!item) {
     return step({ ...s, phase: 'done' }, { type: 'play', kind: 'done' });
@@ -181,8 +186,10 @@ export function reduce(s: MachineState, ev: Event): Step {
     return step(fresh, { type: 'play', kind: 'intro' });
   }
 
-  if (ev.type === 'listenResult') {
-    s = { ...s, lastRecognized: ev.recognized ?? s.lastRecognized };
+  // Only echo what was heard for an actual word attempt — not "got it"/"missed
+  // it" self-grade commands, which otherwise stuck under the next word.
+  if (ev.type === 'listenResult' && ev.recognized && WORD_ATTEMPT_OUTCOMES.has(ev.outcome)) {
+    s = { ...s, lastRecognized: ev.recognized };
   }
 
   // Taps behave like the equivalent voice command in the current phase.
