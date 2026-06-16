@@ -9,6 +9,7 @@ import {
 } from '../audio/clips';
 import { dlog } from '../debug/log';
 import { gradeAnswer, isDontKnow } from '../matching/match';
+import { expandWithReadings } from '../matching/reading';
 import { parseCommand } from '../speech/commands';
 import type { ListenFn } from '../speech/recognizer';
 import {
@@ -185,7 +186,13 @@ export class SessionRunner {
       switch (res.kind) {
         case 'result': {
           recognized = res.alternatives[0];
-          outcome = this.classify(kind, res.alternatives, word);
+          // For spoken Japanese, also grade against the reading of each
+          // alternative so a kanji transcription still matches by pronunciation.
+          const graded =
+            kind === 'quiz-answer' || kind === 'teach-echo'
+              ? await expandWithReadings(res.alternatives)
+              : res.alternatives;
+          outcome = this.classify(kind, graded, word);
           break;
         }
         case 'timeout':

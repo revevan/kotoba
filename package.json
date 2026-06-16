@@ -12,6 +12,7 @@
     "gen-audio": "tsx tools/gen-audio.ts"
   },
   "dependencies": {
+    "@patdx/kuromoji": "^1.0.4",
     "@preact/signals": "^2.0.0",
     "idb": "^8.0.0",
     "preact": "^10.25.0",

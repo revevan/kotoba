@@ -14,6 +14,7 @@ import { mockAbort, mockListen, mockMode } from '../speech/mock';
 import { acquireWakeLock, keepWakeLockAlive, releaseWakeLock } from '../platform/wakeLock';
 import { warmupMic } from '../platform/unlock';
 import { requestPersistentStorage } from '../platform/storage';
+import { initReadingAnalyzer } from '../matching/reading';
 import { syncOnLoad, syncPush } from '../sync/sync';
 import type { Deck, Word } from '../types';
 import { buildQueue } from './queueBuilder';
@@ -109,6 +110,7 @@ export async function startSession(): Promise<void> {
   if (cloudSttEnabled) primeCloudAudio(); // resume AudioContext inside the gesture
 
   void acquireWakeLock();
+  initReadingAnalyzer(); // load the kanji→reading dictionary in the background
   if (!mockMode) await warmupMic();
 
   const words = wordMap(loadedDecks);

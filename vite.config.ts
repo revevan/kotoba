@@ -54,6 +54,17 @@ export default defineConfig({
             handler: 'StaleWhileRevalidate',
             options: { cacheName: 'kotoba-decks' },
           },
+          {
+            // kuromoji dictionary on jsDelivr — cache so kanji→reading grading
+            // keeps working offline after the first load.
+            urlPattern: ({ url }) => url.href.includes('cdn.jsdelivr.net') && url.pathname.includes('/dict/'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'kotoba-dict',
+              expiration: { maxEntries: 20 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
         ],
       },
     }),
