@@ -7,16 +7,15 @@ compatibility_date = "2024-11-01"
 # the app to a custom domain.
 ALLOWED_ORIGIN = "https://revevan.github.io"
 APP_NAME = "Kotoba"
-# Set once your sending domain is verified in Resend, e.g.
-#   MAIL_FROM = "Kotoba <login@yourdomain.app>"
-# Until then it falls back to Resend's onboarding@resend.dev (your own inbox only).
-MAIL_FROM = "Kotoba <onboarding@resend.dev>"
+# Requires kotobaapp.com to be verified in Resend (add the DNS records Resend
+# shows, in the domain's Cloudflare DNS). Until verified, Resend only delivers
+# to your own account email.
+MAIL_FROM = "Kotoba <login@kotobaapp.com>"
 
-# Created with: wrangler d1 create kotoba  → paste the printed database_id here.
 [[d1_databases]]
 binding = "DB"
 database_name = "kotoba"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "e416814c-b776-4a1f-9f39-66af94446d11"
 
 # RESEND_API_KEY is a secret, set it with:
 #   wrangler secret put RESEND_API_KEY

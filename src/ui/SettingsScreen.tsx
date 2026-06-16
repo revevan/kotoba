@@ -1,8 +1,11 @@
 import { useRef, useState } from 'preact/hooks';
-import { maxReviews, newPerSession, screen, voiceEcho } from '../state';
+import { auth, enteredApp, maxReviews, newPerSession, screen, syncStatus, voiceEcho } from '../state';
 import { updateSetting } from '../session/controller';
 import { downloadBackup, importBackup } from '../data/backup';
 import { loadHomeData } from '../session/controller';
+import { syncPush } from '../sync/sync';
+import { cloudSyncEnabled } from '../sync/config';
+import { logout } from '../sync/client';
 
 export function SettingsScreen() {
   const fileRef = useRef<HTMLInputElement>(null);
@@ -18,6 +21,13 @@ export function SettingsScreen() {
     }
   };
 
+  const signOut = async () => {
+    const a = auth.value;
+    auth.value = null;
+    if (a) await logout(a.token);
+    screen.value = 'home';
+  };
+
   return (
     <div class="screen settings">
       <header>
@@ -26,6 +36,32 @@ export function SettingsScreen() {
         </button>
         <h1>Settings</h1>
       </header>
+
+      {cloudSyncEnabled && (
+        <div class="account">
+          {auth.value ? (
+            <>
+              <p class="hint">
+                Signed in as <strong>{auth.value.email}</strong> · sync {syncStatus.value}
+              </p>
+              <div class="row buttons">
+                <button onClick={() => void syncPush()}>Sync now</button>
+                <button onClick={() => void signOut()}>Sign out</button>
+              </div>
+            </>
+          ) : (
+            <div class="row buttons">
+              <button
+                onClick={() => {
+                  enteredApp.value = false; // return to the landing/sign-in screen
+                }}
+              >
+                Sign in to sync across devices
+              </button>
+            </div>
+          )}
+        </div>
+      )}
 
       <label class="row">
         <span>New words per session</span>

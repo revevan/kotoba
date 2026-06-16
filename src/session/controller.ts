@@ -14,6 +14,7 @@ import { mockAbort, mockListen, mockMode } from '../speech/mock';
 import { acquireWakeLock, keepWakeLockAlive, releaseWakeLock } from '../platform/wakeLock';
 import { warmupMic } from '../platform/unlock';
 import { requestPersistentStorage } from '../platform/storage';
+import { syncOnLoad, syncPush } from '../sync/sync';
 import type { Deck, Word } from '../types';
 import { buildQueue } from './queueBuilder';
 import { SessionRunner } from './runner';
@@ -37,6 +38,17 @@ import { getSetting, setSetting } from '../data/db';
 /** Restore persisted settings, then load deck/card data. */
 export async function initApp(): Promise<void> {
   void requestPersistentStorage(); // don't block startup on it
+  enabledDeckIds.value = await getSetting('enabledDecks', enabledDeckIds.value);
+  newPerSession.value = await getSetting('newPerSession', newPerSession.value);
+  maxReviews.value = await getSetting('maxReviews', maxReviews.value);
+  voiceEcho.value = await getSetting('voiceEcho', voiceEcho.value);
+  await syncOnLoad(); // pull + merge cloud progress if signed in
+  await loadHomeData();
+}
+
+/** After a fresh sign-in: pull cloud progress, restore settings, refresh home. */
+export async function afterSignIn(): Promise<void> {
+  await syncOnLoad();
   enabledDeckIds.value = await getSetting('enabledDecks', enabledDeckIds.value);
   newPerSession.value = await getSetting('newPerSession', newPerSession.value);
   maxReviews.value = await getSetting('maxReviews', maxReviews.value);
@@ -145,6 +157,7 @@ export async function startSession(): Promise<void> {
     },
     onEnded: () => {
       void loadHomeData();
+      void syncPush(); // back up the session's progress to the cloud
     },
   });
 
@@ -164,4 +177,5 @@ export function endSession(): void {
   void releaseWakeLock();
   screen.value = 'home';
   void loadHomeData();
+  void syncPush(); // back up whatever was reviewed before ending
 }

@@ -1,10 +1,18 @@
-import { signal } from '@preact/signals';
+import { effect, signal } from '@preact/signals';
 import type { MachineState } from './session/machine';
 import type { DeckInfo, Word } from './types';
+import { loadAuth, persistAuth, type Auth } from './sync/client';
 
 export type Screen = 'home' | 'session' | 'settings';
 
 export const screen = signal<Screen>('home');
+
+// Account / sync
+export const auth = signal<Auth | null>(loadAuth());
+effect(() => persistAuth(auth.value)); // keep localStorage in sync with the signal
+/** Set when a guest chooses to use the app without an account. */
+export const enteredApp = signal(false);
+export const syncStatus = signal<'idle' | 'syncing' | 'done' | 'error'>('idle');
 
 // Home data
 export const deckIndex = signal<DeckInfo[]>([]);
