@@ -59,9 +59,9 @@ export default {
 };
 
 async function transcribe(audio, language, apiKey) {
-  // Single-word vocab answers: raw transcription (no smart formatting, which
-  // adds punctuation and biases toward formatted kanji over plain readings).
-  const params = new URLSearchParams({ model: 'nova-2', language, smart_format: 'false', punctuate: 'false' });
+  // smart_format on gave better word accuracy in testing; the kanji→reading
+  // analyzer handles kanji output, so formatting no longer needs to be off.
+  const params = new URLSearchParams({ model: 'nova-2', language, smart_format: 'true', punctuate: 'false' });
   const resp = await fetch(`https://api.deepgram.com/v1/listen?${params}`, {
     method: 'POST',
     headers: {

@@ -22,8 +22,10 @@ interface WebkitWindow extends Window {
 
 const VAD_BASE: Omit<VadConfig, 'noSpeechTimeoutMs'> = {
   threshold: 0.02,
-  trailingSilenceMs: 900,
-  maxUtteranceMs: 5000,
+  trailingSilenceMs: 700,
+  // Cap the clip short: answers are one word / one command, so a longer window
+  // just feeds Deepgram seconds of ambient noise and echo in a noisy car.
+  maxUtteranceMs: 2500,
 };
 
 let audioCtx: AudioContext | null = null;
