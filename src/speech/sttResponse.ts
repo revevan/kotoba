@@ -1,9 +1,10 @@
 import type { SRResult } from './recognizer';
 
-/** Shape returned by the STT proxy: { transcript, confidence? }. */
+/** Shape returned by the STT proxy: { transcript, confidence?, duration? }. */
 export interface SttProxyResponse {
   transcript?: unknown;
   confidence?: unknown;
+  duration?: unknown;
   error?: unknown;
 }
 

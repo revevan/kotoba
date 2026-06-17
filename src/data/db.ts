@@ -51,6 +51,18 @@ export async function getAllReviews(): Promise<ReviewRow[]> {
   return (await db()).getAll('reviews');
 }
 
+/** Keep only the most recent `keep` reviews (autoIncrement keys are ascending,
+ * so the oldest sort first). Bounds the local audit log; earlier syncs had
+ * duplicated it badly. */
+export async function pruneReviews(keep = 1000): Promise<void> {
+  const d = await db();
+  const keys = await d.getAllKeys('reviews');
+  if (keys.length <= keep) return;
+  const tx = d.transaction('reviews', 'readwrite');
+  for (const k of keys.slice(0, keys.length - keep)) await tx.store.delete(k);
+  await tx.done;
+}
+
 export async function getSetting<T>(key: string, fallback: T): Promise<T> {
   const v = await (await db()).get('settings', key);
   return v === undefined ? fallback : (v as T);

@@ -2,7 +2,7 @@
 // reuses the local backup import (newer review wins), so the server only needs
 // to store the latest blob per user.
 
-import { exportBackup, importBackup } from '../data/backup';
+import { exportSyncData, importSyncData, type SyncData } from '../data/backup';
 import { auth, syncStatus } from '../state';
 import { cloudSyncEnabled } from './config';
 import { pullRemote, pushRemote } from './client';
@@ -22,8 +22,8 @@ export async function syncOnLoad(): Promise<void> {
   try {
     syncStatus.value = 'syncing';
     const remote = await pullRemote(a.token);
-    if (remote) await importBackup(JSON.stringify(remote));
-    await pushRemote(a.token, JSON.parse(await exportBackup()));
+    if (remote) await importSyncData(remote as SyncData);
+    await pushRemote(a.token, await exportSyncData());
     syncStatus.value = 'done';
     dlog('sync', 'load sync complete');
   } catch (e) {
@@ -39,7 +39,7 @@ export async function syncPush(): Promise<void> {
   if (!cloudSyncEnabled || !a) return;
   try {
     syncStatus.value = 'syncing';
-    await pushRemote(a.token, JSON.parse(await exportBackup()));
+    await pushRemote(a.token, await exportSyncData());
     syncStatus.value = 'done';
     dlog('sync', 'push complete');
   } catch (e) {

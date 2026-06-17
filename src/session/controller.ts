@@ -34,11 +34,12 @@ import {
   sessionWord,
   voiceEcho,
 } from '../state';
-import { getSetting, setSetting } from '../data/db';
+import { getSetting, pruneReviews, setSetting } from '../data/db';
 
 /** Restore persisted settings, then load deck/card data. */
 export async function initApp(): Promise<void> {
   void requestPersistentStorage(); // don't block startup on it
+  void pruneReviews(); // trim any leftover duplicated review history
   enabledDeckIds.value = await getSetting('enabledDecks', enabledDeckIds.value);
   newPerSession.value = await getSetting('newPerSession', newPerSession.value);
   maxReviews.value = await getSetting('maxReviews', maxReviews.value);

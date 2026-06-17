@@ -50,8 +50,8 @@ export default {
 
     const language = LANG_MAP[lang] || 'ja';
     try {
-      const transcript = await transcribe(audio, language, env.DEEPGRAM_API_KEY);
-      return json({ transcript }, 200, cors);
+      const result = await transcribe(audio, language, env.DEEPGRAM_API_KEY);
+      return json(result, 200, cors);
     } catch (e) {
       return json({ error: 'upstream', detail: String(e) }, 502, cors);
     }
@@ -72,7 +72,15 @@ async function transcribe(audio, language, apiKey) {
   });
   if (!resp.ok) throw new Error(`deepgram ${resp.status}`);
   const data = await resp.json();
-  return data?.results?.channels?.[0]?.alternatives?.[0]?.transcript ?? '';
+  const alt = data?.results?.channels?.[0]?.alternatives?.[0];
+  // confidence + decoded duration are diagnostic: duration ~0 means the audio
+  // didn't decode; duration ok + empty transcript means it decoded but Deepgram
+  // heard no words.
+  return {
+    transcript: alt?.transcript ?? '',
+    confidence: alt?.confidence ?? null,
+    duration: data?.metadata?.duration ?? null,
+  };
 }
 
 function json(body, status, cors) {

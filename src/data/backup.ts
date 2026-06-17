@@ -19,6 +19,29 @@ export async function exportBackup(): Promise<string> {
   return JSON.stringify(backup, null, 2);
 }
 
+/** Payload synced to the cloud: cards + settings only (the study state). The
+ * raw review log is intentionally excluded — it's an append-only audit trail
+ * that would balloon the blob and duplicate on every merge. */
+export interface SyncData {
+  cards: CardRow[];
+  settings: Record<string, unknown>;
+}
+
+export async function exportSyncData(): Promise<SyncData> {
+  return { cards: await getAllCards(), settings: await getAllSettings() };
+}
+
+export async function importSyncData(data: SyncData): Promise<void> {
+  const existing = new Map((await getAllCards()).map((c) => [c.wordId, c]));
+  for (const row of data.cards ?? []) {
+    const cur = existing.get(row.wordId);
+    const incoming = row.card.last_review ? new Date(row.card.last_review).getTime() : 0;
+    const current = cur?.card.last_review ? new Date(cur.card.last_review).getTime() : -1;
+    if (!cur || incoming > current) await putCard(row);
+  }
+  for (const [k, v] of Object.entries(data.settings ?? {})) await setSetting(k, v);
+}
+
 export async function downloadBackup(): Promise<void> {
   const blob = new Blob([await exportBackup()], { type: 'application/json' });
   const url = URL.createObjectURL(blob);

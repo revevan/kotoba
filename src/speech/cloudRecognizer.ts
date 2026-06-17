@@ -21,7 +21,7 @@ interface WebkitWindow extends Window {
 }
 
 const VAD_BASE: Omit<VadConfig, 'noSpeechTimeoutMs'> = {
-  threshold: 0.02,
+  threshold: 0.015,
   trailingSilenceMs: 700,
   // Cap the clip short: answers are one word / one command, so a longer window
   // just feeds Deepgram seconds of ambient noise and echo in a noisy car.
@@ -109,6 +109,7 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
     let recorder: MediaRecorder | null = null;
     const chunks: BlobPart[] = [];
     let vad: VadState = { speechStarted: false, lastVoiceMs: null };
+    let peak = 0; // loudest frame seen, for diagnosing missed speech
     const startedAt = performance.now();
     const cfg: VadConfig = { ...VAD_BASE, noSpeechTimeoutMs: opts.timeoutMs };
 
@@ -146,7 +147,9 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
       }
       const type = recorder?.mimeType || 'audio/mp4';
       const blob = new Blob(chunks, { type });
+      const clipMs = Math.round(performance.now() - startedAt);
       if (blob.size < 1200) {
+        dlog('cstt', `no-speech: clip too small (${blob.size}B, ${clipMs}ms, peak=${peak.toFixed(3)})`);
         finish({ kind: 'no-speech' });
         return;
       }
@@ -154,18 +157,19 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
         const form = new FormData();
         form.append('audio', blob, `clip${extFor(type)}`);
         form.append('lang', opts.lang);
-        dlog('cstt', `POST ${Math.round(blob.size / 1024)}KB ${opts.lang}`);
+        dlog('cstt', `POST ${Math.round(blob.size / 1024)}KB ${opts.lang} ${type} ${clipMs}ms peak=${peak.toFixed(3)}`);
         const ctrl = new AbortController();
         const httpTimer = setTimeout(() => ctrl.abort(), 8000);
         const resp = await fetch(sttEndpoint, { method: 'POST', body: form, signal: ctrl.signal });
         clearTimeout(httpTimer);
-        let body: unknown = null;
+        let body: Record<string, unknown> | null = null;
         try {
-          body = await resp.json();
+          body = (await resp.json()) as Record<string, unknown>;
         } catch {
           /* non-JSON body */
         }
-        finish(mapProxyResponse(resp.status, body as Record<string, unknown> | null));
+        dlog('cstt', `deepgram tx="${body?.transcript ?? ''}" conf=${body?.confidence ?? '?'} dur=${body?.duration ?? '?'}`);
+        finish(mapProxyResponse(resp.status, body));
       } catch (e) {
         dlog('cstt', `transcribe failed: ${e}`);
         finish({ kind: 'error', code: 'network' });
@@ -208,10 +212,14 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
       if (settled || stopping) return;
       analyser.getByteTimeDomainData(frame);
       const now = performance.now();
-      const r = vadStep(vad, rmsLevel(frame), now, startedAt, cfg);
+      const level = rmsLevel(frame);
+      if (level > peak) peak = level;
+      const r = vadStep(vad, level, now, startedAt, cfg);
       vad = r.state;
-      if (r.decision === 'stop-no-speech') finish({ kind: 'no-speech' });
-      else if (r.decision === 'stop-utterance') stopAndSend();
+      if (r.decision === 'stop-no-speech') {
+        dlog('cstt', `no-speech: mic never crossed threshold (peak=${peak.toFixed(3)}, thr=${cfg.threshold})`);
+        finish({ kind: 'no-speech' });
+      } else if (r.decision === 'stop-utterance') stopAndSend();
     }, 50);
   });
 }
