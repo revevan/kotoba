@@ -117,9 +117,10 @@ function deckIdOf(wordId: string): string {
 
 async function rate(wordId: string, rating: 'good' | 'again', mode: 'auto' | 'self' | 'skip' | 'timeout', recognized?: string): Promise<void> {
   const row = (await getCard(wordId)) ?? { wordId, deckId: deckIdOf(wordId), card: newCard(), addedAt: Date.now() };
+  const state = row.card.state; // capture pre-rating state for the review log
   row.card = rateCard(row.card, rating);
   await putCard(row);
-  await logReview({ wordId, rating, mode, recognized, ts: Date.now() });
+  await logReview({ wordId, rating, mode, state, recognized, ts: Date.now() });
 }
 
 /** Must be called directly from the START tap handler (audio unlock). */

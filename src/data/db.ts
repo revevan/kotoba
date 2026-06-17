@@ -12,6 +12,8 @@ export interface ReviewRow {
   wordId: string;
   rating: 'good' | 'again';
   mode: 'auto' | 'self' | 'skip' | 'timeout';
+  /** FSRS card state at review time (0 New, 1 Learning, 2 Review, 3 Relearning). */
+  state?: number;
   recognized?: string;
   ts: number;
 }
@@ -60,10 +62,10 @@ export async function clearProgress(): Promise<void> {
   await tx.done;
 }
 
-/** Keep only the most recent `keep` reviews (autoIncrement keys are ascending,
- * so the oldest sort first). Bounds the local audit log; earlier syncs had
- * duplicated it badly. */
-export async function pruneReviews(keep = 1000): Promise<void> {
+/** Safety bound on the local review log (autoIncrement keys ascending → oldest
+ * first). Kept high: the review history is the training data for a future FSRS
+ * weight optimization, so we retain years of it rather than discard it. */
+export async function pruneReviews(keep = 50000): Promise<void> {
   const d = await db();
   const keys = await d.getAllKeys('reviews');
   if (keys.length <= keep) return;
