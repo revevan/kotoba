@@ -21,7 +21,7 @@ interface WebkitWindow extends Window {
 }
 
 const VAD_BASE: Omit<VadConfig, 'noSpeechTimeoutMs'> = {
-  threshold: 0.015,
+  threshold: 0.01,
   trailingSilenceMs: 700,
   // Cap the clip short: answers are one word / one command, so a longer window
   // just feeds Deepgram seconds of ambient noise and echo in a noisy car.
@@ -82,8 +82,11 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
 
   let stream: MediaStream;
   try {
+    // autoGainControl normalizes quiet mic input (e.g. AirPods) up to a usable
+    // level — without it, soft-spoken answers reached Deepgram too quiet to
+    // transcribe (observed: success above ~0.13 RMS, empty below ~0.10).
     stream = await navigator.mediaDevices.getUserMedia({
-      audio: { echoCancellation: true, noiseSuppression: true },
+      audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
     });
   } catch (e) {
     dlog('cstt', `getUserMedia failed: ${e}`);
