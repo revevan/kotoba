@@ -22,8 +22,8 @@ export const newAvailable = signal(0);
 export const loadError = signal<string | null>(null);
 
 // Settings
-export const newPerSession = signal(5);
-export const maxReviews = signal(30);
+export const newPerDay = signal(5); // cap on new words introduced per calendar day
+export const maxReviews = signal(30); // cap on reviews per session
 export const voiceEcho = signal(true);
 
 // Live session

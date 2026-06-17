@@ -3,7 +3,11 @@ import { createEmptyCard, fsrs, Rating, type Card } from 'ts-fsrs';
 export type { Card };
 export { Rating };
 
-const f = fsrs({ enable_fuzz: true });
+// No short learning/relearning steps: this app is used every few days, not
+// many times a day, so a new word's first correct answer should schedule it
+// ~2 days out (and grow from there) rather than 15 minutes out — otherwise
+// every word stays perpetually "due" until it graduates, inflating the queue.
+const f = fsrs({ enable_fuzz: true, learning_steps: [], relearning_steps: [] });
 
 export type SimpleRating = 'good' | 'again';
 

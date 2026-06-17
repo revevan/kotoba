@@ -27,7 +27,7 @@ import {
   loadError,
   maxReviews,
   newAvailable,
-  newPerSession,
+  newPerDay,
   prefetchProgress,
   screen,
   sessionState,
@@ -36,14 +36,19 @@ import {
 } from '../state';
 import { clearProgress, getSetting, pruneReviews, setSetting } from '../data/db';
 
+async function restoreSettings(): Promise<void> {
+  enabledDeckIds.value = await getSetting('enabledDecks', enabledDeckIds.value);
+  // 'newPerDay' replaced the old 'newPerSession' key; fall back for older saves.
+  newPerDay.value = await getSetting('newPerDay', await getSetting('newPerSession', newPerDay.value));
+  maxReviews.value = await getSetting('maxReviews', maxReviews.value);
+  voiceEcho.value = await getSetting('voiceEcho', voiceEcho.value);
+}
+
 /** Restore persisted settings, then load deck/card data. */
 export async function initApp(): Promise<void> {
   void requestPersistentStorage(); // don't block startup on it
   void pruneReviews(); // trim any leftover duplicated review history
-  enabledDeckIds.value = await getSetting('enabledDecks', enabledDeckIds.value);
-  newPerSession.value = await getSetting('newPerSession', newPerSession.value);
-  maxReviews.value = await getSetting('maxReviews', maxReviews.value);
-  voiceEcho.value = await getSetting('voiceEcho', voiceEcho.value);
+  await restoreSettings();
   await syncOnLoad(); // pull + merge cloud progress if signed in
   await loadHomeData();
 }
@@ -51,20 +56,17 @@ export async function initApp(): Promise<void> {
 /** After a fresh sign-in: pull cloud progress, restore settings, refresh home. */
 export async function afterSignIn(): Promise<void> {
   await syncOnLoad();
-  enabledDeckIds.value = await getSetting('enabledDecks', enabledDeckIds.value);
-  newPerSession.value = await getSetting('newPerSession', newPerSession.value);
-  maxReviews.value = await getSetting('maxReviews', maxReviews.value);
-  voiceEcho.value = await getSetting('voiceEcho', voiceEcho.value);
+  await restoreSettings();
   await loadHomeData();
 }
 
-export async function updateSetting(key: 'enabledDecks' | 'newPerSession' | 'maxReviews' | 'voiceEcho', value: unknown): Promise<void> {
+export async function updateSetting(key: 'enabledDecks' | 'newPerDay' | 'maxReviews' | 'voiceEcho', value: unknown): Promise<void> {
   if (key === 'enabledDecks') enabledDeckIds.value = value as string[];
-  if (key === 'newPerSession') newPerSession.value = value as number;
+  if (key === 'newPerDay') newPerDay.value = value as number;
   if (key === 'maxReviews') maxReviews.value = value as number;
   if (key === 'voiceEcho') voiceEcho.value = value as boolean;
   await setSetting(key, value);
-  if (key === 'enabledDecks') await loadHomeData();
+  if (key === 'enabledDecks' || key === 'newPerDay') await loadHomeData();
 }
 
 const player = new Player();
@@ -72,6 +74,19 @@ let runner: SessionRunner | null = null;
 let loadedDecks: Deck[] = [];
 
 keepWakeLockAlive();
+
+function startOfTodayMs(now = new Date()): number {
+  const d = new Date(now);
+  d.setHours(0, 0, 0, 0);
+  return d.getTime();
+}
+
+/** How many more new words may be introduced today, given what's already been
+ * studied today and the per-day cap. */
+function newQuotaToday(cards: { addedAt: number }[], now = new Date()): number {
+  const learnedToday = cards.filter((c) => c.addedAt >= startOfTodayMs(now)).length;
+  return Math.max(0, newPerDay.value - learnedToday);
+}
 
 export async function loadHomeData(): Promise<void> {
   try {
@@ -85,7 +100,9 @@ export async function loadHomeData(): Promise<void> {
     const cardIds = new Set(cards.map((c) => c.wordId));
     const now = new Date();
     dueCount.value = cards.filter((c) => words.has(c.wordId) && isDue(c.card, now)).length;
-    newAvailable.value = [...words.keys()].filter((id) => !cardIds.has(id)).length;
+    const newInDeck = [...words.keys()].filter((id) => !cardIds.has(id)).length;
+    // What's actually startable today: deck-available new words, capped by the daily quota.
+    newAvailable.value = Math.min(newInDeck, newQuotaToday(cards, now));
   } catch (e) {
     loadError.value = e instanceof Error ? e.message : String(e);
   }
@@ -130,12 +147,16 @@ export async function startSession(): Promise<void> {
     .slice(0, maxReviews.value)
     .map((c) => c.wordId);
 
+  // Daily cap: only introduce up to (newPerDay − already studied today) words,
+  // so multiple sessions in one day can't blow past the limit.
+  const quota = newQuotaToday(cards, now);
   const fresh: string[] = [];
   for (const deck of loadedDecks) {
     for (const w of deck.words) {
-      if (fresh.length >= newPerSession.value) break;
+      if (fresh.length >= quota) break;
       if (!cardIds.has(w.id) && !fresh.includes(w.id)) fresh.push(w.id);
     }
+    if (fresh.length >= quota) break;
   }
 
   // No cards are created up front — a word only enters the schedule once its

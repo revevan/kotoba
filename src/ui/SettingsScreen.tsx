@@ -1,5 +1,5 @@
 import { useRef, useState } from 'preact/hooks';
-import { auth, enteredApp, maxReviews, newPerSession, screen, syncStatus, voiceEcho } from '../state';
+import { auth, enteredApp, maxReviews, newPerDay, screen, syncStatus, voiceEcho } from '../state';
 import { resetProgress, updateSetting } from '../session/controller';
 import { downloadBackup, importBackup } from '../data/backup';
 import { loadHomeData } from '../session/controller';
@@ -78,13 +78,13 @@ export function SettingsScreen() {
       )}
 
       <label class="row">
-        <span>New words per session</span>
+        <span>New words per day</span>
         <input
           type="number"
           min={0}
           max={20}
-          value={newPerSession.value}
-          onChange={(e) => void updateSetting('newPerSession', Number((e.currentTarget as HTMLInputElement).value))}
+          value={newPerDay.value}
+          onChange={(e) => void updateSetting('newPerDay', Number((e.currentTarget as HTMLInputElement).value))}
         />
       </label>
 

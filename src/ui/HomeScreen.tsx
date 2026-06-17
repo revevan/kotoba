@@ -1,4 +1,4 @@
-import { deckIndex, dueCount, enabledDeckIds, loadError, newAvailable, newPerSession, screen } from '../state';
+import { deckIndex, dueCount, enabledDeckIds, loadError, newAvailable, screen } from '../state';
 import { startSession, updateSetting } from '../session/controller';
 
 export function HomeScreen() {
@@ -10,7 +10,7 @@ export function HomeScreen() {
     void updateSetting('enabledDecks', next);
   };
 
-  const nothingToDo = dueCount.value === 0 && Math.min(newAvailable.value, newPerSession.value) === 0;
+  const nothingToDo = dueCount.value === 0 && newAvailable.value === 0;
 
   return (
     <div class="screen home">
@@ -29,8 +29,8 @@ export function HomeScreen() {
           <span class="label">due</span>
         </div>
         <div class="stat">
-          <span class="num">{Math.min(newAvailable.value, newPerSession.value)}</span>
-          <span class="label">new</span>
+          <span class="num">{newAvailable.value}</span>
+          <span class="label">new today</span>
         </div>
       </div>
 
