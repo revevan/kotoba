@@ -28,7 +28,10 @@ const PHRASES: Record<string, string> = {
   'the-answer-is': 'The answer is —',
   'knew-it': 'Say — got it — or — missed it.',
   'also-hear': 'You may also hear —',
-  'paused': "Paused. Say resume when you're ready.",
+  // "resume" is a heteronym and the neural voice reads it as the noun "résumé".
+  // The free Edge endpoint rejects SSML <phoneme>, so spell it phonetically to
+  // force the verb /rɪˈzum/. (On-screen the button still reads "Resume".)
+  'paused': "Paused. Press rezoom when you're ready.",
   'resuming': 'Resuming!',
   'session-done': 'Session complete. Great work!',
 };
