@@ -7,13 +7,14 @@ import { mapProxyResponse, rmsLevel, vadStep, type VadConfig, type VadState } fr
  * Cloud speech-to-text recognizer — a drop-in replacement for the WebKit Web
  * Speech `listen()` that bypasses iOS Safari's unreliable speech service.
  *
- * Each listen opens the mic with getUserMedia, records with MediaRecorder, and
- * uses a WebAudio AnalyserNode for voice-activity detection: we only send audio
- * once speech is heard and stop shortly after it falls silent, then POST the
- * clip to the configured proxy (which holds the API key) for transcription.
- *
- * No WebKit speech service means none of its failure modes: no dead second
- * pickup, no system dictation chimes, and consistent Japanese accuracy.
+ * The microphone is opened ONCE per session and kept hot (see ensureMic): on
+ * iOS a freshly-opened getUserMedia stream has a ~1–2s dead period before real
+ * audio flows, which silently swallowed short answers — most visibly the
+ * 4-second self-grade window right after the app finished speaking. A persistent
+ * stream removes that dead period entirely. Each listen just attaches a fresh
+ * MediaRecorder, uses a WebAudio AnalyserNode for voice-activity detection
+ * (send only once speech is heard, stop shortly after silence), and POSTs the
+ * clip to the proxy (which holds the API key) for transcription.
  */
 
 interface WebkitWindow extends Window {
@@ -24,13 +25,18 @@ const VAD_BASE: Omit<VadConfig, 'noSpeechTimeoutMs'> = {
   threshold: 0.01,
   trailingSilenceMs: 700,
   // Cap the clip short: answers are one word / one command, so a longer window
-  // just feeds Deepgram seconds of ambient noise and echo in a noisy car.
+  // just feeds Deepgram seconds of ambient noise in a noisy car.
   maxUtteranceMs: 2500,
 };
 
 let audioCtx: AudioContext | null = null;
 let listenSeq = 0;
 let activeAbort: (() => void) | null = null;
+
+// Persistent mic for the session.
+let micStream: MediaStream | null = null;
+let micSource: MediaStreamAudioSourceNode | null = null;
+let micAnalyser: AnalyserNode | null = null;
 
 export function cloudSrAvailable(): boolean {
   return (
@@ -52,6 +58,52 @@ export function primeCloudAudio(): void {
   } catch {
     /* best effort */
   }
+}
+
+function micLive(): boolean {
+  return !!micStream && micStream.getAudioTracks().some((t) => t.readyState === 'live');
+}
+
+/** Acquire (or reuse) the persistent mic + analyser. Returns null on failure. */
+async function ensureMic(): Promise<AnalyserNode | null> {
+  if (micLive() && micAnalyser) return micAnalyser;
+  cloudReleaseMic(); // clear any half-dead state
+
+  try {
+    micStream = await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+    });
+  } catch (e) {
+    dlog('cstt', `getUserMedia failed: ${e}`);
+    micStream = null;
+    return null;
+  }
+
+  primeCloudAudio();
+  if (!audioCtx) return null;
+  micSource = audioCtx.createMediaStreamSource(micStream);
+  micAnalyser = audioCtx.createAnalyser();
+  micAnalyser.fftSize = 1024;
+  micSource.connect(micAnalyser);
+  dlog('cstt', 'mic acquired (persistent)');
+  return micAnalyser;
+}
+
+/** Warm the mic at session start so the first answer doesn't hit a cold stream. */
+export async function primeMic(): Promise<void> {
+  await ensureMic();
+}
+
+export function cloudReleaseMic(): void {
+  try {
+    micSource?.disconnect();
+  } catch {
+    /* already gone */
+  }
+  micStream?.getTracks().forEach((t) => t.stop());
+  micStream = null;
+  micSource = null;
+  micAnalyser = null;
 }
 
 export function cloudAbort(): void {
@@ -80,29 +132,10 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
   const seq = ++listenSeq;
   activeAbort?.();
 
-  let stream: MediaStream;
-  try {
-    // autoGainControl normalizes quiet mic input (e.g. AirPods) up to a usable
-    // level — without it, soft-spoken answers reached Deepgram too quiet to
-    // transcribe (observed: success above ~0.13 RMS, empty below ~0.10).
-    stream = await navigator.mediaDevices.getUserMedia({
-      audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
-    });
-  } catch (e) {
-    dlog('cstt', `getUserMedia failed: ${e}`);
-    return { kind: 'denied' };
-  }
-  if (seq !== listenSeq) {
-    stream.getTracks().forEach((t) => t.stop());
-    return { kind: 'aborted' };
-  }
-
-  primeCloudAudio();
-  if (!audioCtx) {
-    stream.getTracks().forEach((t) => t.stop());
-    return { kind: 'unavailable' };
-  }
-  const ctx = audioCtx;
+  const analyser = await ensureMic();
+  if (seq !== listenSeq) return { kind: 'aborted' };
+  if (!analyser || !micStream) return { kind: 'denied' };
+  const stream = micStream;
 
   return new Promise<SRResult>((resolve) => {
     let settled = false;
@@ -116,10 +149,6 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
     const startedAt = performance.now();
     const cfg: VadConfig = { ...VAD_BASE, noSpeechTimeoutMs: opts.timeoutMs };
 
-    const source = ctx.createMediaStreamSource(stream);
-    const analyser = ctx.createAnalyser();
-    analyser.fftSize = 1024;
-    source.connect(analyser);
     const frame = new Uint8Array(analyser.fftSize);
 
     const finish = (result: SRResult) => {
@@ -128,12 +157,14 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
       if (poll) clearInterval(poll);
       poll = null;
       if (activeAbort === abort) activeAbort = null;
-      try {
-        source.disconnect();
-      } catch {
-        /* already gone */
+      // Stop this listen's recorder but leave the mic stream hot for the next one.
+      if (recorder && recorder.state !== 'inactive') {
+        try {
+          recorder.stop();
+        } catch {
+          /* already stopped */
+        }
       }
-      stream.getTracks().forEach((t) => t.stop());
       dlog('cstt', `settle ${result.kind}${result.kind === 'result' ? ` "${result.alternatives[0]}"` : ''}`);
       resolve(result);
     };

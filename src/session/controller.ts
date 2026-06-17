@@ -8,7 +8,7 @@ import { getAllCards, getCard, logReview, putCard } from '../data/db';
 import { fetchDeck, fetchDeckIndex, wordMap } from '../data/decks';
 import { isDue, newCard, rateCard } from '../srs/scheduler';
 import { abortListening, listen, srAvailable } from '../speech/recognizer';
-import { cloudAbort, cloudListen, cloudSrAvailable, primeCloudAudio } from '../speech/cloudRecognizer';
+import { cloudAbort, cloudListen, cloudReleaseMic, cloudSrAvailable, primeCloudAudio, primeMic } from '../speech/cloudRecognizer';
 import { cloudSttEnabled } from '../speech/sttConfig';
 import { mockAbort, mockListen, mockMode } from '../speech/mock';
 import { acquireWakeLock, keepWakeLockAlive, releaseWakeLock } from '../platform/wakeLock';
@@ -112,7 +112,12 @@ export async function startSession(): Promise<void> {
 
   void acquireWakeLock();
   initReadingAnalyzer(); // load the kanji→reading dictionary in the background
-  if (!mockMode) await warmupMic();
+  if (!mockMode) {
+    // Open the mic once and keep it hot for the whole session (cloud path);
+    // a per-listen mic has a dead startup window on iOS that drops answers.
+    if (cloudSttEnabled) await primeMic();
+    else await warmupMic();
+  }
 
   const words = wordMap(loadedDecks);
   const cards = await getAllCards();
@@ -177,6 +182,7 @@ export function endSession(): void {
   runner = null;
   sessionState.value = null;
   sessionWord.value = undefined;
+  cloudReleaseMic(); // release the persistent mic
   void releaseWakeLock();
   screen.value = 'home';
   void loadHomeData();
