@@ -46,16 +46,14 @@ export function correctSequence(w: Word): ClipItem[] {
 }
 
 /**
- * Wrong/unrecognized answer: clearly signal the miss, give the correct answer,
- * then a brief "say got it if you knew it" override hint. The answer is graded
- * as missed by default unless the user overrides.
+ * Wrong/unrecognized answer: clearly signal the miss, give the correct answer
+ * once (it was already taught), then prompt for a "got it / missed it" grade.
+ * Graded as missed by default unless overridden.
  */
 export function revealSequence(w: Word): ClipItem[] {
   return [
     { src: phraseClip('not-quite'), gapMs: 250 },
     { src: phraseClip('the-answer-is'), gapMs: 300 },
-    { src: jaClip(w.id), gapMs: 500 },
-    { src: jaSlowClip(w.id), gapMs: 600 },
     { src: jaClip(w.id), gapMs: 600 },
     { src: phraseClip('knew-it') },
   ];

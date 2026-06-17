@@ -26,7 +26,7 @@ const PHRASES: Record<string, string> = {
   'correct': 'Correct!',
   'not-quite': 'Not quite.',
   'the-answer-is': 'The answer is —',
-  'knew-it': 'Say — got it — if you knew it.',
+  'knew-it': 'Say — got it — or — missed it.',
   'also-hear': 'You may also hear —',
   'paused': "Paused. Say resume when you're ready.",
   'resuming': 'Resuming!',
