@@ -47,6 +47,20 @@ export function cloudSrAvailable(): boolean {
   );
 }
 
+// When returning from background on iOS the AudioContext is suspended and the
+// mic stream tracks may have ended. Resume the context and clear any dead stream
+// so the next ensureMic() acquires a fresh one. This runs on every foreground
+// transition, which is safe — ensureMic() is a no-op when everything is healthy.
+if (typeof document !== 'undefined') {
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible') return;
+    void audioCtx?.resume();
+    if (micStream?.getAudioTracks().some((t) => t.readyState === 'ended')) {
+      cloudReleaseMic();
+    }
+  });
+}
+
 /** Create/resume the AudioContext from inside the start gesture (iOS autoplay rules). */
 export function primeCloudAudio(): void {
   try {

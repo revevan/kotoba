@@ -81,11 +81,13 @@ function startOfTodayMs(now = new Date()): number {
   return d.getTime();
 }
 
-/** How many more new words may be introduced today, given what's already been
- * studied today and the per-day cap. */
+/** How many new words may be introduced in the next session today.
+ * New words are a once-per-day batch: if any were introduced today, return 0
+ * so subsequent sessions are review-only and can't pile on more new words. */
 function newQuotaToday(cards: { addedAt: number }[], now = new Date()): number {
   const learnedToday = cards.filter((c) => c.addedAt >= startOfTodayMs(now)).length;
-  return Math.max(0, newPerDay.value - learnedToday);
+  if (learnedToday > 0) return 0;
+  return newPerDay.value;
 }
 
 export async function loadHomeData(): Promise<void> {
