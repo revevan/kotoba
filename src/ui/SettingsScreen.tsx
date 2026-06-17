@@ -1,6 +1,6 @@
 import { useRef, useState } from 'preact/hooks';
 import { auth, enteredApp, maxReviews, newPerSession, screen, syncStatus, voiceEcho } from '../state';
-import { updateSetting } from '../session/controller';
+import { resetProgress, updateSetting } from '../session/controller';
 import { downloadBackup, importBackup } from '../data/backup';
 import { loadHomeData } from '../session/controller';
 import { syncPush } from '../sync/sync';
@@ -26,6 +26,20 @@ export function SettingsScreen() {
     auth.value = null;
     if (a) await logout(a.token);
     screen.value = 'home';
+  };
+
+  const onReset = async () => {
+    const scope = auth.value ? 'this device and your account' : 'this device';
+    if (!window.confirm(`Erase all study progress on ${scope}? Your due and new-word counts go back to zero. This can't be undone.`)) {
+      return;
+    }
+    setMsg('Resetting…');
+    try {
+      await resetProgress();
+      setMsg('Progress reset.');
+    } catch (e) {
+      setMsg(`Reset failed: ${e instanceof Error ? e.message : e}`);
+    }
   };
 
   return (
@@ -107,6 +121,11 @@ export function SettingsScreen() {
             if (f) void onImport(f);
           }}
         />
+      </div>
+      <div class="row buttons">
+        <button class="danger" onClick={() => void onReset()}>
+          Reset all progress
+        </button>
       </div>
       {msg && <p class="hint">{msg}</p>}
     </div>

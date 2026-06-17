@@ -51,6 +51,15 @@ export async function getAllReviews(): Promise<ReviewRow[]> {
   return (await db()).getAll('reviews');
 }
 
+/** Erase all study progress (cards + review log). Keeps settings/preferences. */
+export async function clearProgress(): Promise<void> {
+  const d = await db();
+  const tx = d.transaction(['cards', 'reviews'], 'readwrite');
+  await tx.objectStore('cards').clear();
+  await tx.objectStore('reviews').clear();
+  await tx.done;
+}
+
 /** Keep only the most recent `keep` reviews (autoIncrement keys are ascending,
  * so the oldest sort first). Bounds the local audit log; earlier syncs had
  * duplicated it badly. */

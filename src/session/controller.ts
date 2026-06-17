@@ -34,7 +34,7 @@ import {
   sessionWord,
   voiceEcho,
 } from '../state';
-import { getSetting, pruneReviews, setSetting } from '../data/db';
+import { clearProgress, getSetting, pruneReviews, setSetting } from '../data/db';
 
 /** Restore persisted settings, then load deck/card data. */
 export async function initApp(): Promise<void> {
@@ -171,6 +171,13 @@ export async function startSession(): Promise<void> {
 
   screen.value = 'session';
   runner.start(queue, voiceEcho.value);
+}
+
+/** Wipe study progress locally and, if signed in, on the server too. */
+export async function resetProgress(): Promise<void> {
+  await clearProgress();
+  await syncPush(); // overwrite the remote copy with the now-empty progress
+  await loadHomeData();
 }
 
 export function tap(cmd: TapCommand): void {
