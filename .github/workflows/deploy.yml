@@ -29,7 +29,8 @@ jobs:
       - run: npm test
       - run: npm run build
         env:
-          BASE_PATH: /kotoba/
+          # Served from the root of the custom domain (kotobaapp.com).
+          BASE_PATH: /
           # URL of the deployed STT proxy (see server/stt-proxy). When unset the
           # app falls back to the built-in Web Speech recognizer.
           VITE_STT_ENDPOINT: ${{ secrets.STT_ENDPOINT }}

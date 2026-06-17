@@ -20,12 +20,17 @@ const LANG_MAP = { 'ja-JP': 'ja', 'en-US': 'en' };
 
 export default {
   async fetch(request, env) {
-    const origin = env.ALLOWED_ORIGIN || '*';
+    // ALLOWED_ORIGIN is a comma-separated allowlist; echo the request's origin
+    // if it's on it (supports the custom domain + the old GitHub Pages URL).
+    const allowed = (env.ALLOWED_ORIGIN || '').split(',').map((s) => s.trim()).filter(Boolean);
+    const reqOrigin = request.headers.get('Origin') || '';
+    const origin = allowed.includes(reqOrigin) ? reqOrigin : allowed[0] || '*';
     const cors = {
       'Access-Control-Allow-Origin': origin,
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Max-Age': '86400',
+      Vary: 'Origin',
     };
 
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });

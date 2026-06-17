@@ -24,11 +24,17 @@ const MAX_BLOB_BYTES = 2_000_000;
 
 export default {
   async fetch(request, env) {
+    // ALLOWED_ORIGIN is a comma-separated allowlist; echo the request's origin
+    // if it's on it (supports the custom domain + the old GitHub Pages URL).
+    const allowed = (env.ALLOWED_ORIGIN || '').split(',').map((s) => s.trim()).filter(Boolean);
+    const reqOrigin = request.headers.get('Origin') || '';
+    const origin = allowed.includes(reqOrigin) ? reqOrigin : allowed[0] || '*';
     const cors = {
-      'Access-Control-Allow-Origin': env.ALLOWED_ORIGIN || '*',
+      'Access-Control-Allow-Origin': origin,
       'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       'Access-Control-Max-Age': '86400',
+      Vary: 'Origin',
     };
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
     if (!env.DB) return json({ error: 'db-not-configured' }, 500, cors);

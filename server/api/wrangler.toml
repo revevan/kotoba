@@ -5,7 +5,7 @@ compatibility_date = "2024-11-01"
 [vars]
 # The origin your app is served from (no trailing slash). Update if you move
 # the app to a custom domain.
-ALLOWED_ORIGIN = "https://revevan.github.io"
+ALLOWED_ORIGIN = "https://kotobaapp.com,https://www.kotobaapp.com,https://revevan.github.io"
 APP_NAME = "Kotoba"
 # Requires kotobaapp.com to be verified in Resend (add the DNS records Resend
 # shows, in the domain's Cloudflare DNS). Until verified, Resend only delivers
