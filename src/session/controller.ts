@@ -138,12 +138,8 @@ export async function startSession(): Promise<void> {
     }
   }
 
-  // Create card rows for the new words up front.
-  for (const id of fresh) {
-    if (!(await getCard(id))) {
-      await putCard({ wordId: id, deckId: deckIdOf(id), card: newCard(now), addedAt: Date.now() });
-    }
-  }
+  // No cards are created up front — a word only enters the schedule once its
+  // teach step actually plays (via markLearned), so unreached words stay "new".
 
   const queue = buildQueue(due, fresh);
   const queueWords = queue.map((i) => words.get(i.wordId)).filter((w): w is Word => !!w);
@@ -158,6 +154,16 @@ export async function startSession(): Promise<void> {
     abortListen: mockMode ? mockAbort : cloudSttEnabled ? cloudAbort : abortListening,
     srAvailable: () => mockMode || (cloudSttEnabled ? cloudSrAvailable() : srAvailable()),
     rate,
+    markLearned: async (wordId) => {
+      if (!(await getCard(wordId))) {
+        await putCard({ wordId, deckId: deckIdOf(wordId), card: newCard(), addedAt: Date.now() });
+      }
+    },
+    setMic: (on) => {
+      if (mockMode || !cloudSttEnabled) return;
+      if (on) void primeMic();
+      else cloudReleaseMic();
+    },
     words,
     onChange: (state, word) => {
       sessionState.value = state;

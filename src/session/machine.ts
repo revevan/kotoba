@@ -27,6 +27,8 @@ export type Effect =
   | { type: 'play'; kind: PlayKind; wordId?: string }
   | { type: 'listen'; kind: ListenKind; wordId?: string }
   | { type: 'rate'; wordId: string; rating: 'good' | 'again'; mode: RateMode; recognized?: string }
+  // A new word's teach step finished → it counts as studied and enters the schedule.
+  | { type: 'learned'; wordId: string }
   | { type: 'ended' };
 
 export type ListenOutcome =
@@ -138,7 +140,11 @@ function advance(s: MachineState): Step {
 }
 
 function finishTeach(s: MachineState): Step {
-  return advance({ ...s, counts: { ...s.counts, taught: s.counts.taught + 1 } });
+  const item = currentItem(s)!;
+  const next = advance({ ...s, counts: { ...s.counts, taught: s.counts.taught + 1 } });
+  // Persist the word as studied now that the teach actually played; a word the
+  // user never reached stays "new" and won't pollute the review queue.
+  return { state: next.state, effects: [{ type: 'learned', wordId: item.wordId }, ...next.effects] };
 }
 
 function pause(s: MachineState): Step {
@@ -305,17 +311,12 @@ export function reduce(s: MachineState, ev: Event): Step {
     }
 
     case 'pause-playing':
-      if (ev.type === 'playDone') {
-        return step({ ...s, phase: 'paused' }, { type: 'listen', kind: 'resume' });
-      }
+      // Land in paused with no listen — the mic is released while paused, so
+      // resume is by tapping Resume (handled by the global cmd-resume above).
+      if (ev.type === 'playDone') return step({ ...s, phase: 'paused' });
       break;
 
     case 'paused':
-      if (ev.type === 'listenResult') {
-        if (ev.outcome === 'denied' || ev.outcome === 'unavailable') s = degrade(s);
-        // Anything that isn't a resume keeps the resume-listen loop going.
-        return step(s, { type: 'listen', kind: 'resume' });
-      }
       break;
 
     case 'resume-playing':

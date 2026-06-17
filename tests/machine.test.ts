@@ -49,6 +49,11 @@ describe('session machine', () => {
     expect(s.state.counts.taught).toBe(1);
   });
 
+  it('finishing a teach emits a learned effect (only studied words get scheduled)', () => {
+    const s = run(start([teach('w1'), quiz('w2')], false), playDone, playDone);
+    expect(s.effects).toContainEqual({ type: 'learned', wordId: 'w1' });
+  });
+
   it('quiz: matched answer rates good and plays correct', () => {
     const s = run(start([quiz('w1')]), playDone, playDone, result('match', '林檎'));
     expect(s.state.phase).toBe('correct-playing');
@@ -121,18 +126,18 @@ describe('session machine', () => {
     expect(s.effects).toEqual([{ type: 'play', kind: 'quiz-prompt', wordId: 'w1' }]);
   });
 
-  it('pause and resume restart the current item', () => {
+  it('pause releases (no listen) and a Resume tap restarts the current item', () => {
     const s = run(start([quiz('w1')]), playDone, playDone, { type: 'tap', cmd: 'pause' });
     expect(s.state.phase).toBe('pause-playing');
 
     const s2 = run(s, playDone);
     expect(s2.state.phase).toBe('paused');
-    expect(s2.effects).toEqual([{ type: 'listen', kind: 'resume' }]);
+    expect(s2.effects).toEqual([]); // no listen while paused — the mic is off
 
-    const s3 = run(s2, result('timeout'));
-    expect(s3.state.phase).toBe('paused'); // keeps listening for "resume"
+    const s3 = run(s2, { type: 'tap', cmd: 'resume' });
+    expect(s3.state.phase).toBe('resume-playing');
 
-    const s4 = run(s3, result('cmd-resume'), playDone);
+    const s4 = run(s3, playDone);
     expect(s4.state.phase).toBe('quiz-playing');
     expect(s4.state.idx).toBe(0);
   });

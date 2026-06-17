@@ -14,7 +14,7 @@ const PHASE_BADGE: Record<Phase, { text: string; cls: string }> = {
   'reveal-playing': { text: 'NOT QUITE', cls: 'reveal' },
   'self-grade-listening': { text: 'MISSED — say “got it” to override', cls: 'reveal' },
   'pause-playing': { text: 'PAUSING', cls: 'paused' },
-  'paused': { text: 'PAUSED — say “resume”', cls: 'paused' },
+  'paused': { text: 'PAUSED — mic off · tap Resume', cls: 'paused' },
   'resume-playing': { text: 'RESUMING', cls: 'speaking' },
   'done': { text: 'DONE', cls: 'correct' },
 };

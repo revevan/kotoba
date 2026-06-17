@@ -26,6 +26,8 @@ function makeRunner(listen: RunnerDeps['listen']) {
     abortListen: () => {},
     srAvailable: () => true,
     rate: async () => {},
+    markLearned: async () => {},
+    setMic: () => {},
     words: new Map([[word.id, word]]),
     onChange: (s) => phases.push(s.phase),
     onEnded: () => {

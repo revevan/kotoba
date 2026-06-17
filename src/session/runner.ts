@@ -35,6 +35,10 @@ export interface RunnerDeps {
   abortListen(): void;
   srAvailable(): boolean;
   rate(wordId: string, rating: 'good' | 'again', mode: RateMode, recognized?: string): Promise<void>;
+  /** A new word's teach finished → record it as studied. */
+  markLearned(wordId: string): Promise<void>;
+  /** Turn the microphone on/off (released while paused). */
+  setMic(on: boolean): void;
   words: Map<string, Word>;
   onChange(state: MachineState, word: Word | undefined): void;
   onEnded(counts: Counts): void;
@@ -87,8 +91,14 @@ export class SessionRunner {
 
   private dispatch(ev: Event): void {
     if (this.stopped) return;
+    const prevPhase = this.state.phase;
     const { state, effects } = reduce(this.state, ev);
     this.state = state;
+    // Release the mic while paused; re-prime it as the session resumes.
+    if (state.phase !== prevPhase) {
+      if (state.phase === 'paused') this.deps.setMic(false);
+      else if (state.phase === 'resume-playing') this.deps.setMic(true);
+    }
     dlog('machine', `${ev.type}${'outcome' in ev ? `:${ev.outcome}` : ''}${'cmd' in ev ? `:${ev.cmd}` : ''} → ${state.phase} [${effects.map((e) => e.type).join(',')}]`);
     try {
       this.deps.onChange(state, this.currentWord());
@@ -119,6 +129,13 @@ export class SessionRunner {
           await this.deps.rate(eff.wordId, eff.rating, eff.mode, eff.recognized);
         } catch (e) {
           dlog('runner', `rate threw: ${e}`);
+        }
+        return;
+      case 'learned':
+        try {
+          await this.deps.markLearned(eff.wordId);
+        } catch (e) {
+          dlog('runner', `markLearned threw: ${e}`);
         }
         return;
       case 'ended':
