@@ -81,13 +81,14 @@ function startOfTodayMs(now = new Date()): number {
   return d.getTime();
 }
 
-/** How many new words may be introduced in the next session today.
- * New words are a once-per-day batch: if any were introduced today, return 0
- * so subsequent sessions are review-only and can't pile on more new words. */
+/** How many more new words may be introduced today. The daily budget
+ * (newPerDay) is a per-calendar-day total that can be completed across several
+ * sessions: if you only got through 4 of 10, a later session offers the other
+ * 6. Once all newPerDay are done, this is 0 and further sessions are
+ * review-only — so you can't pile on extra new cards beyond the daily cap. */
 function newQuotaToday(cards: { addedAt: number }[], now = new Date()): number {
   const learnedToday = cards.filter((c) => c.addedAt >= startOfTodayMs(now)).length;
-  if (learnedToday > 0) return 0;
-  return newPerDay.value;
+  return Math.max(0, newPerDay.value - learnedToday);
 }
 
 export async function loadHomeData(): Promise<void> {
