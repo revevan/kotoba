@@ -3,11 +3,12 @@ import { createEmptyCard, fsrs, Rating, type Card } from 'ts-fsrs';
 export type { Card };
 export { Rating };
 
-// No short learning/relearning steps: this app is used every few days, not
-// many times a day, so a new word's first correct answer should schedule it
-// ~2 days out (and grow from there) rather than 15 minutes out — otherwise
-// every word stays perpetually "due" until it graduates, inflating the queue.
-const f = fsrs({ enable_fuzz: true, learning_steps: [], relearning_steps: [] });
+// Standard FSRS defaults, including short learning/relearning steps. New items
+// get a couple of closely-spaced early reviews before graduating to multi-day
+// intervals — the research-backed way to build durable memory (and what Anki
+// and WaniKani both do). The earlier queue-inflation problem is handled by only
+// scheduling words that were actually taught, plus the per-day new-word cap.
+const f = fsrs({ enable_fuzz: true });
 
 export type SimpleRating = 'good' | 'again';
 

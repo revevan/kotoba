@@ -22,8 +22,8 @@ export const newAvailable = signal(0);
 export const loadError = signal<string | null>(null);
 
 // Settings
-export const newPerDay = signal(5); // cap on new words introduced per calendar day
-export const maxReviews = signal(30); // cap on reviews per session
+export const newPerDay = signal(10); // cap on new words introduced per calendar day
+export const maxReviews = signal(200); // session-length safety cap; best practice is to clear all due
 export const voiceEcho = signal(true);
 
 // Live session
