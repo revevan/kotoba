@@ -16,11 +16,10 @@ repetition so words come back right before you'd forget them.
 
 "Kotoba" (言葉) means "word" / "language" in Japanese.
 
-- **Live app:** https://revevan.github.io/kotoba/
-- **Source:** https://github.com/revevan/kotoba
-- **Domain:** kotobaapp.com (owned; currently used for sign-in email. The app
-  itself still serves from the GitHub Pages URL above — moving it onto the
-  custom domain is a planned step.)
+- **Live app:** https://kotobaapp.com
+- **Source:** https://github.com/revevan/kotoba (hosted on GitHub Pages, served
+  at the custom domain kotobaapp.com)
+- **Sign-in email** is also sent from the kotobaapp.com domain (via Resend).
 
 ## Who it's for
 

@@ -50,10 +50,10 @@ Word lists: Jonathan Waller's JLPT lists (tanos.co.uk, CC-BY) via the
 ## Deploy
 
 The included GitHub Actions workflow (`.github/workflows/deploy.yml`) builds and
-publishes to GitHub Pages on every push to `main`. One-time setup in the repo:
-**Settings → Pages → Source: GitHub Actions.** The app then lives at
-`https://<user>.github.io/kotoba/` — open it in iPhone Safari, allow the mic,
-and optionally Add to Home Screen.
+publishes to GitHub Pages on every push to `main`. The app is served from the
+custom domain **https://kotobaapp.com** (GitHub Pages custom domain; the build
+sets `BASE_PATH: /` and ships a `public/CNAME`). Open it in iPhone Safari, allow
+the mic, and optionally Add to Home Screen.
 
 > Heads-up: if speech recognition misbehaves in the installed (home-screen) app,
 > run it as a normal Safari tab instead — everything else works the same.
