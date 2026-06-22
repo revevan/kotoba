@@ -1,5 +1,5 @@
 import { useRef, useState } from 'preact/hooks';
-import { auth, enteredApp, maxReviews, newPerDay, screen, syncStatus, voiceEcho } from '../state';
+import { auth, clozeEnglishFirst, clozeMinIntervalDays, enableCloze, enteredApp, maxReviews, newPerDay, screen, syncStatus, voiceEcho } from '../state';
 import { resetProgress, updateSetting } from '../session/controller';
 import { downloadBackup, importBackup } from '../data/backup';
 import { loadHomeData } from '../session/controller';
@@ -107,6 +107,39 @@ export function SettingsScreen() {
           onChange={(e) => void updateSetting('voiceEcho', (e.currentTarget as HTMLInputElement).checked)}
         />
       </label>
+
+      <label class="row">
+        <span>Fill-in-the-blank for mature words</span>
+        <input
+          type="checkbox"
+          checked={enableCloze.value}
+          onChange={(e) => void updateSetting('enableCloze', (e.currentTarget as HTMLInputElement).checked)}
+        />
+      </label>
+
+      {enableCloze.value && (
+        <>
+          <label class="row">
+            <span>Fill-in-the-blank after (days)</span>
+            <input
+              type="number"
+              min={1}
+              max={60}
+              value={clozeMinIntervalDays.value}
+              onChange={(e) => void updateSetting('clozeMinIntervalDays', Number((e.currentTarget as HTMLInputElement).value))}
+            />
+          </label>
+
+          <label class="row">
+            <span>Play the English hint first</span>
+            <input
+              type="checkbox"
+              checked={clozeEnglishFirst.value}
+              onChange={(e) => void updateSetting('clozeEnglishFirst', (e.currentTarget as HTMLInputElement).checked)}
+            />
+          </label>
+        </>
+      )}
 
       <div class="row buttons">
         <button onClick={() => void downloadBackup()}>Export progress</button>

@@ -10,6 +10,8 @@ const PHASE_BADGE: Record<Phase, { text: string; cls: string }> = {
   'teach-listening': { text: 'REPEAT IT', cls: 'listening' },
   'quiz-playing': { text: 'QUESTION', cls: 'speaking' },
   'quiz-listening': { text: 'YOUR ANSWER?', cls: 'listening' },
+  'cloze-playing': { text: 'FILL THE BLANK', cls: 'speaking' },
+  'cloze-listening': { text: 'SAY THE MISSING WORD', cls: 'listening' },
   'correct-playing': { text: 'CORRECT', cls: 'correct' },
   'reveal-playing': { text: 'NOT QUITE', cls: 'reveal' },
   'self-grade-listening': { text: 'MISSED — say “got it” to override', cls: 'reveal' },
@@ -27,7 +29,11 @@ export function SessionScreen() {
   const badge = PHASE_BADGE[s.phase];
   const showAnswer = ['teach-playing', 'teach-listening', 'correct-playing', 'reveal-playing', 'self-grade-listening'].includes(s.phase);
   const isQuizzing = s.phase === 'quiz-playing' || s.phase === 'quiz-listening';
+  const clozing = s.phase === 'cloze-playing' || s.phase === 'cloze-listening';
   const selfGrading = s.phase === 'reveal-playing' || s.phase === 'self-grade-listening';
+  // The sentence backing the current item (cloze source / rung-1 example).
+  const item = s.queue[s.idx];
+  const sentence = item?.sentenceId ? word?.sentences?.find((x) => x.id === item.sentenceId) : undefined;
   const paused = s.phase === 'paused' || s.phase === 'pause-playing';
   const done = s.phase === 'done';
   const progress = `${Math.min(s.idx + 1, s.queue.length)} / ${s.queue.length}`;
@@ -74,6 +80,12 @@ export function SessionScreen() {
               </div>
             )}
             {isQuizzing && <div class="word-ja mystery">?</div>}
+            {sentence && (clozing || (showAnswer && item?.mode === 'cloze')) && (
+              <div class="sentence">
+                <div class="sentence-ja">{clozing ? sentence.textJa.replace(sentence.clozeSurface, '＿＿＿') : sentence.textJa}</div>
+                {showAnswer && <div class="sentence-en">{sentence.textEn}</div>}
+              </div>
+            )}
             {s.lastRecognized && <div class="recognized">“{s.lastRecognized}”</div>}
           </>
         )}
@@ -89,7 +101,7 @@ export function SessionScreen() {
             input.value = '';
           }}
         >
-          <input name="mock" placeholder={`mock ${mockPending.value.lang} (empty = timeout)`} autoFocus />
+          <input name="mock" placeholder={`mock ${mockPending.value.lang}${clozing ? ' cloze' : ''} (empty = timeout)`} autoFocus />
           <button type="submit">Say</button>
         </form>
       )}

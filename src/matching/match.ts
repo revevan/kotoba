@@ -1,4 +1,4 @@
-import type { Word } from '../types';
+import type { Sentence, Word } from '../types';
 import { isKanaOnly, normalizeText, toComparableKana } from './normalize';
 
 export interface MatchResult {
@@ -28,19 +28,19 @@ function levenshtein(a: string, b: string): number {
 }
 
 /**
- * Grade recognized speech against the expected word. Checks every recognizer
- * alternative against the written forms (iOS usually returns kanji), the
- * hiragana reading, and finally a small Levenshtein tolerance on kana.
+ * Core matcher: grade recognizer alternatives against an expected reading. Checks
+ * each alternative against the accepted written forms (iOS usually returns kanji),
+ * the hiragana reading, and finally a small Levenshtein tolerance on kana.
  */
-export function gradeAnswer(alternatives: string[], word: Word): MatchResult {
-  const targetKana = toComparableKana(word.kana);
-  const written = new Set(word.written.map(normalizeText));
+export function matchKana(alternatives: string[], expectedKana: string, acceptedForms: string[] = []): MatchResult {
+  const targetKana = toComparableKana(expectedKana);
+  const written = new Set(acceptedForms.map(normalizeText));
   const maxDist = targetKana.length <= 3 ? 1 : 2;
 
   for (const alt of alternatives) {
     if (!alt) continue;
     const raw = normalizeText(alt);
-    if (written.has(raw)) return { matched: true, matchedAlternative: alt };
+    if (raw && written.has(raw)) return { matched: true, matchedAlternative: alt };
     const kana = toComparableKana(alt);
     if (kana === targetKana) return { matched: true, matchedAlternative: alt };
     if (isKanaOnly(kana) && targetKana.length > 1 && levenshtein(kana, targetKana) <= maxDist) {
@@ -48,6 +48,20 @@ export function gradeAnswer(alternatives: string[], word: Word): MatchResult {
     }
   }
   return { matched: false };
+}
+
+/** Grade recognized speech against the expected word (its reading + written forms). */
+export function gradeAnswer(alternatives: string[], word: Word): MatchResult {
+  return matchKana(alternatives, word.kana, word.written);
+}
+
+/**
+ * Grade a cloze answer against the gapped word as it appears in the sentence.
+ * Lenient by design: the reading is matched (after kuromoji expansion upstream),
+ * so the dictionary form and the conjugated surface both pass on a car mic.
+ */
+export function gradeCloze(alternatives: string[], sentence: Sentence): MatchResult {
+  return matchKana(alternatives, sentence.clozeReading, [sentence.clozeSurface]);
 }
 
 const DONT_KNOW = ['わからない', 'わかりません', 'しらない', 'しりません', '分からない', '分かりません', '知らない', '知りません'];

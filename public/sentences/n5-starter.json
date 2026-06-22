@@ -1,0 +1,58 @@
+{
+  "n5-1b7fe8fc": [
+    {
+      "id": "s-fa084f56",
+      "textJa": "父は医者です。",
+      "readingKana": "ちちはいしゃです。",
+      "textEn": "My father is a doctor.",
+      "clozeSurface": "医者",
+      "clozeReading": "いしゃ"
+    },
+    {
+      "id": "s-274b279f",
+      "textJa": "医者に行きます。",
+      "readingKana": "いしゃにいきます。",
+      "textEn": "I am going to the doctor.",
+      "clozeSurface": "医者",
+      "clozeReading": "いしゃ"
+    }
+  ],
+  "n5-7cf28dc9": [
+    {
+      "id": "s-8e6ba368",
+      "textJa": "今、何時ですか。",
+      "readingKana": "いま、なんじですか。",
+      "textEn": "What time is it now?",
+      "clozeSurface": "今",
+      "clozeReading": "いま"
+    },
+    {
+      "id": "s-5c83fc1d",
+      "textJa": "今、行きます。",
+      "readingKana": "いま、いきます。",
+      "textEn": "I am going now.",
+      "clozeSurface": "今",
+      "clozeReading": "いま"
+    }
+  ],
+  "n5-bdf2796e": [
+    {
+      "id": "s-b5460ebd",
+      "textJa": "英語を話します。",
+      "readingKana": "えいごをはなします。",
+      "textEn": "I speak English.",
+      "clozeSurface": "英語",
+      "clozeReading": "えいご"
+    }
+  ],
+  "n5-1d17bb25": [
+    {
+      "id": "s-02349e62",
+      "textJa": "私は学生です。",
+      "readingKana": "わたしはがくせいです。",
+      "textEn": "I am a student.",
+      "clozeSurface": "学生",
+      "clozeReading": "がくせい"
+    }
+  ]
+}

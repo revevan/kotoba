@@ -8,10 +8,11 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pipeline } from 'node:stream/promises';
 import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
-import type { Deck } from '../src/types';
+import type { Deck, Sentence } from '../src/types';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const decksDir = join(root, 'public', 'decks');
+const sentencesDir = join(root, 'public', 'sentences');
 const audioDir = join(root, 'public', 'audio');
 const manifestPath = join(root, 'tools', 'audio-manifest.json');
 
@@ -28,6 +29,8 @@ const PHRASES: Record<string, string> = {
   'the-answer-is': 'The answer is —',
   'knew-it': 'Say — got it — or — missed it.',
   'also-hear': 'You may also hear —',
+  'for-example': 'For example —',
+  'fill-the-blank': 'Fill in the blank.',
   // "resume" is a heteronym and the neural voice reads it as the noun "résumé".
   // The free Edge endpoint rejects SSML <phoneme>, so spell it phonetically to
   // force the verb /rɪˈzum/. (On-screen the button still reads "Resume".)
@@ -47,16 +50,79 @@ function hashOf(job: Job): string {
   return createHash('sha1').update(`${job.voice}|${job.rate ?? ''}|${job.text}`).digest('hex');
 }
 
+/** Writes a short sine-tone beep WAV (no encoder needed) for the cloze gap. */
+function writeBeep(): void {
+  const out = join(audioDir, 'phrases', 'beep.wav');
+  if (existsSync(out)) return;
+  const rate = 24000;
+  const ms = 220;
+  const freq = 880;
+  const n = Math.round((rate * ms) / 1000);
+  const fade = Math.round(rate * 0.012); // 12ms fades to avoid clicks
+  const buf = Buffer.alloc(44 + n * 2);
+  buf.write('RIFF', 0);
+  buf.writeUInt32LE(36 + n * 2, 4);
+  buf.write('WAVE', 8);
+  buf.write('fmt ', 12);
+  buf.writeUInt32LE(16, 16);
+  buf.writeUInt16LE(1, 20); // PCM
+  buf.writeUInt16LE(1, 22); // mono
+  buf.writeUInt32LE(rate, 24);
+  buf.writeUInt32LE(rate * 2, 28);
+  buf.writeUInt16LE(2, 32);
+  buf.writeUInt16LE(16, 34);
+  buf.write('data', 36);
+  buf.writeUInt32LE(n * 2, 40);
+  for (let i = 0; i < n; i++) {
+    const env = Math.min(1, i / fade, (n - i) / fade);
+    const sample = Math.sin((2 * Math.PI * freq * i) / rate) * env * 0.3;
+    buf.writeInt16LE(Math.round(sample * 32767), 44 + i * 2);
+  }
+  writeFileSync(out, buf);
+}
+
 function loadDecks(only: string[]): Deck[] {
   const files = readdirSync(decksDir).filter((f) => f.endsWith('.json') && f !== 'index.json');
   const decks = files.map((f) => JSON.parse(readFileSync(join(decksDir, f), 'utf8')) as Deck);
   return only.length > 0 ? decks.filter((d) => only.includes(d.id)) : decks;
 }
 
+/** Approved sentence pools for the given decks (public/sentences/{deckId}.json). */
+function loadSentences(decks: Deck[]): Sentence[] {
+  const out: Sentence[] = [];
+  for (const deck of decks) {
+    const path = join(sentencesDir, `${deck.id}.json`);
+    if (!existsSync(path)) continue;
+    const pool = JSON.parse(readFileSync(path, 'utf8')) as Record<string, Sentence[]>;
+    for (const list of Object.values(pool)) out.push(...list);
+  }
+  return out;
+}
+
+/** Split a sentence into the audio before and after the gapped target word. */
+function splitAtCloze(s: Sentence): { pre: string; post: string } | null {
+  const i = s.textJa.indexOf(s.clozeSurface);
+  if (i < 0) return null;
+  return { pre: s.textJa.slice(0, i).trim(), post: s.textJa.slice(i + s.clozeSurface.length).trim() };
+}
+
 function collectJobs(decks: Deck[]): Job[] {
   const jobs = new Map<string, Job>();
   for (const [key, text] of Object.entries(PHRASES)) {
     jobs.set(`phrases/${key}.mp3`, { out: `phrases/${key}.mp3`, text, voice: EN_VOICE });
+  }
+  // Example sentences: full natural clip, English, and the pre/post split that
+  // the cloze beep plays between. (The beep itself is a static WAV, below.)
+  for (const s of loadSentences(decks)) {
+    jobs.set(`sen/${s.id}.mp3`, { out: `sen/${s.id}.mp3`, text: s.textJa, voice: JA_VOICE });
+    jobs.set(`sen-en/${s.id}.mp3`, { out: `sen-en/${s.id}.mp3`, text: s.textEn, voice: EN_VOICE });
+    const split = splitAtCloze(s);
+    if (split) {
+      if (split.pre) jobs.set(`sen-pre/${s.id}.mp3`, { out: `sen-pre/${s.id}.mp3`, text: split.pre, voice: JA_VOICE });
+      if (split.post) jobs.set(`sen-post/${s.id}.mp3`, { out: `sen-post/${s.id}.mp3`, text: split.post, voice: JA_VOICE });
+    } else {
+      console.warn(`cloze surface "${s.clozeSurface}" not found in sentence ${s.id}`);
+    }
   }
   for (const deck of decks) {
     for (const w of deck.words) {
@@ -88,7 +154,10 @@ async function main() {
   });
   console.log(`to generate: ${jobs.length} clips`);
 
-  for (const sub of ['ja', 'ja-slow', 'en', 'mora', 'phrases']) mkdirSync(join(audioDir, sub), { recursive: true });
+  for (const sub of ['ja', 'ja-slow', 'en', 'mora', 'phrases', 'sen', 'sen-en', 'sen-pre', 'sen-post']) {
+    mkdirSync(join(audioDir, sub), { recursive: true });
+  }
+  writeBeep(); // cloze gap filler — a static tone, not TTS
 
   // One TTS connection per (voice, rate) config; clips generated sequentially
   // to be polite to the free endpoint.

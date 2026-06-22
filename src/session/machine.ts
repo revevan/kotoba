@@ -2,30 +2,34 @@
 // APIs in here — the runner executes effects and feeds results back as events,
 // which keeps the whole teach/quiz/self-grade flow unit-testable.
 
-export type Mode = 'teach' | 'quiz';
+export type Mode = 'teach' | 'quiz' | 'cloze';
 
 export interface Item {
   wordId: string;
   mode: Mode;
+  /** Example sentence chosen for this item (rung-1 tail, or the cloze source). */
+  sentenceId?: string;
 }
 
 export type PlayKind =
   | 'intro'
   | 'teach'
   | 'quiz-prompt'
+  | 'cloze-prompt'
   | 'correct'
   | 'reveal'
+  | 'cloze-reveal'
   | 'paused'
   | 'resuming'
   | 'done';
 
-export type ListenKind = 'teach-echo' | 'quiz-answer' | 'self-grade' | 'resume';
+export type ListenKind = 'teach-echo' | 'quiz-answer' | 'cloze-answer' | 'self-grade' | 'resume';
 
 export type RateMode = 'auto' | 'self' | 'skip' | 'timeout';
 
 export type Effect =
-  | { type: 'play'; kind: PlayKind; wordId?: string }
-  | { type: 'listen'; kind: ListenKind; wordId?: string }
+  | { type: 'play'; kind: PlayKind; wordId?: string; sentenceId?: string }
+  | { type: 'listen'; kind: ListenKind; wordId?: string; sentenceId?: string }
   | { type: 'rate'; wordId: string; rating: 'good' | 'again'; mode: RateMode; recognized?: string }
   // A new word's teach step finished → it counts as studied and enters the schedule.
   | { type: 'learned'; wordId: string }
@@ -54,6 +58,8 @@ export type Phase =
   | 'teach-listening'
   | 'quiz-playing'
   | 'quiz-listening'
+  | 'cloze-playing'
+  | 'cloze-listening'
   | 'correct-playing'
   | 'reveal-playing'
   | 'self-grade-listening'
@@ -130,7 +136,10 @@ function enterItem(s: MachineState): Step {
     return step({ ...s, phase: 'done' }, { type: 'play', kind: 'done' });
   }
   if (item.mode === 'teach') {
-    return step({ ...s, phase: 'teach-playing', retries: 0 }, { type: 'play', kind: 'teach', wordId: item.wordId });
+    return step({ ...s, phase: 'teach-playing', retries: 0 }, { type: 'play', kind: 'teach', wordId: item.wordId, sentenceId: item.sentenceId });
+  }
+  if (item.mode === 'cloze') {
+    return step({ ...s, phase: 'cloze-playing', retries: 0 }, { type: 'play', kind: 'cloze-prompt', wordId: item.wordId, sentenceId: item.sentenceId });
   }
   return step({ ...s, phase: 'quiz-playing', retries: 0 }, { type: 'play', kind: 'quiz-prompt', wordId: item.wordId });
 }
@@ -164,10 +173,12 @@ function degrade(s: MachineState): MachineState {
   return { ...s, degraded: true };
 }
 
-/** Quiz answer didn't pass → reveal the answer, then self-grade. */
+/** Quiz/cloze answer didn't pass → reveal the answer, then self-grade. A cloze
+ *  reveal plays the full natural sentence; a plain quiz just names the word. */
 function toReveal(s: MachineState): Step {
   const item = currentItem(s)!;
-  return step({ ...s, phase: 'reveal-playing', retries: 0 }, { type: 'play', kind: 'reveal', wordId: item.wordId });
+  const kind = item.mode === 'cloze' ? 'cloze-reveal' : 'reveal';
+  return step({ ...s, phase: 'reveal-playing', retries: 0 }, { type: 'play', kind, wordId: item.wordId, sentenceId: item.sentenceId });
 }
 
 function gradeSelf(s: MachineState, rating: 'good' | 'again', mode: RateMode): Step {
@@ -251,7 +262,20 @@ export function reduce(s: MachineState, ev: Event): Step {
       if (outcome === 'cmd-skip') return gradeSelf(s, 'again', 'skip');
       break;
 
-    case 'quiz-listening': {
+    case 'cloze-playing':
+      if (ev.type === 'playDone') {
+        if (s.degraded) return toReveal(s);
+        const item = currentItem(s)!;
+        return step({ ...s, phase: 'cloze-listening', retries: 0 }, { type: 'listen', kind: 'cloze-answer', wordId: item.wordId, sentenceId: item.sentenceId });
+      }
+      if (outcome === 'cmd-repeat') return enterItem(s);
+      if (outcome === 'cmd-skip') return gradeSelf(s, 'again', 'skip');
+      break;
+
+    // A cloze answer grades exactly like a quiz answer (single-word match); only
+    // the reveal differs, and toReveal derives that from the item's mode.
+    case 'quiz-listening':
+    case 'cloze-listening': {
       if (outcome === 'cmd-repeat') return enterItem(s);
       if (outcome === 'cmd-skip') return gradeSelf(s, 'again', 'skip');
       if (outcome === 'match') {
@@ -265,7 +289,7 @@ export function reduce(s: MachineState, ev: Event): Step {
         return step(
           next,
           { type: 'rate', wordId: item.wordId, rating: 'good', mode: 'auto', recognized: ev.type === 'listenResult' ? ev.recognized : undefined },
-          { type: 'play', kind: 'correct', wordId: item.wordId },
+          { type: 'play', kind: 'correct', wordId: item.wordId, sentenceId: item.sentenceId },
         );
       }
       if (outcome === 'nomatch' || outcome === 'dontknow' || outcome === 'timeout' || outcome === 'speech') {
@@ -280,7 +304,7 @@ export function reduce(s: MachineState, ev: Event): Step {
       if (ev.type === 'playDone') return advance(s);
       if (outcome === 'cmd-repeat') {
         const item = currentItem(s)!;
-        return step(s, { type: 'play', kind: 'correct', wordId: item.wordId });
+        return step(s, { type: 'play', kind: 'correct', wordId: item.wordId, sentenceId: item.sentenceId });
       }
       if (outcome === 'cmd-skip') return advance(s);
       break;

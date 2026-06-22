@@ -45,7 +45,9 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: {
               cacheName: 'kotoba-audio',
-              expiration: { maxEntries: 5000 },
+              // Word clips (~4k) + sentence clips (~4 per sentence) — headroom so
+              // CacheFirst eviction doesn't thrash the active deck's audio.
+              expiration: { maxEntries: 12000 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },

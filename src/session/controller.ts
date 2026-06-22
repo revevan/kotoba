@@ -5,7 +5,7 @@ import { Player } from '../audio/player';
 import { sessionClipUrls } from '../audio/clips';
 import { prefetchAudio } from '../audio/prefetch';
 import { getAllCards, getCard, logReview, putCard } from '../data/db';
-import { fetchDeck, fetchDeckIndex, wordMap } from '../data/decks';
+import { attachSentences, fetchDeck, fetchDeckIndex, wordMap } from '../data/decks';
 import { isDue, newCard, rateCard } from '../srs/scheduler';
 import { abortListening, listen, srAvailable } from '../speech/recognizer';
 import { cloudAbort, cloudListen, cloudReleaseMic, cloudSrAvailable, cloudWaitForEcho, primeCloudAudio, primeMic } from '../speech/cloudRecognizer';
@@ -17,12 +17,16 @@ import { requestPersistentStorage } from '../platform/storage';
 import { initReadingAnalyzer } from '../matching/reading';
 import { syncOnLoad, syncPush } from '../sync/sync';
 import type { Deck, Word } from '../types';
-import { buildQueue } from './queueBuilder';
+import { buildQueue, type Decorate } from './queueBuilder';
+import { chooseExerciseType, pickSentence } from './selectExercise';
 import { SessionRunner } from './runner';
 import type { TapCommand } from './machine';
 import {
+  clozeEnglishFirst,
+  clozeMinIntervalDays,
   deckIndex,
   dueCount,
+  enableCloze,
   enabledDeckIds,
   loadError,
   maxReviews,
@@ -42,6 +46,9 @@ async function restoreSettings(): Promise<void> {
   newPerDay.value = await getSetting('newPerDay', await getSetting('newPerSession', newPerDay.value));
   maxReviews.value = await getSetting('maxReviews', maxReviews.value);
   voiceEcho.value = await getSetting('voiceEcho', voiceEcho.value);
+  enableCloze.value = await getSetting('enableCloze', enableCloze.value);
+  clozeMinIntervalDays.value = await getSetting('clozeMinIntervalDays', clozeMinIntervalDays.value);
+  clozeEnglishFirst.value = await getSetting('clozeEnglishFirst', clozeEnglishFirst.value);
 }
 
 /** Restore persisted settings, then load deck/card data. */
@@ -60,11 +67,17 @@ export async function afterSignIn(): Promise<void> {
   await loadHomeData();
 }
 
-export async function updateSetting(key: 'enabledDecks' | 'newPerDay' | 'maxReviews' | 'voiceEcho', value: unknown): Promise<void> {
+export async function updateSetting(
+  key: 'enabledDecks' | 'newPerDay' | 'maxReviews' | 'voiceEcho' | 'enableCloze' | 'clozeMinIntervalDays' | 'clozeEnglishFirst',
+  value: unknown,
+): Promise<void> {
   if (key === 'enabledDecks') enabledDeckIds.value = value as string[];
   if (key === 'newPerDay') newPerDay.value = value as number;
   if (key === 'maxReviews') maxReviews.value = value as number;
   if (key === 'voiceEcho') voiceEcho.value = value as boolean;
+  if (key === 'enableCloze') enableCloze.value = value as boolean;
+  if (key === 'clozeMinIntervalDays') clozeMinIntervalDays.value = value as number;
+  if (key === 'clozeEnglishFirst') clozeEnglishFirst.value = value as boolean;
   await setSetting(key, value);
   if (key === 'enabledDecks' || key === 'newPerDay') await loadHomeData();
 }
@@ -98,6 +111,7 @@ export async function loadHomeData(): Promise<void> {
     deckIndex.value = index;
     const enabled = index.filter((d) => enabledDeckIds.value.includes(d.id));
     loadedDecks = await Promise.all(enabled.map(fetchDeck));
+    await attachSentences(loadedDecks); // graceful: words without sentences stay plain
     const words = wordMap(loadedDecks);
     const cards = await getAllCards();
     const cardIds = new Set(cards.map((c) => c.wordId));
@@ -166,7 +180,23 @@ export async function startSession(): Promise<void> {
   // No cards are created up front — a word only enters the schedule once its
   // teach step actually plays (via markLearned), so unreached words stay "new".
 
-  const queue = buildQueue(due, fresh);
+  // Card-aware slot decoration: mature reviews become cloze, and every slot that
+  // plays a word gets a rotating example sentence (rotation keyed off card.reps).
+  const cardById = new Map(cards.map((c) => [c.wordId, c.card]));
+  const clozeCfg = { enableCloze: enableCloze.value, minIntervalDays: clozeMinIntervalDays.value };
+  const decorate: Decorate = (wordId, role) => {
+    const word = words.get(wordId);
+    if (!word?.sentences?.length) return {};
+    const card = cardById.get(wordId);
+    const sentence = pickSentence(word, card?.reps ?? 0);
+    if (!sentence) return {};
+    if (role === 'review' && chooseExerciseType(card, word, clozeCfg) === 'cloze') {
+      return { mode: 'cloze', sentenceId: sentence.id };
+    }
+    return { sentenceId: sentence.id };
+  };
+
+  const queue = buildQueue(due, fresh, 4, decorate);
   const queueWords = queue.map((i) => words.get(i.wordId)).filter((w): w is Word => !!w);
   void prefetchAudio(sessionClipUrls(queueWords), (done, total) => {
     prefetchProgress.value = done >= total ? null : { done, total };
@@ -193,6 +223,7 @@ export async function startSession(): Promise<void> {
       else cloudReleaseMic();
     },
     words,
+    clozeEnglishFirst: clozeEnglishFirst.value,
     onChange: (state, word) => {
       sessionState.value = state;
       sessionWord.value = word;

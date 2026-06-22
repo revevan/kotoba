@@ -1,8 +1,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { SessionRunner, type RunnerDeps } from '../src/session/runner';
+import type { ClipItem } from '../src/audio/clips';
 import type { SRResult } from '../src/speech/recognizer';
 import type { Phase } from '../src/session/machine';
-import type { Word } from '../src/types';
+import type { Sentence, Word } from '../src/types';
 
 const word: Word = {
   id: 'w1',
@@ -91,6 +92,61 @@ describe('SessionRunner robustness', () => {
 
     expect(phases).toContain('teach-listening');
     await vi.advanceTimersByTimeAsync(8001); // teach-echo 5000ms + 3000ms watchdog
+    expect(phases[phases.length - 1]).toBe('done');
+  });
+});
+
+describe('SessionRunner cloze', () => {
+  const sentence: Sentence = {
+    id: 's1',
+    textJa: '父は医者です。',
+    readingKana: 'ちちはいしゃです。',
+    textEn: 'My father is a doctor.',
+    clozeSurface: '医者',
+    clozeReading: 'いしゃ',
+  };
+  const isha: Word = {
+    id: 'doc',
+    english: 'doctor',
+    prompt: 'doctor',
+    kana: 'いしゃ',
+    written: ['医者', 'いしゃ'],
+    romaji: 'isha',
+    mora: ['i', 'sha'],
+    moraKana: ['い', 'しゃ'],
+    sentences: [sentence],
+    tags: [],
+  };
+
+  it('plays the gapped prompt (with a beep), grades the spoken answer, and rates good', async () => {
+    const played: string[] = [];
+    let rated: { rating: string; mode: string } | null = null;
+    const phases: Phase[] = [];
+    const runner = new SessionRunner({
+      play: async (items: ClipItem[]) => {
+        for (const i of items) if (i.src) played.push(i.src);
+        return 'done';
+      },
+      cancelPlay: () => {},
+      listen: async (): Promise<SRResult> => ({ kind: 'result', alternatives: ['いしゃ'] }),
+      abortListen: () => {},
+      srAvailable: () => true,
+      rate: async (_w, rating, mode) => {
+        rated = { rating, mode };
+      },
+      markLearned: async () => {},
+      setMic: () => {},
+      words: new Map([[isha.id, isha]]),
+      onChange: (s) => phases.push(s.phase),
+      onEnded: () => {},
+    });
+    runner.start([{ wordId: 'doc', mode: 'cloze', sentenceId: 's1' }], true);
+    for (let i = 0; i < 12; i++) await flush();
+
+    expect(phases).toContain('cloze-playing');
+    expect(phases).toContain('cloze-listening');
+    expect(played.some((s) => s.endsWith('beep.wav'))).toBe(true);
+    expect(rated).toEqual({ rating: 'good', mode: 'auto' });
     expect(phases[phases.length - 1]).toBe('done');
   });
 });

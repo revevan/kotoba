@@ -1,6 +1,8 @@
-import type { Word } from '../types';
+import type { Sentence, Word } from '../types';
 import type { ClipItem } from '../audio/clips';
 import {
+  clozePromptSequence,
+  clozeRevealSequence,
   correctSequence,
   phraseSequence,
   quizPromptSequence,
@@ -8,7 +10,7 @@ import {
   teachSequence,
 } from '../audio/clips';
 import { dlog } from '../debug/log';
-import { gradeAnswer, isDontKnow } from '../matching/match';
+import { gradeAnswer, gradeCloze, isDontKnow } from '../matching/match';
 import { expandWithReadings } from '../matching/reading';
 import { parseCommand } from '../speech/commands';
 import type { ListenFn } from '../speech/recognizer';
@@ -43,6 +45,8 @@ export interface RunnerDeps {
    * without transcribing (no Deepgram cost). Omitted = use full recognition. */
   waitForEcho?(timeoutMs: number): Promise<'spoke' | 'silent' | 'aborted'>;
   words: Map<string, Word>;
+  /** Whether the cloze prompt leads with the English translation. */
+  clozeEnglishFirst?: boolean;
   onChange(state: MachineState, word: Word | undefined): void;
   onEnded(counts: Counts): void;
 }
@@ -50,6 +54,7 @@ export interface RunnerDeps {
 const LISTEN_TIMEOUTS: Record<ListenKind, number> = {
   'teach-echo': 5000,
   'quiz-answer': 7000,
+  'cloze-answer': 7000,
   // Short: the verdict is already in (missed), this is only the brief window
   // to say "got it" and override. Don't make a real miss sit and wait.
   'self-grade': 4000,
@@ -116,7 +121,7 @@ export class SessionRunner {
       case 'play': {
         let outcome: 'done' | 'cancelled';
         try {
-          outcome = await this.deps.play(this.sequenceFor(eff.kind, eff.wordId));
+          outcome = await this.deps.play(this.sequenceFor(eff.kind, eff.wordId, eff.sentenceId));
         } catch (e) {
           // A playback failure must never strand the session.
           dlog('runner', `play ${eff.kind} threw: ${e}`);
@@ -126,7 +131,7 @@ export class SessionRunner {
         return;
       }
       case 'listen':
-        return this.runListen(eff.kind, eff.wordId);
+        return this.runListen(eff.kind, eff.wordId, eff.sentenceId);
       case 'rate':
         try {
           await this.deps.rate(eff.wordId, eff.rating, eff.mode, eff.recognized);
@@ -147,19 +152,31 @@ export class SessionRunner {
     }
   }
 
-  private sequenceFor(kind: PlayKind, wordId?: string): ClipItem[] {
+  private sentenceFor(word: Word | undefined, sentenceId?: string): Sentence | undefined {
+    if (!word || !sentenceId) return undefined;
+    return word.sentences?.find((s) => s.id === sentenceId);
+  }
+
+  private sequenceFor(kind: PlayKind, wordId?: string, sentenceId?: string): ClipItem[] {
     const word = wordId ? this.deps.words.get(wordId) : undefined;
+    const sentence = this.sentenceFor(word, sentenceId);
     switch (kind) {
       case 'intro':
         return phraseSequence('session-start');
       case 'teach':
-        return teachSequence(word!);
+        return teachSequence(word!, sentence);
       case 'quiz-prompt':
         return quizPromptSequence(word!);
+      case 'cloze-prompt':
+        // A cloze item always carries a sentence; if it somehow went missing,
+        // fall back to a plain prompt rather than play an empty gap.
+        return sentence ? clozePromptSequence(sentence, { englishFirst: this.deps.clozeEnglishFirst }) : quizPromptSequence(word!);
       case 'correct':
-        return correctSequence(word!);
+        return correctSequence(word!, sentence);
       case 'reveal':
         return revealSequence(word!);
+      case 'cloze-reveal':
+        return sentence ? clozeRevealSequence(word!, sentence) : revealSequence(word!);
       case 'paused':
         return phraseSequence('paused');
       case 'resuming':
@@ -169,7 +186,7 @@ export class SessionRunner {
     }
   }
 
-  private async runListen(kind: ListenKind, wordId?: string): Promise<void> {
+  private async runListen(kind: ListenKind, wordId?: string, sentenceId?: string): Promise<void> {
     const gen = ++this.listenGen;
     const timeoutMs = LISTEN_TIMEOUTS[kind];
     const degraded = this.state.degraded || !this.deps.srAvailable();
@@ -205,11 +222,13 @@ export class SessionRunner {
         return;
       }
 
-      const lang = kind === 'teach-echo' || kind === 'quiz-answer' ? 'ja-JP' : 'en-US';
+      const ja = kind === 'teach-echo' || kind === 'quiz-answer' || kind === 'cloze-answer';
+      const lang = ja ? 'ja-JP' : 'en-US';
       const res = await this.deps.listen({ lang, timeoutMs });
       if (gen !== this.listenGen || this.stopped) return;
 
       const word = wordId ? this.deps.words.get(wordId) : undefined;
+      const sentence = this.sentenceFor(word, sentenceId);
       let outcome: ListenOutcome;
       let recognized: string | undefined;
 
@@ -218,11 +237,8 @@ export class SessionRunner {
           recognized = res.alternatives[0];
           // For spoken Japanese, also grade against the reading of each
           // alternative so a kanji transcription still matches by pronunciation.
-          const graded =
-            kind === 'quiz-answer' || kind === 'teach-echo'
-              ? await expandWithReadings(res.alternatives)
-              : res.alternatives;
-          outcome = this.classify(kind, graded, word);
+          const graded = ja ? await expandWithReadings(res.alternatives) : res.alternatives;
+          outcome = this.classify(kind, graded, word, sentence);
           break;
         }
         case 'timeout':
@@ -251,11 +267,14 @@ export class SessionRunner {
     }
   }
 
-  private classify(kind: ListenKind, alternatives: string[], word: Word | undefined): ListenOutcome {
+  private classify(kind: ListenKind, alternatives: string[], word: Word | undefined, sentence?: Sentence): ListenOutcome {
     switch (kind) {
       case 'quiz-answer':
         if (isDontKnow(alternatives)) return 'dontknow';
         return word && gradeAnswer(alternatives, word).matched ? 'match' : 'nomatch';
+      case 'cloze-answer':
+        if (isDontKnow(alternatives)) return 'dontknow';
+        return sentence && gradeCloze(alternatives, sentence).matched ? 'match' : 'nomatch';
       case 'teach-echo':
         return word && gradeAnswer(alternatives, word).matched ? 'match' : 'speech';
       case 'self-grade': {

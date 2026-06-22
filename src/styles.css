@@ -238,6 +238,22 @@ button:disabled {
   min-height: 22px;
 }
 
+.sentence {
+  margin: 14px auto 4px;
+  max-width: 90%;
+}
+
+.sentence .sentence-ja {
+  font-size: clamp(22px, 6vw, 34px);
+  line-height: 1.4;
+}
+
+.sentence .sentence-en {
+  font-size: 17px;
+  color: var(--dim);
+  margin-top: 6px;
+}
+
 .degraded {
   color: var(--warn);
   text-align: center;
