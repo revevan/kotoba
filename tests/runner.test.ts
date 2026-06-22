@@ -56,6 +56,33 @@ describe('SessionRunner robustness', () => {
     expect(isEnded()).toBe(true);
   });
 
+  it('paces the teach echo locally (waitForEcho) without a transcription POST', async () => {
+    const listen = vi.fn(async (): Promise<SRResult> => ({ kind: 'no-speech' }));
+    const waitForEcho = vi.fn(async () => 'spoke' as const);
+    const phases: Phase[] = [];
+    const runner = new SessionRunner({
+      play: async () => 'done',
+      cancelPlay: () => {},
+      listen,
+      abortListen: () => {},
+      srAvailable: () => true,
+      rate: async () => {},
+      markLearned: async () => {},
+      setMic: () => {},
+      waitForEcho,
+      words: new Map([[word.id, word]]),
+      onChange: (s) => phases.push(s.phase),
+      onEnded: () => {},
+    });
+    runner.start([{ wordId: 'w1', mode: 'teach' }], true);
+    for (let i = 0; i < 10; i++) await flush();
+
+    expect(phases).toContain('teach-listening');
+    expect(waitForEcho).toHaveBeenCalledTimes(1);
+    expect(listen).not.toHaveBeenCalled(); // teach never hits Deepgram
+    expect(phases[phases.length - 1]).toBe('done');
+  });
+
   it('watchdog forces progress when the listen never resolves at all', async () => {
     vi.useFakeTimers();
     const { runner, phases } = makeRunner(() => new Promise<SRResult>(() => {}));

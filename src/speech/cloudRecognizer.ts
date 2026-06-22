@@ -125,6 +125,58 @@ export function cloudAbort(): void {
   activeAbort?.();
 }
 
+/**
+ * Local voice-activity wait for the "repeat after me" echo. Holds until the user
+ * speaks (then a beat of silence) or the timeout elapses, using only the
+ * already-warm mic analyser — nothing is recorded or sent to Deepgram, so the
+ * teach step costs no transcription. The mic stream stays open for the next quiz
+ * answer. Participates in the same listenSeq/activeAbort machinery as cloudListen
+ * so a tap/pause (cloudAbort) cancels it.
+ */
+export async function cloudWaitForEcho(timeoutMs: number): Promise<'spoke' | 'silent' | 'aborted'> {
+  if (!cloudSrAvailable()) return 'silent';
+  const seq = ++listenSeq;
+  activeAbort?.();
+
+  const analyser = await ensureMic();
+  if (seq !== listenSeq) return 'aborted';
+  if (!analyser) return 'silent';
+
+  return new Promise<'spoke' | 'silent' | 'aborted'>((resolve) => {
+    let settled = false;
+    let poll: ReturnType<typeof setInterval> | null = null;
+    let vad: VadState = { speechStarted: false, lastVoiceMs: null };
+    const startedAt = performance.now();
+    const cfg: VadConfig = { ...VAD_BASE, noSpeechTimeoutMs: timeoutMs };
+    const frame = new Uint8Array(analyser.fftSize);
+
+    const finish = (r: 'spoke' | 'silent' | 'aborted') => {
+      if (settled) return;
+      settled = true;
+      if (poll) clearInterval(poll);
+      poll = null;
+      if (activeAbort === abort) activeAbort = null;
+      dlog('cstt', `echo-wait ${r}`);
+      resolve(r);
+    };
+    const abort = () => finish('aborted');
+    activeAbort = abort;
+
+    poll = setInterval(() => {
+      if (settled) return;
+      if (seq !== listenSeq) {
+        finish('aborted');
+        return;
+      }
+      analyser.getByteTimeDomainData(frame);
+      const r = vadStep(vad, rmsLevel(frame), performance.now(), startedAt, cfg);
+      vad = r.state;
+      if (r.decision === 'stop-utterance') finish('spoke');
+      else if (r.decision === 'stop-no-speech') finish('silent');
+    }, 50);
+  });
+}
+
 function pickMimeType(): string {
   const candidates = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg'];
   for (const c of candidates) {

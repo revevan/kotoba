@@ -8,7 +8,7 @@ import { getAllCards, getCard, logReview, putCard } from '../data/db';
 import { fetchDeck, fetchDeckIndex, wordMap } from '../data/decks';
 import { isDue, newCard, rateCard } from '../srs/scheduler';
 import { abortListening, listen, srAvailable } from '../speech/recognizer';
-import { cloudAbort, cloudListen, cloudReleaseMic, cloudSrAvailable, primeCloudAudio, primeMic } from '../speech/cloudRecognizer';
+import { cloudAbort, cloudListen, cloudReleaseMic, cloudSrAvailable, cloudWaitForEcho, primeCloudAudio, primeMic } from '../speech/cloudRecognizer';
 import { cloudSttEnabled } from '../speech/sttConfig';
 import { mockAbort, mockListen, mockMode } from '../speech/mock';
 import { acquireWakeLock, keepWakeLockAlive, releaseWakeLock } from '../platform/wakeLock';
@@ -178,6 +178,9 @@ export async function startSession(): Promise<void> {
     listen: mockMode ? mockListen : cloudSttEnabled ? cloudListen : listen,
     abortListen: mockMode ? mockAbort : cloudSttEnabled ? cloudAbort : abortListening,
     srAvailable: () => mockMode || (cloudSttEnabled ? cloudSrAvailable() : srAvailable()),
+    // Cloud path only: pace the teach echo locally instead of paying Deepgram to
+    // transcribe a "repeat after me" we never grade.
+    waitForEcho: !mockMode && cloudSttEnabled ? cloudWaitForEcho : undefined,
     rate,
     markLearned: async (wordId) => {
       if (!(await getCard(wordId))) {

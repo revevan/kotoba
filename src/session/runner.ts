@@ -39,6 +39,9 @@ export interface RunnerDeps {
   markLearned(wordId: string): Promise<void>;
   /** Turn the microphone on/off (released while paused). */
   setMic(on: boolean): void;
+  /** Local-VAD wait for the teach "repeat after me" echo — paces the step
+   * without transcribing (no Deepgram cost). Omitted = use full recognition. */
+  waitForEcho?(timeoutMs: number): Promise<'spoke' | 'silent' | 'aborted'>;
   words: Map<string, Word>;
   onChange(state: MachineState, word: Word | undefined): void;
   onEnded(counts: Counts): void;
@@ -189,6 +192,16 @@ export class SessionRunner {
         await new Promise((r) => setTimeout(r, degradedWaitMs));
         if (gen !== this.listenGen || this.stopped) return;
         this.dispatch({ type: 'listenResult', outcome: 'timeout' });
+        return;
+      }
+
+      // "Repeat after me" only needs pacing, not a graded transcript: wait for
+      // the echo on-device and move on, with no Deepgram POST. (The teach step
+      // passes any echo leniently anyway — see machine 'teach-listening'.)
+      if (kind === 'teach-echo' && this.deps.waitForEcho) {
+        const echo = await this.deps.waitForEcho(timeoutMs);
+        if (gen !== this.listenGen || this.stopped) return;
+        this.dispatch({ type: 'listenResult', outcome: echo === 'spoke' ? 'speech' : 'timeout' });
         return;
       }
 
