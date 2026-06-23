@@ -10,7 +10,8 @@
     "test": "vitest run",
     "build-decks": "tsx tools/build-decks.ts",
     "gen-audio": "tsx tools/gen-audio.ts",
-    "gen-sentences": "tsx tools/gen-sentences.ts"
+    "gen-sentences": "tsx tools/gen-sentences.ts",
+    "gen-sentences-local": "tsx tools/gen-sentences-local.ts"
   },
   "dependencies": {
     "@patdx/kuromoji": "^1.0.4",

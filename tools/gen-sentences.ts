@@ -14,7 +14,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { TokenizerBuilder, type IpadicFeatures, type LoaderConfig } from '@patdx/kuromoji';
 import type { Deck, Sentence } from '../src/types';
-import { allowedForms, checkVocab, clozeSurfacePresent, formsOf, isContentPos } from './sentence-validate';
+import { allowedForms, checkVocab, clozeSurfacePresent, formsOf } from './sentence-validate';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const decksDir = join(root, 'public', 'decks');
@@ -51,17 +51,6 @@ async function buildTokenizer(): Promise<{ tokenize(text: string): IpadicFeature
     },
   };
   return new TokenizerBuilder({ loader }).build();
-}
-
-/** The meaning-bearing token forms of a sentence (surface + dictionary form). */
-function contentForms(tokens: IpadicFeatures[]): string[] {
-  const out: string[] = [];
-  for (const t of tokens) {
-    if (!isContentPos(t.pos)) continue;
-    out.push(t.surface_form);
-    if (t.basic_form && t.basic_form !== '*' && t.basic_form !== t.surface_form) out.push(t.basic_form);
-  }
-  return out;
 }
 
 /** Ask the model for a small pool of i+1 sentences. Returns raw JSON objects. */
@@ -120,8 +109,7 @@ async function generateDrafts(decks: Deck[]): Promise<void> {
         continue;
       }
       for (const d of drafts) {
-        const content = contentForms(tk.tokenize(d.textJa));
-        const vocab = checkVocab(content, allowed, targetForms);
+        const vocab = checkVocab(tk.tokenize(d.textJa), allowed, targetForms);
         const surfaceOk = clozeSurfacePresent(d.textJa, d.clozeSurface);
         candidates.push({
           id: sentenceId(word.id, d.textJa),
