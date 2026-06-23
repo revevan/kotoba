@@ -1,10 +1,9 @@
 # Sentence-Context — Next Steps (terminal handoff)
 
-This branch (`claude/listen-phase-sentences-bntd84`) ships the **code** for the
-sentence-context feature, fully tested, with graceful fallback. What's left is
-**content + audio generation** and an **on-device test** — work that needs your
-API key, the Edge TTS endpoint, a native-speaker review pass, and your phone.
-Pick this up in Claude Code in the terminal.
+This branch (`claude/listen-phase-sentences-bntd84`) ships the sentence-context
+feature **with N5-starter content and audio already generated and committed**.
+What's left is a **local smoke test**, an **on-device test**, an optional
+**native-review prune**, and **scaling to the full decks**.
 
 ## What's already done (no action needed)
 
@@ -14,64 +13,68 @@ Pick this up in Claude Code in the terminal.
 - Rung 2: cloze quiz for mature Review cards — `pre → beep → post` audio, graded
   by the existing single-word reading matcher (`gradeCloze`).
 - Selector + rotation (`src/session/selectExercise.ts`), pure and unit-tested.
-- Generation tooling: `tools/gen-sentences.ts`, `tools/gen-audio.ts` (sentence
-  clips + a generated `public/audio/phrases/beep.wav`).
-- A 4-word sample pool (`public/sentences/n5-starter.json`) so the path runs today.
+- Generation tooling: `tools/gen-sentences-local.ts` (no-API, the default path),
+  `tools/gen-sentences.ts` (API path), `tools/gen-audio.ts`.
+- **N5-starter content shipped**: `public/sentences/n5-starter.json` — 305
+  sentences across 117/120 words (avg 2.6 each). The 3 uncovered words
+  (半, どうも, 時々) have no natural i+1 sentence and are intentionally skipped.
+- **N5-starter audio shipped**: `sen/ sen-en/ sen-pre/ sen-post/` clips +
+  `phrases/beep.wav`. 146 sentences start with the cloze word → empty `pre`,
+  those clips intentionally absent (player skips them).
 - Settings UI: enable/disable, interval threshold, English-first hint.
-- 89 tests green; `npm run build` clean.
+- 92 tests green; `npm run build` clean.
 
 ## Prerequisites
 
 ```bash
 npm install
-export ANTHROPIC_API_KEY=sk-ant-...      # for gen-sentences
-# optional: export ANTHROPIC_MODEL=claude-sonnet-4-6
 ```
 
-Network access needed: `api.anthropic.com` (sentence generation), the kuromoji
-dict CDN `cdn.jsdelivr.net` (validation), and Microsoft Edge TTS (audio).
+Network access needed only when (re)generating: the kuromoji dict CDN
+`cdn.jsdelivr.net` (validation) and Microsoft Edge TTS (audio). The no-API
+content path needs **no** API key. The legacy `gen-sentences` (API) path needs
+`ANTHROPIC_API_KEY` + Anthropic API credits — not required for anything below.
 
-## Step 1 — Generate sentence drafts (N5 Starter first)
+## Regenerating content (only if you change sentences)
+
+The N5-starter pool is already generated and committed, so you can skip straight
+to testing. To change sentences, edit `tools/sentences-authored/n5-starter.json`
+(per-word arrays of `textJa/readingKana/textEn/clozeSurface/clozeReading`) and:
 
 ```bash
-npm run gen-sentences -- n5-starter
+npm run gen-sentences-local -- n5-starter   # validate → drafts + review table
 ```
 
-This generates ~3 candidates per word, validates each with kuromoji (every content
-word must be in the word's cumulative i+1 vocabulary + the target), and writes:
+This validates every sentence with kuromoji (each content word must be in the
+word's cumulative i+1 vocabulary + the target) and writes:
 
-- `tools/sentences-draft/n5-starter.candidates.json` — the drafts, each with a
-  `valid` flag, `offenders` (vocab/cloze issues), and `approved: false`.
+- `tools/sentences-draft/n5-starter.candidates.json` — drafts with a `valid`
+  flag, `offenders`, and `approved`.
 - `tools/sentences-draft/n5-starter.review.md` — a human-readable review table.
 
-> The sample `public/sentences/n5-starter.json` will be **overwritten** by Step 3
-> once you approve real content, so don't hand-edit it.
-
-## Step 2 — Native review
-
-Open `tools/sentences-draft/n5-starter.review.md`. For each sentence you want to
-ship, set `"approved": true` on that entry in
-`tools/sentences-draft/n5-starter.candidates.json`. Reject anything unnatural or
-flagged with `⚠️` offenders. Aim for ~2–3 approved per word so the pool rotates
-(this is the whole point — learners shouldn't memorize one sentence).
-
-## Step 3 — Promote approved sentences
+Then set `"approved": true` on the entries you want and promote them:
 
 ```bash
-npm run gen-sentences -- --approve n5-starter
+npm run gen-sentences -- --approve n5-starter   # → public/sentences/n5-starter.json
 ```
 
-Writes only `approved && valid` entries to `public/sentences/n5-starter.json`
-(keyed by wordId). This is what the app actually loads.
+> Optional native-review prune: every shipped sentence is currently approved,
+> but they are LLM-authored + machine-validated, not yet native-reviewed. Skim
+> `tools/sentences-draft/n5-starter.review.md`, flip `approved` to `false` on any
+> that read awkwardly (especially the early copula-only ones), and re-run
+> `--approve`.
 
-## Step 4 — Generate sentence audio
+## Regenerating audio (only if you change sentences)
+
+N5-starter audio is already generated and committed. Re-run only after changing
+the pool:
 
 ```bash
 npm run gen-audio n5-starter
 ```
 
-Idempotent (skips clips already in the manifest). For each approved sentence it
-produces, under `public/audio/`:
+Idempotent (skips clips already in `tools/audio-manifest.json`). For each
+approved sentence it produces, under `public/audio/`:
 
 - `sen/{id}.mp3` — full natural sentence (rung-1 example + cloze reveal)
 - `sen-en/{id}.mp3` — English translation (used only if "English-first" is on)
@@ -81,7 +84,7 @@ produces, under `public/audio/`:
 > Sentences that start with the gapped word have an empty `pre`; gen-audio skips
 > that clip and the player skips the missing URL — expected, not a bug.
 
-## Step 5 — Test locally without a mic
+## Step 1 — Test locally without a mic
 
 ```bash
 npm run dev
@@ -97,22 +100,20 @@ npm run dev
   self-grades, and teach/review tails rotate across runs.
 - `?debug=1` shows the in-app log; look for `cloze-playing` / `cloze-listening`.
 
-## Step 6 — On-device recognition test (the one I can't do)
+## Step 2 — On-device recognition test
 
 Deploy/run on your phone and do a real commute: AirPods vs. car mic. The cloze
 answer is a single Japanese word, so recognition should match plain quiz, but
 validate before scaling. Tune the interval threshold to taste.
 
-## Step 7 — Scale content (Phase C)
+## Step 3 — Scale content to the full decks
 
-Repeat Steps 1–4 for the full decks:
+Same no-API flow as N5-starter, per deck:
 
-```bash
-npm run gen-sentences -- jlpt-n5 jlpt-n4
-# review + approve each
-npm run gen-sentences -- --approve jlpt-n5 jlpt-n4
-npm run gen-audio jlpt-n5 jlpt-n4
-```
+1. Author `tools/sentences-authored/jlpt-n5.json` (and `jlpt-n4.json`).
+2. `npm run gen-sentences-local -- jlpt-n5 jlpt-n4` → validate to 0 flags.
+3. Approve, then `npm run gen-sentences -- --approve jlpt-n5 jlpt-n4`.
+4. `npm run gen-audio jlpt-n5 jlpt-n4`.
 
 Note the Workbox audio cache budget was raised to 12000 entries in
 `vite.config.ts`; revisit if the full corpus + sentences exceeds it.
