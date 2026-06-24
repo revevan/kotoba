@@ -8,16 +8,22 @@ import type { Sentence, Word } from '../types';
 export interface ClozeConfig {
   enableCloze: boolean;
   minIntervalDays: number;
+  /** `?cloze=1` debug override: treat any word-with-sentence as mature. */
+  forceMature?: boolean;
 }
 
 /**
  * A word graduates from plain recall to cloze once it is a mature Review card
  * (interval ≥ threshold) and has an approved sentence to gap. Everything else —
  * new/learning cards, sentence-less words, the flag being off — stays plain.
+ *
+ * `forceMature` bypasses only the maturity gate (state + interval), so the cloze
+ * path can be exercised on a fresh database without waiting for a card to age.
  */
 export function chooseExerciseType(card: Card | undefined, word: Word, cfg: ClozeConfig): 'quiz' | 'cloze' {
   if (!cfg.enableCloze) return 'quiz';
   if (!word.sentences || word.sentences.length === 0) return 'quiz';
+  if (cfg.forceMature) return 'cloze';
   if (!card || card.state !== State.Review) return 'quiz';
   if ((card.scheduled_days ?? 0) < cfg.minIntervalDays) return 'quiz';
   return 'cloze';

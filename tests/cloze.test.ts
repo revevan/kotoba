@@ -105,6 +105,12 @@ describe('chooseExerciseType', () => {
   it('flag off → quiz', () => {
     expect(chooseExerciseType(card(State.Review, 30), w, { enableCloze: false, minIntervalDays: 7 })).toBe('quiz');
   });
+  it('forceMature (?cloze=1) bypasses the maturity gate but still needs a sentence', () => {
+    const forced = { enableCloze: true, minIntervalDays: 7, forceMature: true };
+    expect(chooseExerciseType(card(State.New, 0), w, forced)).toBe('cloze');
+    expect(chooseExerciseType(undefined, w, forced)).toBe('cloze');
+    expect(chooseExerciseType(card(State.New, 0), word('w1'), forced)).toBe('quiz'); // no sentence
+  });
 });
 
 describe('pickSentence rotation', () => {

@@ -40,6 +40,9 @@ import {
 } from '../state';
 import { clearProgress, getSetting, pruneReviews, setSetting } from '../data/db';
 
+/** `?cloze=1` debug override: force the cloze exercise regardless of card maturity. */
+const forceClozeMode = typeof location !== 'undefined' && new URLSearchParams(location.search).has('cloze');
+
 async function restoreSettings(): Promise<void> {
   enabledDeckIds.value = await getSetting('enabledDecks', enabledDeckIds.value);
   // 'newPerDay' replaced the old 'newPerSession' key; fall back for older saves.
@@ -183,14 +186,20 @@ export async function startSession(): Promise<void> {
   // Card-aware slot decoration: mature reviews become cloze, and every slot that
   // plays a word gets a rotating example sentence (rotation keyed off card.reps).
   const cardById = new Map(cards.map((c) => [c.wordId, c.card]));
-  const clozeCfg = { enableCloze: enableCloze.value, minIntervalDays: clozeMinIntervalDays.value };
+  const clozeCfg = {
+    enableCloze: enableCloze.value,
+    minIntervalDays: clozeMinIntervalDays.value,
+    forceMature: forceClozeMode,
+  };
   const decorate: Decorate = (wordId, role) => {
     const word = words.get(wordId);
     if (!word?.sentences?.length) return {};
     const card = cardById.get(wordId);
     const sentence = pickSentence(word, card?.reps ?? 0);
     if (!sentence) return {};
-    if (role === 'review' && chooseExerciseType(card, word, clozeCfg) === 'cloze') {
+    // A teach slot is the teaching step itself; only quiz slots (a real review
+    // or a just-taught word's in-session re-quiz) can become a cloze.
+    if (role !== 'teach' && chooseExerciseType(card, word, clozeCfg) === 'cloze') {
       return { mode: 'cloze', sentenceId: sentence.id };
     }
     return { sentenceId: sentence.id };

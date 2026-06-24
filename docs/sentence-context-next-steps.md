@@ -88,17 +88,24 @@ approved sentence it produces, under `public/audio/`:
 
 ```bash
 npm run dev
-# open http://localhost:5173/?mock=1&debug=1
+# open http://localhost:5173/?mock=1&debug=1&cloze=1
 ```
 
+Pick the **N5 Starter** deck — sentences only exist for those words.
+
 - `?mock=1` replaces the mic with a text box; type the answer (empty = timeout).
-- To force a cloze item without waiting days for a card to mature, temporarily
-  lower the threshold in **Settings → "Fill-in-the-blank after (days)"** to `0`,
-  and make sure the word has an approved sentence and a Review-state card.
+- `?cloze=1` forces the cloze exercise for any word that has a sentence,
+  bypassing the maturity gate — otherwise, on a fresh database, no card is in
+  Review state yet so you'd only ever see plain quizzes. (Without the override,
+  the no-code path is: graduate a card to Review, then set **Settings →
+  "Fill-in-the-blank after (days)"** to `0`.)
 - Confirm: the prompt plays `pre → beep → post`, a correct typed answer rates
   good and plays the example tail, a wrong answer reveals the full sentence then
   self-grades, and teach/review tails rotate across runs.
 - `?debug=1` shows the in-app log; look for `cloze-playing` / `cloze-listening`.
+
+Rung 1 (example sentences) needs no override: every taught word and every
+correct answer plays *"for example, …"* with a rotating sentence.
 
 ## Step 2 — On-device recognition test
 
