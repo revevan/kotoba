@@ -29,6 +29,10 @@ const VAD_BASE: Omit<VadConfig, 'noSpeechTimeoutMs'> = {
   maxUtteranceMs: 2500,
 };
 
+// Number of 50ms poll frames to sample before starting VAD — gives the dynamic
+// threshold time to adapt to ambient noise (e.g. highway wind at speed).
+const CALIBRATION_FRAMES = 3; // 150ms
+
 let audioCtx: AudioContext | null = null;
 let listenSeq = 0;
 let activeAbort: (() => void) | null = null;
@@ -214,6 +218,8 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
     let peak = 0; // loudest frame seen, for diagnosing missed speech
     const startedAt = performance.now();
     const cfg: VadConfig = { ...VAD_BASE, noSpeechTimeoutMs: opts.timeoutMs };
+    let calibFrames = 0;
+    let calibSum = 0;
 
     const frame = new Uint8Array(analyser.fftSize);
 
@@ -314,6 +320,23 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
       const now = performance.now();
       const level = rmsLevel(frame);
       if (level > peak) peak = level;
+
+      // Calibration phase: sample ambient noise before running VAD so the
+      // threshold adapts to the environment (quiet room vs. highway driving).
+      if (calibFrames < CALIBRATION_FRAMES) {
+        calibSum += level;
+        calibFrames++;
+        if (calibFrames === CALIBRATION_FRAMES) {
+          const floor = calibSum / CALIBRATION_FRAMES;
+          const adapted = Math.max(VAD_BASE.threshold, Math.min(0.15, floor * 2.0));
+          if (adapted > VAD_BASE.threshold) {
+            cfg.threshold = adapted;
+            dlog('cstt', `noise floor ${floor.toFixed(3)} → threshold ${adapted.toFixed(3)}`);
+          }
+        }
+        return;
+      }
+
       const r = vadStep(vad, level, now, startedAt, cfg);
       vad = r.state;
       if (r.decision === 'stop-no-speech') {
