@@ -36,19 +36,19 @@ export function exampleTail(sentence: Sentence): ClipItem[] {
   return [{ src: phraseClip('for-example'), gapMs: 300 }, { src: senClip(sentence.id) }];
 }
 
-/** "apple … in Japanese … ringo … riiin—gooo … ringo … repeat after me: ringo
- *  … for example … <sentence>" (sentence tail only when one is provided). */
+/** "apple … in Japanese … ringo … riiin—gooo … ringo … for example … <sentence>
+ *  … repeat after me: ringo" (sentence tail only when one is provided). */
 export function teachSequence(w: Word, sentence?: Sentence): ClipItem[] {
   return [
     { src: enClip(w.id), gapMs: 400 },
     { src: phraseClip('in-japanese'), gapMs: 300 },
     { src: jaClip(w.id), gapMs: 600 },
     { src: jaSlowClip(w.id), gapMs: 600 },
-    { src: jaClip(w.id), gapMs: sentence ? 600 : 500 },
+    { src: jaClip(w.id), gapMs: 500 },
     ...altReadings(w),
+    ...(sentence ? [...exampleTail(sentence), { gapMs: 500 }] : []),
     { src: phraseClip('repeat-after-me'), gapMs: 300 },
-    { src: jaClip(w.id), ...(sentence ? { gapMs: 600 } : {}) },
-    ...(sentence ? exampleTail(sentence) : []),
+    { src: jaClip(w.id) },
   ];
 }
 
