@@ -33,6 +33,8 @@ export default defineConfig({
         description: 'Hands-free audio Japanese vocabulary trainer for the commute',
         display: 'standalone',
         orientation: 'portrait',
+        start_url: '/app/',
+        scope: '/app/',
         background_color: '#10101a',
         theme_color: '#10101a',
         icons: [
