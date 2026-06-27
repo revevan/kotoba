@@ -1,0 +1,17 @@
+# Kotoba
+
+> Hands-free Japanese vocabulary for your commute.
+
+Kotoba is a voice-driven Japanese vocabulary app built for AirPods and car audio. It teaches a word, you say it back, and quizzes you later — all by voice. Spaced repetition schedules reviews right before you'd forget them.
+
+## Features
+
+- Voice-driven learning: listen, repeat, get quizzed — no screen required
+- Spaced repetition (SRS) scheduling
+- Curated JLPT N5 and N4 vocabulary decks
+- Works offline as a Progressive Web App (PWA)
+- Optional cloud sync to save progress across devices
+
+## Links
+
+- App: https://kotobaapp.com
