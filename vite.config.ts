@@ -16,6 +16,12 @@ export default defineConfig({
   // GitHub Pages serves project sites from a subpath (e.g. /kotoba/);
   // the deploy workflow sets BASE_PATH accordingly.
   base: process.env.BASE_PATH ?? '/',
+  build: {
+    rollupOptions: {
+      // SPA lives at /app/; public/index.html is the static marketing page at /.
+      input: 'app/index.html',
+    },
+  },
   define: { __BUILD_ID__: JSON.stringify(buildId()) },
   plugins: [
     preact(),

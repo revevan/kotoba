@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kotoba — Hands-free Japanese vocabulary</title>
+  <meta name="description" content="Learn Japanese vocabulary by voice during your commute. Spaced repetition, no screen required — built for AirPods and car audio." />
+  <meta property="og:title" content="Kotoba — Hands-free Japanese vocabulary" />
+  <meta property="og:description" content="Learn Japanese vocabulary by voice during your commute. Spaced repetition, no screen required — built for AirPods and car audio." />
+  <meta property="og:url" content="https://kotobaapp.com" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://kotobaapp.com/icons/icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Kotoba — Hands-free Japanese vocabulary" />
+  <meta name="twitter:description" content="Learn Japanese vocabulary by voice during your commute. Spaced repetition, no screen required — built for AirPods and car audio." />
+  <meta name="twitter:image" content="https://kotobaapp.com/icons/icon-512.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Kotoba",
+    "applicationCategory": "EducationalApplication",
+    "applicationSubCategory": "Language Learning",
+    "operatingSystem": "Web",
+    "description": "Hands-free Japanese vocabulary trainer for the commute. Voice-driven spaced repetition built for AirPods and car audio.",
+    "url": "https://kotobaapp.com",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #10101a;
+      color: #f0f0f5;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* Nav */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .nav-brand .kanji { font-size: 22px; }
+
+    .nav-cta {
+      background: #7c6cff;
+      color: #fff;
+      padding: 9px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* Layout */
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #1e1e2e;
+      margin: 0;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 72px 0 80px;
+    }
+
+    .hero-kanji {
+      font-size: 80px;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .hero-tagline {
+      font-size: 20px;
+      color: #9a9aae;
+      max-width: 400px;
+      margin: 0 auto 40px;
+      line-height: 1.5;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: #7c6cff;
+      color: #fff;
+      padding: 16px 40px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover { opacity: 0.88; }
+
+    /* Features */
+    .features {
+      padding: 72px 0;
+    }
+
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7c6cff;
+      margin-bottom: 36px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 520px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 40px; }
+    }
+
+    .feature-card {
+      background: #16161f;
+      border: 1px solid #1e1e2e;
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+    }
+
+    .feature-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: #9a9aae;
+      line-height: 1.55;
+    }
+
+    /* How it works */
+    .how {
+      padding: 72px 0;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 36px;
+    }
+
+    .step {
+      display: flex;
+      gap: 24px;
+      padding-bottom: 36px;
+      position: relative;
+    }
+
+    .step:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 17px;
+      top: 36px;
+      bottom: 0;
+      width: 2px;
+      background: #1e1e2e;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #1a1a2a;
+      border: 1px solid #2e2e48;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #7c6cff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-body {
+      padding-top: 6px;
+    }
+
+    .step-body h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .step-body p {
+      font-size: 14px;
+      color: #9a9aae;
+      line-height: 1.55;
+    }
+
+    /* Bottom CTA */
+    .bottom-cta {
+      text-align: center;
+      padding: 72px 0 88px;
+    }
+
+    .bottom-cta h2 {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    .bottom-cta .sub {
+      color: #9a9aae;
+      margin-bottom: 36px;
+      font-size: 16px;
+    }
+
+    .fine-print {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #4a4a62;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid #1e1e2e;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #4a4a62;
+    }
+
+    footer a { color: #6a6a82; }
+    footer a:hover { color: #9a9aae; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <span class="kanji">言葉</span>
+    <span>Kotoba</span>
+  </div>
+  <a href="/app/" class="nav-cta">Open app</a>
+</nav>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-kanji">言葉</div>
+    <h1>Kotoba</h1>
+    <p class="hero-tagline">Hands-free Japanese vocabulary for your commute.</p>
+    <a href="/app/" class="btn-primary">Start learning for free →</a>
+  </section>
+
+  <hr />
+
+  <section class="features">
+    <p class="section-eyebrow">Why Kotoba</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎙</div>
+        <h3>Voice-driven learning</h3>
+        <p>Listen to a word, say it back out loud, get quizzed later — entirely by voice. No tapping, no scrolling, no screen time.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3>Spaced repetition</h3>
+        <p>Words come back right before you'd forget them. The scheduler adapts to how well you know each word so nothing falls through the cracks.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎧</div>
+        <h3>Commute-ready</h3>
+        <p>Built for AirPods and car audio. Dash-mount your phone, tap once to start, and learn the whole commute.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3>JLPT vocabulary</h3>
+        <p>Curated N5 and N4 word sets with native audio pronunciation. Start with the most essential Japanese vocabulary.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <section class="how">
+    <p class="section-eyebrow">How it works</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Kotoba introduces a word</h3>
+          <p>It plays the Japanese word, its reading in hiragana, and the English meaning — all spoken aloud.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>You say it back</h3>
+          <p>Speak the word out loud. Kotoba listens and lets you know if you got it right.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>It quizzes you later</h3>
+          <p>Spaced repetition schedules each word to reappear at the ideal moment — so it actually sticks long-term.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <section class="bottom-cta">
+    <h2>Start learning Japanese today</h2>
+    <p class="sub">Works in any browser. No app store required.</p>
+    <a href="/app/" class="btn-primary">Open Kotoba →</a>
+    <p class="fine-print">Free · Offline-capable · Sync across devices</p>
+  </section>
+
+</main>
+
+<footer>
+  <span>© 2026 Kotoba</span>
+  <span><a href="mailto:support@kotobaapp.com">support@kotobaapp.com</a></span>
+</footer>
+
+</body>
+</html>
