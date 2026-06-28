@@ -16,9 +16,33 @@ const MAX = 400;
 const STORE_KEY = 'kotoba-log';
 
 const hasDom = typeof window !== 'undefined';
+const DEBUG_KEY = 'kotoba-debug';
 
-export const debugEnabled =
-  hasDom && (/[?&]debug=1/.test(window.location.search) || window.localStorage.getItem('kotoba-debug') === '1');
+function resolveDebugEnabled(): boolean {
+  if (!hasDom) return false;
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('debug') === '1') {
+    // Persist so it survives GitHub Pages' trailing-slash redirect (/app?debug=1 → /app/)
+    try { window.localStorage.setItem(DEBUG_KEY, '1'); } catch {}
+    return true;
+  }
+  if (params.get('debug') === '0') {
+    try { window.localStorage.removeItem(DEBUG_KEY); } catch {}
+    return false;
+  }
+  return window.localStorage.getItem(DEBUG_KEY) === '1';
+}
+
+export const debugEnabled = resolveDebugEnabled();
+
+export function setDebugEnabled(on: boolean): void {
+  if (!hasDom) return;
+  try {
+    if (on) window.localStorage.setItem(DEBUG_KEY, '1');
+    else window.localStorage.removeItem(DEBUG_KEY);
+  } catch {}
+  window.location.reload();
+}
 
 function restore(): LogEntry[] {
   if (!hasDom) return [];

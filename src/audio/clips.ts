@@ -33,32 +33,32 @@ function altReadings(w: Word): ClipItem[] {
 
 /** "for example … <sentence>" — rung 1 pure input, appended where a word is heard. */
 export function exampleTail(sentence: Sentence): ClipItem[] {
-  return [{ src: phraseClip('for-example'), gapMs: 300 }, { src: senClip(sentence.id) }];
+  return [{ src: phraseClip('for-example'), gapMs: 100 }, { src: senClip(sentence.id) }];
 }
 
 /** "apple … in Japanese … ringo … riiin—gooo … ringo … for example … <sentence>
  *  … repeat after me: ringo" (sentence tail only when one is provided). */
 export function teachSequence(w: Word, sentence?: Sentence): ClipItem[] {
   return [
-    { src: enClip(w.id), gapMs: 400 },
-    { src: phraseClip('in-japanese'), gapMs: 300 },
+    { src: enClip(w.id), gapMs: 300 },
+    { src: phraseClip('in-japanese'), gapMs: 150 },
     { src: jaClip(w.id), gapMs: 600 },
     { src: jaSlowClip(w.id), gapMs: 600 },
     { src: jaClip(w.id), gapMs: 500 },
     ...altReadings(w),
     ...(sentence ? [...exampleTail(sentence), { gapMs: 500 }] : []),
-    { src: phraseClip('repeat-after-me'), gapMs: 300 },
+    { src: phraseClip('repeat-after-me'), gapMs: 150 },
     { src: jaClip(w.id) },
   ];
 }
 
 export function quizPromptSequence(w: Word): ClipItem[] {
-  return [{ src: phraseClip('how-do-you-say'), gapMs: 300 }, { src: enClip(w.id) }];
+  return [{ src: phraseClip('how-do-you-say'), gapMs: 100 }, { src: enClip(w.id) }];
 }
 
 export function correctSequence(w: Word, sentence?: Sentence): ClipItem[] {
   return [
-    { src: phraseClip('correct'), gapMs: 250 },
+    { src: phraseClip('correct'), gapMs: 100 },
     { src: jaClip(w.id), ...(sentence ? { gapMs: 600 } : {}) },
     ...(sentence ? exampleTail(sentence) : []),
   ];
@@ -82,8 +82,8 @@ export function clozePromptSequence(sentence: Sentence, opts: { englishFirst?: b
 /** Rung 2 reveal: name the word, then play the full natural sentence in context. */
 export function clozeRevealSequence(w: Word, sentence: Sentence): ClipItem[] {
   return [
-    { src: phraseClip('not-quite'), gapMs: 250 },
-    { src: phraseClip('the-answer-is'), gapMs: 300 },
+    { src: phraseClip('not-quite'), gapMs: 100 },
+    { src: phraseClip('the-answer-is'), gapMs: 150 },
     { src: jaClip(w.id), gapMs: 500 },
     { src: senClip(sentence.id), gapMs: 500 },
     { src: phraseClip('knew-it') },
@@ -97,8 +97,8 @@ export function clozeRevealSequence(w: Word, sentence: Sentence): ClipItem[] {
  */
 export function revealSequence(w: Word): ClipItem[] {
   return [
-    { src: phraseClip('not-quite'), gapMs: 250 },
-    { src: phraseClip('the-answer-is'), gapMs: 300 },
+    { src: phraseClip('not-quite'), gapMs: 100 },
+    { src: phraseClip('the-answer-is'), gapMs: 150 },
     { src: jaClip(w.id), gapMs: 600 },
     { src: phraseClip('knew-it') },
   ];

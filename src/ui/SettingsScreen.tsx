@@ -160,6 +160,7 @@ export function SettingsScreen() {
           Reset all progress
         </button>
       </div>
+
       {msg && <p class="hint">{msg}</p>}
     </div>
   );
