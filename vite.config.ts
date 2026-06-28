@@ -47,6 +47,10 @@ export default defineConfig({
         // is never part of the precache.
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
         globIgnores: ['audio/**', 'decks/**', 'icons/**'],
+        // Serve the SPA shell for /app/* navigations (including /app?debug=1).
+        // Marketing page at / is not handled by the SW — it goes to the network.
+        navigateFallback: 'app/index.html',
+        navigateFallbackAllowlist: [/^\/app/],
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.pathname.includes('/audio/'),
