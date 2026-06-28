@@ -38,9 +38,7 @@
    "kana": "いま",
    "written": [
     "今",
-    "いま",
-    "今度",
-    "こんど"
+    "いま"
    ],
    "romaji": "ima",
    "mora": [
@@ -58,13 +56,6 @@
     "JLPT_3",
     "JLPT_5",
     "JLPT_N5"
-   ],
-   "alts": [
-    {
-     "id": "n4-617eaab5",
-     "kana": "こんど",
-     "romaji": "kondo"
-    }
    ]
   },
   {
@@ -225,8 +216,8 @@
   },
   {
    "id": "n5-810354ac",
-   "english": "(someone else's) older brother (formal)",
-   "prompt": "(someone else's) older brother (formal)",
+   "english": "older brother (formal)",
+   "prompt": "older brother",
    "kana": "おにいさん",
    "written": [
     "お兄さん",
@@ -358,25 +349,23 @@
   },
   {
    "id": "n5-2d128996",
-   "english": "morning, A.M.",
+   "english": "morning; A.M.",
    "prompt": "morning",
-   "kana": "ごぜん",
+   "kana": "あさ",
    "written": [
-    "午前",
-    "ごぜん",
     "朝",
-    "あさ"
+    "あさ",
+    "午前",
+    "ごぜん"
    ],
-   "romaji": "gozen",
+   "romaji": "asa",
    "mora": [
-    "go",
-    "ze",
-    "n"
+    "a",
+    "sa"
    ],
    "moraKana": [
-    "ご",
-    "ぜ",
-    "ん"
+    "あ",
+    "さ"
    ],
    "tags": [
     "Genki",
@@ -388,8 +377,8 @@
    "alts": [
     {
      "id": "n5-b1fa407b",
-     "kana": "あさ",
-     "romaji": "asa"
+     "kana": "ごぜん",
+     "romaji": "gozen"
     }
    ]
   },
@@ -606,8 +595,8 @@
   },
   {
    "id": "n5-6208a56d",
-   "english": "half (e.g., にじはん | half-past two)",
-   "prompt": "half (e.g., にじはん | half-past two)",
+   "english": "half (as in 二時半, half-past two)",
+   "prompt": "half",
    "kana": "はん",
    "written": [
     "半",
@@ -1306,8 +1295,8 @@
   },
   {
    "id": "n5-cfde36eb",
-   "english": "Thank you; somehow; no matter how hard one may try",
-   "prompt": "Thank you",
+   "english": "thanks; somehow; no matter how hard one tries",
+   "prompt": "casual thanks / somehow",
    "kana": "どうも",
    "written": [
     "どうも"
@@ -1929,8 +1918,8 @@
   },
   {
    "id": "n5-6cb1082c",
-   "english": "Music",
-   "prompt": "Music",
+   "english": "music",
+   "prompt": "music",
    "kana": "おんがく",
    "written": [
     "音楽",
@@ -2143,9 +2132,7 @@
    "prompt": "a little",
    "kana": "ちょっと",
    "written": [
-    "ちょっと",
-    "少ない",
-    "すくない"
+    "ちょっと"
    ],
    "romaji": "chotto",
    "mora": [
@@ -2165,13 +2152,6 @@
     "JLPT_2",
     "JLPT_5",
     "JLPT_N5"
-   ],
-   "alts": [
-    {
-     "id": "n5-8b5162f2",
-     "kana": "すくない",
-     "romaji": "sukunai"
-    }
    ]
   },
   {
@@ -3027,9 +3007,7 @@
    "kana": "てがみ",
    "written": [
     "手紙",
-    "てがみ",
-    "字",
-    "じ"
+    "てがみ"
    ],
    "romaji": "tegami",
    "mora": [
@@ -3048,18 +3026,11 @@
     "JLPT",
     "JLPT_5",
     "JLPT_N5"
-   ],
-   "alts": [
-    {
-     "id": "n4-3b9ebcef",
-     "kana": "じ",
-     "romaji": "ji"
-    }
    ]
   },
   {
    "id": "n5-000452af",
-   "english": "(abbr.) department store",
+   "english": "department store",
    "prompt": "department store",
    "kana": "でぱあと",
    "written": [
@@ -3170,16 +3141,12 @@
   },
   {
    "id": "n5-5cbd42db",
-   "english": "man, person",
-   "prompt": "man",
+   "english": "person; people",
+   "prompt": "person",
    "kana": "ひと",
    "written": [
     "人",
-    "ひと",
-    "男",
-    "おとこ",
-    "男性",
-    "だんせい"
+    "ひと"
    ],
    "romaji": "hito",
    "mora": [
@@ -3196,18 +3163,6 @@
     "JLPT",
     "JLPT_5",
     "JLPT_N5"
-   ],
-   "alts": [
-    {
-     "id": "n5-d88fd1a9",
-     "kana": "おとこ",
-     "romaji": "otoko"
-    },
-    {
-     "id": "n4-4f782c5a",
-     "kana": "だんせい",
-     "romaji": "dansei"
-    }
    ]
   },
   {
@@ -3332,8 +3287,8 @@
   },
   {
    "id": "n5-7f51f5a9",
-   "english": "Hello? (used on the phone)",
-   "prompt": "Hello?",
+   "english": "hello (telephone greeting)",
+   "prompt": "phone greeting",
    "kana": "もしもし",
    "written": [
     "もしもし"

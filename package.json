@@ -11,7 +11,8 @@
     "build-decks": "tsx tools/build-decks.ts",
     "gen-audio": "tsx tools/gen-audio.ts",
     "gen-sentences": "tsx tools/gen-sentences.ts",
-    "gen-sentences-local": "tsx tools/gen-sentences-local.ts"
+    "gen-sentences-local": "tsx tools/gen-sentences-local.ts",
+    "publish-sentences": "tsx tools/publish-sentences.ts"
   },
   "dependencies": {
     "@patdx/kuromoji": "^1.0.4",
