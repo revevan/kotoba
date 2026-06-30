@@ -263,7 +263,8 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
         const form = new FormData();
         form.append('audio', blob, `clip${extFor(type)}`);
         form.append('lang', opts.lang);
-        dlog('cstt', `POST ${Math.round(blob.size / 1024)}KB ${opts.lang} ${type} ${clipMs}ms peak=${peak.toFixed(3)}`);
+        for (const hint of opts.hints ?? []) form.append('hint', hint);
+        dlog('cstt', `POST ${Math.round(blob.size / 1024)}KB ${opts.lang} ${type} ${clipMs}ms peak=${peak.toFixed(3)}${opts.hints?.length ? ` hints=${opts.hints.length}` : ''}`);
         const ctrl = new AbortController();
         const httpTimer = setTimeout(() => ctrl.abort(), 8000);
         const resp = await fetch(sttEndpoint, { method: 'POST', body: form, signal: ctrl.signal });
