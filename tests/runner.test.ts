@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { SessionRunner, type RunnerDeps } from '../src/session/runner';
 import type { ClipItem } from '../src/audio/clips';
-import type { SRResult } from '../src/speech/recognizer';
+import type { ListenOptions, SRResult } from '../src/speech/recognizer';
 import type { Phase } from '../src/session/machine';
 import type { Sentence, Word } from '../src/types';
 
@@ -93,6 +93,33 @@ describe('SessionRunner robustness', () => {
     expect(phases).toContain('teach-listening');
     await vi.advanceTimersByTimeAsync(8001); // teach-echo 5000ms + 3000ms watchdog
     expect(phases[phases.length - 1]).toBe('done');
+  });
+});
+
+describe('SessionRunner answer hints', () => {
+  it('boosts the cloud recognizer with the quizzed word reading + written forms', async () => {
+    const seen: ListenOptions[] = [];
+    const runner = new SessionRunner({
+      play: async () => 'done',
+      cancelPlay: () => {},
+      listen: async (opts: ListenOptions): Promise<SRResult> => {
+        seen.push(opts);
+        return { kind: 'result', alternatives: ['おかあさん'] };
+      },
+      abortListen: () => {},
+      srAvailable: () => true,
+      rate: async () => {},
+      markLearned: async () => {},
+      setMic: () => {},
+      words: new Map([[word.id, word]]),
+      onChange: () => {},
+      onEnded: () => {},
+    });
+    runner.start([{ wordId: 'w1', mode: 'quiz' }], true);
+    for (let i = 0; i < 12; i++) await flush();
+
+    const quiz = seen.find((o) => o.lang === 'ja-JP');
+    expect(quiz?.hints).toEqual(['おかあさん', 'お母さん']);
   });
 });
 

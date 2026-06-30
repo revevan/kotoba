@@ -41,11 +41,14 @@ export default {
       return json({ error: 'proxy-misconfigured' }, 500, cors);
     }
 
-    let audio, lang;
+    let audio, lang, hints;
     try {
       const form = await request.formData();
       audio = form.get('audio');
       lang = form.get('lang');
+      // Expected-answer terms the client knows (the word being quizzed). Used to
+      // bias Deepgram toward short utterances it otherwise drops as no-speech.
+      hints = form.getAll('hint').filter((h) => typeof h === 'string' && h.trim());
     } catch {
       return json({ error: 'bad-form' }, 400, cors);
     }
@@ -55,7 +58,7 @@ export default {
 
     const language = LANG_MAP[lang] || 'ja';
     try {
-      const result = await transcribe(audio, language, env.DEEPGRAM_API_KEY);
+      const result = await transcribe(audio, language, env.DEEPGRAM_API_KEY, hints);
       return json(result, 200, cors);
     } catch (e) {
       return json({ error: 'upstream', detail: String(e) }, 502, cors);
@@ -63,10 +66,14 @@ export default {
   },
 };
 
-async function transcribe(audio, language, apiKey) {
+async function transcribe(audio, language, apiKey, hints = []) {
   // smart_format on gave better word accuracy in testing; the kanji→reading
   // analyzer handles kanji output, so formatting no longer needs to be off.
   const params = new URLSearchParams({ model: 'nova-2', language, smart_format: 'true', punctuate: 'false' });
+  // Keyword boosting: nudge the model toward the expected answer so short words
+  // ("誰", "今") aren't dropped as no-speech. A modest intensifier keeps it a
+  // nudge — high values make the model hallucinate the keyword from silence.
+  for (const hint of dedupe(hints).slice(0, 8)) params.append('keywords', `${hint}:2`);
   const resp = await fetch(`https://api.deepgram.com/v1/listen?${params}`, {
     method: 'POST',
     headers: {
@@ -86,6 +93,10 @@ async function transcribe(audio, language, apiKey) {
     confidence: alt?.confidence ?? null,
     duration: data?.metadata?.duration ?? null,
   };
+}
+
+function dedupe(items) {
+  return [...new Set(items.map((s) => s.trim()).filter(Boolean))];
 }
 
 function json(body, status, cors) {

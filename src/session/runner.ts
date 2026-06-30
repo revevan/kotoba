@@ -61,6 +61,27 @@ const LISTEN_TIMEOUTS: Record<ListenKind, number> = {
   resume: 10000,
 };
 
+/**
+ * Expected-answer terms to bias the cloud recognizer toward, gathered from the
+ * word/sentence being quizzed. Short Japanese answers ("誰", "今") frequently
+ * decode to an empty transcript unaided; boosting the target reading and its
+ * written forms recovers them without changing how the answer is graded.
+ */
+function answerHints(kind: ListenKind, word?: Word, sentence?: Sentence): string[] | undefined {
+  const terms: string[] = [];
+  if (kind === 'cloze-answer' && sentence) {
+    terms.push(sentence.clozeReading, sentence.clozeSurface);
+  } else if (word) {
+    terms.push(word.kana, ...word.written);
+    for (const alt of word.alts ?? []) terms.push(alt.kana);
+  }
+  const seen = new Set<string>();
+  const hints = terms
+    .map((t) => t?.trim())
+    .filter((t): t is string => !!t && !seen.has(t) && (seen.add(t), true));
+  return hints.length ? hints : undefined;
+}
+
 export class SessionRunner {
   private state = initialState();
   private listenGen = 0;
@@ -224,11 +245,11 @@ export class SessionRunner {
 
       const ja = kind === 'teach-echo' || kind === 'quiz-answer' || kind === 'cloze-answer';
       const lang = ja ? 'ja-JP' : 'en-US';
-      const res = await this.deps.listen({ lang, timeoutMs });
-      if (gen !== this.listenGen || this.stopped) return;
-
       const word = wordId ? this.deps.words.get(wordId) : undefined;
       const sentence = this.sentenceFor(word, sentenceId);
+      const hints = ja ? answerHints(kind, word, sentence) : undefined;
+      const res = await this.deps.listen({ lang, timeoutMs, hints });
+      if (gen !== this.listenGen || this.stopped) return;
       let outcome: ListenOutcome;
       let recognized: string | undefined;
 

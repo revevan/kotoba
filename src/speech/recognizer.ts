@@ -12,6 +12,13 @@ export type SRResult =
 export interface ListenOptions {
   lang: 'ja-JP' | 'en-US';
   timeoutMs: number;
+  /**
+   * Expected-answer terms (reading + written forms) the cloud recognizer can
+   * bias toward. Short utterances ("誰", "今") often decode to an empty
+   * transcript on their own; boosting the word we're quizzing recovers them.
+   * Ignored by the Web Speech recognizer, which has no equivalent knob.
+   */
+  hints?: string[];
 }
 
 export type ListenFn = (opts: ListenOptions) => Promise<SRResult>;
