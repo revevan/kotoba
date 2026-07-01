@@ -568,5 +568,10 @@
     { "textJa": "毎日、海で泳ぎます。", "readingKana": "まいにち、うみでおよぎます。", "textEn": "I swim in the sea every day.", "clozeSurface": "泳ぎます", "clozeReading": "およぎます" },
     { "textJa": "今日、泳ぎます。", "readingKana": "きょう、およぎます。", "textEn": "I'll swim today.", "clozeSurface": "泳ぎます", "clozeReading": "およぎます" },
     { "textJa": "子供は泳ぎます。", "readingKana": "こどもはおよぎます。", "textEn": "The children swim.", "clozeSurface": "泳ぎます", "clozeReading": "およぎます" }
+  ],
+  "n5-534b796a": [
+    { "textJa": "お母さん、ありがとう。", "readingKana": "おかあさん、ありがとう。", "textEn": "Thanks, Mom.", "clozeSurface": "ありがとう", "clozeReading": "ありがとう" },
+    { "textJa": "本当にありがとう。", "readingKana": "ほんとうにありがとう。", "textEn": "Thank you so much.", "clozeSurface": "ありがとう", "clozeReading": "ありがとう" },
+    { "textJa": "みんな、ありがとう。", "readingKana": "みんな、ありがとう。", "textEn": "Thanks, everyone.", "clozeSurface": "ありがとう", "clozeReading": "ありがとう" }
   ]
 }

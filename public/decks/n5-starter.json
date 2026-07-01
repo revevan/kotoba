@@ -1294,6 +1294,38 @@
    ]
   },
   {
+   "id": "n5-534b796a",
+   "english": "Thank you",
+   "prompt": "Thank you",
+   "kana": "ありがとう",
+   "written": [
+    "ありがとう",
+    "ありがとうございます"
+   ],
+   "romaji": "arigatou",
+   "mora": [
+    "a",
+    "ri",
+    "ga",
+    "to",
+    "u"
+   ],
+   "moraKana": [
+    "あ",
+    "り",
+    "が",
+    "と",
+    "う"
+   ],
+   "tags": [
+    "Genki",
+    "Genki_Ln.1",
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
    "id": "n5-cfde36eb",
    "english": "thanks; somehow; no matter how hard one tries",
    "prompt": "casual thanks / somehow",
