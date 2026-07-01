@@ -21,6 +21,38 @@ describe('mapProxyResponse', () => {
     expect(mapProxyResponse(500, { error: 'upstream-down' })).toEqual({ kind: 'error', code: 'upstream-down' });
     expect(mapProxyResponse(502, null)).toEqual({ kind: 'error', code: 'http-502' });
   });
+
+  it('adds a pre-gap alternative when trailing noise decoded into extra words', () => {
+    const body = {
+      transcript: 'きんようび妙帯',
+      words: [
+        { word: 'きんようび', start: 0.2, end: 1.1 },
+        { word: '妙帯', start: 1.9, end: 2.4 },
+      ],
+    };
+    expect(mapProxyResponse(200, body)).toEqual({ kind: 'result', alternatives: ['きんようび妙帯', 'きんようび'] });
+  });
+
+  it('keeps continuous speech as a single alternative', () => {
+    const body = {
+      transcript: 'りんごをたべます',
+      words: [
+        { word: 'りんご', start: 0.2, end: 0.7 },
+        { word: 'を', start: 0.75, end: 0.85 },
+        { word: 'たべます', start: 0.9, end: 1.5 },
+      ],
+    };
+    expect(mapProxyResponse(200, body)).toEqual({ kind: 'result', alternatives: ['りんごをたべます'] });
+  });
+
+  it('ignores missing or malformed word timings', () => {
+    expect(mapProxyResponse(200, { transcript: 'はい' })).toEqual({ kind: 'result', alternatives: ['はい'] });
+    expect(mapProxyResponse(200, { transcript: 'はい', words: 'nope' })).toEqual({ kind: 'result', alternatives: ['はい'] });
+    expect(mapProxyResponse(200, { transcript: 'はい', words: [{ word: 'はい' }, { word: 'よ' }] })).toEqual({
+      kind: 'result',
+      alternatives: ['はい'],
+    });
+  });
 });
 
 describe('rmsLevel', () => {

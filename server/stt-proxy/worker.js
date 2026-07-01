@@ -71,9 +71,12 @@ async function transcribe(audio, language, apiKey, hints = []) {
   // analyzer handles kanji output, so formatting no longer needs to be off.
   const params = new URLSearchParams({ model: 'nova-2', language, smart_format: 'true', punctuate: 'false' });
   // Keyword boosting: nudge the model toward the expected answer so short words
-  // ("誰", "今") aren't dropped as no-speech. A modest intensifier keeps it a
-  // nudge — high values make the model hallucinate the keyword from silence.
-  for (const hint of dedupe(hints).slice(0, 8)) params.append('keywords', `${hint}:2`);
+  // ("誰", "今") aren't dropped as no-speech. Intensifier 3: at 2 Deepgram still
+  // returned empty transcripts for clean short answers (good level, ~2s decoded
+  // audio, transcript=""). Hallucination risk stays bounded because the client
+  // only uploads once its VAD hears speech — clips are never pure silence —
+  // and a wrong accept still gets corrected by the reveal flow.
+  for (const hint of dedupe(hints).slice(0, 8)) params.append('keywords', `${hint}:3`);
   const resp = await fetch(`https://api.deepgram.com/v1/listen?${params}`, {
     method: 'POST',
     headers: {
@@ -92,6 +95,11 @@ async function transcribe(audio, language, apiKey, hints = []) {
     transcript: alt?.transcript ?? '',
     confidence: alt?.confidence ?? null,
     duration: data?.metadata?.duration ?? null,
+    // Word timings let the client split the spoken answer off junk words
+    // decoded from trailing cabin noise (in noise the VAD can't detect the
+    // end of speech, so clips run to the max-utterance cap and the tail gets
+    // transcribed too, e.g. "きんようび妙帯" for 金曜日).
+    words: (alt?.words ?? []).map((w) => ({ word: w.word, start: w.start, end: w.end })),
   };
 }
 
