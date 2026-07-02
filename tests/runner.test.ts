@@ -91,7 +91,12 @@ describe('SessionRunner robustness', () => {
     await vi.advanceTimersByTimeAsync(0); // play intro + teach → reach the listen
 
     expect(phases).toContain('teach-listening');
-    await vi.advanceTimersByTimeAsync(8001); // teach-echo 5000ms + 3000ms watchdog
+    // Watchdog budget = timeout (5000) + capture/POST overhead (14000): it must
+    // NOT fire while a slow-but-valid transcription could still be in flight…
+    await vi.advanceTimersByTimeAsync(18000);
+    expect(phases[phases.length - 1]).toBe('teach-listening');
+    // …but must force progress once the budget is exhausted.
+    await vi.advanceTimersByTimeAsync(1001);
     expect(phases[phases.length - 1]).toBe('done');
   });
 });

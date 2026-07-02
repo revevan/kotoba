@@ -213,6 +213,14 @@ export class SessionRunner {
     const degraded = this.state.degraded || !this.deps.srAvailable();
     const degradedWaitMs = kind === 'self-grade' ? 5000 : kind === 'resume' ? 10000 : 300;
 
+    // A listen can legitimately outlive timeoutMs by a lot: speech can begin
+    // just before the no-speech deadline, run a full utterance window plus
+    // trailing silence (~3.2s), and the transcription POST has its own 8s
+    // budget. The watchdog is a last line of defense against a *wedged*
+    // recognizer, so it must sit beyond that worst case — not race a valid
+    // answer that's still being transcribed.
+    const WATCHDOG_OVERHEAD_MS = 14000;
+
     // Last line of defense: if the listen somehow never produces an event
     // (recognizer wedged, exception below, …) force the session forward.
     const watchdog = setTimeout(() => {
@@ -221,7 +229,7 @@ export class SessionRunner {
       this.listenGen++;
       this.deps.abortListen();
       this.dispatch({ type: 'listenResult', outcome: 'timeout' });
-    }, (degraded ? degradedWaitMs : timeoutMs) + 3000);
+    }, degraded ? degradedWaitMs + 3000 : timeoutMs + WATCHDOG_OVERHEAD_MS);
 
     try {
       // Degraded mode (no usable speech recognition): self-grade and resume

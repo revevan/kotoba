@@ -85,7 +85,9 @@ export async function updateSetting(
   if (key === 'enabledDecks' || key === 'newPerDay') await loadHomeData();
 }
 
-const player = new Player();
+// If the OS pauses playback (phone call, Siri), pause the session too — the
+// machine ignores the command in phases where pausing makes no sense.
+const player = new Player(() => runner?.tap('pause'));
 let runner: SessionRunner | null = null;
 let loadedDecks: Deck[] = [];
 

@@ -42,6 +42,12 @@ export class Player {
   private el: HTMLAudioElement = new Audio();
   private generation = 0;
   private timer: ReturnType<typeof setTimeout> | null = null;
+  private gapResolve: ((o: PlayOutcome) => void) | null = null;
+
+  /** Called when the OS pauses playback out from under us (phone call, Siri,
+   *  CarPlay ducking). Without it the clip's 'ended' never fires and the
+   *  session would sit silent forever; the owner typically pauses the session. */
+  constructor(private onInterrupt?: () => void) {}
 
   /** Must be called synchronously inside the session-start tap handler. */
   unlock(): void {
@@ -68,6 +74,9 @@ export class Player {
   cancel(): void {
     this.generation++;
     if (this.timer) clearTimeout(this.timer);
+    // Settle any pending gap now — its timer is dead, so without this the
+    // play() awaiting it would hang forever.
+    this.gapResolve?.('cancelled');
     this.el.pause();
   }
 
@@ -93,7 +102,15 @@ export class Player {
         if (gen !== this.generation) {
           cleanup();
           resolve('cancelled');
+          return;
         }
+        // Still the live generation and not at clip end: the OS paused us
+        // (interruption). Surface it instead of hanging the sequence.
+        if (el.ended) return; // natural end — onEnded settles this clip
+        dlog('player', `interrupted (external pause): ${el.currentSrc.split('/').slice(-2).join('/')}`);
+        cleanup();
+        resolve('cancelled');
+        this.onInterrupt?.();
       };
       el.addEventListener('ended', onEnded);
       el.addEventListener('error', onError);
@@ -105,9 +122,12 @@ export class Player {
 
   private wait(ms: number, gen: number): Promise<PlayOutcome> {
     return new Promise((resolve) => {
-      this.timer = setTimeout(() => {
-        resolve(gen === this.generation ? 'done' : 'cancelled');
-      }, ms);
+      const finish = (o: PlayOutcome) => {
+        if (this.gapResolve === finish) this.gapResolve = null;
+        resolve(o);
+      };
+      this.gapResolve = finish;
+      this.timer = setTimeout(() => finish(gen === this.generation ? 'done' : 'cancelled'), ms);
     });
   }
 }

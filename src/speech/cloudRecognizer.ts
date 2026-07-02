@@ -82,24 +82,49 @@ function micLive(): boolean {
   return !!micStream && micStream.getAudioTracks().some((t) => t.readyState === 'live');
 }
 
-/** Acquire (or reuse) the persistent mic + analyser. Returns null on failure. */
-async function ensureMic(): Promise<AnalyserNode | null> {
-  if (micLive() && micAnalyser) return micAnalyser;
-  cloudReleaseMic(); // clear any half-dead state
+// Bumped by cloudReleaseMic so an in-flight acquisition that loses the race
+// (e.g. pause tapped while resume's primeMic awaits getUserMedia) stops its
+// stream instead of leaving a hot mic behind.
+let micEpoch = 0;
+// Single-flight: resume fires primeMic() without awaiting it, and the next
+// listen calls ensureMic() concurrently — both must share one getUserMedia,
+// not race two streams (the loser's stream would leak and stay live).
+let micAcquiring: Promise<AnalyserNode | null> | null = null;
 
+/** Acquire (or reuse) the persistent mic + analyser. Returns null on failure. */
+function ensureMic(): Promise<AnalyserNode | null> {
+  if (micLive() && micAnalyser) return Promise.resolve(micAnalyser);
+  if (micAcquiring) return micAcquiring;
+  micAcquiring = acquireMic().finally(() => {
+    micAcquiring = null;
+  });
+  return micAcquiring;
+}
+
+async function acquireMic(): Promise<AnalyserNode | null> {
+  cloudReleaseMic(); // clear any half-dead state
+  const epoch = micEpoch;
+
+  let stream: MediaStream;
   try {
-    micStream = await navigator.mediaDevices.getUserMedia({
+    stream = await navigator.mediaDevices.getUserMedia({
       audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
     });
   } catch (e) {
     dlog('cstt', `getUserMedia failed: ${e}`);
-    micStream = null;
+    return null;
+  }
+  if (epoch !== micEpoch) {
+    // Released (paused / session ended) while acquiring — don't keep a hot mic.
+    stream.getTracks().forEach((t) => t.stop());
+    dlog('cstt', 'mic released mid-acquire');
     return null;
   }
 
+  micStream = stream;
   primeCloudAudio();
   if (!audioCtx) return null;
-  micSource = audioCtx.createMediaStreamSource(micStream);
+  micSource = audioCtx.createMediaStreamSource(stream);
   micAnalyser = audioCtx.createAnalyser();
   micAnalyser.fftSize = 1024;
   micSource.connect(micAnalyser);
@@ -113,6 +138,7 @@ export async function primeMic(): Promise<void> {
 }
 
 export function cloudReleaseMic(): void {
+  micEpoch++;
   try {
     micSource?.disconnect();
   } catch {
@@ -149,7 +175,7 @@ export async function cloudWaitForEcho(timeoutMs: number): Promise<'spoke' | 'si
   return new Promise<'spoke' | 'silent' | 'aborted'>((resolve) => {
     let settled = false;
     let poll: ReturnType<typeof setInterval> | null = null;
-    let vad: VadState = { speechStarted: false, lastVoiceMs: null };
+    let vad: VadState = { speechStartMs: null, lastVoiceMs: null };
     const startedAt = performance.now();
     const cfg: VadConfig = { ...VAD_BASE, noSpeechTimeoutMs: timeoutMs };
     const frame = new Uint8Array(analyser.fftSize);
@@ -214,7 +240,7 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
     let poll: ReturnType<typeof setInterval> | null = null;
     let recorder: MediaRecorder | null = null;
     const chunks: BlobPart[] = [];
-    let vad: VadState = { speechStarted: false, lastVoiceMs: null };
+    let vad: VadState = { speechStartMs: null, lastVoiceMs: null };
     let peak = 0; // loudest frame seen, for diagnosing missed speech
     const startedAt = performance.now();
     const cfg: VadConfig = { ...VAD_BASE, noSpeechTimeoutMs: opts.timeoutMs };

@@ -79,7 +79,8 @@ export function primaryUtterance(raw: unknown): string | null {
  * full timeout window every time. Pure so it can be unit-tested frame by frame.
  */
 export interface VadState {
-  speechStarted: boolean;
+  /** ms timestamp of the first frame that crossed the speech threshold. */
+  speechStartMs: number | null;
   /** ms timestamp of the last frame whose level was above the speech threshold. */
   lastVoiceMs: number | null;
 }
@@ -106,16 +107,20 @@ export function vadStep(
 ): { state: VadState; decision: VadDecision } {
   const voiced = level >= cfg.threshold;
   const next: VadState = {
-    speechStarted: state.speechStarted || voiced,
+    speechStartMs: state.speechStartMs ?? (voiced ? nowMs : null),
     lastVoiceMs: voiced ? nowMs : state.lastVoiceMs,
   };
 
-  if (!next.speechStarted) {
+  if (next.speechStartMs === null) {
     if (nowMs - startedAtMs >= cfg.noSpeechTimeoutMs) return { state: next, decision: 'stop-no-speech' };
     return { state: next, decision: 'continue' };
   }
 
-  if (nowMs - startedAtMs >= cfg.maxUtteranceMs) return { state: next, decision: 'stop-utterance' };
+  // Cap from speech ONSET, not listen start: a user who thinks for a few
+  // seconds before answering must still get the full utterance window.
+  // (Measured from listen start, a late answer was cut off at its first
+  // syllable the moment it crossed the threshold.)
+  if (nowMs - next.speechStartMs >= cfg.maxUtteranceMs) return { state: next, decision: 'stop-utterance' };
   if (next.lastVoiceMs !== null && nowMs - next.lastVoiceMs >= cfg.trailingSilenceMs) {
     return { state: next, decision: 'stop-utterance' };
   }

@@ -75,12 +75,12 @@ describe('vadStep', () => {
     maxUtteranceMs: 5000,
     noSpeechTimeoutMs: 5000,
   };
-  const fresh: VadState = { speechStarted: false, lastVoiceMs: null };
+  const fresh: VadState = { speechStartMs: null, lastVoiceMs: null };
 
   it('continues while waiting for speech onset', () => {
     const r = vadStep(fresh, 0.0, 100, 0, cfg);
     expect(r.decision).toBe('continue');
-    expect(r.state.speechStarted).toBe(false);
+    expect(r.state.speechStartMs).toBe(null);
   });
 
   it('gives up if no speech by the timeout', () => {
@@ -88,21 +88,36 @@ describe('vadStep', () => {
     expect(r.decision).toBe('stop-no-speech');
   });
 
-  it('latches speechStarted once a loud frame arrives', () => {
+  it('latches the speech-onset timestamp once a loud frame arrives', () => {
     const r = vadStep(fresh, 0.5, 300, 0, cfg);
-    expect(r.state.speechStarted).toBe(true);
+    expect(r.state.speechStartMs).toBe(300);
     expect(r.state.lastVoiceMs).toBe(300);
     expect(r.decision).toBe('continue');
   });
 
   it('ends the utterance after trailing silence', () => {
-    const started: VadState = { speechStarted: true, lastVoiceMs: 1000 };
+    const started: VadState = { speechStartMs: 500, lastVoiceMs: 1000 };
     expect(vadStep(started, 0.0, 1800, 0, cfg).decision).toBe('continue'); // 800ms < 900
     expect(vadStep(started, 0.0, 1950, 0, cfg).decision).toBe('stop-utterance'); // 950ms >= 900
   });
 
-  it('caps a never-ending utterance at maxUtteranceMs', () => {
-    const loud: VadState = { speechStarted: true, lastVoiceMs: 4999 };
+  it('caps a never-ending utterance at maxUtteranceMs from onset', () => {
+    const loud: VadState = { speechStartMs: 0, lastVoiceMs: 4999 };
     expect(vadStep(loud, 0.5, 5000, 0, cfg).decision).toBe('stop-utterance');
+  });
+
+  it('gives a late answer the full utterance window (cap from onset, not listen start)', () => {
+    // Speech begins at 4.2s — just before the 5s no-speech deadline.
+    let r = vadStep(fresh, 0.5, 4200, 0, cfg);
+    expect(r.decision).toBe('continue');
+    // 4.8s after listen start but only 600ms after onset: must keep going.
+    r = vadStep(r.state, 0.5, 4800, 0, cfg);
+    expect(r.decision).toBe('continue');
+    // Still going 4s into the utterance (8.2s after listen start).
+    r = vadStep(r.state, 0.5, 8200, 0, cfg);
+    expect(r.decision).toBe('continue');
+    // Cap finally lands 5s after onset.
+    r = vadStep(r.state, 0.5, 9200, 0, cfg);
+    expect(r.decision).toBe('stop-utterance');
   });
 });
