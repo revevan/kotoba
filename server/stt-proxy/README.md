@@ -10,14 +10,19 @@ provider by editing `transcribe()` in `worker.js`.
 
 ```
 POST /   multipart/form-data: audio=<blob>, lang=ja-JP|en-US, hint=<term>*
-200  ->  { "transcript": "医者" }     # empty transcript = no speech
+200  ->  { "transcript": "医者",      # empty transcript = no speech
+           "words": [{ "word": "医者", "start": 0.2, "end": 0.9 }] }
 ```
 
 `hint` is optional and repeatable: the client sends the expected answer (the
 quizzed word's reading and written forms) so Deepgram keyword-boosts toward it.
 Short utterances ("誰", "今") otherwise decode to an empty transcript; the boost
-recovers them. The intensifier is deliberately modest so the model doesn't
-hallucinate the hint out of silence.
+recovers them. The intensifier is kept moderate so the model doesn't hallucinate
+the hint out of noise (pure silence is never uploaded — the client only sends a
+clip once its VAD hears speech).
+
+`words` carries Deepgram's per-word timings; the client uses the gaps to split
+the spoken answer off junk words decoded from trailing cabin noise.
 
 ## One-time setup
 
