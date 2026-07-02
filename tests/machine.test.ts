@@ -54,6 +54,22 @@ describe('session machine', () => {
     expect(s.effects).toContainEqual({ type: 'learned', wordId: 'w1' });
   });
 
+  it('skip during teach-playing leaves the word new and drops its re-quiz', () => {
+    // Queue as the builder lays it out: teach w1 … re-quiz w1 a few slots later.
+    const s = run(start([teach('w1'), quiz('w2'), quiz('w1')]), playDone, { type: 'tap', cmd: 'skip' });
+    expect(s.state.phase).toBe('quiz-playing');
+    expect(s.effects).toEqual([{ type: 'play', kind: 'quiz-prompt', wordId: 'w2' }]);
+    expect(s.state.counts.taught).toBe(0);
+    expect(s.state.queue.map((i) => i.wordId)).toEqual(['w1', 'w2']); // re-quiz gone
+  });
+
+  it('skip during teach-listening also skips without learning', () => {
+    const s = run(start([teach('w1'), quiz('w1')]), playDone, playDone, result('cmd-skip'));
+    expect(s.effects.map((e) => e.type)).not.toContain('learned');
+    expect(s.state.phase).toBe('done'); // re-quiz dropped → nothing left
+    expect(s.state.counts.taught).toBe(0);
+  });
+
   it('quiz: matched answer rates good and plays correct', () => {
     const s = run(start([quiz('w1')]), playDone, playDone, result('match', '林檎'));
     expect(s.state.phase).toBe('correct-playing');

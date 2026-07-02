@@ -156,6 +156,16 @@ function finishTeach(s: MachineState): Step {
   return { state: next.state, effects: [{ type: 'learned', wordId: item.wordId }, ...next.effects] };
 }
 
+/** True skip of a teach: the word stays "new" — no card, no taught count — so it
+ *  gets taught properly another day. Its in-session re-quiz (baked into the queue
+ *  a few slots ahead by the queue builder) is dropped too; a skipped word is the
+ *  only way the same wordId appears again later in the queue. */
+function skipTeach(s: MachineState): Step {
+  const item = currentItem(s)!;
+  const queue = s.queue.filter((it, i) => i <= s.idx || it.wordId !== item.wordId);
+  return advance({ ...s, queue });
+}
+
 function pause(s: MachineState): Step {
   return step({ ...s, phase: 'pause-playing' }, { type: 'play', kind: 'paused' });
 }
@@ -238,12 +248,12 @@ export function reduce(s: MachineState, ev: Event): Step {
         return step({ ...s, phase: 'teach-listening', retries: 0 }, { type: 'listen', kind: 'teach-echo', wordId: currentItem(s)!.wordId });
       }
       if (outcome === 'cmd-repeat') return enterItem(s);
-      if (outcome === 'cmd-skip') return finishTeach(s);
+      if (outcome === 'cmd-skip') return skipTeach(s);
       break;
 
     case 'teach-listening': {
       if (outcome === 'cmd-repeat') return enterItem(s);
-      if (outcome === 'cmd-skip') return finishTeach(s);
+      if (outcome === 'cmd-skip') return skipTeach(s);
       if (outcome === 'denied' || outcome === 'unavailable') return finishTeach(degrade(s));
       if (outcome === 'error') return finishTeach(bumpSrFailure(s));
       if (outcome) {
