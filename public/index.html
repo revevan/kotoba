@@ -2,6 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    // Logged-in users land in the app, not the pitch. The app stores its auth
+    // token in localStorage (same origin — see src/sync/client.ts STORE key);
+    // run before paint so there's no marketing-page flash. location.replace
+    // keeps Back working (no marketing entry left in history). Escape hatch:
+    // /?stay shows the marketing page regardless (e.g. showing someone the site).
+    try {
+      var kAuth = JSON.parse(localStorage.getItem('kotoba-auth'));
+      if (kAuth && kAuth.token && location.search.indexOf('stay') === -1) location.replace('/app/');
+    } catch (e) { /* no storage or bad JSON — stay on the marketing page */ }
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kotoba — Hands-free Japanese vocabulary</title>
   <meta name="description" content="Learn Japanese vocabulary by voice during your commute. Spaced repetition, no screen required — built for AirPods and car audio." />
