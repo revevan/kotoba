@@ -28,7 +28,9 @@ export const voiceEcho = signal(true);
 // Sentence-context (cloze) settings
 export const enableCloze = signal(true); // mature words quiz via a gapped sentence
 export const clozeMinIntervalDays = signal(7); // interval a word must reach before cloze
-export const clozeEnglishFirst = signal(false); // play the EN translation before the gapped prompt
+// Default on: the app is handsfree-first, and without the spoken EN hint the
+// only clue to the gapped word is on screen — useless while driving.
+export const clozeEnglishFirst = signal(true); // play the EN translation before the gapped prompt
 
 // Live session
 export const sessionState = signal<MachineState | null>(null);
