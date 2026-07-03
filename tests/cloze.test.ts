@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { initialState, reduce, type Event, type Item, type ListenOutcome, type Step } from '../src/session/machine';
-import { chooseExerciseType, pickSentence } from '../src/session/selectExercise';
+import { chooseExerciseType, pickClozeSentence, pickSentence } from '../src/session/selectExercise';
 import { buildQueue } from '../src/session/queueBuilder';
 import { gradeCloze } from '../src/matching/match';
 import { State, type Card } from 'ts-fsrs';
@@ -110,6 +110,28 @@ describe('chooseExerciseType', () => {
     expect(chooseExerciseType(card(State.New, 0), w, forced)).toBe('cloze');
     expect(chooseExerciseType(undefined, w, forced)).toBe('cloze');
     expect(chooseExerciseType(card(State.New, 0), word('w1'), forced)).toBe('quiz'); // no sentence
+  });
+  it('teach-example-only sentences (clozeEligible: false) never trigger a cloze', () => {
+    const teachOnly = word('w1', [{ ...sentence('s1'), clozeEligible: false }]);
+    expect(chooseExerciseType(card(State.Review, 30), teachOnly, cfg)).toBe('quiz');
+    // A mixed pool still qualifies via its eligible sentence.
+    const mixed = word('w1', [{ ...sentence('s1'), clozeEligible: false }, sentence('s2')]);
+    expect(chooseExerciseType(card(State.Review, 30), mixed, cfg)).toBe('cloze');
+  });
+});
+
+describe('pickClozeSentence', () => {
+  it('rotates only within the cloze-eligible subset', () => {
+    const w = word('w1', [{ ...sentence('a'), clozeEligible: false }, sentence('b'), sentence('c')]);
+    expect(pickClozeSentence(w, 0)?.id).toBe('b');
+    expect(pickClozeSentence(w, 1)?.id).toBe('c');
+    expect(pickClozeSentence(w, 2)?.id).toBe('b'); // wraps within the subset
+    // The plain teach rotation still sees the whole pool.
+    expect(pickSentence(w, 0)?.id).toBe('a');
+  });
+  it('returns undefined when nothing is eligible', () => {
+    const w = word('w1', [{ ...sentence('a'), clozeEligible: false }]);
+    expect(pickClozeSentence(w, 0)).toBeUndefined();
   });
 });
 

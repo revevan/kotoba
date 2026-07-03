@@ -20,9 +20,16 @@ export interface ClozeConfig {
  * `forceMature` bypasses only the maturity gate (state + interval), so the cloze
  * path can be exercised on a fresh database without waiting for a card to age.
  */
+/** Sentences whose context forces a unique answer — the only ones a cloze quiz
+ *  may gap. Low-recoverability sentences (clozeEligible: false) remain in the
+ *  pool as teach/correct-tail examples only. */
+export function clozeSentences(word: Word): Sentence[] {
+  return (word.sentences ?? []).filter((s) => s.clozeEligible !== false);
+}
+
 export function chooseExerciseType(card: Card | undefined, word: Word, cfg: ClozeConfig): 'quiz' | 'cloze' {
   if (!cfg.enableCloze) return 'quiz';
-  if (!word.sentences || word.sentences.length === 0) return 'quiz';
+  if (clozeSentences(word).length === 0) return 'quiz';
   if (cfg.forceMature) return 'cloze';
   if (!card || card.state !== State.Review) return 'quiz';
   if ((card.scheduled_days ?? 0) < cfg.minIntervalDays) return 'quiz';
@@ -35,7 +42,15 @@ export function chooseExerciseType(card: Card | undefined, word: Word, cfg: Cloz
  * keeps the queue unit-testable; modulo wraps the pool.
  */
 export function pickSentence(word: Word, rotation: number): Sentence | undefined {
-  const pool = word.sentences;
+  return pickFrom(word.sentences, rotation);
+}
+
+/** Rotation restricted to cloze-eligible sentences (for cloze slots). */
+export function pickClozeSentence(word: Word, rotation: number): Sentence | undefined {
+  return pickFrom(clozeSentences(word), rotation);
+}
+
+function pickFrom(pool: Sentence[] | undefined, rotation: number): Sentence | undefined {
   if (!pool || pool.length === 0) return undefined;
   const i = ((rotation % pool.length) + pool.length) % pool.length;
   return pool[i];

@@ -18,7 +18,7 @@ import { initReadingAnalyzer } from '../matching/reading';
 import { syncOnLoad, syncPush } from '../sync/sync';
 import type { Deck, Word } from '../types';
 import { buildQueue, type Decorate } from './queueBuilder';
-import { chooseExerciseType, pickSentence } from './selectExercise';
+import { chooseExerciseType, pickClozeSentence, pickSentence } from './selectExercise';
 import { SessionRunner } from './runner';
 import type { TapCommand } from './machine';
 import {
@@ -197,14 +197,15 @@ export async function startSession(): Promise<void> {
     const word = words.get(wordId);
     if (!word?.sentences?.length) return {};
     const card = cardById.get(wordId);
-    const sentence = pickSentence(word, card?.reps ?? 0);
-    if (!sentence) return {};
     // A teach slot is the teaching step itself; only quiz slots (a real review
-    // or a just-taught word's in-session re-quiz) can become a cloze.
+    // or a just-taught word's in-session re-quiz) can become a cloze — and a
+    // cloze must rotate within the cloze-eligible subset of the pool.
     if (role !== 'teach' && chooseExerciseType(card, word, clozeCfg) === 'cloze') {
-      return { mode: 'cloze', sentenceId: sentence.id };
+      const sentence = pickClozeSentence(word, card?.reps ?? 0);
+      if (sentence) return { mode: 'cloze', sentenceId: sentence.id };
     }
-    return { sentenceId: sentence.id };
+    const sentence = pickSentence(word, card?.reps ?? 0);
+    return sentence ? { sentenceId: sentence.id } : {};
   };
 
   const queue = buildQueue(due, fresh, 4, decorate);

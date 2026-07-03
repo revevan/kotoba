@@ -25,7 +25,7 @@ import {
   type LevelConfig,
 } from './config';
 import {
-  buildTokenizer, client, countOccurrences, draftsDir, hashInt, loadDeck, maskCloze,
+  buildTokenizer, client, clozeMatchesTarget, countOccurrences, draftsDir, hashInt, loadDeck, maskCloze,
   parseJsonText, readState, reusablePool, sentenceId, trigramJaccard, whitelistForms,
   whitelistText, wordById, writeState,
   type Cluster, type GenSentence, type JudgeScore, type PlanState, type RejectedSentence,
@@ -327,6 +327,7 @@ async function fetchResults(cfg: LevelConfig): Promise<void> {
     } else {
       if (!clozeSurfacePresent(s.textJa, s.clozeSurface)) reasons.push('cloze surface not in sentence');
       else if (countOccurrences(s.textJa, s.clozeSurface) !== 1) reasons.push('cloze surface appears more than once');
+      else if (!clozeMatchesTarget(tk, s, word)) reasons.push('cloze is not the target word');
       const tokens = tk.tokenize(s.textJa);
       const contentLen = tokens.filter((t) => t.pos !== '記号').length;
       if (contentLen < cfg.minTokens || contentLen > cfg.maxTokens) reasons.push(`length ${contentLen} outside ${cfg.minTokens}-${cfg.maxTokens} tokens`);
@@ -467,15 +468,27 @@ interface Candidate {
   valid: boolean;
   offenders: string[];
   approved: boolean;
+  /** False ⇒ ships as a teach example only (cloze recoverability below gate). */
+  clozeEligible: boolean;
   scores?: Omit<JudgeScore, 'sentenceKey'>;
 }
 
 async function finalize(cfg: LevelConfig): Promise<void> {
   const judgeBatch = readState<{ id: string }>(cfg.deckId, 'judge-batch.json');
   if (!judgeBatch) throw new Error('no judge batch — run judge first');
-  const valid = readState<GenSentence[]>(cfg.deckId, 'valid.json') ?? [];
+  const allValid = readState<GenSentence[]>(cfg.deckId, 'valid.json') ?? [];
   const deck = loadDeck(cfg.deckId);
   const words = wordById(deck);
+
+  // Re-check target attribution — earlier fetches ran before this validator
+  // existed, so state may still hold mis-filed sentences.
+  const tk = await buildTokenizer();
+  const valid = allValid.filter((s) => {
+    const w = words.get(s.wordId);
+    const ok = !!w && clozeMatchesTarget(tk, s, w);
+    if (!ok) console.warn(`  ✗ dropped (cloze ≠ target ${s.wordId}): ${s.textJa}`);
+    return ok;
+  });
 
   console.log(`polling judge batch ${judgeBatch.id} …`);
   await pollBatch(judgeBatch.id);
@@ -512,27 +525,34 @@ async function finalize(cfg: LevelConfig): Promise<void> {
     }
   }
 
-  const autoApproves = (sc: JudgeScore): boolean =>
-    sc.clozeRecoverability >= AUTO_APPROVE.clozeRecoverability &&
+  // Two gates: teach quality (naturalness/level/translation) decides whether a
+  // sentence ships at all; cloze recoverability only decides whether it may be
+  // gapped as a quiz. Low-C sentences on demonstrative-like words are still
+  // valuable listening examples — don't discard them.
+  const teachOk = (sc: JudgeScore): boolean =>
     sc.naturalness >= AUTO_APPROVE.naturalness &&
     sc.levelAppropriateness >= AUTO_APPROVE.levelAppropriateness &&
     sc.translationAccuracy >= AUTO_APPROVE.translationAccuracy;
+  const clozeOk = (sc: JudgeScore): boolean => sc.clozeRecoverability >= AUTO_APPROVE.clozeRecoverability;
 
   const candidates: Candidate[] = [];
   let shipped = 0;
+  let teachOnly = 0;
   let flagged = 0;
   let unscored = 0;
   for (const s of valid) {
     const key = sentenceId(s.wordId, s.textJa);
     const sc = scores.get(key);
-    const approved = sc ? autoApproves(sc) : false;
+    const approved = sc ? teachOk(sc) : false;
+    const clozeEligible = sc ? clozeOk(sc) : false;
     if (!sc) unscored++;
-    else if (approved) shipped++;
+    else if (approved && clozeEligible) shipped++;
+    else if (approved) teachOnly++;
     else flagged++;
     candidates.push({
       id: key, wordId: s.wordId, textJa: s.textJa, readingKana: s.readingKana, textEn: s.textEn,
       clozeSurface: s.clozeSurface, clozeReading: s.clozeReading,
-      valid: true, offenders: [], approved,
+      valid: true, offenders: [], approved, clozeEligible,
       scores: sc ? { naturalness: sc.naturalness, levelAppropriateness: sc.levelAppropriateness, translationAccuracy: sc.translationAccuracy, clozeRecoverability: sc.clozeRecoverability, interest: sc.interest, note: sc.note } : undefined,
     });
   }
@@ -543,7 +563,7 @@ async function finalize(cfg: LevelConfig): Promise<void> {
   for (const [wordId, list] of Object.entries(reuse)) {
     if (!words.has(wordId)) continue;
     for (const s of list) {
-      candidates.push({ id: s.id, wordId, textJa: s.textJa, readingKana: s.readingKana, textEn: s.textEn, clozeSurface: s.clozeSurface, clozeReading: s.clozeReading, valid: true, offenders: [], approved: true });
+      candidates.push({ id: s.id, wordId, textJa: s.textJa, readingKana: s.readingKana, textEn: s.textEn, clozeSurface: s.clozeSurface, clozeReading: s.clozeReading, valid: true, offenders: [], approved: true, clozeEligible: s.clozeEligible !== false });
       reusedCount++;
     }
   }
@@ -555,7 +575,7 @@ async function finalize(cfg: LevelConfig): Promise<void> {
   writeFileSync(join(draftsDir, `${cfg.deckId}.candidates.json`), JSON.stringify(candidates, null, 2) + '\n');
   writeFileSync(join(draftsDir, `${cfg.deckId}.review.md`), reviewMd(cfg, candidates, manualQueue, words));
 
-  console.log(`auto-approved: ${shipped} | flagged for review: ${flagged} | unscored: ${unscored} | reused: ${reusedCount}`);
+  console.log(`auto-approved (cloze+teach): ${shipped} | teach-example only: ${teachOnly} | flagged for review: ${flagged} | unscored: ${unscored} | reused: ${reusedCount}`);
   console.log(`words without any shippable sentence: ${manualQueue.length}`);
   console.log(`review table: tools/sentences-draft/${cfg.deckId}.review.md`);
   console.log(`then: npm run gen-sentences -- --approve ${cfg.deckId} && npm run gen-audio ${cfg.deckId}`);
@@ -565,7 +585,8 @@ function reviewMd(cfg: LevelConfig, candidates: Candidate[], manualQueue: string
   const row = (c: Candidate): string => {
     const sc = c.scores;
     const scoreTxt = sc ? `N${sc.naturalness} L${sc.levelAppropriateness} T${sc.translationAccuracy} C${sc.clozeRecoverability} I${sc.interest}${sc.note ? ` — ${sc.note}` : ''}` : c.approved ? 'reused (starter)' : 'unscored';
-    return `| ${words.get(c.wordId)?.prompt ?? c.wordId} | ${c.textJa} | ${c.textEn} | ${c.clozeReading} | ${scoreTxt} | ${c.approved ? 'yes' : ''} |`;
+    const use = c.approved ? (c.clozeEligible ? 'cloze+teach' : 'teach only') : '';
+    return `| ${words.get(c.wordId)?.prompt ?? c.wordId} | ${c.textJa} | ${c.textEn} | ${c.clozeReading} | ${scoreTxt} | ${use} | ${c.approved ? 'yes' : ''} |`;
   };
   const flaggedRows = candidates.filter((c) => !c.approved).map(row);
   const approvedRows = candidates.filter((c) => c.approved && c.scores).map(row);
@@ -576,14 +597,14 @@ function reviewMd(cfg: LevelConfig, candidates: Candidate[], manualQueue: string
     `Flip \`approved\` in ${cfg.deckId}.candidates.json to override either direction, then:`,
     `\`npm run gen-sentences -- --approve ${cfg.deckId}\``, '',
     `## Flagged for review (${flaggedRows.length})`, '',
-    '| word | sentence (JA) | EN | cloze answer | judge | approve? |',
-    '| --- | --- | --- | --- | --- | --- |',
+    '| word | sentence (JA) | EN | cloze answer | judge | use | approve? |',
+    '| --- | --- | --- | --- | --- | --- | --- |',
     ...flaggedRows, '',
     `## Needs manual authoring (${manualQueue.length} words with no shippable sentence)`, '',
     ...manualQueue.map((m) => `- ${m}`), '',
     `## Auto-approved (${approvedRows.length}) — spot-check only`, '',
-    '| word | sentence (JA) | EN | cloze answer | judge | approve? |',
-    '| --- | --- | --- | --- | --- | --- |',
+    '| word | sentence (JA) | EN | cloze answer | judge | use | approve? |',
+    '| --- | --- | --- | --- | --- | --- | --- |',
     ...approvedRows, '',
   ].join('\n');
 }

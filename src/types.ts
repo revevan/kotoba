@@ -24,6 +24,10 @@ export interface Sentence {
   clozeSurface: string;
   /** Hiragana reading of clozeSurface — the accepted cloze answer. */
   clozeReading: string;
+  /** False ⇒ teach-example only: the context can't force a unique blank (e.g.
+   *  demonstratives — この/その both fit), so it never becomes a cloze quiz.
+   *  Absent/true ⇒ usable for both. */
+  clozeEligible?: boolean;
 }
 
 export interface Word {

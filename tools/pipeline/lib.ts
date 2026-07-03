@@ -174,3 +174,25 @@ export interface JudgeScore {
 export function wordById(deck: Deck): Map<string, Word> {
   return new Map(deck.words.map((w) => [w.id, w]));
 }
+
+/**
+ * The cloze span must actually BE the target word — the pilot judge caught the
+ * generator occasionally filing a sentence under the wrong word_id (an いいえ
+ * sentence attributed to 一緒), which validation missed and which would quiz
+ * one word while rating another's card. Accepts exact forms, the kuromoji
+ * dictionary form of the cloze's first token (conjugations: 行きます → 行く),
+ * or a shared 2-char stem as a last resort for kana-only conjugation.
+ */
+export function clozeMatchesTarget(
+  tk: Tokenizer,
+  s: { clozeSurface: string; clozeReading: string },
+  word: Word,
+): boolean {
+  const forms = new Set(formsOf(word));
+  if (forms.has(s.clozeSurface) || forms.has(s.clozeReading)) return true;
+  const basic = tk.tokenize(s.clozeSurface)[0]?.basic_form;
+  if (basic && basic !== '*' && forms.has(basic)) return true;
+  return [...forms].some(
+    (f) => f.length >= 2 && s.clozeSurface.length >= 2 && f.slice(0, 2) === s.clozeSurface.slice(0, 2),
+  );
+}

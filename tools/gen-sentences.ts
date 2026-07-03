@@ -166,6 +166,8 @@ function approveDrafts(decks: Deck[]): void {
         textEn: c.textEn,
         clozeSurface: c.clozeSurface,
         clozeReading: c.clozeReading,
+        // Teach-example-only sentences (judge scored the cloze unrecoverable).
+        ...((c as { clozeEligible?: boolean }).clozeEligible === false ? { clozeEligible: false } : {}),
       });
     }
     writeFileSync(join(sentencesDir, `${deck.id}.json`), JSON.stringify(pool, null, 2) + '\n');
