@@ -238,9 +238,13 @@ async function submit(cfg: LevelConfig, opts: { pilot?: number; retry?: boolean 
       custom_id: c.id,
       params: {
         model: GEN_MODEL,
-        max_tokens: 8192,
+        // Sonnet 5 runs adaptive thinking by default and it counts against
+        // max_tokens — the pilot truncated at 8192 with the budget spent on
+        // thinking. Medium effort curbs the thinking spend; 24K leaves the
+        // ~4K JSON payload plenty of room either way.
+        max_tokens: 24000,
         system,
-        output_config: { format: { type: 'json_schema' as const, schema: GEN_SCHEMA } },
+        output_config: { effort: 'medium' as const, format: { type: 'json_schema' as const, schema: GEN_SCHEMA } },
         messages: [{ role: 'user', content: clusterUserPrompt(c, words, extra) }],
       },
     })),
@@ -283,6 +287,10 @@ async function fetchResults(cfg: LevelConfig): Promise<void> {
     const msg = result.result.message;
     if (msg.stop_reason === 'refusal') {
       apiErrors.push(`${result.custom_id}: refusal`);
+      continue;
+    }
+    if (msg.stop_reason === 'max_tokens') {
+      apiErrors.push(`${result.custom_id}: truncated at max_tokens (output=${msg.usage.output_tokens}) — raise max_tokens or lower effort`);
       continue;
     }
     const text = msg.content.find((b) => b.type === 'text')?.text ?? '{}';
@@ -429,9 +437,9 @@ async function judge(cfg: LevelConfig): Promise<void> {
       custom_id: `judge-${wordId}`,
       params: {
         model: JUDGE_MODEL,
-        max_tokens: 2048,
+        max_tokens: 8000, // adaptive thinking counts against this — see submit()
         system,
-        output_config: { format: { type: 'json_schema' as const, schema: JUDGE_SCHEMA } },
+        output_config: { effort: 'medium' as const, format: { type: 'json_schema' as const, schema: JUDGE_SCHEMA } },
         messages: [{
           role: 'user' as const,
           content: `Target word: ${w.written[0] ?? w.kana}（${w.kana}） = "${w.prompt}"\nSentences:\n${body}`,
