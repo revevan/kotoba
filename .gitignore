@@ -3,3 +3,5 @@ dist/
 dev-dist/
 *.local
 *.tmp
+tools/pipeline/state/
+.env
