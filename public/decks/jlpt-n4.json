@@ -16040,6 +16040,224 @@
     "JLPT",
     "JLPT_N4"
    ]
+  },
+  {
+   "id": "n4-0af09210",
+   "english": "as I thought, absolutely",
+   "prompt": "as expected",
+   "kana": "やはり",
+   "written": [
+    "やはり",
+    "やっぱり"
+   ],
+   "romaji": "yahari",
+   "mora": [
+    "ya",
+    "ha",
+    "ri"
+   ],
+   "moraKana": [
+    "や",
+    "は",
+    "り"
+   ],
+   "alts": [
+    {
+     "id": "n4-8b47842e",
+     "kana": "やっぱり",
+     "romaji": "yappari"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_4",
+    "JLPT_N4"
+   ]
+  },
+  {
+   "id": "n4-c3efa65a",
+   "english": "report",
+   "prompt": "report",
+   "kana": "れぽーと",
+   "written": [
+    "レポート",
+    "れぽーと",
+    "リポート",
+    "りぽーと"
+   ],
+   "romaji": "repo-to",
+   "mora": [
+    "re",
+    "po",
+    "o",
+    "to"
+   ],
+   "moraKana": [
+    "れ",
+    "ぽ",
+    "ー",
+    "と"
+   ],
+   "alts": [
+    {
+     "id": "n4-21a739e9",
+     "kana": "りぽーと",
+     "romaji": "ripo-to"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_4",
+    "JLPT_N4"
+   ]
+  },
+  {
+   "id": "n4-83b9451d",
+   "english": "rich person",
+   "prompt": "rich person",
+   "kana": "おかねもち",
+   "written": [
+    "お金持ち",
+    "おかねもち",
+    "金持ち",
+    "かねもち"
+   ],
+   "romaji": "okanemochi",
+   "mora": [
+    "o",
+    "ka",
+    "ne",
+    "mo",
+    "chi"
+   ],
+   "moraKana": [
+    "お",
+    "か",
+    "ね",
+    "も",
+    "ち"
+   ],
+   "alts": [
+    {
+     "id": "n4-a928aa4a",
+     "kana": "かねもち",
+     "romaji": "kanemochi"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_4",
+    "JLPT_N4"
+   ]
+  },
+  {
+   "id": "n4-79743701",
+   "english": "high school; senior high school",
+   "prompt": "high school",
+   "kana": "こうこう",
+   "written": [
+    "高校",
+    "こうこう",
+    "高等学校",
+    "こうとうがっこう"
+   ],
+   "romaji": "koukou",
+   "mora": [
+    "ko",
+    "u",
+    "ko",
+    "u"
+   ],
+   "moraKana": [
+    "こ",
+    "う",
+    "こ",
+    "う"
+   ],
+   "alts": [
+    {
+     "id": "n4-de457aea",
+     "kana": "こうとうがっこう",
+     "romaji": "koutougakkou"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_4",
+    "JLPT_N4"
+   ]
+  },
+  {
+   "id": "n4-81a7873e",
+   "english": "but, although",
+   "prompt": "although",
+   "kana": "けれど",
+   "written": [
+    "けれど",
+    "けれども"
+   ],
+   "romaji": "keredo",
+   "mora": [
+    "ke",
+    "re",
+    "do"
+   ],
+   "moraKana": [
+    "け",
+    "れ",
+    "ど"
+   ],
+   "alts": [
+    {
+     "id": "n4-25ba68e5",
+     "kana": "けれども",
+     "romaji": "keredomo"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_4",
+    "JLPT_N4"
+   ]
+  },
+  {
+   "id": "n4-11dea61b",
+   "english": "computer",
+   "prompt": "computer (formal)",
+   "kana": "こんぴゅーた",
+   "written": [
+    "コンピュータ",
+    "こんぴゅーた",
+    "コンピューター",
+    "こんぴゅーたー"
+   ],
+   "romaji": "konpyu-ta",
+   "mora": [
+    "ko",
+    "n",
+    "pyu",
+    "u",
+    "ta"
+   ],
+   "moraKana": [
+    "こ",
+    "ん",
+    "ぴゅ",
+    "ー",
+    "た"
+   ],
+   "alts": [
+    {
+     "id": "n4-b9ce61a8",
+     "kana": "こんぴゅーたー",
+     "romaji": "konpyu-ta-"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_4",
+    "JLPT_N4"
+   ]
   }
  ]
 }

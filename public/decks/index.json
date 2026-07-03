@@ -8,13 +8,13 @@
   {
     "id": "jlpt-n5",
     "name": "JLPT N5",
-    "wordCount": 660,
+    "wordCount": 671,
     "file": "jlpt-n5.json"
   },
   {
     "id": "jlpt-n4",
     "name": "JLPT N4",
-    "wordCount": 603,
+    "wordCount": 609,
     "file": "jlpt-n4.json"
   }
 ]

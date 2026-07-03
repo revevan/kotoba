@@ -18740,6 +18740,378 @@
     "JLPT_5",
     "JLPT_N5"
    ]
+  },
+  {
+   "id": "n5-746a980b",
+   "english": "to go",
+   "prompt": "to go",
+   "kana": "いく",
+   "written": [
+    "行く",
+    "いく",
+    "ゆく"
+   ],
+   "romaji": "iku",
+   "mora": [
+    "i",
+    "ku"
+   ],
+   "moraKana": [
+    "い",
+    "く"
+   ],
+   "alts": [
+    {
+     "id": "n5-b6b73992",
+     "kana": "ゆく",
+     "romaji": "yuku"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-3b5d947a",
+   "english": "good",
+   "prompt": "good, nice",
+   "kana": "いい",
+   "written": [
+    "いい",
+    "よい"
+   ],
+   "romaji": "ii",
+   "mora": [
+    "i",
+    "i"
+   ],
+   "moraKana": [
+    "い",
+    "い"
+   ],
+   "alts": [
+    {
+     "id": "n5-d9ff8ef1",
+     "kana": "よい",
+     "romaji": "yoi"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-042ce5cf",
+   "english": "(abbr.) kilo (kilogram)",
+   "prompt": "kilogram",
+   "kana": "きろぐらむ",
+   "written": [
+    "キログラム",
+    "きろぐらむ",
+    "キロ",
+    "きろ"
+   ],
+   "romaji": "kiroguramu",
+   "mora": [
+    "ki",
+    "ro",
+    "gu",
+    "ra",
+    "mu"
+   ],
+   "moraKana": [
+    "き",
+    "ろ",
+    "ぐ",
+    "ら",
+    "む"
+   ],
+   "alts": [
+    {
+     "id": "n5-7898480b",
+     "kana": "きろ",
+     "romaji": "kiro"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-c7d93258",
+   "english": "(abbr.) kilo (kilometer)",
+   "prompt": "kilometer",
+   "kana": "きろめーとる",
+   "written": [
+    "キロメートル",
+    "きろめーとる",
+    "キロ",
+    "きろ"
+   ],
+   "romaji": "kirome-toru",
+   "mora": [
+    "ki",
+    "ro",
+    "me",
+    "e",
+    "to",
+    "ru"
+   ],
+   "moraKana": [
+    "き",
+    "ろ",
+    "め",
+    "ー",
+    "と",
+    "る"
+   ],
+   "alts": [
+    {
+     "id": "n5-7898480b",
+     "kana": "きろ",
+     "romaji": "kiro"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-e8a5b19b",
+   "english": "approximate (quantity)",
+   "prompt": "approximately (amount)",
+   "kana": "くらい",
+   "written": [
+    "くらい",
+    "ぐらい"
+   ],
+   "romaji": "kurai",
+   "mora": [
+    "ku",
+    "ra",
+    "i"
+   ],
+   "moraKana": [
+    "く",
+    "ら",
+    "い"
+   ],
+   "alts": [
+    {
+     "id": "n5-3d139bc9",
+     "kana": "ぐらい",
+     "romaji": "gurai"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-4bb278a4",
+   "english": "about, toward, approximately (time)",
+   "prompt": "around (a time)",
+   "kana": "ころ",
+   "written": [
+    "ころ",
+    "ごろ"
+   ],
+   "romaji": "koro",
+   "mora": [
+    "ko",
+    "ro"
+   ],
+   "moraKana": [
+    "こ",
+    "ろ"
+   ],
+   "alts": [
+    {
+     "id": "n5-d78a0578",
+     "kana": "ごろ",
+     "romaji": "goro"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-e4269d44",
+   "english": "well, well then",
+   "prompt": "well then",
+   "kana": "じゃ",
+   "written": [
+    "じゃ",
+    "じゃあ"
+   ],
+   "romaji": "ja",
+   "mora": [
+    "ja"
+   ],
+   "moraKana": [
+    "じゃ"
+   ],
+   "alts": [
+    {
+     "id": "n5-6dfa2330",
+     "kana": "じゃあ",
+     "romaji": "jaa"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-d669529e",
+   "english": "yes; appears, to be the case",
+   "prompt": "that's right",
+   "kana": "そう",
+   "written": [
+    "そう",
+    "そうです"
+   ],
+   "romaji": "sou",
+   "mora": [
+    "so",
+    "u"
+   ],
+   "moraKana": [
+    "そ",
+    "う"
+   ],
+   "alts": [
+    {
+     "id": "n5-857717d6",
+     "kana": "そうです",
+     "romaji": "soudesu"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-59bbbb5a",
+   "english": "and, and then",
+   "prompt": "and so",
+   "kana": "そして",
+   "written": [
+    "そして",
+    "そうして"
+   ],
+   "romaji": "soshite",
+   "mora": [
+    "so",
+    "shi",
+    "te"
+   ],
+   "moraKana": [
+    "そ",
+    "し",
+    "て"
+   ],
+   "alts": [
+    {
+     "id": "n5-8d784d9d",
+     "kana": "そうして",
+     "romaji": "soushite"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-352ad867",
+   "english": "every month, monthly",
+   "prompt": "every month",
+   "kana": "まいつき",
+   "written": [
+    "毎月",
+    "まいつき",
+    "まいげつ"
+   ],
+   "romaji": "maitsuki",
+   "mora": [
+    "ma",
+    "i",
+    "tsu",
+    "ki"
+   ],
+   "moraKana": [
+    "ま",
+    "い",
+    "つ",
+    "き"
+   ],
+   "alts": [
+    {
+     "id": "n5-e6962095",
+     "kana": "まいげつ",
+     "romaji": "maigetsu"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
+  },
+  {
+   "id": "n5-b5e938b6",
+   "english": "every year, yearly, annually",
+   "prompt": "every year",
+   "kana": "まいとし",
+   "written": [
+    "毎年",
+    "まいとし",
+    "まいねん"
+   ],
+   "romaji": "maitoshi",
+   "mora": [
+    "ma",
+    "i",
+    "to",
+    "shi"
+   ],
+   "moraKana": [
+    "ま",
+    "い",
+    "と",
+    "し"
+   ],
+   "alts": [
+    {
+     "id": "n5-49046d0a",
+     "kana": "まいねん",
+     "romaji": "mainen"
+    }
+   ],
+   "tags": [
+    "JLPT",
+    "JLPT_5",
+    "JLPT_N5"
+   ]
   }
  ]
 }

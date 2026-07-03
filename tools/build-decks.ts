@@ -72,23 +72,46 @@ function parseCsv(text: string): string[][] {
 const KANA_ONLY = /^[ぁ-ゖー]+$/;
 
 function buildWord(level: string, expression: string, reading: string, meaning: string, tags: string[]): Word | null {
-  const kana = toHiragana(reading.replace(/[～〜\s]/g, ''));
+  // Some source rows carry alternate readings/expressions, semicolon-separated
+  // and pairwise ("高校; 高等学校" / "こうこう; こうとうがっこう"). The first
+  // pair is the primary; the rest become alts (taught aloud + accepted). These
+  // rows used to be dropped entirely — the ';' failed the kana-only test.
+  const readings = reading.split(/[;；]/).map((r) => toHiragana(r.replace(/[～〜\s]/g, ''))).filter(Boolean);
+  const exprs = expression.split(/[;；]/).map((e) => e.replace(/[～〜\s]/g, '')).filter(Boolean);
+  const kana = readings[0] ?? '';
   if (!kana || !KANA_ONLY.test(kana)) return null;
-  const expr = expression.replace(/[～〜\s]/g, '') || kana;
+  const expr = exprs[0] || kana;
   const english = meaning.trim();
   if (!english) return null;
   // Provisional prompt; resolvePrompts() finalizes it once collisions are known.
   const prompt = barePrompt(english);
   const moraKana = segmentMora(kana);
+
+  const written = new Set([expr, kana]);
+  const alts: Word['alts'] = [];
+  for (let i = 1; i < readings.length; i++) {
+    const altKana = readings[i];
+    if (!KANA_ONLY.test(altKana)) continue;
+    const altExpr = exprs[i] ?? altKana;
+    written.add(altExpr);
+    written.add(altKana);
+    alts.push({
+      id: `${level}-${createHash('sha1').update(`${altExpr}|${altKana}`).digest('hex').slice(0, 8)}`,
+      kana: altKana,
+      romaji: toRomaji(altKana),
+    });
+  }
+
   return {
     id: `${level}-${createHash('sha1').update(`${expr}|${kana}`).digest('hex').slice(0, 8)}`,
     english,
     prompt,
     kana,
-    written: [...new Set([expr, kana])],
+    written: [...written],
     romaji: toRomaji(kana),
     mora: moraClipKeys(moraKana),
     moraKana,
+    ...(alts.length ? { alts } : {}),
     tags,
   };
 }
