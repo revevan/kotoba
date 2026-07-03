@@ -16,6 +16,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kotoba — Hands-free Japanese vocabulary</title>
   <meta name="description" content="Learn Japanese vocabulary by voice during your commute. Spaced repetition, no screen required — built for AirPods and car audio." />
+  <link rel="canonical" href="https://kotobaapp.com" />
+  <meta name="theme-color" content="#10101a" />
   <meta property="og:title" content="Kotoba — Hands-free Japanese vocabulary" />
   <meta property="og:description" content="Learn Japanese vocabulary by voice during your commute. Spaced repetition, no screen required — built for AirPods and car audio." />
   <meta property="og:url" content="https://kotobaapp.com" />
@@ -42,344 +44,434 @@
     }
   }
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  <!-- Japanese serif subset to exactly the glyphs used on this page (言葉, examples). -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600&display=swap&text=%E8%A8%80%E8%91%89%E3%82%8A%E3%82%93%E3%81%94%E6%AF%8E%E6%9C%9D%E3%82%92%E9%A3%9F%E3%81%B9%E3%81%BE%E3%81%99%E3%80%82%E3%81%AF%E3%81%84%E3%81%88%E3%81%88%E3%80%8C%E3%80%8D" rel="stylesheet" />
   <style>
+    :root {
+      --bg: #10101a;
+      --band: #13131f;
+      --panel: #1e1e2e;
+      --border: #2c2c40;
+      --hairline: #34344a;
+      --text: #f0f0f5;
+      --body: #b8b8c8;
+      --muted: #9a9aae;
+      --faint: #6c6c80;
+      --accent: #7c7cf0;
+      --success: #6fdc8c;
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    html, body { background: var(--bg); }
     body {
-      background: #10101a;
-      color: #f0f0f5;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
       line-height: 1.6;
     }
+    a { color: inherit; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+    .jp { font-family: 'Noto Serif JP', serif; font-weight: 600; }
+    .display { font-family: 'Newsreader', Georgia, serif; font-weight: 400; }
 
-    a { color: inherit; text-decoration: none; }
-
-    /* Nav */
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 24px;
-      max-width: 760px;
-      margin: 0 auto;
+    .eyebrow {
+      font-size: 13px; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--muted);
     }
+    .eyebrow.accent { color: var(--accent); }
 
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 18px;
-      font-weight: 600;
+    /* ============ Nav ============ */
+    nav { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; padding-bottom: 20px; }
+    .brand { display: flex; align-items: baseline; gap: 10px; }
+    .brand .kanji { font-size: 22px; color: var(--accent); }
+    .brand .name { font-size: 17px; font-weight: 600; letter-spacing: .02em; }
+    .pill {
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      padding: 9px 18px; border: 1px solid var(--hairline); border-radius: 99px;
+      transition: color .15s ease, border-color .15s ease;
     }
+    .pill:hover { border-color: var(--accent); color: var(--accent); }
+    .pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-    .nav-brand .kanji { font-size: 22px; }
-
-    .nav-cta {
-      background: #7c6cff;
-      color: #fff;
-      padding: 9px 20px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .nav-cta:hover { opacity: 0.88; }
-
-    /* Layout */
-    main {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    hr {
-      border: none;
-      border-top: 1px solid #1e1e2e;
-      margin: 0;
-    }
-
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 72px 0 80px;
-    }
-
-    .hero-kanji {
-      font-size: 80px;
-      line-height: 1;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 {
-      font-size: 52px;
-      font-weight: 700;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
-    }
-
-    .hero-tagline {
-      font-size: 20px;
-      color: #9a9aae;
-      max-width: 400px;
-      margin: 0 auto 40px;
-      line-height: 1.5;
-    }
-
+    /* ============ Buttons ============ */
     .btn-primary {
-      display: inline-block;
-      background: #7c6cff;
-      color: #fff;
-      padding: 16px 40px;
-      border-radius: 14px;
-      font-size: 18px;
-      font-weight: 600;
+      display: inline-block; background: var(--accent); color: var(--bg);
+      font-weight: 700; text-decoration: none; border-radius: 12px;
+      font-size: 17px; padding: 15px 30px;
+      transition: transform .15s ease, filter .15s ease;
     }
+    .btn-primary.lg { font-size: 18px; padding: 17px 36px; }
+    .btn-primary:hover { filter: brightness(1.12); transform: translateY(-1px); }
+    .btn-primary:active { filter: brightness(.95); transform: translateY(0); }
+    .btn-primary:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
 
-    .btn-primary:hover { opacity: 0.88; }
-
-    /* Features */
-    .features {
-      padding: 72px 0;
+    /* ============ Hero ============ */
+    .hero {
+      display: flex; flex-wrap: wrap; gap: 56px; align-items: center; justify-content: center;
+      padding-top: 56px; padding-bottom: 88px;
     }
-
-    .section-eyebrow {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #7c6cff;
-      margin-bottom: 36px;
+    .hero-copy { flex: 1 1 420px; min-width: 300px; max-width: 560px; }
+    .hero-copy .eyebrow { margin-bottom: 20px; }
+    .hero-copy h1 {
+      margin-bottom: 22px;
+      font-size: clamp(40px, 5.6vw, 62px); line-height: 1.08; letter-spacing: -.01em;
+      text-wrap: balance;
     }
+    .hero-copy .lede { margin-bottom: 32px; font-size: 18px; color: var(--body); max-width: 46ch; text-wrap: pretty; }
 
-    .features-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+    /* The exchange (hero demo) */
+    .hero-demo { flex: 0 1 400px; min-width: 300px; }
+    .exchange {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 20px;
+      padding: 26px 24px; display: flex; flex-direction: column; gap: 14px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
     }
+    .exchange-head {
+      display: flex; align-items: center; gap: 8px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+    .exchange-head .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: kw-pulse 2s ease-in-out infinite; }
+    .exchange-head .label { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .bub { max-width: 88%; }
+    .bub.app { align-self: flex-start; }
+    .bub.you { align-self: flex-end; }
+    /* Static/visible by default (no-JS + reduced-motion fallback); JS adds .animate. */
+    .exchange.animate .bub { opacity: 0; transform: translateY(8px); transition: opacity .5s ease, transform .5s ease; }
+    .exchange.animate .bub.shown { opacity: 1; transform: translateY(0); }
+    .bub .who { margin-bottom: 4px; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .bub.you .who { text-align: right; }
+    .bub .msg { background: var(--bg); border: 1px solid var(--border); border-radius: 14px 14px 14px 4px; padding: 14px 16px; }
+    .bub .msg p { font-size: 15px; line-height: 1.55; }
+    .bub.you .msg {
+      background: var(--accent); border: none; border-radius: 14px 14px 4px 14px; padding: 14px 18px;
+    }
+    .bub.you .msg p { font-size: 19px; color: var(--bg); }
+    .bub .accent-jp { color: var(--accent); }
+    .bub .soft-jp { color: #c9c9dd; }
+    .bub .ok { color: var(--success); font-weight: 700; }
+    .bub .example { margin-top: 6px; font-size: 14px; line-height: 1.6; color: var(--muted); }
+    .listening { display: flex; align-items: center; gap: 10px; }
+    .listening .word { font-size: 12px; color: var(--muted); }
+    .bars { display: flex; align-items: center; gap: 3px; height: 18px; }
+    .bars span { width: 3px; height: 16px; border-radius: 2px; background: var(--accent); animation: kw-bar 1s ease-in-out infinite; }
+    .bars span:nth-child(2) { animation-delay: .15s; }
+    .bars span:nth-child(3) { animation-delay: .3s; }
+    .bars span:nth-child(4) { animation-delay: .45s; }
+    .bars span:nth-child(5) { animation-delay: .6s; }
+    .bars.lg span { width: 4px; height: 22px; }
+    .bars.lg { height: 26px; gap: 4px; }
+    .demo-caption { margin: 12px 4px 0; font-size: 12px; color: var(--faint); text-align: center; }
 
-    @media (max-width: 520px) {
-      .features-grid { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 40px; }
+    /* ============ Sections ============ */
+    section.band { border-top: 1px solid var(--panel); background: var(--band); }
+    .section-pad { padding-top: 80px; padding-bottom: 80px; }
+    h2.display { font-size: clamp(28px, 3.6vw, 40px); line-height: 1.15; }
+    .cards {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;
     }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 28px 26px; }
+    .card .stepnum { margin-bottom: 14px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 20px; color: var(--accent); }
+    .card .body { margin-bottom: 14px; font-size: 15px; color: var(--body); }
+    .card .quote { font-size: 14px; line-height: 1.7; color: var(--muted); border-left: 2px solid var(--hairline); padding-left: 14px; }
+    .quote .soft-jp { font-family: 'Noto Serif JP', serif; color: #c9c9dd; }
 
-    .feature-card {
-      background: #16161f;
-      border: 1px solid #1e1e2e;
-      border-radius: 16px;
-      padding: 28px;
-    }
+    /* Why it sticks */
+    .cols { display: flex; flex-wrap: wrap; gap: 48px; }
+    .cols > div { flex: 1 1 380px; min-width: 280px; }
+    .cols h3 { margin-bottom: 14px; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 28px; line-height: 1.2; }
+    .cols p { font-size: 16px; line-height: 1.65; color: var(--body); text-wrap: pretty; }
 
-    .feature-icon {
-      font-size: 28px;
-      margin-bottom: 14px;
-    }
+    /* What you'll learn */
+    .learn-sub { margin-bottom: 44px; font-size: 16px; color: var(--muted); max-width: 60ch; }
+    .learn-sub .soft-jp { font-family: 'Noto Serif JP', serif; color: #c9c9dd; }
+    .decks { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .deck { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 26px 24px; display: flex; flex-direction: column; gap: 8px; }
+    .deck .level { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+    .deck .name { font-size: 19px; font-weight: 600; }
+    .deck .desc { font-size: 14px; line-height: 1.55; color: var(--muted); }
+    .deck.teaser { background: transparent; border: 1px dashed var(--hairline); justify-content: center; }
+    .deck.teaser .level, .deck.teaser .name { color: var(--muted); }
+    .deck.teaser .desc { color: var(--faint); }
 
-    .feature-card h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
+    /* Built for the road */
+    .road { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; }
+    .road-copy { flex: 1 1 400px; min-width: 280px; }
+    .road-copy .eyebrow { margin-bottom: 12px; }
+    .road-copy h2 { margin-bottom: 18px; }
+    .road-copy .lede { margin-bottom: 26px; font-size: 16px; line-height: 1.65; color: var(--body); text-wrap: pretty; }
+    .road-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .road-list li { display: flex; gap: 12px; align-items: baseline; font-size: 15px; color: var(--body); }
+    .road-list li::before { content: "—"; color: var(--accent); font-weight: 700; }
+    .road-demo { flex: 0 1 360px; min-width: 280px; display: flex; justify-content: center; }
+    .phone {
+      width: 250px; background: var(--panel); border: 1px solid var(--border); border-radius: 32px;
+      padding: 14px; box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
     }
+    .phone-screen {
+      background: var(--bg); border-radius: 22px; padding: 36px 20px; min-height: 340px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+    }
+    .phone-screen .badge { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+    .phone-screen .prompt { font-size: 15px; color: var(--body); }
+    .phone-screen .cta { font-size: 26px; font-weight: 800; letter-spacing: .06em; color: var(--accent); text-align: center; }
+    .phone-screen .state { font-size: 12px; color: var(--faint); }
 
-    .feature-card p {
-      font-size: 14px;
-      color: #9a9aae;
-      line-height: 1.55;
+    /* Roadmap strip */
+    .roadmap-pad { padding-top: 52px; padding-bottom: 52px; }
+    .roadmap-pad .eyebrow { margin-bottom: 22px; }
+    .rungs { display: flex; flex-wrap: wrap; gap: 12px; align-items: stretch; }
+    .rung {
+      flex: 1 1 200px; min-width: 180px; background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px;
     }
+    .rung .head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .rung .name { font-size: 15px; font-weight: 600; }
+    .rung .desc { font-size: 13px; line-height: 1.5; color: var(--muted); }
+    .tag {
+      font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 99px; white-space: nowrap;
+    }
+    .tag.live { background: rgba(111, 220, 140, .14); color: var(--success); }
+    .tag.soon { background: rgba(154, 154, 174, .14); color: var(--muted); }
 
-    /* How it works */
-    .how {
-      padding: 72px 0;
-    }
-
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-top: 36px;
-    }
-
-    .step {
-      display: flex;
-      gap: 24px;
-      padding-bottom: 36px;
-      position: relative;
-    }
-
-    .step:not(:last-child)::before {
-      content: '';
-      position: absolute;
-      left: 17px;
-      top: 36px;
-      bottom: 0;
-      width: 2px;
-      background: #1e1e2e;
-    }
-
-    .step-num {
-      flex-shrink: 0;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #1a1a2a;
-      border: 1px solid #2e2e48;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-      color: #7c6cff;
-      position: relative;
-      z-index: 1;
-    }
-
-    .step-body {
-      padding-top: 6px;
-    }
-
-    .step-body h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .step-body p {
-      font-size: 14px;
-      color: #9a9aae;
-      line-height: 1.55;
-    }
-
-    /* Bottom CTA */
-    .bottom-cta {
-      text-align: center;
-      padding: 72px 0 88px;
-    }
-
-    .bottom-cta h2 {
-      font-size: 36px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 12px;
-    }
-
-    .bottom-cta .sub {
-      color: #9a9aae;
-      margin-bottom: 36px;
-      font-size: 16px;
-    }
-
-    .fine-print {
-      margin-top: 18px;
-      font-size: 13px;
-      color: #4a4a62;
-    }
+    /* Final CTA */
+    .final { padding-top: 100px; padding-bottom: 100px; text-align: center; }
+    .final .kanji { margin-bottom: 18px; font-size: 34px; color: var(--accent); }
+    .final h2 { margin: 0 auto 16px; font-size: clamp(30px, 4.4vw, 48px); line-height: 1.12; max-width: 20ch; text-wrap: balance; }
+    .final .sub { margin-bottom: 34px; font-size: 17px; color: var(--muted); }
 
     /* Footer */
-    footer {
-      border-top: 1px solid #1e1e2e;
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 13px;
-      color: #4a4a62;
+    footer { border-top: 1px solid var(--panel); }
+    .foot {
+      padding-top: 32px; padding-bottom: 32px;
+      display: flex; flex-wrap: wrap; gap: 16px; align-items: baseline; justify-content: space-between;
+      font-size: 13px; color: var(--faint);
     }
+    .foot p { line-height: 1.6; max-width: 56ch; }
+    .foot a { color: var(--muted); }
+    .foot a:hover { color: var(--accent); }
 
-    footer a { color: #6a6a82; }
-    footer a:hover { color: #9a9aae; }
+    @keyframes kw-bar { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+    @keyframes kw-pulse { 0%, 100% { opacity: .5; } 50% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
   </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-brand">
-    <span class="kanji">言葉</span>
-    <span>Kotoba</span>
+<nav class="wrap">
+  <div class="brand">
+    <span class="kanji jp">言葉</span>
+    <span class="name">Kotoba</span>
   </div>
-  <a href="/app/" class="nav-cta">Open app</a>
+  <a href="/app/" class="pill">Open app</a>
 </nav>
 
-<main>
+<!-- ============ Hero ============ -->
+<header class="hero wrap">
+  <div class="hero-copy">
+    <p class="eyebrow">Hands-free · Free · No app store</p>
+    <h1 class="display">Learn Japanese with your voice, not your thumbs.</h1>
+    <p class="lede">Kotoba teaches you a word, hears you say it back, and quizzes you days later — a complete vocabulary trainer you run entirely by voice, built for your commute.</p>
+    <a href="/app/" class="btn-primary">Start learning free →</a>
+  </div>
 
-  <section class="hero">
-    <div class="hero-kanji">言葉</div>
-    <h1>Kotoba</h1>
-    <p class="hero-tagline">Hands-free Japanese vocabulary for your commute.</p>
-    <a href="/app/" class="btn-primary">Start learning for free →</a>
-  </section>
-
-  <hr />
-
-  <section class="features">
-    <p class="section-eyebrow">Why Kotoba</p>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🎙</div>
-        <h3>Voice-driven learning</h3>
-        <p>Listen to a word, say it back out loud, get quizzed later — entirely by voice. No tapping, no scrolling, no screen time.</p>
+  <div class="hero-demo">
+    <div class="exchange" id="exchange">
+      <div class="exchange-head">
+        <span class="dot"></span>
+        <span class="label">Live session · eyes on the road</span>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔄</div>
-        <h3>Spaced repetition</h3>
-        <p>Words come back right before you'd forget them. The scheduler adapts to how well you know each word so nothing falls through the cracks.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎧</div>
-        <h3>Commute-ready</h3>
-        <p>Built for AirPods and car audio. Dash-mount your phone, tap once to start, and learn the whole commute.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📚</div>
-        <h3>JLPT vocabulary</h3>
-        <p>Curated N5 and N4 word sets with native audio pronunciation. Start with the most essential Japanese vocabulary.</p>
-      </div>
-    </div>
-  </section>
-
-  <hr />
-
-  <section class="how">
-    <p class="section-eyebrow">How it works</p>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-body">
-          <h3>Kotoba introduces a word</h3>
-          <p>It plays the Japanese word, its reading in hiragana, and the English meaning — all spoken aloud.</p>
+      <div class="bub app">
+        <p class="who">Kotoba says</p>
+        <div class="msg">
+          <p>apple … in Japanese … <span class="jp accent-jp">りんご</span> … riiin—gooo</p>
         </div>
       </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-body">
-          <h3>You say it back</h3>
-          <p>Speak the word out loud. Kotoba listens and lets you know if you got it right.</p>
+      <div class="bub you">
+        <div class="listening">
+          <span class="word">listening</span>
+          <span class="bars"><span></span><span></span><span></span><span></span><span></span></span>
         </div>
       </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-body">
-          <h3>It quizzes you later</h3>
-          <p>Spaced repetition schedules each word to reappear at the ideal moment — so it actually sticks long-term.</p>
+      <div class="bub you">
+        <p class="who">You say</p>
+        <div class="msg">
+          <p class="jp">「りんご」</p>
+        </div>
+      </div>
+      <div class="bub app">
+        <div class="msg">
+          <p><span class="ok">✓</span> That’s it.</p>
+          <p class="example">For example: <span class="jp soft-jp">毎朝りんごを食べます。</span></p>
         </div>
       </div>
     </div>
-  </section>
+    <p class="demo-caption">A real exchange from a session — it hears whether you got it right.</p>
+  </div>
+</header>
 
-  <hr />
+<!-- ============ How it works ============ -->
+<section class="band">
+  <div class="wrap section-pad">
+    <p class="eyebrow accent" style="margin-bottom:12px">How it works</p>
+    <h2 class="display" style="margin-bottom:48px;max-width:22ch">Three beats, all by ear.</h2>
+    <div class="cards">
+      <div class="card">
+        <p class="stepnum">1 · It teaches</p>
+        <p class="body">A slow, spoken breakdown of each new word, then the word in a natural sentence.</p>
+        <p class="quote">“apple … in Japanese … <span class="soft-jp">りんご</span> … riiin—gooo. For example: <span class="soft-jp">毎朝りんごを食べます</span>”</p>
+      </div>
+      <div class="card">
+        <p class="stepnum">2 · You say it back</p>
+        <p class="body">Speak it out loud. Kotoba listens with cloud speech recognition and confirms you got it.</p>
+        <p class="quote">Say <span class="soft-jp">りんご</span> and it knows. If it mishears, you self-grade — by voice.</p>
+      </div>
+      <div class="card">
+        <p class="stepnum">3 · It brings it back</p>
+        <p class="body">Each word returns right before you’d forget it, quizzed and graded entirely by ear.</p>
+        <p class="quote">Modern spaced repetition (FSRS) — no streaks, no gems, no guilt.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <section class="bottom-cta">
-    <h2>Start learning Japanese today</h2>
-    <p class="sub">Works in any browser. No app store required.</p>
-    <a href="/app/" class="btn-primary">Open Kotoba →</a>
-    <p class="fine-print">Free · Offline-capable · Sync across devices</p>
-  </section>
+<!-- ============ Why it sticks ============ -->
+<section class="wrap section-pad">
+  <div class="cols">
+    <div>
+      <h3>Repetition that’s earned, not gamified</h3>
+      <p>The scheduler adapts to how well you actually know each word and brings it back at the moment you’d start to forget. No streak-shaming, no XP — just words that quietly stick.</p>
+    </div>
+    <div>
+      <h3>Words in real sentences</h3>
+      <p>Every new word arrives inside a natural example sentence. Once a word matures, you hear the sentence with a beep where the word goes — and say the missing word. Context, still 100% by ear.</p>
+    </div>
+  </div>
+</section>
 
-</main>
+<!-- ============ What you'll learn ============ -->
+<section class="band">
+  <div class="wrap section-pad">
+    <p class="eyebrow accent" style="margin-bottom:12px">What you’ll learn</p>
+    <h2 class="display" style="margin-bottom:10px">The JLPT vocabulary, spoken by natives.</h2>
+    <p class="learn-sub">Around 4,000 native-quality audio clips. Alternate readings are taught and accepted — “yes” is <span class="soft-jp">はい</span>, but <span class="soft-jp">ええ</span> counts too.</p>
+    <div class="decks">
+      <div class="deck">
+        <p class="level">JLPT N5</p>
+        <p class="name">N5 Starter</p>
+        <p class="desc">The ~120 most essential words. The right first week.</p>
+      </div>
+      <div class="deck">
+        <p class="level">JLPT N5</p>
+        <p class="name">Full N5</p>
+        <p class="desc">All ~660 N5 words with native audio and example sentences.</p>
+      </div>
+      <div class="deck">
+        <p class="level">JLPT N4</p>
+        <p class="name">Full N4</p>
+        <p class="desc">~600 words to carry you past the basics.</p>
+      </div>
+      <div class="deck teaser">
+        <p class="level" style="color:var(--muted)">Next stop</p>
+        <p class="name">Road to N3</p>
+        <p class="desc">The N3 deck is in the works.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Built for the road ============ -->
+<section class="wrap section-pad">
+  <div class="road">
+    <div class="road-copy">
+      <p class="eyebrow accent">Built for the road</p>
+      <h2 class="display">Dash-mount it. Tap START once. That’s the last tap.</h2>
+      <p class="lede">Made for AirPods and car audio. Voice commands handle everything mid-session, so your eyes stay on the road. Works offline once cached — cell dead zones included.</p>
+      <ul class="road-list">
+        <li>Say “repeat”, “skip”, “pause”, or “got it” — eyes-free</li>
+        <li>Works offline in dead zones once cached</li>
+        <li>No app store required</li>
+        <li>Progress lives on your device; optional email sync</li>
+      </ul>
+    </div>
+    <div class="road-demo">
+      <div class="phone">
+        <div class="phone-screen">
+          <p class="badge">Quiz · word 12 of 20</p>
+          <p class="prompt">“bicycle”</p>
+          <p class="cta">YOUR ANSWER?</p>
+          <span class="bars lg"><span></span><span></span><span></span><span></span></span>
+          <p class="state">listening…</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Roadmap strip ============ -->
+<section class="band">
+  <div class="wrap roadmap-pad">
+    <p class="eyebrow">Where it’s going — the difficulty ladder</p>
+    <div class="rungs">
+      <div class="rung">
+        <div class="head"><p class="name">Hear it</p><span class="tag live">Live</span></div>
+        <p class="desc">Recognize the spoken word and answer by voice.</p>
+      </div>
+      <div class="rung">
+        <div class="head"><p class="name">Complete it</p><span class="tag live">Live</span></div>
+        <p class="desc">Hear a sentence with a beep — say the missing word.</p>
+      </div>
+      <div class="rung">
+        <div class="head"><p class="name">Say it back</p><span class="tag soon">In design</span></div>
+        <p class="desc">Shadow full sentences, graded by ear.</p>
+      </div>
+      <div class="rung">
+        <div class="head"><p class="name">Build it</p><span class="tag soon">In design</span></div>
+        <p class="desc">Make your own sentence with the word, AI-graded.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Final CTA ============ -->
+<section class="final wrap">
+  <p class="kanji jp">言葉</p>
+  <h2 class="display">Your commute is an hour. Give it a purpose.</h2>
+  <p class="sub">Free · No app store · Works in your browser</p>
+  <a href="/app/" class="btn-primary lg">Start learning free →</a>
+</section>
 
 <footer>
-  <span>© 2026 Kotoba</span>
+  <div class="wrap foot">
+    <p>JLPT word lists by <a href="https://www.tanos.co.uk/jlpt/">Jonathan Waller</a> (CC-BY). Free and open source — <a href="https://github.com/revevan/kotoba">GitHub</a>.</p>
+    <p>© 2026 Kotoba</p>
+  </div>
 </footer>
+
+<script>
+  // Hero "exchange" demo: bubbles appear in sequence, hold, then loop.
+  // Progressive enhancement — without JS (or with reduced motion) all four
+  // bubbles are simply visible, static.
+  (function () {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var box = document.getElementById('exchange');
+    var bubs = Array.prototype.slice.call(box.querySelectorAll('.bub'));
+    box.classList.add('animate');
+    var delays = [1600, 1800, 1600, 3800, 1200]; // hold time after each step (4 = all hidden)
+    var step = 0;
+    function tick() {
+      bubs.forEach(function (b, i) { b.classList.toggle('shown', step !== 4 && step >= i); });
+      var hold = delays[step];
+      step = (step + 1) % 5;
+      setTimeout(tick, hold);
+    }
+    tick();
+  })();
+</script>
 
 </body>
 </html>
