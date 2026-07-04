@@ -132,7 +132,9 @@
    "prompt": "finally",
    "kana": "とうとう",
    "written": [
-    "とうとう"
+    "とうとう",
+    "遂に",
+    "ついに"
    ],
    "romaji": "toutou",
    "mora": [
@@ -150,6 +152,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-068b4f68",
+     "kana": "ついに",
+     "romaji": "tsuini"
+    }
    ]
   },
   {
@@ -238,7 +247,9 @@
    "kana": "いきる",
    "written": [
     "生きる",
-    "いきる"
+    "いきる",
+    "暮らす",
+    "くらす"
    ],
    "romaji": "ikiru",
    "mora": [
@@ -254,6 +265,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-daf61bcd",
+     "kana": "くらす",
+     "romaji": "kurasu"
+    }
    ]
   },
   {
@@ -290,7 +308,16 @@
     "沸く",
     "わく",
     "沸かす",
-    "わかす"
+    "わかす",
+    "炊く",
+    "たく",
+    "煮る",
+    "にる",
+    "湧く",
+    "煮える",
+    "にえる",
+    "茹でる",
+    "ゆでる"
    ],
    "romaji": "waku",
    "mora": [
@@ -310,6 +337,11 @@
      "id": "n4-846bdaa1",
      "kana": "わかす",
      "romaji": "wakasu"
+    },
+    {
+     "id": "n3-2d9da765",
+     "kana": "たく",
+     "romaji": "taku"
     }
    ]
   },
@@ -320,7 +352,11 @@
    "kana": "いけん",
    "written": [
     "意見",
-    "いけん"
+    "いけん",
+    "視点",
+    "してん",
+    "見解",
+    "けんかい"
    ],
    "romaji": "iken",
    "mora": [
@@ -336,6 +372,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-f0f9ae67",
+     "kana": "してん",
+     "romaji": "shiten"
+    }
    ]
   },
   {
@@ -519,7 +562,9 @@
    "prompt": "to ask",
    "kana": "うかがう",
    "written": [
-    "うかがう"
+    "うかがう",
+    "問う",
+    "とう"
    ],
    "romaji": "ukagau",
    "mora": [
@@ -537,6 +582,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-5adfe517",
+     "kana": "とう",
+     "romaji": "tou"
+    }
    ]
   },
   {
@@ -713,7 +765,9 @@
    "kana": "やむ",
    "written": [
     "止む",
-    "やむ"
+    "やむ",
+    "止す",
+    "よす"
    ],
    "romaji": "yamu",
    "mora": [
@@ -727,6 +781,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-55ba038a",
+     "kana": "よす",
+     "romaji": "yosu"
+    }
    ]
   },
   {
@@ -735,7 +796,8 @@
    "prompt": "if",
    "kana": "もし",
    "written": [
-    "もし"
+    "もし",
+    "もしも"
    ],
    "romaji": "moshi",
    "mora": [
@@ -749,6 +811,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-76cadb56",
+     "kana": "もしも",
+     "romaji": "moshimo"
+    }
    ]
   },
   {
@@ -758,7 +827,9 @@
    "kana": "おもて",
    "written": [
     "表",
-    "おもて"
+    "おもて",
+    "表面",
+    "ひょうめん"
    ],
    "romaji": "omote",
    "mora": [
@@ -774,6 +845,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-3475b06d",
+     "kana": "ひょうめん",
+     "romaji": "hyoumen"
+    }
    ]
   },
   {
@@ -906,7 +984,9 @@
    "kana": "べつ",
    "written": [
     "別",
-    "べつ"
+    "べつ",
+    "区別",
+    "くべつ"
    ],
    "romaji": "betsu",
    "mora": [
@@ -920,6 +1000,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-55962247",
+     "kana": "くべつ",
+     "romaji": "kubetsu"
+    }
    ]
   },
   {
@@ -1152,7 +1239,9 @@
    "prompt": "intention",
    "kana": "つもり",
    "written": [
-    "つもり"
+    "つもり",
+    "意思",
+    "いし"
    ],
    "romaji": "tsumori",
    "mora": [
@@ -1168,6 +1257,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-21b13471",
+     "kana": "いし",
+     "romaji": "ishi"
+    }
    ]
   },
   {
@@ -1278,7 +1374,11 @@
    "kana": "きそく",
    "written": [
     "規則",
-    "きそく"
+    "きそく",
+    "支配",
+    "しはい",
+    "ルール",
+    "るうる"
    ],
    "romaji": "kisoku",
    "mora": [
@@ -1294,6 +1394,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-cba92416",
+     "kana": "しはい",
+     "romaji": "shihai"
+    }
    ]
   },
   {
@@ -1484,7 +1591,11 @@
    "kana": "てん",
    "written": [
     "点",
-    "てん"
+    "てん",
+    "印",
+    "しるし",
+    "目標",
+    "もくひょう"
    ],
    "romaji": "ten",
    "mora": [
@@ -1499,6 +1610,13 @@
     "Intermediate_Japanese_Ln.5",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-c4dffd15",
+     "kana": "しるし",
+     "romaji": "shirushi"
+    }
    ]
   },
   {
@@ -1544,7 +1662,11 @@
    "kana": "きかい",
    "written": [
     "機会",
-    "きかい"
+    "きかい",
+    "縁",
+    "えん",
+    "チャンス",
+    "ちゃんす"
    ],
    "romaji": "kikai",
    "mora": [
@@ -1560,6 +1682,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-015eb458",
+     "kana": "えん",
+     "romaji": "en"
+    }
    ]
   },
   {
@@ -1569,7 +1698,9 @@
    "kana": "たてる",
    "written": [
     "建てる",
-    "たてる"
+    "たてる",
+    "築く",
+    "きずく"
    ],
    "romaji": "tateru",
    "mora": [
@@ -1585,6 +1716,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-8985f454",
+     "kana": "きずく",
+     "romaji": "kizuku"
+    }
    ]
   },
   {
@@ -1838,7 +1976,9 @@
    "kana": "ひ",
    "written": [
     "日",
-    "ひ"
+    "ひ",
+    "太陽",
+    "たいよう"
    ],
    "romaji": "hi",
    "mora": [
@@ -1852,6 +1992,13 @@
     "Genki_Ln.16",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-41fadaa3",
+     "kana": "たいよう",
+     "romaji": "taiyou"
+    }
    ]
   },
   {
@@ -1883,7 +2030,9 @@
    "prompt": "really",
    "kana": "そう",
    "written": [
-    "そう"
+    "そう",
+    "全く",
+    "まったく"
    ],
    "romaji": "sou",
    "mora": [
@@ -1897,6 +2046,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-7c268c91",
+     "kana": "まったく",
+     "romaji": "mattaku"
+    }
    ]
   },
   {
@@ -1931,7 +2087,10 @@
    "kana": "すぎる",
    "written": [
     "過ぎる",
-    "すぎる"
+    "すぎる",
+    "越える",
+    "こえる",
+    "超える"
    ],
    "romaji": "sugiru",
    "mora": [
@@ -1947,6 +2106,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-83fa4b62",
+     "kana": "こえる",
+     "romaji": "koeru"
+    }
    ]
   },
   {
@@ -2082,7 +2248,9 @@
    "kana": "がらす",
    "written": [
     "ガラス",
-    "がらす"
+    "がらす",
+    "グラス",
+    "ぐらす"
    ],
    "romaji": "garasu",
    "mora": [
@@ -2098,6 +2266,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-244bf957",
+     "kana": "ぐらす",
+     "romaji": "gurasu"
+    }
    ]
   },
   {
@@ -2132,7 +2307,10 @@
    "kana": "きびしい",
    "written": [
     "厳しい",
-    "きびしい"
+    "きびしい",
+    "堅い",
+    "かたい",
+    "硬い"
    ],
    "romaji": "kibishii",
    "mora": [
@@ -2153,6 +2331,13 @@
     "Intermediate_Japanese_Ln.5",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-562df017",
+     "kana": "かたい",
+     "romaji": "katai"
+    }
    ]
   },
   {
@@ -2349,7 +2534,9 @@
    "kana": "おちる",
    "written": [
     "落る",
-    "おちる"
+    "おちる",
+    "散る",
+    "ちる"
    ],
    "romaji": "ochiru",
    "mora": [
@@ -2365,6 +2552,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-8ecc712e",
+     "kana": "ちる",
+     "romaji": "chiru"
+    }
    ]
   },
   {
@@ -2760,7 +2954,8 @@
    "prompt": "moreover",
    "kana": "それに",
    "written": [
-    "それに"
+    "それに",
+    "しかも"
    ],
    "romaji": "soreni",
    "mora": [
@@ -2777,6 +2972,13 @@
     "Intermediate_Japanese_Ln.2",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-ed0d03ab",
+     "kana": "しかも",
+     "romaji": "shikamo"
+    }
    ]
   },
   {
@@ -2840,7 +3042,11 @@
    "kana": "じだい",
    "written": [
     "時代",
-    "じだい"
+    "じだい",
+    "年代",
+    "ねんだい",
+    "年齢",
+    "ねんれい"
    ],
    "romaji": "jidai",
    "mora": [
@@ -2856,6 +3062,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-e9e1cd39",
+     "kana": "ねんだい",
+     "romaji": "nendai"
+    }
    ]
   },
   {
@@ -2998,7 +3211,9 @@
    "kana": "さわる",
    "written": [
     "触る",
-    "さわる"
+    "さわる",
+    "触れる",
+    "ふれる"
    ],
    "romaji": "sawaru",
    "mora": [
@@ -3014,6 +3229,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-ed7bdba0",
+     "kana": "ふれる",
+     "romaji": "fureru"
+    }
    ]
   },
   {
@@ -3237,7 +3459,8 @@
    "prompt": "so",
    "kana": "だから",
    "written": [
-    "だから"
+    "だから",
+    "こんなに"
    ],
    "romaji": "dakara",
    "mora": [
@@ -3255,6 +3478,13 @@
     "Genki_Ln.4",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-9152aaf8",
+     "kana": "こんなに",
+     "romaji": "konnani"
+    }
    ]
   },
   {
@@ -3264,7 +3494,9 @@
    "kana": "ざんねん",
    "written": [
     "残念",
-    "ざんねん"
+    "ざんねん",
+    "後悔",
+    "こうかい"
    ],
    "romaji": "zannen",
    "mora": [
@@ -3283,6 +3515,13 @@
     "Intermediate_Japanese_Ln.7",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-eec07bc0",
+     "kana": "こうかい",
+     "romaji": "koukai"
+    }
    ]
   },
   {
@@ -3557,7 +3796,9 @@
    "kana": "しなもの",
    "written": [
     "品物",
-    "しなもの"
+    "しなもの",
+    "品",
+    "ひん"
    ],
    "romaji": "shinamono",
    "mora": [
@@ -3575,6 +3816,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-c8b3e1be",
+     "kana": "ひん",
+     "romaji": "hin"
+    }
    ]
   },
   {
@@ -3959,7 +4207,11 @@
     "気分",
     "きぶん",
     "気持ち",
-    "きもち"
+    "きもち",
+    "観",
+    "かん",
+    "感じ",
+    "かんじ"
    ],
    "romaji": "kibun",
    "mora": [
@@ -3981,6 +4233,11 @@
      "id": "n4-d114cef4",
      "kana": "きもち",
      "romaji": "kimochi"
+    },
+    {
+     "id": "n3-1e39d3b7",
+     "kana": "かん",
+     "romaji": "kan"
     }
    ]
   },
@@ -4022,7 +4279,9 @@
    "kana": "ほし",
    "written": [
     "星",
-    "ほし"
+    "ほし",
+    "スター",
+    "すたあ"
    ],
    "romaji": "hoshi",
    "mora": [
@@ -4036,6 +4295,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-f0ed7d16",
+     "kana": "すたあ",
+     "romaji": "sutaa"
+    }
    ]
   },
   {
@@ -4045,7 +4311,9 @@
    "kana": "ばあい",
    "written": [
     "場合",
-    "ばあい"
+    "ばあい",
+    "ケース",
+    "けえす"
    ],
    "romaji": "baai",
    "mora": [
@@ -4061,6 +4329,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-1bea020f",
+     "kana": "けえす",
+     "romaji": "keesu"
+    }
    ]
   },
   {
@@ -4230,7 +4505,11 @@
    "kana": "せかい",
    "written": [
     "世界",
-    "せかい"
+    "せかい",
+    "世",
+    "よ",
+    "世間",
+    "せけん"
    ],
    "romaji": "sekai",
    "mora": [
@@ -4248,6 +4527,13 @@
     "Genki_Ln.10",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-ee1a2613",
+     "kana": "よ",
+     "romaji": "yo"
+    }
    ]
   },
   {
@@ -4539,7 +4825,13 @@
    "kana": "ひかる",
    "written": [
     "光る",
-    "ひかる"
+    "ひかる",
+    "射す",
+    "さす",
+    "映える",
+    "はえる",
+    "輝く",
+    "かがやく"
    ],
    "romaji": "hikaru",
    "mora": [
@@ -4555,6 +4847,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-c657ebd9",
+     "kana": "さす",
+     "romaji": "sasu"
+    }
    ]
   },
   {
@@ -4689,7 +4988,11 @@
    "kana": "じむしょ",
    "written": [
     "事務所",
-    "じむしょ"
+    "じむしょ",
+    "局",
+    "きょく",
+    "オフィス",
+    "おふぃす"
    ],
    "romaji": "jimusho",
    "mora": [
@@ -4705,6 +5008,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-94351d01",
+     "kana": "きょく",
+     "romaji": "kyoku"
+    }
    ]
   },
   {
@@ -5137,7 +5447,9 @@
    "kana": "かべ",
    "written": [
     "壁",
-    "かべ"
+    "かべ",
+    "塀",
+    "へい"
    ],
    "romaji": "kabe",
    "mora": [
@@ -5151,6 +5463,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-c458a8d3",
+     "kana": "へい",
+     "romaji": "hei"
+    }
    ]
   },
   {
@@ -5185,7 +5504,9 @@
    "kana": "おれい",
    "written": [
     "お礼",
-    "おれい"
+    "おれい",
+    "礼",
+    "れい"
    ],
    "romaji": "orei",
    "mora": [
@@ -5204,6 +5525,13 @@
     "Intermediate_Japanese_Ln.9",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-0f23d56d",
+     "kana": "れい",
+     "romaji": "rei"
+    }
    ]
   },
   {
@@ -5292,7 +5620,9 @@
    "kana": "ねっしん",
    "written": [
     "熱心",
-    "ねっしん"
+    "ねっしん",
+    "熱中",
+    "ねっちゅう"
    ],
    "romaji": "nesshin",
    "mora": [
@@ -5310,6 +5640,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-d56e0e86",
+     "kana": "ねっちゅう",
+     "romaji": "netchuu"
+    }
    ]
   },
   {
@@ -5347,7 +5684,9 @@
    "prompt": "to receive",
    "kana": "もらう",
    "written": [
-    "もらう"
+    "もらう",
+    "受け取る",
+    "うけとる"
    ],
    "romaji": "morau",
    "mora": [
@@ -5363,6 +5702,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-d8e53f28",
+     "kana": "うけとる",
+     "romaji": "uketoru"
+    }
    ]
   },
   {
@@ -5446,7 +5792,9 @@
    "kana": "おまつり",
    "written": [
     "お祭り",
-    "おまつり"
+    "おまつり",
+    "祭",
+    "まつり"
    ],
    "romaji": "omatsuri",
    "mora": [
@@ -5464,6 +5812,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-57f8254c",
+     "kana": "まつり",
+     "romaji": "matsuri"
+    }
    ]
   },
   {
@@ -5525,7 +5880,9 @@
    "kana": "べる",
    "written": [
     "ベル",
-    "べる"
+    "べる",
+    "鐘",
+    "かね"
    ],
    "romaji": "beru",
    "mora": [
@@ -5539,6 +5896,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-d90d8259",
+     "kana": "かね",
+     "romaji": "kane"
+    }
    ]
   },
   {
@@ -5549,7 +5913,11 @@
    "written": [
     "おかしい",
     "変",
-    "へん"
+    "へん",
+    "妙",
+    "みょう",
+    "奇妙",
+    "きみょう"
    ],
    "romaji": "okashii",
    "mora": [
@@ -5574,6 +5942,11 @@
      "id": "n4-c037bc2b",
      "kana": "へん",
      "romaji": "hen"
+    },
+    {
+     "id": "n3-738c32f5",
+     "kana": "みょう",
+     "romaji": "myou"
     }
    ]
   },
@@ -5705,7 +6078,9 @@
    "kana": "げんいん",
    "written": [
     "原因",
-    "げんいん"
+    "げんいん",
+    "所為",
+    "せい"
    ],
    "romaji": "gen'in",
    "mora": [
@@ -5723,6 +6098,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-00a670da",
+     "kana": "せい",
+     "romaji": "sei"
+    }
    ]
   },
   {
@@ -5911,7 +6293,11 @@
    "kana": "ふえる",
    "written": [
     "増える",
-    "ふえる"
+    "ふえる",
+    "増す",
+    "ます",
+    "殖やす",
+    "ふやす"
    ],
    "romaji": "fueru",
    "mora": [
@@ -5927,6 +6313,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-76943a0e",
+     "kana": "ます",
+     "romaji": "masu"
+    }
    ]
   },
   {
@@ -5935,7 +6328,9 @@
    "prompt": "or",
    "kana": "または",
    "written": [
-    "または"
+    "または",
+    "あるいは",
+    "それとも"
    ],
    "romaji": "mataha",
    "mora": [
@@ -5951,6 +6346,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-7bef52a8",
+     "kana": "あるいは",
+     "romaji": "aruiha"
+    }
    ]
   },
   {
@@ -6061,7 +6463,9 @@
    "kana": "こころ",
    "written": [
     "心",
-    "こころ"
+    "こころ",
+    "心臓",
+    "しんぞう"
    ],
    "romaji": "kokoro",
    "mora": [
@@ -6077,6 +6481,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-550b54fc",
+     "kana": "しんぞう",
+     "romaji": "shinzou"
+    }
    ]
   },
   {
@@ -6161,7 +6572,9 @@
    "kana": "けしき",
    "written": [
     "景色",
-    "けしき"
+    "けしき",
+    "風景",
+    "ふうけい"
    ],
    "romaji": "keshiki",
    "mora": [
@@ -6177,6 +6590,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-a40e7d3e",
+     "kana": "ふうけい",
+     "romaji": "fuukei"
+    }
    ]
   },
   {
@@ -6239,7 +6659,9 @@
    "kana": "しょくりょうひん",
    "written": [
     "食料品",
-    "しょくりょうひん"
+    "しょくりょうひん",
+    "食品",
+    "しょくひん"
    ],
    "romaji": "shokuryouhin",
    "mora": [
@@ -6261,6 +6683,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-55bc3d89",
+     "kana": "しょくひん",
+     "romaji": "shokuhin"
+    }
    ]
   },
   {
@@ -6768,7 +7197,9 @@
    "kana": "おみやげ",
    "written": [
     "お土産",
-    "おみやげ"
+    "おみやげ",
+    "土産",
+    "みやげ"
    ],
    "romaji": "omiyage",
    "mora": [
@@ -6788,6 +7219,13 @@
     "Genki_Ln.4",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-653e76ed",
+     "kana": "みやげ",
+     "romaji": "miyage"
+    }
    ]
   },
   {
@@ -7045,7 +7483,9 @@
    "kana": "あんないする",
    "written": [
     "案内",
-    "あんないする"
+    "あんないする",
+    "情報",
+    "じょうほう"
    ],
    "romaji": "annaisuru",
    "mora": [
@@ -7067,6 +7507,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-2603eb7f",
+     "kana": "じょうほう",
+     "romaji": "jouhou"
+    }
    ]
   },
   {
@@ -7176,7 +7623,9 @@
    "kana": "げしゅく",
    "written": [
     "下宿",
-    "げしゅく"
+    "げしゅく",
+    "宿泊",
+    "しゅくはく"
    ],
    "romaji": "geshuku",
    "mora": [
@@ -7192,6 +7641,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-9e6260c2",
+     "kana": "しゅくはく",
+     "romaji": "shukuhaku"
+    }
    ]
   },
   {
@@ -7329,7 +7785,9 @@
    "kana": "すすむ",
    "written": [
     "進む",
-    "すすむ"
+    "すすむ",
+    "進める",
+    "すすめる"
    ],
    "romaji": "susumu",
    "mora": [
@@ -7345,6 +7803,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-00c764f8",
+     "kana": "すすめる",
+     "romaji": "susumeru"
+    }
    ]
   },
   {
@@ -7381,7 +7846,9 @@
    "kana": "ぼうえき",
    "written": [
     "貿易",
-    "ぼうえき"
+    "ぼうえき",
+    "商売",
+    "しょうばい"
    ],
    "romaji": "boueki",
    "mora": [
@@ -7399,6 +7866,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-08691519",
+     "kana": "しょうばい",
+     "romaji": "shoubai"
+    }
    ]
   },
   {
@@ -7641,7 +8115,13 @@
    "prompt": "change",
    "kana": "おつり",
    "written": [
-    "おつり"
+    "おつり",
+    "変化",
+    "へんか",
+    "変更",
+    "へんこう",
+    "両替",
+    "りょうがえ"
    ],
    "romaji": "otsuri",
    "mora": [
@@ -7657,6 +8137,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-986d961b",
+     "kana": "へんか",
+     "romaji": "henka"
+    }
    ]
   },
   {
@@ -8022,7 +8509,9 @@
    "kana": "おどり",
    "written": [
     "踊り",
-    "おどり"
+    "おどり",
+    "ダンス",
+    "だんす"
    ],
    "romaji": "odori",
    "mora": [
@@ -8038,6 +8527,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-abf6020c",
+     "kana": "だんす",
+     "romaji": "dansu"
+    }
    ]
   },
   {
@@ -8126,7 +8622,9 @@
    "kana": "つごう",
    "written": [
     "都合",
-    "つごう"
+    "つごう",
+    "事情",
+    "じじょう"
    ],
    "romaji": "tsugou",
    "mora": [
@@ -8142,6 +8640,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-635515cb",
+     "kana": "じじょう",
+     "romaji": "jijou"
+    }
    ]
   },
   {
@@ -8768,7 +9273,10 @@
    "kana": "うつ",
    "written": [
     "打つ",
-    "うつ"
+    "うつ",
+    "ぶつ",
+    "当てる",
+    "あてる"
    ],
    "romaji": "utsu",
    "mora": [
@@ -8782,6 +9290,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-0c5f7786",
+     "kana": "ぶつ",
+     "romaji": "butsu"
+    }
    ]
   },
   {
@@ -8818,7 +9333,9 @@
    "kana": "ひるま",
    "written": [
     "昼間",
-    "ひるま"
+    "ひるま",
+    "日中",
+    "にっちゅう"
    ],
    "romaji": "hiruma",
    "mora": [
@@ -8834,6 +9351,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-b53533a0",
+     "kana": "にっちゅう",
+     "romaji": "nitchuu"
+    }
    ]
   },
   {
@@ -8943,7 +9467,8 @@
    "kana": "すみ",
    "written": [
     "隅",
-    "すみ"
+    "すみ",
+    "角"
    ],
    "romaji": "sumi",
    "mora": [
@@ -9100,7 +9625,9 @@
    "kana": "まわり",
    "written": [
     "周り",
-    "まわり"
+    "まわり",
+    "周囲",
+    "しゅうい"
    ],
    "romaji": "mawari",
    "mora": [
@@ -9116,6 +9643,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-c763dac9",
+     "kana": "しゅうい",
+     "romaji": "shuui"
+    }
    ]
   },
   {
@@ -9179,7 +9713,9 @@
    "kana": "ち",
    "written": [
     "血",
-    "ち"
+    "ち",
+    "血液",
+    "けつえき"
    ],
    "romaji": "chi",
    "mora": [
@@ -9191,6 +9727,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-b88fe6d9",
+     "kana": "けつえき",
+     "romaji": "ketsueki"
+    }
    ]
   },
   {
@@ -9226,7 +9769,9 @@
    "prompt": "terrible",
    "kana": "ひどい",
    "written": [
-    "ひどい"
+    "ひどい",
+    "恐ろしい",
+    "おそろしい"
    ],
    "romaji": "hidoi",
    "mora": [
@@ -9245,6 +9790,13 @@
     "Intermediate_Japanese_Ln.4",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-c1652799",
+     "kana": "おそろしい",
+     "romaji": "osoroshii"
+    }
    ]
   },
   {
@@ -9455,7 +10007,9 @@
    "kana": "かえる",
    "written": [
     "変える",
-    "かえる"
+    "かえる",
+    "為る",
+    "なる"
    ],
    "romaji": "kaeru",
    "mora": [
@@ -9471,6 +10025,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-b941276a",
+     "kana": "なる",
+     "romaji": "naru"
+    }
    ]
   },
   {
@@ -9603,7 +10164,17 @@
    "kana": "けいかくする",
    "written": [
     "計画",
-    "けいかくする"
+    "けいかくする",
+    "案",
+    "あん",
+    "計",
+    "けい",
+    "策",
+    "さく",
+    "プラン",
+    "ぷらん",
+    "設計",
+    "せっけい"
    ],
    "romaji": "keikakusuru",
    "mora": [
@@ -9625,6 +10196,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-45235c4a",
+     "kana": "あん",
+     "romaji": "an"
+    }
    ]
   },
   {
@@ -9756,7 +10334,11 @@
    "kana": "ため",
    "written": [
     "為",
-    "ため"
+    "ため",
+    "善",
+    "ぜん",
+    "良い",
+    "よい"
    ],
    "romaji": "tame",
    "mora": [
@@ -9770,6 +10352,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-1d80bcff",
+     "kana": "ぜん",
+     "romaji": "zen"
+    }
    ]
   },
   {
@@ -9890,7 +10479,11 @@
    "kana": "し",
    "written": [
     "市",
-    "し"
+    "し",
+    "都",
+    "みやこ",
+    "都会",
+    "とかい"
    ],
    "romaji": "shi",
    "mora": [
@@ -9902,6 +10495,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-5afce684",
+     "kana": "みやこ",
+     "romaji": "miyako"
+    }
    ]
   },
   {
@@ -9938,7 +10538,9 @@
    "kana": "あそび",
    "written": [
     "遊び",
-    "あそび"
+    "あそび",
+    "芝居",
+    "しばい"
    ],
    "romaji": "asobi",
    "mora": [
@@ -9954,6 +10556,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-5e52a81f",
+     "kana": "しばい",
+     "romaji": "shibai"
+    }
    ]
   },
   {
@@ -10017,7 +10626,9 @@
    "kana": "おと",
    "written": [
     "音",
-    "おと"
+    "おと",
+    "ね",
+    "おん"
    ],
    "romaji": "oto",
    "mora": [
@@ -10033,6 +10644,13 @@
     "Genki_Ln.20",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-19026bcc",
+     "kana": "ね",
+     "romaji": "ne"
+    }
    ]
   },
   {
@@ -10125,7 +10743,9 @@
    "kana": "だいたい",
    "written": [
     "大体",
-    "だいたい"
+    "だいたい",
+    "約",
+    "やく"
    ],
    "romaji": "daitai",
    "mora": [
@@ -10145,6 +10765,13 @@
     "Intermediate_Japanese_Ln.3",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-21ca61b6",
+     "kana": "やく",
+     "romaji": "yaku"
+    }
    ]
   },
   {
@@ -10293,7 +10920,9 @@
    "kana": "さんぎょう",
    "written": [
     "産業",
-    "さんぎょう"
+    "さんぎょう",
+    "企業",
+    "きぎょう"
    ],
    "romaji": "sangyou",
    "mora": [
@@ -10311,6 +10940,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-d062dfc2",
+     "kana": "きぎょう",
+     "romaji": "kigyou"
+    }
    ]
   },
   {
@@ -10350,7 +10986,9 @@
    "kana": "せつめい",
    "written": [
     "説明",
-    "せつめい"
+    "せつめい",
+    "解釈",
+    "かいしゃく"
    ],
    "romaji": "setsumei",
    "mora": [
@@ -10368,6 +11006,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-c4bd611d",
+     "kana": "かいしゃく",
+     "romaji": "kaishaku"
+    }
    ]
   },
   {
@@ -10630,7 +11275,13 @@
    "kana": "ぐあい",
    "written": [
     "具合",
-    "ぐあい"
+    "ぐあい",
+    "調子",
+    "ちょうし",
+    "景気",
+    "けいき",
+    "状態",
+    "じょうたい"
    ],
    "romaji": "guai",
    "mora": [
@@ -10646,6 +11297,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-a14e2a3d",
+     "kana": "ちょうし",
+     "romaji": "choushi"
+    }
    ]
   },
   {
@@ -10856,7 +11514,10 @@
    "kana": "あいだ",
    "written": [
     "間",
-    "あいだ"
+    "あいだ",
+    "ま",
+    "間隔",
+    "かんかく"
    ],
    "romaji": "aida",
    "mora": [
@@ -10872,6 +11533,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-3fa0caa2",
+     "kana": "ま",
+     "romaji": "ma"
+    }
    ]
   },
   {
@@ -11012,7 +11680,9 @@
    "kana": "あげる",
    "written": [
     "あげる",
-    "くれる"
+    "くれる",
+    "与える",
+    "あたえる"
    ],
    "romaji": "ageru",
    "mora": [
@@ -11034,6 +11704,11 @@
      "id": "n4-61e79ab7",
      "kana": "くれる",
      "romaji": "kureru"
+    },
+    {
+     "id": "n3-a58d0fde",
+     "kana": "あたえる",
+     "romaji": "ataeru"
     }
    ]
   },
@@ -11458,7 +12133,9 @@
    "kana": "おりる",
    "written": [
     "下りる",
-    "おりる"
+    "おりる",
+    "下る",
+    "くだる"
    ],
    "romaji": "oriru",
    "mora": [
@@ -11474,6 +12151,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-a999c4c9",
+     "kana": "くだる",
+     "romaji": "kudaru"
+    }
    ]
   },
   {
@@ -11539,7 +12223,9 @@
    "kana": "しょうちする",
    "written": [
     "承知",
-    "しょうちする"
+    "しょうちする",
+    "納得",
+    "なっとく"
    ],
    "romaji": "shouchisuru",
    "mora": [
@@ -11559,6 +12245,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-78a88183",
+     "kana": "なっとく",
+     "romaji": "nattoku"
+    }
    ]
   },
   {
@@ -11669,7 +12362,9 @@
    "kana": "るす",
    "written": [
     "留守",
-    "るす"
+    "るす",
+    "欠席",
+    "けっせき"
    ],
    "romaji": "rusu",
    "mora": [
@@ -11685,6 +12380,13 @@
     "Genki_Ln.21",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-27b18c35",
+     "kana": "けっせき",
+     "romaji": "kesseki"
+    }
    ]
   },
   {
@@ -11694,7 +12396,9 @@
    "kana": "わりあい",
    "written": [
     "割合",
-    "わりあい"
+    "わりあい",
+    "率",
+    "りつ"
    ],
    "romaji": "wariai",
    "mora": [
@@ -11712,6 +12416,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-76febf96",
+     "kana": "りつ",
+     "romaji": "ritsu"
+    }
    ]
   },
   {
@@ -12288,7 +12999,9 @@
    "kana": "あう",
    "written": [
     "合う",
-    "あう"
+    "あう",
+    "適する",
+    "てきする"
    ],
    "romaji": "au",
    "mora": [
@@ -12302,6 +13015,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-4920e636",
+     "kana": "てきする",
+     "romaji": "tekisuru"
+    }
    ]
   },
   {
@@ -12334,7 +13054,9 @@
    "kana": "さいご",
    "written": [
     "最後",
-    "さいご"
+    "さいご",
+    "最終",
+    "さいしゅう"
    ],
    "romaji": "saigo",
    "mora": [
@@ -12350,6 +13072,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-dad95bfe",
+     "kana": "さいしゅう",
+     "romaji": "saishuu"
+    }
    ]
   },
   {
@@ -12359,7 +13088,11 @@
    "kana": "ねだん",
    "written": [
     "値段",
-    "ねだん"
+    "ねだん",
+    "価格",
+    "かかく",
+    "代金",
+    "だいきん"
    ],
    "romaji": "nedan",
    "mora": [
@@ -12375,6 +13108,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-548f2c33",
+     "kana": "かかく",
+     "romaji": "kakaku"
+    }
    ]
   },
   {
@@ -12478,7 +13218,9 @@
    "kana": "かあてん",
    "written": [
     "カーテン",
-    "かあてん"
+    "かあてん",
+    "幕",
+    "まく"
    ],
    "romaji": "kaaten",
    "mora": [
@@ -12498,6 +13240,13 @@
     "Genki_Ln.18",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-39f56f64",
+     "kana": "まく",
+     "romaji": "maku"
+    }
    ]
   },
   {
@@ -12671,7 +13420,11 @@
    "kana": "よう",
    "written": [
     "様",
-    "よう"
+    "よう",
+    "便",
+    "びん",
+    "仕様",
+    "しよう"
    ],
    "romaji": "you",
    "mora": [
@@ -12685,6 +13438,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-7a07408d",
+     "kana": "びん",
+     "romaji": "bin"
+    }
    ]
   },
   {
@@ -12789,7 +13549,11 @@
    "kana": "あつめる",
    "written": [
     "集める",
-    "あつめる"
+    "あつめる",
+    "溜まる",
+    "たまる",
+    "寄せる",
+    "よせる"
    ],
    "romaji": "atsumeru",
    "mora": [
@@ -12810,6 +13574,13 @@
     "Intermediate_Japanese_Ln.7",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-b244e30f",
+     "kana": "たまる",
+     "romaji": "tamaru"
+    }
    ]
   },
   {
@@ -13088,7 +13859,9 @@
    "kana": "はらう",
    "written": [
     "払う",
-    "はらう"
+    "はらう",
+    "支払う",
+    "しはらう"
    ],
    "romaji": "harau",
    "mora": [
@@ -13107,6 +13880,13 @@
     "Intermediate_Japanese_Ln.3",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-eec98fce",
+     "kana": "しはらう",
+     "romaji": "shiharau"
+    }
    ]
   },
   {
@@ -13143,7 +13923,13 @@
    "kana": "やける",
    "written": [
     "焼ける",
-    "やける"
+    "やける",
+    "焚く",
+    "たく",
+    "燃える",
+    "もえる",
+    "燃やす",
+    "もやす"
    ],
    "romaji": "yakeru",
    "mora": [
@@ -13159,6 +13945,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-cfd9c23b",
+     "kana": "たく",
+     "romaji": "taku"
+    }
    ]
   },
   {
@@ -13239,7 +14032,9 @@
    "kana": "このあいだ",
    "written": [
     "この間",
-    "このあいだ"
+    "このあいだ",
+    "先日",
+    "せんじつ"
    ],
    "romaji": "konoaida",
    "mora": [
@@ -13261,6 +14056,13 @@
     "Genki_Ln.16",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-b801a17f",
+     "kana": "せんじつ",
+     "romaji": "senjitsu"
+    }
    ]
   },
   {
@@ -13631,7 +14433,11 @@
    "kana": "むかう",
    "written": [
     "向かう",
-    "むかう"
+    "むかう",
+    "向く",
+    "むく",
+    "対する",
+    "たいする"
    ],
    "romaji": "mukau",
    "mora": [
@@ -13647,6 +14453,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-de90aecc",
+     "kana": "むく",
+     "romaji": "muku"
+    }
    ]
   },
   {
@@ -13731,7 +14544,9 @@
    "kana": "ほど",
    "written": [
     "程",
-    "ほど"
+    "ほど",
+    "程度",
+    "ていど"
    ],
    "romaji": "hodo",
    "mora": [
@@ -13745,6 +14560,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-6b766370",
+     "kana": "ていど",
+     "romaji": "teido"
+    }
    ]
   },
   {
@@ -13945,7 +14767,8 @@
    "kana": "こうじょう",
    "written": [
     "工場",
-    "こうじょう"
+    "こうじょう",
+    "こうば"
    ],
    "romaji": "koujou",
    "mora": [
@@ -13966,6 +14789,13 @@
     "Intermediate_Japanese_Ln.15",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-10da8d5f",
+     "kana": "こうば",
+     "romaji": "kouba"
+    }
    ]
   },
   {
@@ -14025,7 +14855,9 @@
    "kana": "うごく",
    "written": [
     "動く",
-    "うごく"
+    "うごく",
+    "動かす",
+    "うごかす"
    ],
    "romaji": "ugoku",
    "mora": [
@@ -14041,6 +14873,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-2d998c29",
+     "kana": "うごかす",
+     "romaji": "ugokasu"
+    }
    ]
   },
   {
@@ -14212,7 +15051,9 @@
    "kana": "すいえい",
    "written": [
     "水泳",
-    "すいえい"
+    "すいえい",
+    "泳ぎ",
+    "およぎ"
    ],
    "romaji": "suiei",
    "mora": [
@@ -14230,6 +15071,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-6f15441c",
+     "kana": "およぎ",
+     "romaji": "oyogi"
+    }
    ]
   },
   {
@@ -14345,7 +15193,11 @@
    "kana": "とりかえる",
    "written": [
     "取り替える",
-    "とりかえる"
+    "とりかえる",
+    "換える",
+    "かえる",
+    "代える",
+    "替える"
    ],
    "romaji": "torikaeru",
    "mora": [
@@ -14365,6 +15217,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-fb758557",
+     "kana": "かえる",
+     "romaji": "kaeru"
+    }
    ]
   },
   {
@@ -14623,7 +15482,9 @@
    "kana": "まんなか",
    "written": [
     "真中",
-    "まんなか"
+    "まんなか",
+    "半ば",
+    "なかば"
    ],
    "romaji": "mannaka",
    "mora": [
@@ -14641,6 +15502,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-a09fe3a0",
+     "kana": "なかば",
+     "romaji": "nakaba"
+    }
    ]
   },
   {
@@ -14678,7 +15546,11 @@
    "kana": "けんきゅう",
    "written": [
     "研究",
-    "けんきゅう"
+    "けんきゅう",
+    "書斎",
+    "しょさい",
+    "学習",
+    "がくしゅう"
    ],
    "romaji": "kenkyuu",
    "mora": [
@@ -14696,6 +15568,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-0cf06563",
+     "kana": "しょさい",
+     "romaji": "shosai"
+    }
    ]
   },
   {
@@ -15020,7 +15899,9 @@
    "kana": "あんぜん",
    "written": [
     "安全",
-    "あんぜん"
+    "あんぜん",
+    "無事",
+    "ぶじ"
    ],
    "romaji": "anzen",
    "mora": [
@@ -15038,6 +15919,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-0a9e3e0a",
+     "kana": "ぶじ",
+     "romaji": "buji"
+    }
    ]
   },
   {
@@ -15074,7 +15962,9 @@
    "kana": "けんぶつ",
    "written": [
     "見物",
-    "けんぶつ"
+    "けんぶつ",
+    "観光",
+    "かんこう"
    ],
    "romaji": "kenbutsu",
    "mora": [
@@ -15092,6 +15982,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-d148b934",
+     "kana": "かんこう",
+     "romaji": "kankou"
+    }
    ]
   },
   {
@@ -15194,7 +16091,9 @@
    "kana": "あがる",
    "written": [
     "上がる",
-    "あがる"
+    "あがる",
+    "高まる",
+    "たかまる"
    ],
    "romaji": "agaru",
    "mora": [
@@ -15210,6 +16109,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-c4e2b2a6",
+     "kana": "たかまる",
+     "romaji": "takamaru"
+    }
    ]
   },
   {
@@ -15219,7 +16125,9 @@
    "kana": "ほんやく",
    "written": [
     "翻訳",
-    "ほんやく"
+    "ほんやく",
+    "訳",
+    "やく"
    ],
    "romaji": "hon'yaku",
    "mora": [
@@ -15238,6 +16146,13 @@
     "Intermediate_Japanese_Ln.8",
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-d0ae1892",
+     "kana": "やく",
+     "romaji": "yaku"
+    }
    ]
   },
   {
@@ -15458,7 +16373,9 @@
    "kana": "せいかつする",
    "written": [
     "生活",
-    "せいかつする"
+    "せいかつする",
+    "暮らし",
+    "くらし"
    ],
    "romaji": "seikatsusuru",
    "mora": [
@@ -15480,6 +16397,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-dbddf07d",
+     "kana": "くらし",
+     "romaji": "kurashi"
+    }
    ]
   },
   {
@@ -15595,7 +16519,9 @@
    "kana": "きゅう",
    "written": [
     "急",
-    "きゅう"
+    "きゅう",
+    "至急",
+    "しきゅう"
    ],
    "romaji": "kyuu",
    "mora": [
@@ -15609,6 +16535,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-cead5b44",
+     "kana": "しきゅう",
+     "romaji": "shikyuu"
+    }
    ]
   },
   {
@@ -15641,7 +16574,10 @@
    "kana": "もめん",
    "written": [
     "木綿",
-    "もめん"
+    "もめん",
+    "綿",
+    "めん",
+    "わた"
    ],
    "romaji": "momen",
    "mora": [
@@ -15657,6 +16593,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-a00948df",
+     "kana": "めん",
+     "romaji": "men"
+    }
    ]
   },
   {
@@ -15695,7 +16638,9 @@
    "kana": "たいぷ",
    "written": [
     "タイプ",
-    "たいぷ"
+    "たいぷ",
+    "典型",
+    "てんけい"
    ],
    "romaji": "taipu",
    "mora": [
@@ -15711,6 +16656,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-511283d2",
+     "kana": "てんけい",
+     "romaji": "tenkei"
+    }
    ]
   },
   {
@@ -15742,7 +16694,9 @@
    "kana": "あるこうる",
    "written": [
     "アルコール",
-    "あるこうる"
+    "あるこうる",
+    "酒",
+    "さけ"
    ],
    "romaji": "arukouru",
    "mora": [
@@ -15762,6 +16716,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-a0c75284",
+     "kana": "さけ",
+     "romaji": "sake"
+    }
    ]
   },
   {
@@ -15974,7 +16935,9 @@
    "prompt": "from now on",
    "kana": "これから",
    "written": [
-    "これから"
+    "これから",
+    "今後",
+    "こんご"
    ],
    "romaji": "korekara",
    "mora": [
@@ -15992,6 +16955,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-ee239a29",
+     "kana": "こんご",
+     "romaji": "kongo"
+    }
    ]
   },
   {
@@ -16025,7 +16995,9 @@
    "kana": "しゃかい",
    "written": [
     "社会",
-    "しゃかい"
+    "しゃかい",
+    "世の中",
+    "よのなか"
    ],
    "romaji": "shakai",
    "mora": [
@@ -16041,6 +17013,13 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
+   ],
+   "alts": [
+    {
+     "id": "n3-626bb602",
+     "kana": "よのなか",
+     "romaji": "yononaka"
+    }
    ]
   },
   {
@@ -16085,7 +17064,11 @@
     "レポート",
     "れぽーと",
     "リポート",
-    "りぽーと"
+    "りぽーと",
+    "申告",
+    "しんこく",
+    "報告",
+    "ほうこく"
    ],
    "romaji": "repo-to",
    "mora": [
@@ -16105,6 +17088,11 @@
      "id": "n4-21a739e9",
      "kana": "りぽーと",
      "romaji": "ripo-to"
+    },
+    {
+     "id": "n3-8b344be2",
+     "kana": "しんこく",
+     "romaji": "shinkoku"
     }
    ],
    "tags": [

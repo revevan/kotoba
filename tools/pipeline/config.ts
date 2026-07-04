@@ -37,6 +37,16 @@ export const LEVELS: Record<string, LevelConfig> = {
       'JLPT N4 grammar and below: everything from N5 plus 〜たら/〜ば conditionals, 〜てもいい, ' +
       '〜なければならない, potential form, plain form + と思う/と言う, 〜たことがある, comparative より/のほうが.',
   },
+  'jlpt-n3': {
+    deckId: 'jlpt-n3',
+    whitelistDeckIds: ['jlpt-n5', 'jlpt-n4', 'jlpt-n3'],
+    reuseSentenceDeckIds: [],
+    minTokens: 4,
+    maxTokens: 18,
+    grammarCeiling:
+      'JLPT N3 grammar and below: everything from N5/N4 plus passive, causative, 〜そうだ/〜ようだ/〜らしい, ' +
+      '〜ば〜ほど, 〜ことにする/〜ことになる, 〜ながら, casual plain-form conversation, てしまう/ておく/てある.',
+  },
 };
 
 /** Words per generation cluster (semantically related words prompted together). */

@@ -8,7 +8,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { toHiragana, toRomaji } from 'wanakana';
 import { moraClipKeys, segmentMora } from '../src/matching/mora';
-import { barePrompt, resolvePrompts } from './prompt-resolve';
+import { barePrompt, firstClause, resolvePrompts, richPrompt } from './prompt-resolve';
 import type { Deck, DeckInfo, Word } from '../src/types';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -18,6 +18,7 @@ const decksDir = join(root, 'public', 'decks');
 const SOURCES: Record<string, string> = {
   n5: 'https://raw.githubusercontent.com/elzup/jlpt-word-list/master/src/n5.csv',
   n4: 'https://raw.githubusercontent.com/elzup/jlpt-word-list/master/src/n4.csv',
+  n3: 'https://raw.githubusercontent.com/elzup/jlpt-word-list/master/src/n3.csv',
 };
 
 async function fetchSource(level: string): Promise<string> {
@@ -149,6 +150,74 @@ function writeDeck(deck: Deck): DeckInfo {
   return { id: deck.id, name: deck.name, wordCount: deck.words.length, file };
 }
 
+/**
+ * Add one level as a new deck WITHOUT rebuilding the existing decks (a full
+ * rebuild would clobber the hand-edited starter and the hand-repaired decks).
+ * New words dedupe against every shipped word; internal synonyms fold as
+ * usual; a new word that is a true synonym of a shipped word folds INTO it
+ * (additive: written forms + alts only); bare-prompt collisions with shipped
+ * prompts get the rich prompt instead — shipped prompts are never rewritten.
+ *
+ *   npx tsx tools/build-decks.ts --add n3
+ */
+async function addLevel(level: string): Promise<void> {
+  const existingIds = ['jlpt-n5', 'jlpt-n4'];
+  const existingDecks = existingIds.map((id) => JSON.parse(readFileSync(join(decksDir, `${id}.json`), 'utf8')) as Deck);
+  const existing = existingDecks.flatMap((d) => d.words);
+  const seen = new Set(existing.map((w) => `${w.written[0]}|${w.kana}`));
+
+  const fresh = await buildLevel(level, seen);
+  const resolved = resolvePrompts(fresh); // fold synonyms within the new level
+  console.log(`${level}: ${fresh.length} new words, ${resolved.length} after internal folds`);
+
+  const promptOwner = new Map<string, Word>();
+  for (const w of existing) promptOwner.set(w.prompt.toLowerCase(), w);
+  const clause = (w: Word): string => firstClause(w.english).toLowerCase();
+
+  const out: Word[] = [];
+  const mutated = new Set<Deck>();
+  let foldedIn = 0;
+  let disambiguated = 0;
+  for (const w of resolved) {
+    const clash = promptOwner.get(w.prompt.toLowerCase());
+    if (!clash) {
+      promptOwner.set(w.prompt.toLowerCase(), w);
+      out.push(w);
+      continue;
+    }
+    if (clause(w) === clause(clash)) {
+      // True synonym of a shipped word → fold in additively.
+      clash.written = [...new Set([...clash.written, ...w.written, w.kana])];
+      const heard = new Set([clash.kana, ...(clash.alts ?? []).map((a) => a.kana)]);
+      if (!heard.has(w.kana)) clash.alts = [...(clash.alts ?? []), { id: w.id, kana: w.kana, romaji: w.romaji }];
+      mutated.add(existingDecks.find((d) => d.words.includes(clash))!);
+      foldedIn++;
+      continue;
+    }
+    let p = richPrompt(w.english);
+    if (promptOwner.has(p.toLowerCase())) p = `${p} (advanced)`;
+    w.prompt = p;
+    promptOwner.set(p.toLowerCase(), w);
+    out.push(w);
+    disambiguated++;
+  }
+  console.log(`folded into shipped words: ${foldedIn} | disambiguated prompts: ${disambiguated}`);
+
+  const infos = JSON.parse(readFileSync(join(decksDir, 'index.json'), 'utf8')) as DeckInfo[];
+  const info = writeDeck({ id: `jlpt-${level}`, name: `JLPT ${level.toUpperCase()}`, words: out });
+  const at = infos.findIndex((i) => i.id === info.id);
+  if (at >= 0) infos[at] = info;
+  else infos.push(info);
+  for (const d of mutated) {
+    writeFileSync(join(decksDir, `${d.id}.json`), JSON.stringify(d, null, 1));
+    const i = infos.findIndex((x) => x.id === d.id);
+    if (i >= 0) infos[i].wordCount = d.words.length;
+    console.log(`updated ${d.id} (gained alts/written from folds)`);
+  }
+  writeFileSync(join(decksDir, 'index.json'), JSON.stringify(infos, null, 2));
+  console.log(`jlpt-${level}: ${out.length} words written`);
+}
+
 async function main() {
   mkdirSync(decksDir, { recursive: true });
   const seen = new Set<string>();
@@ -180,4 +249,5 @@ async function main() {
   console.log(`starter: ${starter.length} words`);
 }
 
-void main();
+if (process.argv[2] === '--add' && process.argv[3]) void addLevel(process.argv[3]);
+else void main();
