@@ -25,7 +25,7 @@ import {
   type LevelConfig,
 } from './config';
 import {
-  buildTokenizer, client, clozeMatchesTarget, countOccurrences, draftsDir, hashInt, loadDeck, maskCloze,
+  buildTokenizer, client, clozeMatchesTarget, countOccurrences, draftsDir, filterOffendersByReading, hashInt, loadDeck, maskCloze,
   parseJsonText, readState, reusablePool, sentenceId, trigramJaccard, whitelistForms,
   whitelistText, wordById, writeState,
   type Cluster, type GenSentence, type JudgeScore, type PlanState, type RejectedSentence,
@@ -332,7 +332,8 @@ async function fetchResults(cfg: LevelConfig): Promise<void> {
       const contentLen = tokens.filter((t) => t.pos !== '記号').length;
       if (contentLen < cfg.minTokens || contentLen > cfg.maxTokens) reasons.push(`length ${contentLen} outside ${cfg.minTokens}-${cfg.maxTokens} tokens`);
       const vocab = checkVocab(tokens, allowed, formsOf(word));
-      if (!vocab.ok) reasons.push(`off-whitelist: ${vocab.offenders.join(' ')}`);
+      const offenders = vocab.ok ? [] : filterOffendersByReading(tk, tokens, vocab.offenders, allowed);
+      if (offenders.length) reasons.push(`off-whitelist: ${offenders.join(' ')}`);
       const key = sentenceId(s.wordId, s.textJa);
       if (seen.has(key)) reasons.push('exact duplicate');
       const mask = maskCloze(s.textJa, s.clozeSurface);

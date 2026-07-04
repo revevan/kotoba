@@ -344,7 +344,8 @@
    "prompt": "foot",
    "kana": "あし",
    "written": [
-    "足;脚",
+    "足",
+    "脚",
     "あし"
    ],
    "romaji": "ashi",
@@ -2890,7 +2891,8 @@
    "prompt": "uncle",
    "kana": "おじさん",
    "written": [
-    "伯父;叔父さん",
+    "伯父",
+    "叔父さん",
     "おじさん"
    ],
    "romaji": "ojisan",
@@ -3413,7 +3415,8 @@
    "prompt": "aunt",
    "kana": "おばさん",
    "written": [
-    "伯母さん;叔母さん",
+    "伯母さん",
+    "叔母さん",
     "おばさん"
    ],
    "romaji": "obasan",
@@ -5002,7 +5005,8 @@
    "prompt": "river",
    "kana": "かわ",
    "written": [
-    "川;河",
+    "川",
+    "河",
     "かわ"
    ],
    "romaji": "kawa",
@@ -13720,7 +13724,8 @@
    "prompt": "beginning",
    "kana": "はじめ",
    "written": [
-    "初め;始め",
+    "初め",
+    "始め",
     "はじめ",
     "最初",
     "さいしょ"
@@ -16363,7 +16368,8 @@
    "prompt": "round",
    "kana": "まるい",
    "written": [
-    "丸い;円い",
+    "丸い",
+    "円い",
     "まるい"
    ],
    "romaji": "marui",

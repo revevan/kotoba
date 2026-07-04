@@ -7,6 +7,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { TokenizerBuilder, type IpadicFeatures, type LoaderConfig } from '@patdx/kuromoji';
+import { toHiragana } from 'wanakana';
 import type { Deck, Sentence, Word } from '../../src/types';
 import { formsOf } from '../sentence-validate';
 
@@ -173,6 +174,32 @@ export interface JudgeScore {
 
 export function wordById(deck: Deck): Map<string, Word> {
   return new Map(deck.words.map((w) => [w.id, w]));
+}
+
+/**
+ * Reading-based fallback for vocab offenders: the deck's written forms are
+ * incomplete (kana-only entries, non-standard okurigana like 終る), so a
+ * correctly-used word can fail the surface whitelist. Accept an offender token
+ * when its reading — or its dictionary form's reading — matches a known kana
+ * form. Weaker than surface matching (homophones), so it is a fallback only.
+ */
+export function filterOffendersByReading(
+  tk: Tokenizer,
+  tokens: Array<{ surface_form: string; basic_form?: string; reading?: string }>,
+  offenders: string[],
+  known: Set<string>,
+): string[] {
+  const readingKnown = (text: string, reading?: string): boolean => {
+    if (reading && reading !== '*' && known.has(toHiragana(reading))) return true;
+    const t0 = tk.tokenize(text)[0];
+    return !!t0?.reading && t0.reading !== '*' && known.has(toHiragana(t0.reading));
+  };
+  return offenders.filter((o) => {
+    const tok = tokens.find((t) => t.surface_form === o);
+    if (tok && readingKnown(tok.surface_form, tok.reading)) return false;
+    if (tok?.basic_form && tok.basic_form !== '*' && tok.basic_form !== tok.surface_form && readingKnown(tok.basic_form)) return false;
+    return true;
+  });
 }
 
 /**
