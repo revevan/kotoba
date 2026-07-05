@@ -174,6 +174,27 @@ button:disabled {
   font-weight: 600;
 }
 
+.deck.locked {
+  width: 100%;
+  font: inherit;
+  font-size: 16px;
+  text-align: left;
+  opacity: 0.75;
+}
+
+.deck.locked .lock {
+  flex: 0 0 auto;
+  width: 26px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.deck.locked .count {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+}
+
 .start {
   background: var(--accent);
   color: var(--bg);
@@ -518,37 +539,60 @@ button:disabled {
   text-align: center;
 }
 .landing-hero .logo {
+  font-family: var(--jp);
+  font-weight: 600;
   font-size: 56px;
   line-height: 1;
+  color: var(--accent);
 }
 .landing-hero h1 {
-  margin: 12px 0 4px;
-  font-size: 40px;
+  margin: 12px 0 6px;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 .landing-hero .tagline {
   margin: 0;
-  font-size: 18px;
-  color: var(--muted, #9a9aae);
+  font-family: var(--display);
+  font-size: 21px;
+  line-height: 1.35;
+  color: var(--dim);
+  text-wrap: balance;
 }
-.landing-points {
+.landing-steps {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
-.landing-points li {
-  padding-left: 28px;
-  position: relative;
-  font-size: 16px;
-  line-height: 1.4;
+.landing-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #b8b8c8;
 }
-.landing-points li::before {
-  content: '・';
-  position: absolute;
-  left: 6px;
-  color: var(--accent, #7c7cf0);
+.landing-steps strong {
+  color: var(--fg);
+}
+.step-num {
+  flex: 0 0 auto;
+  font-family: var(--display);
+  font-size: 20px;
+  line-height: 26px;
+  width: 26px;
+  height: 26px;
+  text-align: center;
+  border-radius: 50%;
+  background: rgba(124, 124, 240, 0.16);
+  color: var(--accent);
 }
 .landing-auth {
   display: flex;
@@ -564,20 +608,25 @@ button:disabled {
 .auth-input {
   padding: 16px;
   font-size: 20px;
-  border-radius: 12px;
-  border: 1px solid #3a3a4a;
-  background: var(--bg, #16161f);
-  color: var(--fg, #eee);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--fg);
   text-align: center;
 }
+.auth-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
 .auth-btn {
-  padding: 16px;
-  font-size: 18px;
-  font-weight: 600;
+  padding: 17px;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
   border: none;
-  border-radius: 12px;
-  background: var(--accent, #7c7cf0);
-  color: #fff;
+  border-radius: 14px;
+  background: var(--accent);
+  color: var(--bg);
 }
 .auth-btn:disabled {
   opacity: 0.6;

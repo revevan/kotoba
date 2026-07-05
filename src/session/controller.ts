@@ -27,6 +27,7 @@ import {
   buildNote,
   clozeEnglishFirst,
   deckProgress,
+  auth,
   clozeMinIntervalDays,
   deckIndex,
   dueCount,
@@ -113,11 +114,19 @@ function newQuotaToday(cards: { addedAt: number }[], now = new Date()): number {
   return Math.max(0, newPerDay.value - learnedToday);
 }
 
+/** Decks available without an account — the full JLPT decks need sign-up. */
+export const GUEST_DECK_IDS = ['n5-starter'];
+
 export async function loadHomeData(): Promise<void> {
   try {
     loadError.value = null;
     const index = await fetchDeckIndex();
     deckIndex.value = index;
+    // Guests are limited to the starter deck regardless of stored settings.
+    if (!auth.value) {
+      const clamped = enabledDeckIds.value.filter((id) => GUEST_DECK_IDS.includes(id));
+      enabledDeckIds.value = clamped.length > 0 ? clamped : [...GUEST_DECK_IDS];
+    }
     const enabled = index.filter((d) => enabledDeckIds.value.includes(d.id));
     // All decks (SW-cached) so per-deck progress covers disabled decks too.
     const allDecks = await Promise.all(index.map(fetchDeck));

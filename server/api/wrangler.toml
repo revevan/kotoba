@@ -11,6 +11,8 @@ APP_NAME = "Kotoba"
 # shows, in the domain's Cloudflare DNS). Until verified, Resend only delivers
 # to your own account email.
 MAIL_FROM = "Kotoba <login@kotobaapp.com>"
+# Feedback submissions are forwarded here (best-effort).
+NOTIFY_EMAIL = "revevan@gmail.com"
 
 [[d1_databases]]
 binding = "DB"

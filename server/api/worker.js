@@ -187,6 +187,23 @@ async function feedbackPost(request, env, cors) {
   )
     .bind(type, message, contact, context, Date.now())
     .run();
+  // Best-effort heads-up to the maintainer; the submission is already saved.
+  if (env.NOTIFY_EMAIL && env.RESEND_API_KEY) {
+    try {
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from: env.MAIL_FROM || 'Kotoba <onboarding@resend.dev>',
+          to: [env.NOTIFY_EMAIL],
+          subject: `Kotoba ${type}: ${message.slice(0, 60)}`,
+          text: `${message}\n\ncontact: ${contact ?? '—'}\ncontext: ${context ?? '—'}\n\nList: npm run feedback`,
+        }),
+      });
+    } catch {
+      /* notification is non-critical */
+    }
+  }
   return json({ ok: true }, 200, cors);
 }
 

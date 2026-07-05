@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
-import { deckIndex, deckProgress, dueCount, enabledDeckIds, loadError, newAvailable, screen } from '../state';
-import { startSession, updateSetting } from '../session/controller';
+import { auth, deckIndex, deckProgress, dueCount, enabledDeckIds, enteredApp, loadError, newAvailable, screen } from '../state';
+import { GUEST_DECK_IDS, startSession, updateSetting } from '../session/controller';
 import { sendFeedback } from '../sync/client';
 import { cloudSyncEnabled } from '../sync/config';
 
@@ -97,13 +97,24 @@ export function HomeScreen() {
       </div>
 
       <div class="decks">
-        {decks.map((d) => (
-          <label key={d.id} class={`deck ${enabled.includes(d.id) ? 'on' : ''}`}>
-            <input type="checkbox" checked={enabled.includes(d.id)} onChange={() => toggleDeck(d.id)} />
-            <span>{d.name}</span>
-            <span class="count">{deckProgress.value[d.id] ?? 0}/{d.wordCount}</span>
-          </label>
-        ))}
+        {decks.map((d) => {
+          const locked = !auth.value && !GUEST_DECK_IDS.includes(d.id);
+          if (locked)
+            return (
+              <button key={d.id} class="deck locked" onClick={() => (enteredApp.value = false)}>
+                <span class="lock">🔒</span>
+                <span>{d.name}</span>
+                <span class="count">Sign up free</span>
+              </button>
+            );
+          return (
+            <label key={d.id} class={`deck ${enabled.includes(d.id) ? 'on' : ''}`}>
+              <input type="checkbox" checked={enabled.includes(d.id)} onChange={() => toggleDeck(d.id)} />
+              <span>{d.name}</span>
+              <span class="count">{deckProgress.value[d.id] ?? 0}/{d.wordCount}</span>
+            </label>
+          );
+        })}
       </div>
 
       <button class="start" disabled={nothingToDo || !!loadError.value} onClick={() => void startSession()}>

@@ -52,14 +52,23 @@ export function Landing() {
       <div class="landing-hero">
         <div class="logo">言葉</div>
         <h1>Kotoba</h1>
-        <p class="tagline">Hands-free Japanese vocabulary for your commute.</p>
+        <p class="tagline">Learn Japanese by voice, hands-free, on your commute.</p>
       </div>
 
-      <ul class="landing-points">
-        <li>It teaches a word, you say it back, and it quizzes you later — all by voice.</li>
-        <li>Spaced repetition brings words back right before you'd forget them.</li>
-        <li>Built for AirPods or car audio: dash-mount, screen on, tap once to start.</li>
-      </ul>
+      <ol class="landing-steps">
+        <li>
+          <span class="step-num">1</span>
+          <span><strong>Put in your AirPods</strong> — or connect your car's audio and mount the phone.</span>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <span><strong>Tap START once</strong> — that's the last time you touch the screen.</span>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <span><strong>Just talk</strong> — it teaches a word, you say it back, and it quizzes you right before you'd forget.</span>
+        </li>
+      </ol>
 
       {cloudSyncEnabled ? (
         <div class="landing-auth">
@@ -86,7 +95,10 @@ export function Landing() {
             </>
           ) : (
             <>
-              <p class="auth-label">Sign in or sign up to save your progress across devices:</p>
+              <p class="auth-label">
+                Sign up free to unlock every deck — nearly 3,000 words through JLPT N3 — and sync progress across
+                devices:
+              </p>
               <input
                 class="auth-input"
                 type="email"
@@ -112,7 +124,7 @@ export function Landing() {
           )}
           {error && <p class="auth-error">{error}</p>}
           <button class="auth-link guest" onClick={() => (enteredApp.value = true)}>
-            Just try it without an account
+            Try it without an account — N5 Starter deck
           </button>
           <p class="auth-fineprint">
             By using Kotoba you agree to the <a href="/terms.html" target="_blank" rel="noopener noreferrer">Terms</a> and{' '}
