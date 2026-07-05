@@ -26,6 +26,7 @@ import type { TapCommand } from './machine';
 import {
   buildNote,
   clozeEnglishFirst,
+  deckProgress,
   clozeMinIntervalDays,
   deckIndex,
   dueCount,
@@ -118,12 +119,19 @@ export async function loadHomeData(): Promise<void> {
     const index = await fetchDeckIndex();
     deckIndex.value = index;
     const enabled = index.filter((d) => enabledDeckIds.value.includes(d.id));
-    loadedDecks = await Promise.all(enabled.map(fetchDeck));
+    // All decks (SW-cached) so per-deck progress covers disabled decks too.
+    const allDecks = await Promise.all(index.map(fetchDeck));
+    loadedDecks = allDecks.filter((d) => enabled.some((e) => e.id === d.id));
     await attachSentences(loadedDecks); // graceful: words without sentences stay plain
     const words = wordMap(loadedDecks);
     const cards = await getAllCards();
     const cardIds = new Set(cards.map((c) => c.wordId));
     const now = new Date();
+    // Per-deck progress: a word counts as studied once it has a card. Words
+    // shared between decks (starter ⊂ N5) count toward each deck they're in.
+    const progress: Record<string, number> = {};
+    for (const d of allDecks) progress[d.id] = d.words.filter((w) => cardIds.has(w.id)).length;
+    deckProgress.value = progress;
     dueCount.value = cards.filter((c) => words.has(c.wordId) && isDue(c.card, now)).length;
     const newInDeck = [...words.keys()].filter((id) => !cardIds.has(id)).length;
     // What's actually startable today: deck-available new words, capped by the daily quota.

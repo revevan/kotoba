@@ -16,6 +16,8 @@ export const syncStatus = signal<'idle' | 'syncing' | 'done' | 'error'>('idle');
 
 // Home data
 export const deckIndex = signal<DeckInfo[]>([]);
+/** Words studied (have a card) per deck id — home-screen progress display. */
+export const deckProgress = signal<Record<string, number>>({});
 export const enabledDeckIds = signal<string[]>(['n5-starter']);
 export const dueCount = signal(0);
 export const newAvailable = signal(0);

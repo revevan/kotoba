@@ -46,11 +46,11 @@ export function teachSequence(w: Word, sentence?: Sentence): ClipItem[] {
   return [
     { src: enClip(w.id), gapMs: 200 },
     { src: phraseClip('in-japanese'), gapMs: 120 },
-    { src: jaClip(w.id), gapMs: 600 },
-    { src: jaSlowClip(w.id), gapMs: 600 },
-    { src: jaClip(w.id), gapMs: 500 },
+    { src: jaClip(w.id), gapMs: 450 },
+    { src: jaSlowClip(w.id), gapMs: 450 },
+    { src: jaClip(w.id), gapMs: 350 },
     ...altReadings(w),
-    ...(sentence ? [...exampleTail(sentence), { gapMs: 500 }] : []),
+    ...(sentence ? [...exampleTail(sentence), { gapMs: 300 }] : []),
     { src: phraseClip('repeat-after-me'), gapMs: 120 },
     { src: jaClip(w.id) },
   ];
@@ -63,7 +63,7 @@ export function quizPromptSequence(w: Word): ClipItem[] {
 export function correctSequence(w: Word, sentence?: Sentence): ClipItem[] {
   return [
     { src: phraseClip('correct'), gapMs: 80 },
-    { src: jaClip(w.id), ...(sentence ? { gapMs: 600 } : {}) },
+    { src: jaClip(w.id), ...(sentence ? { gapMs: 400 } : {}) },
     ...(sentence ? exampleTail(sentence) : []),
   ];
 }
@@ -75,10 +75,10 @@ export function correctSequence(w: Word, sentence?: Sentence): ClipItem[] {
  */
 export function clozePromptSequence(sentence: Sentence, opts: { englishFirst?: boolean } = {}): ClipItem[] {
   return [
-    { src: phraseClip('fill-the-blank'), gapMs: 300 },
-    ...(opts.englishFirst ? [{ src: senEnClip(sentence.id), gapMs: 500 }] : []),
-    { src: senPreClip(sentence.id), gapMs: 120 },
-    { src: beepClip(), gapMs: 120 },
+    { src: phraseClip('fill-the-blank'), gapMs: 150 },
+    ...(opts.englishFirst ? [{ src: senEnClip(sentence.id), gapMs: 250 }] : []),
+    { src: senPreClip(sentence.id), gapMs: 50 },
+    { src: beepClip(), gapMs: 50 },
     { src: senPostClip(sentence.id) },
   ];
 }
@@ -86,7 +86,7 @@ export function clozePromptSequence(sentence: Sentence, opts: { englishFirst?: b
 /** Rung 3 prompt: "repeat the sentence — <sentence>". The learner says it back. */
 export function shadowPromptSequence(sentence: Sentence): ClipItem[] {
   return [
-    { src: phraseClip('repeat-the-sentence'), gapMs: 300 },
+    { src: phraseClip('repeat-the-sentence'), gapMs: 150 },
     { src: senClip(sentence.id) },
   ];
 }
@@ -95,7 +95,7 @@ export function shadowPromptSequence(sentence: Sentence): ClipItem[] {
 export function shadowRevealSequence(sentence: Sentence): ClipItem[] {
   return [
     { src: phraseClip('not-quite'), gapMs: 120 },
-    { src: senClip(sentence.id), gapMs: 500 },
+    { src: senClip(sentence.id), gapMs: 350 },
     { src: phraseClip('knew-it') },
   ];
 }
@@ -103,7 +103,7 @@ export function shadowRevealSequence(sentence: Sentence): ClipItem[] {
 /** Rung 4 prompt: "make your own sentence with — <word>". */
 export function buildPromptSequence(w: Word): ClipItem[] {
   return [
-    { src: phraseClip('make-a-sentence'), gapMs: 300 },
+    { src: phraseClip('make-a-sentence'), gapMs: 150 },
     { src: jaClip(w.id) },
   ];
 }
@@ -112,7 +112,7 @@ export function buildPromptSequence(w: Word): ClipItem[] {
 export function buildRevealSequence(w: Word, sentence?: Sentence): ClipItem[] {
   return [
     { src: phraseClip('not-quite'), gapMs: 120 },
-    ...(sentence ? [{ src: phraseClip('for-example'), gapMs: 120 }, { src: senClip(sentence.id), gapMs: 500 }] : [{ src: jaClip(w.id), gapMs: 500 }]),
+    ...(sentence ? [{ src: phraseClip('for-example'), gapMs: 120 }, { src: senClip(sentence.id), gapMs: 350 }] : [{ src: jaClip(w.id), gapMs: 350 }]),
     { src: phraseClip('knew-it') },
   ];
 }
@@ -122,8 +122,8 @@ export function clozeRevealSequence(w: Word, sentence: Sentence): ClipItem[] {
   return [
     { src: phraseClip('not-quite'), gapMs: 80 },
     { src: phraseClip('the-answer-is'), gapMs: 120 },
-    { src: jaClip(w.id), gapMs: 500 },
-    { src: senClip(sentence.id), gapMs: 500 },
+    { src: jaClip(w.id), gapMs: 350 },
+    { src: senClip(sentence.id), gapMs: 350 },
     { src: phraseClip('knew-it') },
   ];
 }
@@ -137,7 +137,7 @@ export function revealSequence(w: Word): ClipItem[] {
   return [
     { src: phraseClip('not-quite'), gapMs: 80 },
     { src: phraseClip('the-answer-is'), gapMs: 120 },
-    { src: jaClip(w.id), gapMs: 600 },
+    { src: jaClip(w.id), gapMs: 400 },
     { src: phraseClip('knew-it') },
   ];
 }

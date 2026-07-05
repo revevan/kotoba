@@ -1,0 +1,2189 @@
+KOTOBA — N5 STARTER LANGUAGE EXPORT
+Deck: N5 Starter (Genki 1–6)
+Words: 120
+Sentence groups: 120
+
+Each entry shows: vocabulary info, then example sentences with the target word in [brackets].
+Words marked ⚠ NO SENTENCES have no example sentences yet authored.
+
+========================================================================
+
+  WORD  医者 (いしゃ)  [isha]  —  n5-1b7fe8fc
+  Prompt (quiz cue): "doctor"
+  English:           "doctor; physician"
+  Lesson:            Genki L1, Genki L10
+  Sentences:
+    JA: [医者]ですか。
+    RD: いしゃですか。
+    EN: Are you a doctor?
+
+    JA: [医者]じゃないです。
+    RD: いしゃじゃないです。
+    EN: I'm not a doctor.
+
+    JA: [医者]です。
+    RD: いしゃです。
+    EN: I'm a doctor.
+
+------------------------------------------------------------------------
+
+  WORD  今 (いま)  [ima]  —  n5-7cf28dc9
+  Prompt (quiz cue): "now"
+  English:           "now"
+  Lesson:            Genki L1
+  Sentences:
+    JA: [今]ですか。
+    RD: いまですか。
+    EN: Right now?
+
+    JA: [今]じゃないです。
+    RD: いまじゃないです。
+    EN: Not now.
+
+------------------------------------------------------------------------
+
+  WORD  妹 (いもうと)  [imouto]  —  n5-17beb16f
+  Prompt (quiz cue): "younger sister"
+  English:           "younger sister (humble)"
+  Lesson:            Genki L1, Genki L7
+  Sentences:
+    JA: [妹]ですか。
+    RD: いもうとですか。
+    EN: Is she your younger sister?
+
+    JA: [妹]は医者じゃないです。
+    RD: いもうとはいしゃじゃないです。
+    EN: My sister isn't a doctor.
+
+------------------------------------------------------------------------
+
+  WORD  英語 (えいご)  [eigo]  —  n5-bdf2796e
+  Prompt (quiz cue): "English"
+  English:           "English (language)"
+  Lesson:            Genki L1
+  Sentences:
+    JA: [英語]ですか。
+    RD: えいごですか。
+    EN: Is it English?
+
+    JA: [英語]じゃないです。
+    RD: えいごじゃないです。
+    EN: It's not English.
+
+    JA: 妹は[英語]です。
+    RD: いもうとはえいごです。
+    EN: My sister speaks English.
+
+------------------------------------------------------------------------
+
+  WORD  お母さん (おかあさん)  [okaasan]  —  n5-51d0ab4a
+  Prompt (quiz cue): "mother (formal)"
+  English:           "mother (formal)"
+  Lesson:            Genki L1, Genki L2
+  Sentences:
+    JA: [お母さん]は英語ですか。
+    RD: おかあさんはえいごですか。
+    EN: Does your mom speak English?
+
+    JA: 妹と[お母さん]です。
+    RD: いもうととおかあさんです。
+    EN: It's my younger sister and my mom.
+
+------------------------------------------------------------------------
+
+  WORD  お父さん (おとうさん)  [otousan]  —  n5-2cbdefb8
+  Prompt (quiz cue): "father (formal)"
+  English:           "father (formal)"
+  Lesson:            Genki L1, Genki L2
+  Sentences:
+    JA: [お父さん]も英語ですか。
+    RD: おとうさんもえいごですか。
+    EN: Does your dad speak English too?
+
+    JA: [お父さん]とお母さんです。
+    RD: おとうさんとおかあさんです。
+    EN: It's my dad and my mom.
+
+------------------------------------------------------------------------
+
+  WORD  弟 (おとうと)  [otouto]  —  n5-d9a6b4c3
+  Prompt (quiz cue): "younger brother"
+  English:           "younger brother"
+  Lesson:            Genki L1, Genki L7
+  Sentences:
+    JA: [弟]ですか。
+    RD: おとうとですか。
+    EN: Is he your younger brother?
+
+    JA: [弟]と妹です。
+    RD: おとうとといもうとです。
+    EN: My younger brother and younger sister.
+
+------------------------------------------------------------------------
+
+  WORD  お兄さん (おにいさん)  [oniisan]  —  n5-810354ac
+  Prompt (quiz cue): "older brother"
+  English:           "older brother (formal)"
+  Lesson:            Genki L1, Genki L7
+  Sentences:
+    JA: [お兄さん]は英語ですか。
+    RD: おにいさんはえいごですか。
+    EN: Does your older brother speak English?
+
+    JA: 弟と[お兄さん]です。
+    RD: おとうととおにいさんです。
+    EN: My younger brother and older brother.
+
+------------------------------------------------------------------------
+
+  WORD  お姉さん (おねえさん)  [oneesan]  —  n5-a37813c9
+  Prompt (quiz cue): "older sister (formal)"
+  English:           "older sister (formal)"
+  Lesson:            Genki L1, Genki L7
+  Sentences:
+    JA: [お姉さん]も英語ですか。
+    RD: おねえさんもえいごですか。
+    EN: Does your older sister speak English too?
+
+    JA: 妹と[お姉さん]です。
+    RD: いもうととおねえさんです。
+    EN: My younger sister and older sister.
+
+    JA: お兄さんと[お姉さん]です。
+    RD: おにいさんとおねえさんです。
+    EN: My older brother and older sister.
+
+------------------------------------------------------------------------
+
+  WORD  学生 (がくせい)  [gakusei]  —  n5-1d17bb25
+  Prompt (quiz cue): "student"
+  English:           "student"
+  Lesson:            Genki L1
+  Alt readings:      せいと [seito]
+  Also written:      生徒 (せいと)
+  Sentences:
+    JA: 妹は[学生]です。
+    RD: いもうとはがくせいです。
+    EN: My younger sister is a student.
+
+    JA: 弟も[学生]ですか。
+    RD: おとうともがくせいですか。
+    EN: Is your younger brother also a student?
+
+    JA: お兄さんは[学生]じゃないです。
+    RD: おにいさんはがくせいじゃないです。
+    EN: My older brother isn't a student.
+
+------------------------------------------------------------------------
+
+  WORD  午後 (ごご)  [gogo]  —  n5-873bb133
+  Prompt (quiz cue): "afternoon"
+  English:           "afternoon, P.M."
+  Lesson:            Genki L1
+  Sentences:
+    JA: 今は[午後]ですか。
+    RD: いまはごごですか。
+    EN: Is it afternoon now?
+
+    JA: [午後]じゃないです。
+    RD: ごごじゃないです。
+    EN: It's not afternoon.
+
+    JA: お姉さんは[午後]、学生です。
+    RD: おねえさんはごご、がくせいです。
+    EN: My older sister has school in the afternoon.
+
+------------------------------------------------------------------------
+
+  WORD  朝 (あさ)  [asa]  —  n5-2d128996
+  Prompt (quiz cue): "morning"
+  English:           "morning; A.M."
+  Lesson:            Genki L1
+  Alt readings:      ごぜん [gozen]
+  Also written:      午前 (ごぜん)
+  Sentences:
+    JA: 今は[朝]ですか。
+    RD: いまはあさですか。
+    EN: Is it morning now?
+
+    JA: [朝]ですか、午後ですか。
+    RD: あさですか、ごごですか。
+    EN: Is it morning or afternoon?
+
+------------------------------------------------------------------------
+
+  WORD  仕事 (しごと)  [shigoto]  —  n5-a57d4660
+  Prompt (quiz cue): "work"
+  English:           "work, job, occupation, employment"
+  Lesson:            Genki L1, Genki L8
+  Sentences:
+    JA: 今は[仕事]ですか。
+    RD: いまはしごとですか。
+    EN: Are you at work right now?
+
+    JA: お父さんは[仕事]です。
+    RD: おとうさんはしごとです。
+    EN: My dad is at work.
+
+    JA: [仕事]は午後です。
+    RD: しごとはごごです。
+    EN: Work is in the afternoon.
+
+------------------------------------------------------------------------
+
+  WORD  先生 (せんせい)  [sensei]  —  n5-ca5c6a1e
+  Prompt (quiz cue): "teacher"
+  English:           "teacher, professor; master; doctor"
+  Lesson:            Genki L1
+  Sentences:
+    JA: お母さんは英語の[先生]です。
+    RD: おかあさんはえいごのせんせいです。
+    EN: My mom is an English teacher.
+
+    JA: [先生]ですか、学生ですか。
+    RD: せんせいですか、がくせいですか。
+    EN: Are you a teacher or a student?
+
+    JA: お兄さんは[先生]じゃないです。
+    RD: おにいさんはせんせいじゃないです。
+    EN: My older brother isn't a teacher.
+
+------------------------------------------------------------------------
+
+  WORD  大学 (だいがく)  [daigaku]  —  n5-f2549372
+  Prompt (quiz cue): "college"
+  English:           "college; university"
+  Lesson:            Genki L1
+  Sentences:
+    JA: 妹は[大学]の学生です。
+    RD: いもうとはだいがくのがくせいです。
+    EN: My younger sister is a university student.
+
+    JA: [大学]は午後です。
+    RD: だいがくはごごです。
+    EN: My university classes are in the afternoon.
+
+    JA: お兄さんは[大学]の先生です。
+    RD: おにいさんはだいがくのせんせいです。
+    EN: My older brother is a university professor.
+
+------------------------------------------------------------------------
+
+  WORD  電話 (でんわ)  [denwa]  —  n5-33a1e265
+  Prompt (quiz cue): "a telephone"
+  English:           "a telephone"
+  Lesson:            Genki L1
+  Sentences:
+    JA: お母さんの[電話]です。
+    RD: おかあさんのでんわです。
+    EN: It's my mom's phone.
+
+    JA: 仕事の[電話]ですか。
+    RD: しごとのでんわですか。
+    EN: Is it a work call?
+
+------------------------------------------------------------------------
+
+  WORD  友達 (ともだち)  [tomodachi]  —  n5-ac475c12
+  Prompt (quiz cue): "friend"
+  English:           "friend"
+  Lesson:            Genki L1
+  Sentences:
+    JA: 妹の[友達]は学生です。
+    RD: いもうとのともだちはがくせいです。
+    EN: My sister's friend is a student.
+
+    JA: [友達]は仕事ですか。
+    RD: ともだちはしごとですか。
+    EN: Is your friend at work?
+
+    JA: [友達]は大学の先生です。
+    RD: ともだちはだいがくのせんせいです。
+    EN: My friend is a university professor.
+
+------------------------------------------------------------------------
+
+  WORD  名前 (なまえ)  [namae]  —  n5-f68273d2
+  Prompt (quiz cue): "name"
+  English:           "name"
+  Lesson:            Genki L1
+  Sentences:
+    JA: 先生の[名前]ですか。
+    RD: せんせいのなまえですか。
+    EN: Is that the teacher's name?
+
+    JA: 大学の[名前]です。
+    RD: だいがくのなまえです。
+    EN: It's the university's name.
+
+    JA: お母さんの[名前]です。
+    RD: おかあさんのなまえです。
+    EN: It's my mom's name.
+
+------------------------------------------------------------------------
+
+  WORD  はい (ええ)  [hai]  —  n5-2668a187
+  Prompt (quiz cue): "yes"
+  English:           "yes"
+  Lesson:            Genki L1
+  Alt readings:      ええ [ee]
+  Sentences:
+    JA: [はい]、学生です。
+    RD: はい、がくせいです。
+    EN: Yes, I'm a student.
+
+    JA: [はい]、仕事です。
+    RD: はい、しごとです。
+    EN: Yes, I'm at work.
+
+------------------------------------------------------------------------
+
+  WORD  半 (はん)  [han]  —  n5-6208a56d
+  Prompt (quiz cue): "half"
+  English:           "half (as in 二時半, half-past two)"
+  Lesson:            Genki L1
+  Sentences:
+    JA: 今は二時[半]です。
+    RD: いまはにじはんです。
+    EN: It's 2:30.
+
+    JA: 仕事は朝九時[半]です。
+    RD: しごとはあさくじはんです。
+    EN: Work starts at 9:30 in the morning.
+
+    JA: 大学は午後一時[半]からです。
+    RD: だいがくはごごいちじはんからです。
+    EN: University starts at 1:30 PM.
+
+------------------------------------------------------------------------
+
+  WORD  番号 (ばんごう)  [bangou]  —  n5-41645a1f
+  Prompt (quiz cue): "number"
+  English:           "number, series of digits"
+  Lesson:            Genki L1
+  Sentences:
+    JA: 電話の[番号]ですか。
+    RD: でんわのばんごうですか。
+    EN: Is this a phone number?
+
+    JA: 友達の[番号]です。
+    RD: ともだちのばんごうです。
+    EN: It's my friend's number.
+
+------------------------------------------------------------------------
+
+  WORD  留学生 (りゅうがくせい)  [ryuugakusei]  —  n5-c4e7aaa8
+  Prompt (quiz cue): "international student"
+  English:           "international student"
+  Lesson:            Genki L1
+  Sentences:
+    JA: 友達は[留学生]です。
+    RD: ともだちはりゅうがくせいです。
+    EN: My friend is an international student.
+
+    JA: 大学の[留学生]ですか。
+    RD: だいがくのりゅうがくせいですか。
+    EN: Is she an international student at the university?
+
+------------------------------------------------------------------------
+
+  WORD  私 (わたし)  [watashi]  —  n5-e1ea452d
+  Prompt (quiz cue): "I"
+  English:           "I, myself"
+  Lesson:            Genki L1
+  Sentences:
+    JA: [私]は学生です。
+    RD: わたしはがくせいです。
+    EN: I'm a student.
+
+    JA: [私]は英語の先生です。
+    RD: わたしはえいごのせんせいです。
+    EN: I'm an English teacher.
+
+    JA: [私]の友達は留学生です。
+    RD: わたしのともだちはりゅうがくせいです。
+    EN: My friend is an international student.
+
+------------------------------------------------------------------------
+
+  WORD  あそこ  [asoko]  —  n5-c2500e22
+  Prompt (quiz cue): "there"
+  English:           "there, over there, that place"
+  Lesson:            Genki L2
+  Sentences:
+    JA: 大学は[あそこ]です。
+    RD: だいがくはあそこです。
+    EN: The university is over there.
+
+    JA: 友達は[あそこ]です。
+    RD: ともだちはあそこです。
+    EN: My friend is over there.
+
+    JA: お父さんは[あそこ]です。
+    RD: おとうさんはあそこです。
+    EN: My dad is over there.
+
+------------------------------------------------------------------------
+
+  WORD  あれ  [are]  —  n5-af8fe633
+  Prompt (quiz cue): "that one (over there)"
+  English:           "that one (over there)"
+  Lesson:            Genki L2
+  Sentences:
+    JA: [あれ]は大学です。
+    RD: あれはだいがくです。
+    EN: That over there is the university.
+
+    JA: [あれ]は友達の電話です。
+    RD: あれはともだちのでんわです。
+    EN: That's my friend's phone.
+
+    JA: [あれ]は留学生ですか。
+    RD: あれはりゅうがくせいですか。
+    EN: Is that person over there an international student?
+
+------------------------------------------------------------------------
+
+  WORD  いくら  [ikura]  —  n5-cd2f86ee
+  Prompt (quiz cue): "how much"
+  English:           "how much, how many"
+  Lesson:            Genki L2
+  Sentences:
+    JA: [いくら]ですか。
+    RD: いくらですか。
+    EN: How much is it?
+
+    JA: 電話は[いくら]ですか。
+    RD: でんわはいくらですか。
+    EN: How much is the phone?
+
+------------------------------------------------------------------------
+
+  WORD  鉛筆 (えんぴつ)  [enpitsu]  —  n5-4bd5b091
+  Prompt (quiz cue): "pencil"
+  English:           "pencil"
+  Lesson:            Genki L2
+  Sentences:
+    JA: あれは[鉛筆]です。
+    RD: あれはえんぴつです。
+    EN: That over there is a pencil.
+
+    JA: [鉛筆]はいくらですか。
+    RD: えんぴつはいくらですか。
+    EN: How much is the pencil?
+
+    JA: 私の[鉛筆]です。
+    RD: わたしのえんぴつです。
+    EN: It's my pencil.
+
+------------------------------------------------------------------------
+
+  WORD  お手洗い (おてあらい)  [otearai]  —  n5-56e2ffcd
+  Prompt (quiz cue): "toilet"
+  English:           "toilet, restroom, bathroom (lit., a place to wash one's hands)"
+  Lesson:            Genki L2
+  Sentences:
+    JA: [お手洗い]はあそこです。
+    RD: おてあらいはあそこです。
+    EN: The restroom is over there.
+
+    JA: [お手洗い]ですか。
+    RD: おてあらいですか。
+    EN: Are you looking for the restroom?
+
+------------------------------------------------------------------------
+
+  WORD  傘 (かさ)  [kasa]  —  n5-ad635933
+  Prompt (quiz cue): "umbrella"
+  English:           "umbrella, parasol"
+  Lesson:            Genki L2
+  Sentences:
+    JA: あれは私の[傘]です。
+    RD: あれはわたしのかさです。
+    EN: That over there is my umbrella.
+
+    JA: [傘]はいくらですか。
+    RD: かさはいくらですか。
+    EN: How much is the umbrella?
+
+    JA: お母さんの[傘]です。
+    RD: おかあさんのかさです。
+    EN: It's my mom's umbrella.
+
+------------------------------------------------------------------------
+
+  WORD  かばん  [kaban]  —  n5-79cde3ad
+  Prompt (quiz cue): "bag"
+  English:           "bag, basket"
+  Lesson:            Genki L2
+  Sentences:
+    JA: あれは[かばん]です。
+    RD: あれはかばんです。
+    EN: That's a bag.
+
+    JA: [かばん]はいくらですか。
+    RD: かばんはいくらですか。
+    EN: How much is the bag?
+
+    JA: 妹の[かばん]です。
+    RD: いもうとのかばんです。
+    EN: It's my younger sister's bag.
+
+------------------------------------------------------------------------
+
+  WORD  喫茶店 (きっさてん)  [kissaten]  —  n5-e047c54d
+  Prompt (quiz cue): "café"
+  English:           "café"
+  Lesson:            Genki L2
+  Sentences:
+    JA: [喫茶店]はあそこです。
+    RD: きっさてんはあそこです。
+    EN: The café is over there.
+
+    JA: 友達は[喫茶店]です。
+    RD: ともだちはきっさてんです。
+    EN: My friend is at the café.
+
+------------------------------------------------------------------------
+
+  WORD  銀行 (ぎんこう)  [ginkou]  —  n5-5ab550fc
+  Prompt (quiz cue): "bank"
+  English:           "bank"
+  Lesson:            Genki L2
+  Sentences:
+    JA: [銀行]はあそこです。
+    RD: ぎんこうはあそこです。
+    EN: The bank is over there.
+
+    JA: お父さんは[銀行]です。
+    RD: おとうさんはぎんこうです。
+    EN: My dad is at the bank.
+
+------------------------------------------------------------------------
+
+  WORD  靴 (くつ)  [kutsu]  —  n5-a28c621e
+  Prompt (quiz cue): "shoes"
+  English:           "shoes, footwear"
+  Lesson:            Genki L2
+  Sentences:
+    JA: あれは私の[靴]です。
+    RD: あれはわたしのくつです。
+    EN: Those over there are my shoes.
+
+    JA: [靴]はいくらですか。
+    RD: くつはいくらですか。
+    EN: How much are the shoes?
+
+    JA: 友達の[靴]です。
+    RD: ともだちのくつです。
+    EN: They're my friend's shoes.
+
+------------------------------------------------------------------------
+
+  WORD  これ  [kore]  —  n5-1fefdbdb
+  Prompt (quiz cue): "this one"
+  English:           "this one"
+  Lesson:            Genki L2
+  Sentences:
+    JA: [これ]は私の傘です。
+    RD: これはわたしのかさです。
+    EN: This is my umbrella.
+
+    JA: [これ]はいくらですか。
+    RD: これはいくらですか。
+    EN: How much is this?
+
+    JA: [これ]は鉛筆です。
+    RD: これはえんぴつです。
+    EN: This is a pencil.
+
+------------------------------------------------------------------------
+
+  WORD  財布 (さいふ)  [saifu]  —  n5-9f5cf593
+  Prompt (quiz cue): "wallet"
+  English:           "wallet"
+  Lesson:            Genki L2
+  Sentences:
+    JA: これは私の[財布]です。
+    RD: これはわたしのさいふです。
+    EN: This is my wallet.
+
+    JA: [財布]はいくらですか。
+    RD: さいふはいくらですか。
+    EN: How much is the wallet?
+
+    JA: 友達の[財布]です。
+    RD: ともだちのさいふです。
+    EN: It's my friend's wallet.
+
+------------------------------------------------------------------------
+
+  WORD  魚 (さかな)  [sakana]  —  n5-a7294957
+  Prompt (quiz cue): "fish"
+  English:           "fish"
+  Lesson:            Genki L2
+  Sentences:
+    JA: これは[魚]です。
+    RD: これはさかなです。
+    EN: This is fish.
+
+    JA: [魚]はいくらですか。
+    RD: さかなはいくらですか。
+    EN: How much is the fish?
+
+    JA: あれは[魚]ですか。
+    RD: あれはさかなですか。
+    EN: Is that over there a fish?
+
+------------------------------------------------------------------------
+
+  WORD  辞書 (じしょ)  [jisho]  —  n5-2e0ca17b
+  Prompt (quiz cue): "dictionary"
+  English:           "dictionary"
+  Lesson:            Genki L2
+  Alt readings:      じびき [jibiki]
+  Also written:      字引 (じびき)
+  Sentences:
+    JA: これは英語の[辞書]です。
+    RD: これはえいごのじしょです。
+    EN: This is an English dictionary.
+
+    JA: [辞書]はいくらですか。
+    RD: じしょはいくらですか。
+    EN: How much is the dictionary?
+
+    JA: 友達の[辞書]です。
+    RD: ともだちのじしょです。
+    EN: It's my friend's dictionary.
+
+------------------------------------------------------------------------
+
+  WORD  自転車 (じてんしゃ)  [jitensha]  —  n5-55d70f77
+  Prompt (quiz cue): "bicycle"
+  English:           "bicycle"
+  Lesson:            Genki L2
+  Sentences:
+    JA: これは私の[自転車]です。
+    RD: これはわたしのじてんしゃです。
+    EN: This is my bicycle.
+
+    JA: [自転車]はいくらですか。
+    RD: じてんしゃはいくらですか。
+    EN: How much is the bicycle?
+
+    JA: あれは友達の[自転車]です。
+    RD: あれはともだちのじてんしゃです。
+    EN: That over there is my friend's bicycle.
+
+------------------------------------------------------------------------
+
+  WORD  新聞 (しんぶん)  [shinbun]  —  n5-3761f07c
+  Prompt (quiz cue): "newspaper"
+  English:           "newspaper"
+  Lesson:            Genki L2
+  Sentences:
+    JA: これは英語の[新聞]です。
+    RD: これはえいごのしんぶんです。
+    EN: This is an English newspaper.
+
+    JA: [新聞]はいくらですか。
+    RD: しんぶんはいくらですか。
+    EN: How much is the newspaper?
+
+    JA: お父さんの[新聞]です。
+    RD: おとうさんのしんぶんです。
+    EN: It's my dad's newspaper.
+
+------------------------------------------------------------------------
+
+  WORD  それ  [sore]  —  n5-3906cbce
+  Prompt (quiz cue): "that one"
+  English:           "that one"
+  Lesson:            Genki L2
+  Sentences:
+    JA: [それ]は私の傘です。
+    RD: それはわたしのかさです。
+    EN: That's my umbrella.
+
+    JA: [それ]はいくらですか。
+    RD: それはいくらですか。
+    EN: How much is that?
+
+    JA: [それ]は英語の辞書です。
+    RD: それはえいごのじしょです。
+    EN: That's an English dictionary.
+
+------------------------------------------------------------------------
+
+  WORD  高い (たかい)  [takai]  —  n5-66b6e112
+  Prompt (quiz cue): "tall"
+  English:           "tall, high; expensive"
+  Lesson:            Genki L2
+  Sentences:
+    JA: それは[高い]です。
+    RD: それはたかいです。
+    EN: That's expensive.
+
+    JA: 自転車は[高い]です。
+    RD: じてんしゃはたかいです。
+    EN: Bicycles are expensive.
+
+    JA: 財布は[高い]ですか。
+    RD: さいふはたかいですか。
+    EN: Is the wallet expensive?
+
+------------------------------------------------------------------------
+
+  WORD  誰 (だれ)  [dare]  —  n5-6e9eadcf
+  Prompt (quiz cue): "who"
+  English:           "who"
+  Lesson:            Genki L2
+  Alt readings:      どなた [donata]
+  Also written:      どなた
+  Sentences:
+    JA: あれは[誰]ですか。
+    RD: あれはだれですか。
+    EN: Who is that over there?
+
+    JA: それは[誰]の傘ですか。
+    RD: それはだれのかさですか。
+    EN: Whose umbrella is that?
+
+------------------------------------------------------------------------
+
+  WORD  テープ (てえぷ)  [teepu]  —  n5-b29e9540
+  Prompt (quiz cue): "tape"
+  English:           "tape"
+  Lesson:            Genki L2
+  Sentences:
+    JA: これは[テープ]です。
+    RD: これはてえぷです。
+    EN: This is tape.
+
+    JA: [テープ]はいくらですか。
+    RD: てえぷはいくらですか。
+    EN: How much is the tape?
+
+------------------------------------------------------------------------
+
+  WORD  どうも  [doumo]  —  n5-cfde36eb
+  Prompt (quiz cue): "casual thanks / somehow"
+  English:           "thanks; somehow; no matter how hard one tries"
+  Lesson:            Genki L2
+  Sentences:
+    JA: [どうも]、先生。
+    RD: どうも、せんせい。
+    EN: Thanks, teacher.
+
+    JA: 傘、[どうも]。
+    RD: かさ、どうも。
+    EN: Thanks for the umbrella.
+
+    JA: 喫茶店で、[どうも]。
+    RD: きっさてんで、どうも。
+    EN: Thanks — at the café.
+
+------------------------------------------------------------------------
+
+  WORD  時計 (とけい)  [tokei]  —  n5-176ff473
+  Prompt (quiz cue): "a watch"
+  English:           "a watch; a clock"
+  Lesson:            Genki L2
+  Sentences:
+    JA: これは私の[時計]です。
+    RD: これはわたしのとけいです。
+    EN: This is my watch.
+
+    JA: [時計]はいくらですか。
+    RD: とけいはいくらですか。
+    EN: How much is the watch?
+
+    JA: それは高い[時計]です。
+    RD: それはたかいとけいです。
+    EN: That's an expensive watch.
+
+------------------------------------------------------------------------
+
+  WORD  どこ  [doko]  —  n5-d7de52a7
+  Prompt (quiz cue): "where"
+  English:           "where, what place"
+  Lesson:            Genki L2
+  Sentences:
+    JA: お手洗いは[どこ]ですか。
+    RD: おてあらいはどこですか。
+    EN: Where is the restroom?
+
+    JA: 銀行は[どこ]ですか。
+    RD: ぎんこうはどこですか。
+    EN: Where is the bank?
+
+    JA: 友達は[どこ]ですか。
+    RD: ともだちはどこですか。
+    EN: Where is my friend?
+
+------------------------------------------------------------------------
+
+  WORD  図書館 (としょかん)  [toshokan]  —  n5-71bc8ce6
+  Prompt (quiz cue): "library"
+  English:           "library"
+  Lesson:            Genki L2
+  Sentences:
+    JA: [図書館]はどこですか。
+    RD: としょかんはどこですか。
+    EN: Where is the library?
+
+    JA: [図書館]はあそこです。
+    RD: としょかんはあそこです。
+    EN: The library is over there.
+
+    JA: 友達は[図書館]です。
+    RD: ともだちはとしょかんです。
+    EN: My friend is at the library.
+
+------------------------------------------------------------------------
+
+  WORD  どれ (どっち)  [dore]  —  n5-3850c3cd
+  Prompt (quiz cue): "which one"
+  English:           "which one"
+  Lesson:            Genki L2
+  Alt readings:      どっち [dotchi]
+  Sentences:
+    JA: 私の傘は[どれ]ですか。
+    RD: わたしのかさはどれですか。
+    EN: Which one is my umbrella?
+
+    JA: 友達の靴は[どれ]ですか。
+    RD: ともだちのくつはどれですか。
+    EN: Which ones are my friend's shoes?
+
+------------------------------------------------------------------------
+
+  WORD  肉 (にく)  [niku]  —  n5-df98d4e7
+  Prompt (quiz cue): "meat"
+  English:           "meat"
+  Lesson:            Genki L2
+  Sentences:
+    JA: これは[肉]です。
+    RD: これはにくです。
+    EN: This is meat.
+
+    JA: [肉]はいくらですか。
+    RD: にくはいくらですか。
+    EN: How much is the meat?
+
+    JA: [肉]は高いです。
+    RD: にくはたかいです。
+    EN: Meat is expensive.
+
+------------------------------------------------------------------------
+
+  WORD  ノート (のうと)  [nouto]  —  n5-3e9768f9
+  Prompt (quiz cue): "notebook"
+  English:           "notebook"
+  Lesson:            Genki L2
+  Sentences:
+    JA: これは私の[ノート]です。
+    RD: これはわたしののうとです。
+    EN: This is my notebook.
+
+    JA: [ノート]はいくらですか。
+    RD: のうとはいくらですか。
+    EN: How much is the notebook?
+
+    JA: 友達の[ノート]です。
+    RD: ともだちののうとです。
+    EN: It's my friend's notebook.
+
+------------------------------------------------------------------------
+
+  WORD  ペン (ぺん)  [pen]  —  n5-ff720a94
+  Prompt (quiz cue): "pen"
+  English:           "pen"
+  Lesson:            Genki L2
+  Sentences:
+    JA: これは私の[ペン]です。
+    RD: これはわたしのぺんです。
+    EN: This is my pen.
+
+    JA: [ペン]はいくらですか。
+    RD: ぺんはいくらですか。
+    EN: How much is the pen?
+
+    JA: それは誰の[ペン]ですか。
+    RD: それはだれのぺんですか。
+    EN: Whose pen is that?
+
+------------------------------------------------------------------------
+
+  WORD  帽子 (ぼうし)  [boushi]  —  n5-e2da2a2b
+  Prompt (quiz cue): "hat"
+  English:           "hat; cap"
+  Lesson:            Genki L2
+  Sentences:
+    JA: これは私の[帽子]です。
+    RD: これはわたしのぼうしです。
+    EN: This is my hat.
+
+    JA: [帽子]はいくらですか。
+    RD: ぼうしはいくらですか。
+    EN: How much is the hat?
+
+    JA: それは高い[帽子]です。
+    RD: それはたかいぼうしです。
+    EN: That's an expensive hat.
+
+------------------------------------------------------------------------
+
+  WORD  本 (ほん)  [hon]  —  n5-9fb45486
+  Prompt (quiz cue): "book"
+  English:           "book"
+  Lesson:            Genki L2
+  Sentences:
+    JA: これは英語の[本]です。
+    RD: これはえいごのほんです。
+    EN: This is an English book.
+
+    JA: [本]はいくらですか。
+    RD: ほんはいくらですか。
+    EN: How much is the book?
+
+    JA: それは誰の[本]ですか。
+    RD: それはだれのほんですか。
+    EN: Whose book is that?
+
+------------------------------------------------------------------------
+
+  WORD  野菜 (やさい)  [yasai]  —  n5-24aab5be
+  Prompt (quiz cue): "vegetable"
+  English:           "vegetable"
+  Lesson:            Genki L2
+  Sentences:
+    JA: これは[野菜]です。
+    RD: これはやさいです。
+    EN: This is a vegetable.
+
+    JA: [野菜]は高いです。
+    RD: やさいはたかいです。
+    EN: Vegetables are expensive.
+
+    JA: [野菜]はいくらですか。
+    RD: やさいはいくらですか。
+    EN: How much are the vegetables?
+
+------------------------------------------------------------------------
+
+  WORD  郵便局 (ゆうびんきょく)  [yuubinkyoku]  —  n5-1751a166
+  Prompt (quiz cue): "post office"
+  English:           "post office"
+  Lesson:            Genki L2
+  Sentences:
+    JA: [郵便局]はどこですか。
+    RD: ゆうびんきょくはどこですか。
+    EN: Where is the post office?
+
+    JA: [郵便局]はあそこです。
+    RD: ゆうびんきょくはあそこです。
+    EN: The post office is over there.
+
+    JA: 友達は[郵便局]です。
+    RD: ともだちはゆうびんきょくです。
+    EN: My friend is at the post office.
+
+------------------------------------------------------------------------
+
+  WORD  朝御飯 (あさごはん)  [asagohan]  —  n5-18bb555d
+  Prompt (quiz cue): "breakfast"
+  English:           "breakfast"
+  Lesson:            Genki L3
+  Sentences:
+    JA: 今、[朝御飯]です。
+    RD: いま、あさごはんです。
+    EN: It's breakfast time now.
+
+    JA: [朝御飯]は魚です。
+    RD: あさごはんはさかなです。
+    EN: Breakfast is fish.
+
+    JA: [朝御飯]は高いですか。
+    RD: あさごはんはたかいですか。
+    EN: Is breakfast expensive?
+
+------------------------------------------------------------------------
+
+  WORD  明日 (あした)  [ashita]  —  n5-6b7cbce3
+  Prompt (quiz cue): "tomorrow"
+  English:           "tomorrow"
+  Lesson:            Genki L3
+  Alt readings:      あす [asu]
+  Also written:      あす
+  Sentences:
+    JA: [明日]、仕事です。
+    RD: あした、しごとです。
+    EN: I have work tomorrow.
+
+    JA: [明日]ですか。
+    RD: あしたですか。
+    EN: Tomorrow?
+
+    JA: [明日]は大学です。
+    RD: あしたはだいがくです。
+    EN: I have university tomorrow.
+
+------------------------------------------------------------------------
+
+  WORD  家 (いえ)  [ie]  —  n5-abe6f3d9
+  Prompt (quiz cue): "house"
+  English:           "house, home"
+  Lesson:            Genki L3
+  Sentences:
+    JA: これは私の[家]です。
+    RD: これはわたしのいえです。
+    EN: This is my house.
+
+    JA: [家]はあそこです。
+    RD: いえはあそこです。
+    EN: My house is over there.
+
+    JA: 友達の[家]です。
+    RD: ともだちのいえです。
+    EN: It's my friend's house.
+
+------------------------------------------------------------------------
+
+  WORD  いつ  [itsu]  —  n5-0ef510d2
+  Prompt (quiz cue): "when"
+  English:           "when"
+  Lesson:            Genki L3
+  Sentences:
+    JA: 仕事は[いつ]ですか。
+    RD: しごとはいつですか。
+    EN: When is work?
+
+    JA: 朝御飯は[いつ]ですか。
+    RD: あさごはんはいつですか。
+    EN: When is breakfast?
+
+------------------------------------------------------------------------
+
+  WORD  うち (家庭)  [uchi]  —  n5-800ecd92
+  Prompt (quiz cue): "home"
+  English:           "home; house; my place"
+  Lesson:            Genki L3
+  Alt readings:      かてい [katei]
+  Also written:      かてい
+  Sentences:
+    JA: [うち]はあそこです。
+    RD: うちはあそこです。
+    EN: My place is over there.
+
+    JA: 今、[うち]です。
+    RD: いま、うちです。
+    EN: I'm home right now.
+
+------------------------------------------------------------------------
+
+  WORD  映画 (えいが)  [eiga]  —  n5-b760061e
+  Prompt (quiz cue): "movie"
+  English:           "movie, film"
+  Lesson:            Genki L3
+  Sentences:
+    JA: 明日は[映画]です。
+    RD: あしたはえいがです。
+    EN: There's a movie tomorrow.
+
+    JA: [映画]はいつですか。
+    RD: えいがはいつですか。
+    EN: When is the movie?
+
+    JA: 英語の[映画]です。
+    RD: えいごのえいがです。
+    EN: It's an English movie.
+
+------------------------------------------------------------------------
+
+  WORD  起きる (おきる)  [okiru]  —  n5-e2d50137
+  Prompt (quiz cue): "to get up"
+  English:           "to get up (e.g., from sleeping); to happen"
+  Lesson:            Genki L3
+  Sentences:
+    JA: 朝、[起きます]。
+    RD: あさ、おきます。
+    EN: I get up in the morning.
+
+    JA: 今、[起きます]。
+    RD: いま、おきます。
+    EN: I'm getting up now.
+
+------------------------------------------------------------------------
+
+  WORD  お酒 (おさけ)  [osake]  —  n5-fcd13124
+  Prompt (quiz cue): "sake"
+  English:           "sake; alcohol"
+  Lesson:            Genki L3
+  Sentences:
+    JA: これは[お酒]です。
+    RD: これはおさけです。
+    EN: This is sake.
+
+    JA: [お酒]はいくらですか。
+    RD: おさけはいくらですか。
+    EN: How much is the sake?
+
+    JA: [お酒]は高いです。
+    RD: おさけはたかいです。
+    EN: Sake is expensive.
+
+------------------------------------------------------------------------
+
+  WORD  お茶 (おちゃ)  [ocha]  —  n5-891adb67
+  Prompt (quiz cue): "tea"
+  English:           "(green) tea"
+  Lesson:            Genki L3
+  Sentences:
+    JA: これは[お茶]です。
+    RD: これはおちゃです。
+    EN: This is tea.
+
+    JA: [お茶]はいくらですか。
+    RD: おちゃはいくらですか。
+    EN: How much is the tea?
+
+    JA: お母さんの[お茶]です。
+    RD: おかあさんのおちゃです。
+    EN: It's my mom's tea.
+
+------------------------------------------------------------------------
+
+  WORD  音楽 (おんがく)  [ongaku]  —  n5-6cb1082c
+  Prompt (quiz cue): "music"
+  English:           "music"
+  Lesson:            Genki L3
+  Sentences:
+    JA: 英語の[音楽]ですか。
+    RD: えいごのおんがくですか。
+    EN: Is it English music?
+
+    JA: 妹は[音楽]の学生です。
+    RD: いもうとはおんがくのがくせいです。
+    EN: My sister is a music student.
+
+------------------------------------------------------------------------
+
+  WORD  学校 (がっこう)  [gakkou]  —  n5-beceac46
+  Prompt (quiz cue): "a school"
+  English:           "a school"
+  Lesson:            Genki L3
+  Sentences:
+    JA: 明日は[学校]です。
+    RD: あしたはがっこうです。
+    EN: I have school tomorrow.
+
+    JA: [学校]はどこですか。
+    RD: がっこうはどこですか。
+    EN: Where is the school?
+
+    JA: 友達は[学校]の先生です。
+    RD: ともだちはがっこうのせんせいです。
+    EN: My friend is a school teacher.
+
+------------------------------------------------------------------------
+
+  WORD  今日 (きょう)  [kyou]  —  n5-c6db0d79
+  Prompt (quiz cue): "today"
+  English:           "today, this day"
+  Lesson:            Genki L3
+  Sentences:
+    JA: [今日]は仕事です。
+    RD: きょうはしごとです。
+    EN: I have work today.
+
+    JA: [今日]は学校です。
+    RD: きょうはがっこうです。
+    EN: I have school today.
+
+    JA: [今日]は映画です。
+    RD: きょうはえいがです。
+    EN: There's a movie today.
+
+------------------------------------------------------------------------
+
+  WORD  コーヒー (こうひい)  [kouhii]  —  n5-99a8fca0
+  Prompt (quiz cue): "coffee"
+  English:           "coffee"
+  Lesson:            Genki L3
+  Sentences:
+    JA: これは[コーヒー]です。
+    RD: これはこうひいです。
+    EN: This is coffee.
+
+    JA: [コーヒー]はいくらですか。
+    RD: こうひいはいくらですか。
+    EN: How much is the coffee?
+
+    JA: [コーヒー]は高いです。
+    RD: こうひいはたかいです。
+    EN: The coffee is expensive.
+
+------------------------------------------------------------------------
+
+  WORD  今晩 (こんばん)  [konban]  —  n5-1f8742cc
+  Prompt (quiz cue): "tonight"
+  English:           "tonight, this evening"
+  Lesson:            Genki L3
+  Sentences:
+    JA: [今晩]は映画です。
+    RD: こんばんはえいがです。
+    EN: There's a movie tonight.
+
+    JA: [今晩]、仕事ですか。
+    RD: こんばん、しごとですか。
+    EN: Do you have work tonight?
+
+    JA: [今晩]ですか。
+    RD: こんばんですか。
+    EN: Tonight?
+
+------------------------------------------------------------------------
+
+  WORD  雑誌 (ざっし)  [zasshi]  —  n5-e1245a11
+  Prompt (quiz cue): "magazine"
+  English:           "magazine, journal"
+  Lesson:            Genki L3
+  Sentences:
+    JA: これは英語の[雑誌]です。
+    RD: これはえいごのざっしです。
+    EN: This is an English magazine.
+
+    JA: [雑誌]はいくらですか。
+    RD: ざっしはいくらですか。
+    EN: How much is the magazine?
+
+    JA: 友達の[雑誌]です。
+    RD: ともだちのざっしです。
+    EN: It's my friend's magazine.
+
+------------------------------------------------------------------------
+
+  WORD  スポーツ (すぽうつ)  [supoutsu]  —  n5-680166e9
+  Prompt (quiz cue): "sport"
+  English:           "sport(s)"
+  Lesson:            Genki L3
+  Sentences:
+    JA: [スポーツ]の雑誌です。
+    RD: すぽうつのざっしです。
+    EN: It's a sports magazine.
+
+    JA: [スポーツ]の本ですか。
+    RD: すぽうつのほんですか。
+    EN: Is it a sports book?
+
+------------------------------------------------------------------------
+
+  WORD  ちょっと  [chotto]  —  n5-78aa9dce
+  Prompt (quiz cue): "a little"
+  English:           "a little, somewhat; just a little, somewhat"
+  Lesson:            Genki L3
+  Sentences:
+    JA: [ちょっと]高いです。
+    RD: ちょっとたかいです。
+    EN: It's a little expensive.
+
+    JA: 今は[ちょっと]。
+    RD: いまはちょっと。
+    EN: Not right now — just a moment.
+
+------------------------------------------------------------------------
+
+  WORD  テレビ (てれび)  [terebi]  —  n5-b692a5e3
+  Prompt (quiz cue): "television"
+  English:           "television, TV"
+  Lesson:            Genki L3
+  Sentences:
+    JA: これは私の[テレビ]です。
+    RD: これはわたしのてれびです。
+    EN: This is my TV.
+
+    JA: [テレビ]はいくらですか。
+    RD: てれびはいくらですか。
+    EN: How much is the TV?
+
+    JA: [テレビ]は高いです。
+    RD: てれびはたかいです。
+    EN: The TV is expensive.
+
+------------------------------------------------------------------------
+
+  WORD  時々 (ときどき)  [tokidoki]  —  n5-c29dae0c
+  Prompt (quiz cue): "sometimes"
+  English:           "sometimes"
+  Lesson:            Genki L3
+  Sentences:
+    JA: 朝は[時々]、コーヒーです。
+    RD: あさはときどき、こうひいです。
+    EN: Sometimes I have coffee in the morning.
+
+    JA: [時々]、英語の映画です。
+    RD: ときどき、えいごのえいがです。
+    EN: Sometimes it's an English movie.
+
+    JA: [時々]、お茶です。
+    RD: ときどき、おちゃです。
+    EN: Sometimes it's tea.
+
+------------------------------------------------------------------------
+
+  WORD  土曜日 (どようび)  [doyoubi]  —  n5-de84238b
+  Prompt (quiz cue): "Saturday"
+  English:           "Saturday"
+  Lesson:            Genki L3
+  Sentences:
+    JA: 今日は[土曜日]です。
+    RD: きょうはどようびです。
+    EN: Today is Saturday.
+
+    JA: 明日は[土曜日]です。
+    RD: あしたはどようびです。
+    EN: Tomorrow is Saturday.
+
+    JA: [土曜日]は仕事ですか。
+    RD: どようびはしごとですか。
+    EN: Do you have work on Saturday?
+
+------------------------------------------------------------------------
+
+  WORD  日曜日 (にちようび)  [nichiyoubi]  —  n5-c3d80f8c
+  Prompt (quiz cue): "Sunday"
+  English:           "Sunday"
+  Lesson:            Genki L3
+  Sentences:
+    JA: 今日は[日曜日]です。
+    RD: きょうはにちようびです。
+    EN: Today is Sunday.
+
+    JA: [日曜日]は学校じゃないです。
+    RD: にちようびはがっこうじゃないです。
+    EN: There's no school on Sunday.
+
+    JA: 明日は[日曜日]ですか。
+    RD: あしたはにちようびですか。
+    EN: Is tomorrow Sunday?
+
+------------------------------------------------------------------------
+
+  WORD  寝る (ねる)  [neru]  —  n5-4a7000d6
+  Prompt (quiz cue): "to sleep"
+  English:           "to sleep; to go to sleep; to go to bed"
+  Lesson:            Genki L3
+  Alt readings:      ねむる [nemuru]
+  Also written:      眠る (ねむる)
+  Sentences:
+    JA: 今晩、[寝ます]。
+    RD: こんばん、ねます。
+    EN: I'll sleep tonight.
+
+    JA: 妹は今、[寝ます]。
+    RD: いもうとはいま、ねます。
+    EN: My sister is going to sleep now.
+
+------------------------------------------------------------------------
+
+  WORD  早い (はやい)  [hayai]  —  n5-0ffd6115
+  Prompt (quiz cue): "early"
+  English:           "early"
+  Lesson:            Genki L3
+  Sentences:
+    JA: お父さんは朝、[早い]です。
+    RD: おとうさんはあさ、はやいです。
+    EN: My dad gets up early in the morning.
+
+    JA: 明日は[早い]です。
+    RD: あしたははやいです。
+    EN: It's an early start tomorrow.
+
+------------------------------------------------------------------------
+
+  WORD  晩御飯 (ばんごはん)  [bangohan]  —  n5-9f61ccc2
+  Prompt (quiz cue): "dinner"
+  English:           "dinner, evening meal"
+  Lesson:            Genki L3
+  Alt readings:      ゆうはん [yuuhan]
+  Also written:      夕飯 (ゆうはん)
+  Sentences:
+    JA: 今、[晩御飯]です。
+    RD: いま、ばんごはんです。
+    EN: It's dinnertime now.
+
+    JA: [晩御飯]は魚です。
+    RD: ばんごはんはさかなです。
+    EN: Dinner is fish.
+
+    JA: [晩御飯]はいつですか。
+    RD: ばんごはんはいつですか。
+    EN: When is dinner?
+
+------------------------------------------------------------------------
+
+  WORD  昼御飯 (ひるごはん)  [hirugohan]  —  n5-a780acb0
+  Prompt (quiz cue): "lunch"
+  English:           "lunch, midday meal"
+  Lesson:            Genki L3
+  Sentences:
+    JA: 今、[昼御飯]です。
+    RD: いま、ひるごはんです。
+    EN: It's lunchtime now.
+
+    JA: [昼御飯]は肉です。
+    RD: ひるごはんはにくです。
+    EN: Lunch is meat.
+
+    JA: 今日の[昼御飯]はいくらですか。
+    RD: きょうのひるごはんはいくらですか。
+    EN: How much is today's lunch?
+
+------------------------------------------------------------------------
+
+  WORD  毎日 (まいにち)  [mainichi]  —  n5-b4772e80
+  Prompt (quiz cue): "every day"
+  English:           "every day"
+  Lesson:            Genki L3
+  Sentences:
+    JA: [毎日]、仕事です。
+    RD: まいにち、しごとです。
+    EN: I have work every day.
+
+    JA: [毎日]、学校です。
+    RD: まいにち、がっこうです。
+    EN: I have school every day.
+
+    JA: [毎日]、早く起きます。
+    RD: まいにち、はやくおきます。
+    EN: I get up early every day.
+
+------------------------------------------------------------------------
+
+  WORD  毎晩 (まいばん)  [maiban]  —  n5-501ee091
+  Prompt (quiz cue): "every night"
+  English:           "every night"
+  Lesson:            Genki L3
+  Sentences:
+    JA: [毎晩]、早く寝ます。
+    RD: まいばん、はやくねます。
+    EN: I go to sleep early every night.
+
+    JA: [毎晩]ですか。
+    RD: まいばんですか。
+    EN: Every night?
+
+------------------------------------------------------------------------
+
+  WORD  水 (みず)  [mizu]  —  n5-e3d391e7
+  Prompt (quiz cue): "water"
+  English:           "water"
+  Lesson:            Genki L3
+  Sentences:
+    JA: これは[水]です。
+    RD: これはみずです。
+    EN: This is water.
+
+    JA: [水]はいくらですか。
+    RD: みずはいくらですか。
+    EN: How much is the water?
+
+    JA: [水]は高いですか。
+    RD: みずはたかいですか。
+    EN: Is water expensive?
+
+------------------------------------------------------------------------
+
+  WORD  あなた  [anata]  —  n5-d7c45d9e
+  Prompt (quiz cue): "you"
+  English:           "you"
+  Lesson:            Genki L4
+  Sentences:
+    JA: [あなた]は学生ですか。
+    RD: あなたはがくせいですか。
+    EN: Are you a student?
+
+    JA: [あなた]の名前ですか。
+    RD: あなたのなまえですか。
+    EN: Is that your name?
+
+    JA: [あなた]は先生ですか。
+    RD: あなたはせんせいですか。
+    EN: Are you a teacher?
+
+------------------------------------------------------------------------
+
+  WORD  犬 (いぬ)  [inu]  —  n5-7af94911
+  Prompt (quiz cue): "dog"
+  English:           "dog"
+  Lesson:            Genki L4
+  Sentences:
+    JA: これは私の[犬]です。
+    RD: これはわたしのいぬです。
+    EN: This is my dog.
+
+    JA: あれは友達の[犬]です。
+    RD: あれはともだちのいぬです。
+    EN: That over there is my friend's dog.
+
+    JA: [犬]はあそこです。
+    RD: いぬはあそこです。
+    EN: The dog is over there.
+
+------------------------------------------------------------------------
+
+  WORD  買い物 (かいもの)  [kaimono]  —  n5-b7ef783f
+  Prompt (quiz cue): "shopping"
+  English:           "shopping"
+  Lesson:            Genki L4
+  Sentences:
+    JA: 今日は[買い物]です。
+    RD: きょうはかいものです。
+    EN: I'm going shopping today.
+
+    JA: 明日、[買い物]です。
+    RD: あした、かいものです。
+    EN: I'll go shopping tomorrow.
+
+    JA: 土曜日は[買い物]です。
+    RD: どようびはかいものです。
+    EN: I go shopping on Saturday.
+
+------------------------------------------------------------------------
+
+  WORD  火曜日 (かようび)  [kayoubi]  —  n5-90c36d1b
+  Prompt (quiz cue): "Tuesday"
+  English:           "Tuesday"
+  Lesson:            Genki L4
+  Sentences:
+    JA: 今日は[火曜日]です。
+    RD: きょうはかようびです。
+    EN: Today is Tuesday.
+
+    JA: [火曜日]は学校です。
+    RD: かようびはがっこうです。
+    EN: I have school on Tuesday.
+
+    JA: 明日は[火曜日]です。
+    RD: あしたはかようびです。
+    EN: Tomorrow is Tuesday.
+
+------------------------------------------------------------------------
+
+  WORD  昨日 (きのう)  [kinou]  —  n5-05f1d2a5
+  Prompt (quiz cue): "yesterday"
+  English:           "yesterday"
+  Lesson:            Genki L4
+  Sentences:
+    JA: [昨日]は日曜日でした。
+    RD: きのうはにちようびでした。
+    EN: Yesterday was Sunday.
+
+    JA: [昨日]は仕事でした。
+    RD: きのうはしごとでした。
+    EN: I had work yesterday.
+
+    JA: [昨日]、買い物でした。
+    RD: きのう、かいものでした。
+    EN: I went shopping yesterday.
+
+------------------------------------------------------------------------
+
+  WORD  金曜日 (きんようび)  [kin'youbi]  —  n5-df1ca857
+  Prompt (quiz cue): "Friday"
+  English:           "Friday"
+  Lesson:            Genki L4
+  Sentences:
+    JA: 今日は[金曜日]です。
+    RD: きょうはきんようびです。
+    EN: Today is Friday.
+
+    JA: [金曜日]は映画です。
+    RD: きんようびはえいがです。
+    EN: There's a movie on Friday.
+
+    JA: 明日は[金曜日]です。
+    RD: あしたはきんようびです。
+    EN: Tomorrow is Friday.
+
+------------------------------------------------------------------------
+
+  WORD  クラス (くらす)  [kurasu]  —  n5-c0b068d2
+  Prompt (quiz cue): "a class"
+  English:           "a class"
+  Lesson:            Genki L4
+  Sentences:
+    JA: 英語の[クラス]です。
+    RD: えいごのくらすです。
+    EN: It's an English class.
+
+    JA: [クラス]はいつですか。
+    RD: くらすはいつですか。
+    EN: When is the class?
+
+    JA: 私の[クラス]は午後です。
+    RD: わたしのくらすはごごです。
+    EN: My class is in the afternoon.
+
+------------------------------------------------------------------------
+
+  WORD  月曜日 (げつようび)  [getsuyoubi]  —  n5-ddeded76
+  Prompt (quiz cue): "Monday"
+  English:           "Monday"
+  Lesson:            Genki L4
+  Sentences:
+    JA: 今日は[月曜日]です。
+    RD: きょうはげつようびです。
+    EN: Today is Monday.
+
+    JA: [月曜日]は仕事です。
+    RD: げつようびはしごとです。
+    EN: I have work on Monday.
+
+    JA: 明日は[月曜日]です。
+    RD: あしたはげつようびです。
+    EN: Tomorrow is Monday.
+
+------------------------------------------------------------------------
+
+  WORD  公園 (こうえん)  [kouen]  —  n5-e7e7c214
+  Prompt (quiz cue): "a park"
+  English:           "a park"
+  Lesson:            Genki L4
+  Sentences:
+    JA: [公園]はどこですか。
+    RD: こうえんはどこですか。
+    EN: Where is the park?
+
+    JA: [公園]はあそこです。
+    RD: こうえんはあそこです。
+    EN: The park is over there.
+
+    JA: 犬は[公園]です。
+    RD: いぬはこうえんです。
+    EN: The dog is at the park.
+
+------------------------------------------------------------------------
+
+  WORD  ここ  [koko]  —  n5-60a62ace
+  Prompt (quiz cue): "here"
+  English:           "here, this place"
+  Lesson:            Genki L4
+  Sentences:
+    JA: [ここ]はどこですか。
+    RD: ここはどこですか。
+    EN: Where is this place?
+
+    JA: [ここ]は図書館です。
+    RD: ここはとしょかんです。
+    EN: This is the library.
+
+    JA: お手洗いは[ここ]です。
+    RD: おてあらいはここです。
+    EN: The restroom is right here.
+
+------------------------------------------------------------------------
+
+  WORD  子供 (こども)  [kodomo]  —  n5-e14162ce
+  Prompt (quiz cue): "child(ren)"
+  English:           "child(ren)"
+  Lesson:            Genki L4
+  Sentences:
+    JA: あれは友達の[子供]です。
+    RD: あれはともだちのこどもです。
+    EN: That over there is my friend's child.
+
+    JA: [子供]は公園です。
+    RD: こどもはこうえんです。
+    EN: The children are at the park.
+
+    JA: [子供]は学生ですか。
+    RD: こどもはがくせいですか。
+    EN: Is your child a student?
+
+------------------------------------------------------------------------
+
+  WORD  御飯 (ごはん)  [gohan]  —  n5-952a80fe
+  Prompt (quiz cue): "rice"
+  English:           "rice (cooked); meal"
+  Lesson:            Genki L4
+  Sentences:
+    JA: これは[御飯]です。
+    RD: これはごはんです。
+    EN: This is rice.
+
+    JA: [御飯]と魚です。
+    RD: ごはんとさかなです。
+    EN: It's rice and fish.
+
+    JA: 今、[御飯]です。
+    RD: いま、ごはんです。
+    EN: It's mealtime now.
+
+------------------------------------------------------------------------
+
+  WORD  写真 (しゃしん)  [shashin]  —  n5-e5a5f382
+  Prompt (quiz cue): "a picture"
+  English:           "a picture; a photograph"
+  Lesson:            Genki L4
+  Sentences:
+    JA: これは友達の[写真]です。
+    RD: これはともだちのしゃしんです。
+    EN: This is a photo of my friend.
+
+    JA: あれは私の[写真]です。
+    RD: あれはわたしのしゃしんです。
+    EN: That's my photo.
+
+    JA: 子供の[写真]です。
+    RD: こどものしゃしんです。
+    EN: It's a photo of my child.
+
+------------------------------------------------------------------------
+
+  WORD  水曜日 (すいようび)  [suiyoubi]  —  n5-225b351e
+  Prompt (quiz cue): "Wednesday"
+  English:           "Wednesday"
+  Lesson:            Genki L4
+  Sentences:
+    JA: 今日は[水曜日]です。
+    RD: きょうはすいようびです。
+    EN: Today is Wednesday.
+
+    JA: [水曜日]は学校です。
+    RD: すいようびはがっこうです。
+    EN: I have school on Wednesday.
+
+    JA: 明日は[水曜日]です。
+    RD: あしたはすいようびです。
+    EN: Tomorrow is Wednesday.
+
+------------------------------------------------------------------------
+
+  WORD  先週 (せんしゅう)  [senshuu]  —  n5-7f4eaa15
+  Prompt (quiz cue): "last week"
+  English:           "last week"
+  Lesson:            Genki L4
+  Sentences:
+    JA: [先週]は仕事でした。
+    RD: せんしゅうはしごとでした。
+    EN: I had work last week.
+
+    JA: [先週]の写真です。
+    RD: せんしゅうのしゃしんです。
+    EN: It's a photo from last week.
+
+    JA: [先週]は学校でした。
+    RD: せんしゅうはがっこうでした。
+    EN: I had school last week.
+
+------------------------------------------------------------------------
+
+  WORD  そこ  [soko]  —  n5-fb182375
+  Prompt (quiz cue): "that place"
+  English:           "that place, there; bottom, sole"
+  Lesson:            Genki L4
+  Sentences:
+    JA: [そこ]はどこですか。
+    RD: そこはどこですか。
+    EN: Where is that place?
+
+    JA: 銀行は[そこ]です。
+    RD: ぎんこうはそこです。
+    EN: The bank is right there.
+
+    JA: [そこ]は公園です。
+    RD: そこはこうえんです。
+    EN: That place is a park.
+
+------------------------------------------------------------------------
+
+  WORD  机 (つくえ)  [tsukue]  —  n5-2bc551f3
+  Prompt (quiz cue): "desk"
+  English:           "desk"
+  Lesson:            Genki L4
+  Sentences:
+    JA: これは私の[机]です。
+    RD: これはわたしのつくえです。
+    EN: This is my desk.
+
+    JA: [机]はあそこです。
+    RD: つくえはあそこです。
+    EN: The desk is over there.
+
+    JA: [机]はいくらですか。
+    RD: つくえはいくらですか。
+    EN: How much is the desk?
+
+------------------------------------------------------------------------
+
+  WORD  手紙 (てがみ)  [tegami]  —  n5-524dd5c8
+  Prompt (quiz cue): "letter"
+  English:           "letter"
+  Lesson:            Genki L4
+  Sentences:
+    JA: これは友達の[手紙]です。
+    RD: これはともだちのてがみです。
+    EN: This is a letter from my friend.
+
+    JA: [手紙]はここです。
+    RD: てがみはここです。
+    EN: The letter is right here.
+
+    JA: お母さんの[手紙]です。
+    RD: おかあさんのてがみです。
+    EN: It's a letter from my mom.
+
+------------------------------------------------------------------------
+
+  WORD  デパート (でぱあと)  [depaato]  —  n5-000452af
+  Prompt (quiz cue): "department store"
+  English:           "department store"
+  Lesson:            Genki L4
+  Sentences:
+    JA: [デパート]はどこですか。
+    RD: でぱあとはどこですか。
+    EN: Where is the department store?
+
+    JA: [デパート]はあそこです。
+    RD: でぱあとはあそこです。
+    EN: The department store is over there.
+
+    JA: 今日は[デパート]で買い物です。
+    RD: きょうはでぱあとでかいものです。
+    EN: I'm shopping at the department store today.
+
+------------------------------------------------------------------------
+
+  WORD  どうして  [doushite]  —  n5-d52f01a9
+  Prompt (quiz cue): "why"
+  English:           "why, for what reason"
+  Lesson:            Genki L4
+  Sentences:
+    JA: [どうして]ですか。
+    RD: どうしてですか。
+    EN: Why?
+
+    JA: [どうして]今日は学校ですか。
+    RD: どうしてきょうはがっこうですか。
+    EN: Why do you have school today?
+
+------------------------------------------------------------------------
+
+  WORD  猫 (ねこ)  [neko]  —  n5-efcae8ab
+  Prompt (quiz cue): "cat"
+  English:           "cat"
+  Lesson:            Genki L4
+  Sentences:
+    JA: これは私の[猫]です。
+    RD: これはわたしのねこです。
+    EN: This is my cat.
+
+    JA: あれは友達の[猫]です。
+    RD: あれはともだちのねこです。
+    EN: That's my friend's cat.
+
+    JA: [猫]はうちです。
+    RD: ねこはうちです。
+    EN: The cat is at home.
+
+------------------------------------------------------------------------
+
+  WORD  パン (ぱん)  [pan]  —  n5-b3adc95a
+  Prompt (quiz cue): "bread"
+  English:           "bread"
+  Lesson:            Genki L4
+  Sentences:
+    JA: これは[パン]です。
+    RD: これはぱんです。
+    EN: This is bread.
+
+    JA: [パン]はいくらですか。
+    RD: ぱんはいくらですか。
+    EN: How much is the bread?
+
+    JA: 朝御飯は[パン]です。
+    RD: あさごはんはぱんです。
+    EN: Breakfast is bread.
+
+------------------------------------------------------------------------
+
+  WORD  人 (ひと)  [hito]  —  n5-5cbd42db
+  Prompt (quiz cue): "person"
+  English:           "person; people"
+  Lesson:            Genki L4
+  Sentences:
+    JA: あそこの[人]は先生です。
+    RD: あそこのひとはせんせいです。
+    EN: The person over there is a teacher.
+
+    JA: あの[人]は誰ですか。
+    RD: あのひとはだれですか。
+    EN: Who is that person?
+
+    JA: あの[人]は学生ですか。
+    RD: あのひとはがくせいですか。
+    EN: Is that person a student?
+
+------------------------------------------------------------------------
+
+  WORD  病院 (びょういん)  [byouin]  —  n5-d4b9e514
+  Prompt (quiz cue): "hospital"
+  English:           "hospital"
+  Lesson:            Genki L4
+  Sentences:
+    JA: [病院]はどこですか。
+    RD: びょういんはどこですか。
+    EN: Where is the hospital?
+
+    JA: [病院]はあそこです。
+    RD: びょういんはあそこです。
+    EN: The hospital is over there.
+
+    JA: お母さんは[病院]です。
+    RD: おかあさんはびょういんです。
+    EN: My mom is at the hospital.
+
+------------------------------------------------------------------------
+
+  WORD  ホテル (ほてる)  [hoteru]  —  n5-c367e3ed
+  Prompt (quiz cue): "hotel"
+  English:           "hotel"
+  Lesson:            Genki L4
+  Sentences:
+    JA: [ホテル]はどこですか。
+    RD: ほてるはどこですか。
+    EN: Where is the hotel?
+
+    JA: [ホテル]は高いです。
+    RD: ほてるはたかいです。
+    EN: The hotel is expensive.
+
+    JA: [ホテル]はあそこです。
+    RD: ほてるはあそこです。
+    EN: The hotel is over there.
+
+------------------------------------------------------------------------
+
+  WORD  町 (まち)  [machi]  —  n5-da1ed6b9
+  Prompt (quiz cue): "town"
+  English:           "town; city"
+  Lesson:            Genki L4
+  Sentences:
+    JA: ここは私の[町]です。
+    RD: ここはわたしのまちです。
+    EN: This is my town.
+
+    JA: [町]の図書館です。
+    RD: まちのとしょかんです。
+    EN: It's the town library.
+
+    JA: [町]の病院はどこですか。
+    RD: まちのびょういんはどこですか。
+    EN: Where is the town hospital?
+
+------------------------------------------------------------------------
+
+  WORD  木曜日 (もくようび)  [mokuyoubi]  —  n5-a6d7429d
+  Prompt (quiz cue): "Thursday"
+  English:           "Thursday"
+  Lesson:            Genki L4
+  Sentences:
+    JA: 今日は[木曜日]です。
+    RD: きょうはもくようびです。
+    EN: Today is Thursday.
+
+    JA: [木曜日]は学校です。
+    RD: もくようびはがっこうです。
+    EN: I have school on Thursday.
+
+    JA: 明日は[木曜日]です。
+    RD: あしたはもくようびです。
+    EN: Tomorrow is Thursday.
+
+------------------------------------------------------------------------
+
+  WORD  もしもし  [moshimoshi]  —  n5-7f51f5a9
+  Prompt (quiz cue): "phone greeting"
+  English:           "hello (telephone greeting)"
+  Lesson:            Genki L4
+  Sentences:
+    JA: [もしもし]、お母さんですか。
+    RD: もしもし、おかあさんですか。
+    EN: Hello? Is this mom?
+
+    JA: [もしもし]、先生ですか。
+    RD: もしもし、せんせいですか。
+    EN: Hello? Is this the teacher?
+
+------------------------------------------------------------------------
+
+  WORD  レストラン (れすとらん)  [resutoran]  —  n5-835ca471
+  Prompt (quiz cue): "restaurant"
+  English:           "restaurant"
+  Lesson:            Genki L4
+  Sentences:
+    JA: [レストラン]はどこですか。
+    RD: れすとらんはどこですか。
+    EN: Where is the restaurant?
+
+    JA: [レストラン]は高いです。
+    RD: れすとらんはたかいです。
+    EN: The restaurant is expensive.
+
+    JA: 友達は[レストラン]です。
+    RD: ともだちはれすとらんです。
+    EN: My friend is at the restaurant.
+
+------------------------------------------------------------------------
+
+  WORD  新しい (あたらしい)  [atarashii]  —  n5-a375891d
+  Prompt (quiz cue): "new"
+  English:           "new"
+  Lesson:            Genki L5
+  Sentences:
+    JA: これは[新しい]自転車です。
+    RD: これはあたらしいじてんしゃです。
+    EN: This is a new bicycle.
+
+    JA: 私の靴は[新しい]です。
+    RD: わたしのくつはあたらしいです。
+    EN: My shoes are new.
+
+    JA: [新しい]テレビです。
+    RD: あたらしいてれびです。
+    EN: It's a new TV.
+
+------------------------------------------------------------------------
+
+  WORD  暑い (あつい)  [atsui]  —  n5-e8684d8b
+  Prompt (quiz cue): "hot (in reference to weather)"
+  English:           "hot (in reference to weather), warm"
+  Lesson:            Genki L5
+  Sentences:
+    JA: 今日は[暑い]です。
+    RD: きょうはあついです。
+    EN: It's hot today.
+
+    JA: 明日も[暑い]です。
+    RD: あしたもあついです。
+    EN: It'll be hot tomorrow too.
+
+------------------------------------------------------------------------
+
+  WORD  熱い (あつい)  [atsui]  —  n5-7cbd2223
+  Prompt (quiz cue): "hot (objects)"
+  English:           "hot (objects)"
+  Lesson:            Genki L5
+  Sentences:
+    JA: お茶は[熱い]です。
+    RD: おちゃはあついです。
+    EN: The tea is hot.
+
+    JA: コーヒーは[熱い]です。
+    RD: こうひいはあついです。
+    EN: The coffee is hot.
+
+    JA: 御飯は[熱い]です。
+    RD: ごはんはあついです。
+    EN: The rice is hot.
+
+------------------------------------------------------------------------
+
+  WORD  忙しい (いそがしい)  [isogashii]  —  n5-ac62a5e9
+  Prompt (quiz cue): "busy"
+  English:           "busy (people, days)"
+  Lesson:            Genki L5
+  Sentences:
+    JA: 今日は[忙しい]です。
+    RD: きょうはいそがしいです。
+    EN: I'm busy today.
+
+    JA: お父さんは仕事が[忙しい]です。
+    RD: おとうさんはしごとがいそがしいです。
+    EN: My dad is busy with work.
+
+    JA: 毎日、[忙しい]です。
+    RD: まいにち、いそがしいです。
+    EN: I'm busy every day.
+
+------------------------------------------------------------------------
+
+  WORD  海 (うみ)  [umi]  —  n5-b4aa466b
+  Prompt (quiz cue): "sea"
+  English:           "sea, beach"
+  Lesson:            Genki L5
+  Sentences:
+    JA: [海]はあそこです。
+    RD: うみはあそこです。
+    EN: The sea is over there.
+
+    JA: 今日は[海]です。
+    RD: きょうはうみです。
+    EN: I'm going to the sea today.
+
+    JA: 明日は[海]です。
+    RD: あしたはうみです。
+    EN: I'm going to the sea tomorrow.
+
+------------------------------------------------------------------------
+
+  WORD  大きい (おおきい)  [ookii]  —  n5-856c8807
+  Prompt (quiz cue): "big"
+  English:           "big, large"
+  Lesson:            Genki L5
+  Alt readings:      おおきな [ookina]
+  Also written:      大きな (おおきな)
+  Sentences:
+    JA: 犬は[大きい]です。
+    RD: いぬはおおきいです。
+    EN: The dog is big.
+
+    JA: [大きい]テレビです。
+    RD: おおきいてれびです。
+    EN: It's a big TV.
+
+    JA: 海は[大きい]です。
+    RD: うみはおおきいです。
+    EN: The sea is vast.
+
+------------------------------------------------------------------------
+
+  WORD  面白い (おもしろい)  [omoshiroi]  —  n5-dc5fa2ca
+  Prompt (quiz cue): "interesting"
+  English:           "interesting, amusing"
+  Lesson:            Genki L5
+  Sentences:
+    JA: 映画は[面白い]です。
+    RD: えいがはおもしろいです。
+    EN: The movie is interesting.
+
+    JA: 本は[面白い]です。
+    RD: ほんはおもしろいです。
+    EN: The book is interesting.
+
+    JA: 英語は[面白い]です。
+    RD: えいごはおもしろいです。
+    EN: English is interesting.
+
+------------------------------------------------------------------------
+
+  WORD  泳ぐ (およぐ)  [oyogu]  —  n5-d10d2432
+  Prompt (quiz cue): "to swim"
+  English:           "to swim"
+  Lesson:            Genki L5
+  Sentences:
+    JA: 毎日、海で[泳ぎます]。
+    RD: まいにち、うみでおよぎます。
+    EN: I swim in the sea every day.
+
+    JA: 今日、[泳ぎます]。
+    RD: きょう、およぎます。
+    EN: I'll swim today.
+
+    JA: 子供は[泳ぎます]。
+    RD: こどもはおよぎます。
+    EN: The children swim.
+
+------------------------------------------------------------------------

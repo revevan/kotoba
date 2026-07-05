@@ -5,3 +5,4 @@ dev-dist/
 *.tmp
 tools/pipeline/state/
 .env
+public/audio/

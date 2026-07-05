@@ -1,4 +1,4 @@
-import { deckIndex, dueCount, enabledDeckIds, loadError, newAvailable, screen } from '../state';
+import { deckIndex, deckProgress, dueCount, enabledDeckIds, loadError, newAvailable, screen } from '../state';
 import { startSession, updateSetting } from '../session/controller';
 
 export function HomeScreen() {
@@ -39,7 +39,7 @@ export function HomeScreen() {
           <label key={d.id} class={`deck ${enabled.includes(d.id) ? 'on' : ''}`}>
             <input type="checkbox" checked={enabled.includes(d.id)} onChange={() => toggleDeck(d.id)} />
             <span>{d.name}</span>
-            <span class="count">{d.wordCount}</span>
+            <span class="count">{deckProgress.value[d.id] ?? 0}/{d.wordCount}</span>
           </label>
         ))}
       </div>

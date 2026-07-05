@@ -1,15 +1,15 @@
 {
  "id": "n5-starter",
- "name": "N5 Starter (Genki 1–6)",
+ "name": "N5 Starter (Genki 1\u20136)",
  "words": [
   {
    "id": "n5-1b7fe8fc",
    "english": "doctor; physician",
    "prompt": "doctor",
-   "kana": "いしゃ",
+   "kana": "\u3044\u3057\u3083",
    "written": [
-    "医者",
-    "いしゃ"
+    "\u533b\u8005",
+    "\u3044\u3057\u3083"
    ],
    "romaji": "isha",
    "mora": [
@@ -17,8 +17,8 @@
     "sha"
    ],
    "moraKana": [
-    "い",
-    "しゃ"
+    "\u3044",
+    "\u3057\u3083"
    ],
    "tags": [
     "Genki",
@@ -35,10 +35,10 @@
    "id": "n5-7cf28dc9",
    "english": "now",
    "prompt": "now",
-   "kana": "いま",
+   "kana": "\u3044\u307e",
    "written": [
-    "今",
-    "いま"
+    "\u4eca",
+    "\u3044\u307e"
    ],
    "romaji": "ima",
    "mora": [
@@ -46,8 +46,8 @@
     "ma"
    ],
    "moraKana": [
-    "い",
-    "ま"
+    "\u3044",
+    "\u307e"
    ],
    "tags": [
     "Genki",
@@ -62,10 +62,10 @@
    "id": "n5-17beb16f",
    "english": "younger sister (humble)",
    "prompt": "younger sister",
-   "kana": "いもうと",
+   "kana": "\u3044\u3082\u3046\u3068",
    "written": [
-    "妹",
-    "いもうと"
+    "\u59b9",
+    "\u3044\u3082\u3046\u3068"
    ],
    "romaji": "imouto",
    "mora": [
@@ -75,10 +75,10 @@
     "to"
    ],
    "moraKana": [
-    "い",
-    "も",
-    "う",
-    "と"
+    "\u3044",
+    "\u3082",
+    "\u3046",
+    "\u3068"
    ],
    "tags": [
     "Genki",
@@ -93,10 +93,10 @@
    "id": "n5-bdf2796e",
    "english": "English (language)",
    "prompt": "English",
-   "kana": "えいご",
+   "kana": "\u3048\u3044\u3054",
    "written": [
-    "英語",
-    "えいご"
+    "\u82f1\u8a9e",
+    "\u3048\u3044\u3054"
    ],
    "romaji": "eigo",
    "mora": [
@@ -105,9 +105,9 @@
     "go"
    ],
    "moraKana": [
-    "え",
-    "い",
-    "ご"
+    "\u3048",
+    "\u3044",
+    "\u3054"
    ],
    "tags": [
     "Genki",
@@ -121,10 +121,10 @@
    "id": "n5-51d0ab4a",
    "english": "mother (formal)",
    "prompt": "mother (formal)",
-   "kana": "おかあさん",
+   "kana": "\u304a\u304b\u3042\u3055\u3093",
    "written": [
-    "お母さん",
-    "おかあさん"
+    "\u304a\u6bcd\u3055\u3093",
+    "\u304a\u304b\u3042\u3055\u3093"
    ],
    "romaji": "okaasan",
    "mora": [
@@ -135,11 +135,11 @@
     "n"
    ],
    "moraKana": [
-    "お",
-    "か",
-    "あ",
-    "さ",
-    "ん"
+    "\u304a",
+    "\u304b",
+    "\u3042",
+    "\u3055",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -154,10 +154,10 @@
    "id": "n5-2cbdefb8",
    "english": "father (formal)",
    "prompt": "father (formal)",
-   "kana": "おとうさん",
+   "kana": "\u304a\u3068\u3046\u3055\u3093",
    "written": [
-    "お父さん",
-    "おとうさん"
+    "\u304a\u7236\u3055\u3093",
+    "\u304a\u3068\u3046\u3055\u3093"
    ],
    "romaji": "otousan",
    "mora": [
@@ -168,11 +168,11 @@
     "n"
    ],
    "moraKana": [
-    "お",
-    "と",
-    "う",
-    "さ",
-    "ん"
+    "\u304a",
+    "\u3068",
+    "\u3046",
+    "\u3055",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -187,10 +187,10 @@
    "id": "n5-d9a6b4c3",
    "english": "younger brother",
    "prompt": "younger brother",
-   "kana": "おとうと",
+   "kana": "\u304a\u3068\u3046\u3068",
    "written": [
-    "弟",
-    "おとうと"
+    "\u5f1f",
+    "\u304a\u3068\u3046\u3068"
    ],
    "romaji": "otouto",
    "mora": [
@@ -200,10 +200,10 @@
     "to"
    ],
    "moraKana": [
-    "お",
-    "と",
-    "う",
-    "と"
+    "\u304a",
+    "\u3068",
+    "\u3046",
+    "\u3068"
    ],
    "tags": [
     "Genki",
@@ -218,10 +218,10 @@
    "id": "n5-810354ac",
    "english": "older brother (formal)",
    "prompt": "older brother",
-   "kana": "おにいさん",
+   "kana": "\u304a\u306b\u3044\u3055\u3093",
    "written": [
-    "お兄さん",
-    "おにいさん"
+    "\u304a\u5144\u3055\u3093",
+    "\u304a\u306b\u3044\u3055\u3093"
    ],
    "romaji": "oniisan",
    "mora": [
@@ -232,11 +232,11 @@
     "n"
    ],
    "moraKana": [
-    "お",
-    "に",
-    "い",
-    "さ",
-    "ん"
+    "\u304a",
+    "\u306b",
+    "\u3044",
+    "\u3055",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -253,10 +253,10 @@
    "id": "n5-a37813c9",
    "english": "older sister (formal)",
    "prompt": "older sister (formal)",
-   "kana": "おねえさん",
+   "kana": "\u304a\u306d\u3048\u3055\u3093",
    "written": [
-    "お姉さん",
-    "おねえさん"
+    "\u304a\u59c9\u3055\u3093",
+    "\u304a\u306d\u3048\u3055\u3093"
    ],
    "romaji": "oneesan",
    "mora": [
@@ -267,11 +267,11 @@
     "n"
    ],
    "moraKana": [
-    "お",
-    "ね",
-    "え",
-    "さ",
-    "ん"
+    "\u304a",
+    "\u306d",
+    "\u3048",
+    "\u3055",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -286,12 +286,12 @@
    "id": "n5-1d17bb25",
    "english": "student",
    "prompt": "student",
-   "kana": "がくせい",
+   "kana": "\u304c\u304f\u305b\u3044",
    "written": [
-    "学生",
-    "がくせい",
-    "生徒",
-    "せいと"
+    "\u5b66\u751f",
+    "\u304c\u304f\u305b\u3044",
+    "\u751f\u5f92",
+    "\u305b\u3044\u3068"
    ],
    "romaji": "gakusei",
    "mora": [
@@ -301,10 +301,10 @@
     "i"
    ],
    "moraKana": [
-    "が",
-    "く",
-    "せ",
-    "い"
+    "\u304c",
+    "\u304f",
+    "\u305b",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -316,7 +316,7 @@
    "alts": [
     {
      "id": "n5-b17d0ed2",
-     "kana": "せいと",
+     "kana": "\u305b\u3044\u3068",
      "romaji": "seito"
     }
    ]
@@ -325,10 +325,10 @@
    "id": "n5-873bb133",
    "english": "afternoon, P.M.",
    "prompt": "afternoon",
-   "kana": "ごご",
+   "kana": "\u3054\u3054",
    "written": [
-    "午後",
-    "ごご"
+    "\u5348\u5f8c",
+    "\u3054\u3054"
    ],
    "romaji": "gogo",
    "mora": [
@@ -336,8 +336,8 @@
     "go"
    ],
    "moraKana": [
-    "ご",
-    "ご"
+    "\u3054",
+    "\u3054"
    ],
    "tags": [
     "Genki",
@@ -351,12 +351,12 @@
    "id": "n5-2d128996",
    "english": "morning; A.M.",
    "prompt": "morning",
-   "kana": "あさ",
+   "kana": "\u3042\u3055",
    "written": [
-    "朝",
-    "あさ",
-    "午前",
-    "ごぜん"
+    "\u671d",
+    "\u3042\u3055",
+    "\u5348\u524d",
+    "\u3054\u305c\u3093"
    ],
    "romaji": "asa",
    "mora": [
@@ -364,8 +364,8 @@
     "sa"
    ],
    "moraKana": [
-    "あ",
-    "さ"
+    "\u3042",
+    "\u3055"
    ],
    "tags": [
     "Genki",
@@ -377,7 +377,7 @@
    "alts": [
     {
      "id": "n5-b1fa407b",
-     "kana": "ごぜん",
+     "kana": "\u3054\u305c\u3093",
      "romaji": "gozen"
     }
    ]
@@ -386,10 +386,10 @@
    "id": "n5-a57d4660",
    "english": "work, job, occupation, employment",
    "prompt": "work",
-   "kana": "しごと",
+   "kana": "\u3057\u3054\u3068",
    "written": [
-    "仕事",
-    "しごと"
+    "\u4ed5\u4e8b",
+    "\u3057\u3054\u3068"
    ],
    "romaji": "shigoto",
    "mora": [
@@ -398,9 +398,9 @@
     "to"
    ],
    "moraKana": [
-    "し",
-    "ご",
-    "と"
+    "\u3057",
+    "\u3054",
+    "\u3068"
    ],
    "tags": [
     "Genki",
@@ -415,10 +415,10 @@
    "id": "n5-ca5c6a1e",
    "english": "teacher, professor; master; doctor",
    "prompt": "teacher",
-   "kana": "せんせい",
+   "kana": "\u305b\u3093\u305b\u3044",
    "written": [
-    "先生",
-    "せんせい"
+    "\u5148\u751f",
+    "\u305b\u3093\u305b\u3044"
    ],
    "romaji": "sensei",
    "mora": [
@@ -428,10 +428,10 @@
     "i"
    ],
    "moraKana": [
-    "せ",
-    "ん",
-    "せ",
-    "い"
+    "\u305b",
+    "\u3093",
+    "\u305b",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -445,10 +445,10 @@
    "id": "n5-f2549372",
    "english": "college; university",
    "prompt": "college",
-   "kana": "だいがく",
+   "kana": "\u3060\u3044\u304c\u304f",
    "written": [
-    "大学",
-    "だいがく"
+    "\u5927\u5b66",
+    "\u3060\u3044\u304c\u304f"
    ],
    "romaji": "daigaku",
    "mora": [
@@ -458,10 +458,10 @@
     "ku"
    ],
    "moraKana": [
-    "だ",
-    "い",
-    "が",
-    "く"
+    "\u3060",
+    "\u3044",
+    "\u304c",
+    "\u304f"
    ],
    "tags": [
     "Genki",
@@ -475,10 +475,10 @@
    "id": "n5-33a1e265",
    "english": "a telephone",
    "prompt": "a telephone",
-   "kana": "でんわ",
+   "kana": "\u3067\u3093\u308f",
    "written": [
-    "電話",
-    "でんわ"
+    "\u96fb\u8a71",
+    "\u3067\u3093\u308f"
    ],
    "romaji": "denwa",
    "mora": [
@@ -487,9 +487,9 @@
     "wa"
    ],
    "moraKana": [
-    "で",
-    "ん",
-    "わ"
+    "\u3067",
+    "\u3093",
+    "\u308f"
    ],
    "tags": [
     "Genki",
@@ -503,10 +503,10 @@
    "id": "n5-ac475c12",
    "english": "friend",
    "prompt": "friend",
-   "kana": "ともだち",
+   "kana": "\u3068\u3082\u3060\u3061",
    "written": [
-    "友達",
-    "ともだち"
+    "\u53cb\u9054",
+    "\u3068\u3082\u3060\u3061"
    ],
    "romaji": "tomodachi",
    "mora": [
@@ -516,10 +516,10 @@
     "chi"
    ],
    "moraKana": [
-    "と",
-    "も",
-    "だ",
-    "ち"
+    "\u3068",
+    "\u3082",
+    "\u3060",
+    "\u3061"
    ],
    "tags": [
     "Genki",
@@ -535,10 +535,10 @@
    "id": "n5-f68273d2",
    "english": "name",
    "prompt": "name",
-   "kana": "なまえ",
+   "kana": "\u306a\u307e\u3048",
    "written": [
-    "名前",
-    "なまえ"
+    "\u540d\u524d",
+    "\u306a\u307e\u3048"
    ],
    "romaji": "namae",
    "mora": [
@@ -547,9 +547,9 @@
     "e"
    ],
    "moraKana": [
-    "な",
-    "ま",
-    "え"
+    "\u306a",
+    "\u307e",
+    "\u3048"
    ],
    "tags": [
     "Genki",
@@ -563,10 +563,10 @@
    "id": "n5-2668a187",
    "english": "yes",
    "prompt": "yes",
-   "kana": "はい",
+   "kana": "\u306f\u3044",
    "written": [
-    "はい",
-    "ええ"
+    "\u306f\u3044",
+    "\u3048\u3048"
    ],
    "romaji": "hai",
    "mora": [
@@ -574,8 +574,8 @@
     "i"
    ],
    "moraKana": [
-    "は",
-    "い"
+    "\u306f",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -588,19 +588,19 @@
    "alts": [
     {
      "id": "n5-b7966194",
-     "kana": "ええ",
+     "kana": "\u3048\u3048",
      "romaji": "ee"
     }
    ]
   },
   {
    "id": "n5-6208a56d",
-   "english": "half (as in 二時半, half-past two)",
+   "english": "half (as in \u4e8c\u6642\u534a, half-past two)",
    "prompt": "half",
-   "kana": "はん",
+   "kana": "\u306f\u3093",
    "written": [
-    "半",
-    "はん"
+    "\u534a",
+    "\u306f\u3093"
    ],
    "romaji": "han",
    "mora": [
@@ -608,8 +608,8 @@
     "n"
    ],
    "moraKana": [
-    "は",
-    "ん"
+    "\u306f",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -624,10 +624,10 @@
    "id": "n5-41645a1f",
    "english": "number, series of digits",
    "prompt": "number",
-   "kana": "ばんごう",
+   "kana": "\u3070\u3093\u3054\u3046",
    "written": [
-    "番号",
-    "ばんごう"
+    "\u756a\u53f7",
+    "\u3070\u3093\u3054\u3046"
    ],
    "romaji": "bangou",
    "mora": [
@@ -637,10 +637,10 @@
     "u"
    ],
    "moraKana": [
-    "ば",
-    "ん",
-    "ご",
-    "う"
+    "\u3070",
+    "\u3093",
+    "\u3054",
+    "\u3046"
    ],
    "tags": [
     "Genki",
@@ -654,10 +654,10 @@
    "id": "n5-c4e7aaa8",
    "english": "international student",
    "prompt": "international student",
-   "kana": "りゅうがくせい",
+   "kana": "\u308a\u3085\u3046\u304c\u304f\u305b\u3044",
    "written": [
-    "留学生",
-    "りゅうがくせい"
+    "\u7559\u5b66\u751f",
+    "\u308a\u3085\u3046\u304c\u304f\u305b\u3044"
    ],
    "romaji": "ryuugakusei",
    "mora": [
@@ -669,12 +669,12 @@
     "i"
    ],
    "moraKana": [
-    "りゅ",
-    "う",
-    "が",
-    "く",
-    "せ",
-    "い"
+    "\u308a\u3085",
+    "\u3046",
+    "\u304c",
+    "\u304f",
+    "\u305b",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -688,10 +688,10 @@
    "id": "n5-e1ea452d",
    "english": "I, myself",
    "prompt": "I",
-   "kana": "わたし",
+   "kana": "\u308f\u305f\u3057",
    "written": [
-    "私",
-    "わたし"
+    "\u79c1",
+    "\u308f\u305f\u3057"
    ],
    "romaji": "watashi",
    "mora": [
@@ -700,9 +700,9 @@
     "shi"
    ],
    "moraKana": [
-    "わ",
-    "た",
-    "し"
+    "\u308f",
+    "\u305f",
+    "\u3057"
    ],
    "tags": [
     "Genki",
@@ -716,9 +716,9 @@
    "id": "n5-c2500e22",
    "english": "there, over there, that place",
    "prompt": "there",
-   "kana": "あそこ",
+   "kana": "\u3042\u305d\u3053",
    "written": [
-    "あそこ"
+    "\u3042\u305d\u3053"
    ],
    "romaji": "asoko",
    "mora": [
@@ -727,9 +727,9 @@
     "ko"
    ],
    "moraKana": [
-    "あ",
-    "そ",
-    "こ"
+    "\u3042",
+    "\u305d",
+    "\u3053"
    ],
    "tags": [
     "Genki",
@@ -743,9 +743,9 @@
    "id": "n5-af8fe633",
    "english": "that one (over there)",
    "prompt": "that one (over there)",
-   "kana": "あれ",
+   "kana": "\u3042\u308c",
    "written": [
-    "あれ"
+    "\u3042\u308c"
    ],
    "romaji": "are",
    "mora": [
@@ -753,8 +753,8 @@
     "re"
    ],
    "moraKana": [
-    "あ",
-    "れ"
+    "\u3042",
+    "\u308c"
    ],
    "tags": [
     "Genki",
@@ -768,9 +768,9 @@
    "id": "n5-cd2f86ee",
    "english": "how much, how many",
    "prompt": "how much",
-   "kana": "いくら",
+   "kana": "\u3044\u304f\u3089",
    "written": [
-    "いくら"
+    "\u3044\u304f\u3089"
    ],
    "romaji": "ikura",
    "mora": [
@@ -779,9 +779,9 @@
     "ra"
    ],
    "moraKana": [
-    "い",
-    "く",
-    "ら"
+    "\u3044",
+    "\u304f",
+    "\u3089"
    ],
    "tags": [
     "Genki",
@@ -796,10 +796,10 @@
    "id": "n5-4bd5b091",
    "english": "pencil",
    "prompt": "pencil",
-   "kana": "えんぴつ",
+   "kana": "\u3048\u3093\u3074\u3064",
    "written": [
-    "鉛筆",
-    "えんぴつ"
+    "\u925b\u7b46",
+    "\u3048\u3093\u3074\u3064"
    ],
    "romaji": "enpitsu",
    "mora": [
@@ -809,10 +809,10 @@
     "tsu"
    ],
    "moraKana": [
-    "え",
-    "ん",
-    "ぴ",
-    "つ"
+    "\u3048",
+    "\u3093",
+    "\u3074",
+    "\u3064"
    ],
    "tags": [
     "Genki",
@@ -826,10 +826,10 @@
    "id": "n5-56e2ffcd",
    "english": "toilet, restroom, bathroom (lit., a place to wash one's hands)",
    "prompt": "toilet",
-   "kana": "おてあらい",
+   "kana": "\u304a\u3066\u3042\u3089\u3044",
    "written": [
-    "お手洗い",
-    "おてあらい"
+    "\u304a\u624b\u6d17\u3044",
+    "\u304a\u3066\u3042\u3089\u3044"
    ],
    "romaji": "otearai",
    "mora": [
@@ -840,11 +840,11 @@
     "i"
    ],
    "moraKana": [
-    "お",
-    "て",
-    "あ",
-    "ら",
-    "い"
+    "\u304a",
+    "\u3066",
+    "\u3042",
+    "\u3089",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -860,10 +860,10 @@
    "id": "n5-ad635933",
    "english": "umbrella, parasol",
    "prompt": "umbrella",
-   "kana": "かさ",
+   "kana": "\u304b\u3055",
    "written": [
-    "傘",
-    "かさ"
+    "\u5098",
+    "\u304b\u3055"
    ],
    "romaji": "kasa",
    "mora": [
@@ -871,8 +871,8 @@
     "sa"
    ],
    "moraKana": [
-    "か",
-    "さ"
+    "\u304b",
+    "\u3055"
    ],
    "tags": [
     "Genki",
@@ -886,9 +886,9 @@
    "id": "n5-79cde3ad",
    "english": "bag, basket",
    "prompt": "bag",
-   "kana": "かばん",
+   "kana": "\u304b\u3070\u3093",
    "written": [
-    "かばん"
+    "\u304b\u3070\u3093"
    ],
    "romaji": "kaban",
    "mora": [
@@ -897,9 +897,9 @@
     "n"
    ],
    "moraKana": [
-    "か",
-    "ば",
-    "ん"
+    "\u304b",
+    "\u3070",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -911,12 +911,12 @@
   },
   {
    "id": "n5-e047c54d",
-   "english": "café",
-   "prompt": "café",
-   "kana": "きっさてん",
+   "english": "caf\u00e9",
+   "prompt": "caf\u00e9",
+   "kana": "\u304d\u3063\u3055\u3066\u3093",
    "written": [
-    "喫茶店",
-    "きっさてん"
+    "\u55ab\u8336\u5e97",
+    "\u304d\u3063\u3055\u3066\u3093"
    ],
    "romaji": "kissaten",
    "mora": [
@@ -927,11 +927,11 @@
     "n"
    ],
    "moraKana": [
-    "き",
-    "っ",
-    "さ",
-    "て",
-    "ん"
+    "\u304d",
+    "\u3063",
+    "\u3055",
+    "\u3066",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -947,10 +947,10 @@
    "id": "n5-5ab550fc",
    "english": "bank",
    "prompt": "bank",
-   "kana": "ぎんこう",
+   "kana": "\u304e\u3093\u3053\u3046",
    "written": [
-    "銀行",
-    "ぎんこう"
+    "\u9280\u884c",
+    "\u304e\u3093\u3053\u3046"
    ],
    "romaji": "ginkou",
    "mora": [
@@ -960,10 +960,10 @@
     "u"
    ],
    "moraKana": [
-    "ぎ",
-    "ん",
-    "こ",
-    "う"
+    "\u304e",
+    "\u3093",
+    "\u3053",
+    "\u3046"
    ],
    "tags": [
     "Genki",
@@ -977,10 +977,10 @@
    "id": "n5-a28c621e",
    "english": "shoes, footwear",
    "prompt": "shoes",
-   "kana": "くつ",
+   "kana": "\u304f\u3064",
    "written": [
-    "靴",
-    "くつ"
+    "\u9774",
+    "\u304f\u3064"
    ],
    "romaji": "kutsu",
    "mora": [
@@ -988,8 +988,8 @@
     "tsu"
    ],
    "moraKana": [
-    "く",
-    "つ"
+    "\u304f",
+    "\u3064"
    ],
    "tags": [
     "Genki",
@@ -1003,9 +1003,9 @@
    "id": "n5-1fefdbdb",
    "english": "this one",
    "prompt": "this one",
-   "kana": "これ",
+   "kana": "\u3053\u308c",
    "written": [
-    "これ"
+    "\u3053\u308c"
    ],
    "romaji": "kore",
    "mora": [
@@ -1013,8 +1013,8 @@
     "re"
    ],
    "moraKana": [
-    "こ",
-    "れ"
+    "\u3053",
+    "\u308c"
    ],
    "tags": [
     "Genki",
@@ -1028,10 +1028,10 @@
    "id": "n5-9f5cf593",
    "english": "wallet",
    "prompt": "wallet",
-   "kana": "さいふ",
+   "kana": "\u3055\u3044\u3075",
    "written": [
-    "財布",
-    "さいふ"
+    "\u8ca1\u5e03",
+    "\u3055\u3044\u3075"
    ],
    "romaji": "saifu",
    "mora": [
@@ -1040,9 +1040,9 @@
     "fu"
    ],
    "moraKana": [
-    "さ",
-    "い",
-    "ふ"
+    "\u3055",
+    "\u3044",
+    "\u3075"
    ],
    "tags": [
     "Genki",
@@ -1058,10 +1058,10 @@
    "id": "n5-a7294957",
    "english": "fish",
    "prompt": "fish",
-   "kana": "さかな",
+   "kana": "\u3055\u304b\u306a",
    "written": [
-    "魚",
-    "さかな"
+    "\u9b5a",
+    "\u3055\u304b\u306a"
    ],
    "romaji": "sakana",
    "mora": [
@@ -1070,9 +1070,9 @@
     "na"
    ],
    "moraKana": [
-    "さ",
-    "か",
-    "な"
+    "\u3055",
+    "\u304b",
+    "\u306a"
    ],
    "tags": [
     "Genki",
@@ -1086,12 +1086,12 @@
    "id": "n5-2e0ca17b",
    "english": "dictionary",
    "prompt": "dictionary",
-   "kana": "じしょ",
+   "kana": "\u3058\u3057\u3087",
    "written": [
-    "辞書",
-    "じしょ",
-    "字引",
-    "じびき"
+    "\u8f9e\u66f8",
+    "\u3058\u3057\u3087",
+    "\u5b57\u5f15",
+    "\u3058\u3073\u304d"
    ],
    "romaji": "jisho",
    "mora": [
@@ -1099,8 +1099,8 @@
     "sho"
    ],
    "moraKana": [
-    "じ",
-    "しょ"
+    "\u3058",
+    "\u3057\u3087"
    ],
    "tags": [
     "Genki",
@@ -1112,7 +1112,7 @@
    "alts": [
     {
      "id": "n5-0374abef",
-     "kana": "じびき",
+     "kana": "\u3058\u3073\u304d",
      "romaji": "jibiki"
     }
    ]
@@ -1121,10 +1121,10 @@
    "id": "n5-55d70f77",
    "english": "bicycle",
    "prompt": "bicycle",
-   "kana": "じてんしゃ",
+   "kana": "\u3058\u3066\u3093\u3057\u3083",
    "written": [
-    "自転車",
-    "じてんしゃ"
+    "\u81ea\u8ee2\u8eca",
+    "\u3058\u3066\u3093\u3057\u3083"
    ],
    "romaji": "jitensha",
    "mora": [
@@ -1134,10 +1134,10 @@
     "sha"
    ],
    "moraKana": [
-    "じ",
-    "て",
-    "ん",
-    "しゃ"
+    "\u3058",
+    "\u3066",
+    "\u3093",
+    "\u3057\u3083"
    ],
    "tags": [
     "Genki",
@@ -1151,10 +1151,10 @@
    "id": "n5-3761f07c",
    "english": "newspaper",
    "prompt": "newspaper",
-   "kana": "しんぶん",
+   "kana": "\u3057\u3093\u3076\u3093",
    "written": [
-    "新聞",
-    "しんぶん"
+    "\u65b0\u805e",
+    "\u3057\u3093\u3076\u3093"
    ],
    "romaji": "shinbun",
    "mora": [
@@ -1164,10 +1164,10 @@
     "n"
    ],
    "moraKana": [
-    "し",
-    "ん",
-    "ぶ",
-    "ん"
+    "\u3057",
+    "\u3093",
+    "\u3076",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -1181,9 +1181,9 @@
    "id": "n5-3906cbce",
    "english": "that one",
    "prompt": "that one",
-   "kana": "それ",
+   "kana": "\u305d\u308c",
    "written": [
-    "それ"
+    "\u305d\u308c"
    ],
    "romaji": "sore",
    "mora": [
@@ -1191,8 +1191,8 @@
     "re"
    ],
    "moraKana": [
-    "そ",
-    "れ"
+    "\u305d",
+    "\u308c"
    ],
    "tags": [
     "Genki",
@@ -1207,10 +1207,10 @@
    "id": "n5-66b6e112",
    "english": "tall, high; expensive",
    "prompt": "tall",
-   "kana": "たかい",
+   "kana": "\u305f\u304b\u3044",
    "written": [
-    "高い",
-    "たかい"
+    "\u9ad8\u3044",
+    "\u305f\u304b\u3044"
    ],
    "romaji": "takai",
    "mora": [
@@ -1219,9 +1219,9 @@
     "i"
    ],
    "moraKana": [
-    "た",
-    "か",
-    "い"
+    "\u305f",
+    "\u304b",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -1235,11 +1235,11 @@
    "id": "n5-6e9eadcf",
    "english": "who",
    "prompt": "who",
-   "kana": "だれ",
+   "kana": "\u3060\u308c",
    "written": [
-    "誰",
-    "だれ",
-    "どなた"
+    "\u8ab0",
+    "\u3060\u308c",
+    "\u3069\u306a\u305f"
    ],
    "romaji": "dare",
    "mora": [
@@ -1247,8 +1247,8 @@
     "re"
    ],
    "moraKana": [
-    "だ",
-    "れ"
+    "\u3060",
+    "\u308c"
    ],
    "tags": [
     "Genki",
@@ -1260,7 +1260,7 @@
    "alts": [
     {
      "id": "n5-69097659",
-     "kana": "どなた",
+     "kana": "\u3069\u306a\u305f",
      "romaji": "donata"
     }
    ]
@@ -1269,10 +1269,10 @@
    "id": "n5-b29e9540",
    "english": "tape",
    "prompt": "tape",
-   "kana": "てーぷ",
+   "kana": "\u3066\u30fc\u3077",
    "written": [
-    "テープ",
-    "てーぷ"
+    "\u30c6\u30fc\u30d7",
+    "\u3066\u30fc\u3077"
    ],
    "romaji": "te-pu",
    "mora": [
@@ -1281,9 +1281,9 @@
     "pu"
    ],
    "moraKana": [
-    "て",
-    "ー",
-    "ぷ"
+    "\u3066",
+    "\u30fc",
+    "\u3077"
    ],
    "tags": [
     "Genki",
@@ -1297,10 +1297,10 @@
    "id": "n5-534b796a",
    "english": "Thank you",
    "prompt": "Thank you",
-   "kana": "ありがとう",
+   "kana": "\u3042\u308a\u304c\u3068\u3046",
    "written": [
-    "ありがとう",
-    "ありがとうございます"
+    "\u3042\u308a\u304c\u3068\u3046",
+    "\u3042\u308a\u304c\u3068\u3046\u3054\u3056\u3044\u307e\u3059"
    ],
    "romaji": "arigatou",
    "mora": [
@@ -1311,11 +1311,11 @@
     "u"
    ],
    "moraKana": [
-    "あ",
-    "り",
-    "が",
-    "と",
-    "う"
+    "\u3042",
+    "\u308a",
+    "\u304c",
+    "\u3068",
+    "\u3046"
    ],
    "tags": [
     "Genki",
@@ -1329,9 +1329,9 @@
    "id": "n5-cfde36eb",
    "english": "thanks; somehow; no matter how hard one tries",
    "prompt": "casual thanks / somehow",
-   "kana": "どうも",
+   "kana": "\u3069\u3046\u3082",
    "written": [
-    "どうも"
+    "\u3069\u3046\u3082"
    ],
    "romaji": "doumo",
    "mora": [
@@ -1340,9 +1340,9 @@
     "mo"
    ],
    "moraKana": [
-    "ど",
-    "う",
-    "も"
+    "\u3069",
+    "\u3046",
+    "\u3082"
    ],
    "tags": [
     "Genki",
@@ -1358,10 +1358,10 @@
    "id": "n5-176ff473",
    "english": "a watch; a clock",
    "prompt": "a watch",
-   "kana": "とけい",
+   "kana": "\u3068\u3051\u3044",
    "written": [
-    "時計",
-    "とけい"
+    "\u6642\u8a08",
+    "\u3068\u3051\u3044"
    ],
    "romaji": "tokei",
    "mora": [
@@ -1370,9 +1370,9 @@
     "i"
    ],
    "moraKana": [
-    "と",
-    "け",
-    "い"
+    "\u3068",
+    "\u3051",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -1388,9 +1388,9 @@
    "id": "n5-d7de52a7",
    "english": "where, what place",
    "prompt": "where",
-   "kana": "どこ",
+   "kana": "\u3069\u3053",
    "written": [
-    "どこ"
+    "\u3069\u3053"
    ],
    "romaji": "doko",
    "mora": [
@@ -1398,8 +1398,8 @@
     "ko"
    ],
    "moraKana": [
-    "ど",
-    "こ"
+    "\u3069",
+    "\u3053"
    ],
    "tags": [
     "Genki",
@@ -1413,10 +1413,10 @@
    "id": "n5-71bc8ce6",
    "english": "library",
    "prompt": "library",
-   "kana": "としょかん",
+   "kana": "\u3068\u3057\u3087\u304b\u3093",
    "written": [
-    "図書館",
-    "としょかん"
+    "\u56f3\u66f8\u9928",
+    "\u3068\u3057\u3087\u304b\u3093"
    ],
    "romaji": "toshokan",
    "mora": [
@@ -1426,10 +1426,10 @@
     "n"
    ],
    "moraKana": [
-    "と",
-    "しょ",
-    "か",
-    "ん"
+    "\u3068",
+    "\u3057\u3087",
+    "\u304b",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -1445,10 +1445,10 @@
    "id": "n5-3850c3cd",
    "english": "which one",
    "prompt": "which one",
-   "kana": "どれ",
+   "kana": "\u3069\u308c",
    "written": [
-    "どれ",
-    "どっち"
+    "\u3069\u308c",
+    "\u3069\u3063\u3061"
    ],
    "romaji": "dore",
    "mora": [
@@ -1456,8 +1456,8 @@
     "re"
    ],
    "moraKana": [
-    "ど",
-    "れ"
+    "\u3069",
+    "\u308c"
    ],
    "tags": [
     "Genki",
@@ -1470,7 +1470,7 @@
    "alts": [
     {
      "id": "n5-dd51a345",
-     "kana": "どっち",
+     "kana": "\u3069\u3063\u3061",
      "romaji": "dotchi"
     }
    ]
@@ -1479,10 +1479,10 @@
    "id": "n5-df98d4e7",
    "english": "meat",
    "prompt": "meat",
-   "kana": "にく",
+   "kana": "\u306b\u304f",
    "written": [
-    "肉",
-    "にく"
+    "\u8089",
+    "\u306b\u304f"
    ],
    "romaji": "niku",
    "mora": [
@@ -1490,8 +1490,8 @@
     "ku"
    ],
    "moraKana": [
-    "に",
-    "く"
+    "\u306b",
+    "\u304f"
    ],
    "tags": [
     "Genki",
@@ -1505,10 +1505,10 @@
    "id": "n5-3e9768f9",
    "english": "notebook",
    "prompt": "notebook",
-   "kana": "のーと",
+   "kana": "\u306e\u30fc\u3068",
    "written": [
-    "ノート",
-    "のーと"
+    "\u30ce\u30fc\u30c8",
+    "\u306e\u30fc\u3068"
    ],
    "romaji": "no-to",
    "mora": [
@@ -1517,9 +1517,9 @@
     "to"
    ],
    "moraKana": [
-    "の",
-    "ー",
-    "と"
+    "\u306e",
+    "\u30fc",
+    "\u3068"
    ],
    "tags": [
     "Genki",
@@ -1533,10 +1533,10 @@
    "id": "n5-ff720a94",
    "english": "pen",
    "prompt": "pen",
-   "kana": "ぺん",
+   "kana": "\u307a\u3093",
    "written": [
-    "ペン",
-    "ぺん"
+    "\u30da\u30f3",
+    "\u307a\u3093"
    ],
    "romaji": "pen",
    "mora": [
@@ -1544,8 +1544,8 @@
     "n"
    ],
    "moraKana": [
-    "ぺ",
-    "ん"
+    "\u307a",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -1559,10 +1559,10 @@
    "id": "n5-e2da2a2b",
    "english": "hat; cap",
    "prompt": "hat",
-   "kana": "ぼうし",
+   "kana": "\u307c\u3046\u3057",
    "written": [
-    "帽子",
-    "ぼうし"
+    "\u5e3d\u5b50",
+    "\u307c\u3046\u3057"
    ],
    "romaji": "boushi",
    "mora": [
@@ -1571,9 +1571,9 @@
     "shi"
    ],
    "moraKana": [
-    "ぼ",
-    "う",
-    "し"
+    "\u307c",
+    "\u3046",
+    "\u3057"
    ],
    "tags": [
     "Genki",
@@ -1587,10 +1587,10 @@
    "id": "n5-9fb45486",
    "english": "book",
    "prompt": "book",
-   "kana": "ほん",
+   "kana": "\u307b\u3093",
    "written": [
-    "本",
-    "ほん"
+    "\u672c",
+    "\u307b\u3093"
    ],
    "romaji": "hon",
    "mora": [
@@ -1598,8 +1598,8 @@
     "n"
    ],
    "moraKana": [
-    "ほ",
-    "ん"
+    "\u307b",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -1613,10 +1613,10 @@
    "id": "n5-24aab5be",
    "english": "vegetable",
    "prompt": "vegetable",
-   "kana": "やさい",
+   "kana": "\u3084\u3055\u3044",
    "written": [
-    "野菜",
-    "やさい"
+    "\u91ce\u83dc",
+    "\u3084\u3055\u3044"
    ],
    "romaji": "yasai",
    "mora": [
@@ -1625,9 +1625,9 @@
     "i"
    ],
    "moraKana": [
-    "や",
-    "さ",
-    "い"
+    "\u3084",
+    "\u3055",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -1641,10 +1641,10 @@
    "id": "n5-1751a166",
    "english": "post office",
    "prompt": "post office",
-   "kana": "ゆうびんきょく",
+   "kana": "\u3086\u3046\u3073\u3093\u304d\u3087\u304f",
    "written": [
-    "郵便局",
-    "ゆうびんきょく"
+    "\u90f5\u4fbf\u5c40",
+    "\u3086\u3046\u3073\u3093\u304d\u3087\u304f"
    ],
    "romaji": "yuubinkyoku",
    "mora": [
@@ -1656,12 +1656,12 @@
     "ku"
    ],
    "moraKana": [
-    "ゆ",
-    "う",
-    "び",
-    "ん",
-    "きょ",
-    "く"
+    "\u3086",
+    "\u3046",
+    "\u3073",
+    "\u3093",
+    "\u304d\u3087",
+    "\u304f"
    ],
    "tags": [
     "Genki",
@@ -1675,10 +1675,10 @@
    "id": "n5-18bb555d",
    "english": "breakfast",
    "prompt": "breakfast",
-   "kana": "あさごはん",
+   "kana": "\u3042\u3055\u3054\u306f\u3093",
    "written": [
-    "朝御飯",
-    "あさごはん"
+    "\u671d\u5fa1\u98ef",
+    "\u3042\u3055\u3054\u306f\u3093"
    ],
    "romaji": "asagohan",
    "mora": [
@@ -1689,11 +1689,11 @@
     "n"
    ],
    "moraKana": [
-    "あ",
-    "さ",
-    "ご",
-    "は",
-    "ん"
+    "\u3042",
+    "\u3055",
+    "\u3054",
+    "\u306f",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -1707,11 +1707,11 @@
    "id": "n5-6b7cbce3",
    "english": "tomorrow",
    "prompt": "tomorrow",
-   "kana": "あした",
+   "kana": "\u3042\u3057\u305f",
    "written": [
-    "明日",
-    "あした",
-    "あす"
+    "\u660e\u65e5",
+    "\u3042\u3057\u305f",
+    "\u3042\u3059"
    ],
    "romaji": "ashita",
    "mora": [
@@ -1720,9 +1720,9 @@
     "ta"
    ],
    "moraKana": [
-    "あ",
-    "し",
-    "た"
+    "\u3042",
+    "\u3057",
+    "\u305f"
    ],
    "tags": [
     "Genki",
@@ -1737,7 +1737,7 @@
    "alts": [
     {
      "id": "n4-e213b7c6",
-     "kana": "あす",
+     "kana": "\u3042\u3059",
      "romaji": "asu"
     }
    ]
@@ -1746,10 +1746,10 @@
    "id": "n5-abe6f3d9",
    "english": "house, home",
    "prompt": "house",
-   "kana": "いえ",
+   "kana": "\u3044\u3048",
    "written": [
-    "家",
-    "いえ"
+    "\u5bb6",
+    "\u3044\u3048"
    ],
    "romaji": "ie",
    "mora": [
@@ -1757,8 +1757,8 @@
     "e"
    ],
    "moraKana": [
-    "い",
-    "え"
+    "\u3044",
+    "\u3048"
    ],
    "tags": [
     "Genki",
@@ -1774,9 +1774,9 @@
    "id": "n5-0ef510d2",
    "english": "when",
    "prompt": "when",
-   "kana": "いつ",
+   "kana": "\u3044\u3064",
    "written": [
-    "いつ"
+    "\u3044\u3064"
    ],
    "romaji": "itsu",
    "mora": [
@@ -1784,8 +1784,8 @@
     "tsu"
    ],
    "moraKana": [
-    "い",
-    "つ"
+    "\u3044",
+    "\u3064"
    ],
    "tags": [
     "Genki",
@@ -1800,11 +1800,11 @@
    "id": "n5-800ecd92",
    "english": "home; house; my place",
    "prompt": "home",
-   "kana": "うち",
+   "kana": "\u3046\u3061",
    "written": [
-    "うち",
-    "家庭",
-    "かてい"
+    "\u3046\u3061",
+    "\u5bb6\u5ead",
+    "\u304b\u3066\u3044"
    ],
    "romaji": "uchi",
    "mora": [
@@ -1812,8 +1812,8 @@
     "chi"
    ],
    "moraKana": [
-    "う",
-    "ち"
+    "\u3046",
+    "\u3061"
    ],
    "tags": [
     "Genki",
@@ -1826,7 +1826,7 @@
    "alts": [
     {
      "id": "n5-d2c082d8",
-     "kana": "かてい",
+     "kana": "\u304b\u3066\u3044",
      "romaji": "katei"
     }
    ]
@@ -1835,10 +1835,10 @@
    "id": "n5-b760061e",
    "english": "movie, film",
    "prompt": "movie",
-   "kana": "えいが",
+   "kana": "\u3048\u3044\u304c",
    "written": [
-    "映画",
-    "えいが"
+    "\u6620\u753b",
+    "\u3048\u3044\u304c"
    ],
    "romaji": "eiga",
    "mora": [
@@ -1847,9 +1847,9 @@
     "ga"
    ],
    "moraKana": [
-    "え",
-    "い",
-    "が"
+    "\u3048",
+    "\u3044",
+    "\u304c"
    ],
    "tags": [
     "Genki",
@@ -1865,10 +1865,10 @@
    "id": "n5-e2d50137",
    "english": "to get up (e.g., from sleeping); to happen",
    "prompt": "to get up",
-   "kana": "おきる",
+   "kana": "\u304a\u304d\u308b",
    "written": [
-    "起きる",
-    "おきる"
+    "\u8d77\u304d\u308b",
+    "\u304a\u304d\u308b"
    ],
    "romaji": "okiru",
    "mora": [
@@ -1877,9 +1877,9 @@
     "ru"
    ],
    "moraKana": [
-    "お",
-    "き",
-    "る"
+    "\u304a",
+    "\u304d",
+    "\u308b"
    ],
    "tags": [
     "Genki",
@@ -1896,10 +1896,10 @@
    "id": "n5-fcd13124",
    "english": "sake; alcohol",
    "prompt": "sake",
-   "kana": "おさけ",
+   "kana": "\u304a\u3055\u3051",
    "written": [
-    "お酒",
-    "おさけ"
+    "\u304a\u9152",
+    "\u304a\u3055\u3051"
    ],
    "romaji": "osake",
    "mora": [
@@ -1908,9 +1908,9 @@
     "ke"
    ],
    "moraKana": [
-    "お",
-    "さ",
-    "け"
+    "\u304a",
+    "\u3055",
+    "\u3051"
    ],
    "tags": [
     "Genki",
@@ -1924,10 +1924,10 @@
    "id": "n5-891adb67",
    "english": "(green) tea",
    "prompt": "tea",
-   "kana": "おちゃ",
+   "kana": "\u304a\u3061\u3083",
    "written": [
-    "お茶",
-    "おちゃ"
+    "\u304a\u8336",
+    "\u304a\u3061\u3083"
    ],
    "romaji": "ocha",
    "mora": [
@@ -1935,8 +1935,8 @@
     "cha"
    ],
    "moraKana": [
-    "お",
-    "ちゃ"
+    "\u304a",
+    "\u3061\u3083"
    ],
    "tags": [
     "Genki",
@@ -1952,10 +1952,10 @@
    "id": "n5-6cb1082c",
    "english": "music",
    "prompt": "music",
-   "kana": "おんがく",
+   "kana": "\u304a\u3093\u304c\u304f",
    "written": [
-    "音楽",
-    "おんがく"
+    "\u97f3\u697d",
+    "\u304a\u3093\u304c\u304f"
    ],
    "romaji": "ongaku",
    "mora": [
@@ -1965,10 +1965,10 @@
     "ku"
    ],
    "moraKana": [
-    "お",
-    "ん",
-    "が",
-    "く"
+    "\u304a",
+    "\u3093",
+    "\u304c",
+    "\u304f"
    ],
    "tags": [
     "Genki",
@@ -1984,10 +1984,10 @@
    "id": "n5-beceac46",
    "english": "a school",
    "prompt": "a school",
-   "kana": "がっこう",
+   "kana": "\u304c\u3063\u3053\u3046",
    "written": [
-    "学校",
-    "がっこう"
+    "\u5b66\u6821",
+    "\u304c\u3063\u3053\u3046"
    ],
    "romaji": "gakkou",
    "mora": [
@@ -1997,10 +1997,10 @@
     "u"
    ],
    "moraKana": [
-    "が",
-    "っ",
-    "こ",
-    "う"
+    "\u304c",
+    "\u3063",
+    "\u3053",
+    "\u3046"
    ],
    "tags": [
     "Genki",
@@ -2014,10 +2014,10 @@
    "id": "n5-c6db0d79",
    "english": "today, this day",
    "prompt": "today",
-   "kana": "きょう",
+   "kana": "\u304d\u3087\u3046",
    "written": [
-    "今日",
-    "きょう"
+    "\u4eca\u65e5",
+    "\u304d\u3087\u3046"
    ],
    "romaji": "kyou",
    "mora": [
@@ -2025,8 +2025,8 @@
     "u"
    ],
    "moraKana": [
-    "きょ",
-    "う"
+    "\u304d\u3087",
+    "\u3046"
    ],
    "tags": [
     "Genki",
@@ -2040,10 +2040,10 @@
    "id": "n5-99a8fca0",
    "english": "coffee",
    "prompt": "coffee",
-   "kana": "こーひー",
+   "kana": "\u3053\u30fc\u3072\u30fc",
    "written": [
-    "コーヒー",
-    "こーひー"
+    "\u30b3\u30fc\u30d2\u30fc",
+    "\u3053\u30fc\u3072\u30fc"
    ],
    "romaji": "ko-hi-",
    "mora": [
@@ -2053,10 +2053,10 @@
     "i"
    ],
    "moraKana": [
-    "こ",
-    "ー",
-    "ひ",
-    "ー"
+    "\u3053",
+    "\u30fc",
+    "\u3072",
+    "\u30fc"
    ],
    "tags": [
     "Genki",
@@ -2070,10 +2070,10 @@
    "id": "n5-1f8742cc",
    "english": "tonight, this evening",
    "prompt": "tonight",
-   "kana": "こんばん",
+   "kana": "\u3053\u3093\u3070\u3093",
    "written": [
-    "今晩",
-    "こんばん"
+    "\u4eca\u6669",
+    "\u3053\u3093\u3070\u3093"
    ],
    "romaji": "konban",
    "mora": [
@@ -2083,10 +2083,10 @@
     "n"
    ],
    "moraKana": [
-    "こ",
-    "ん",
-    "ば",
-    "ん"
+    "\u3053",
+    "\u3093",
+    "\u3070",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -2102,10 +2102,10 @@
    "id": "n5-e1245a11",
    "english": "magazine, journal",
    "prompt": "magazine",
-   "kana": "ざっし",
+   "kana": "\u3056\u3063\u3057",
    "written": [
-    "雑誌",
-    "ざっし"
+    "\u96d1\u8a8c",
+    "\u3056\u3063\u3057"
    ],
    "romaji": "zasshi",
    "mora": [
@@ -2114,9 +2114,9 @@
     "shi"
    ],
    "moraKana": [
-    "ざ",
-    "っ",
-    "し"
+    "\u3056",
+    "\u3063",
+    "\u3057"
    ],
    "tags": [
     "Genki",
@@ -2132,10 +2132,10 @@
    "id": "n5-680166e9",
    "english": "sport(s)",
    "prompt": "sport",
-   "kana": "すぽーつ",
+   "kana": "\u3059\u307d\u30fc\u3064",
    "written": [
-    "スポーツ",
-    "すぽーつ"
+    "\u30b9\u30dd\u30fc\u30c4",
+    "\u3059\u307d\u30fc\u3064"
    ],
    "romaji": "supo-tsu",
    "mora": [
@@ -2145,10 +2145,10 @@
     "tsu"
    ],
    "moraKana": [
-    "す",
-    "ぽ",
-    "ー",
-    "つ"
+    "\u3059",
+    "\u307d",
+    "\u30fc",
+    "\u3064"
    ],
    "tags": [
     "Genki",
@@ -2162,9 +2162,9 @@
    "id": "n5-78aa9dce",
    "english": "a little, somewhat; just a little, somewhat",
    "prompt": "a little",
-   "kana": "ちょっと",
+   "kana": "\u3061\u3087\u3063\u3068",
    "written": [
-    "ちょっと"
+    "\u3061\u3087\u3063\u3068"
    ],
    "romaji": "chotto",
    "mora": [
@@ -2173,9 +2173,9 @@
     "to"
    ],
    "moraKana": [
-    "ちょ",
-    "っ",
-    "と"
+    "\u3061\u3087",
+    "\u3063",
+    "\u3068"
    ],
    "tags": [
     "Genki",
@@ -2190,10 +2190,10 @@
    "id": "n5-b692a5e3",
    "english": "television, TV",
    "prompt": "television",
-   "kana": "てれび",
+   "kana": "\u3066\u308c\u3073",
    "written": [
-    "テレビ",
-    "てれび"
+    "\u30c6\u30ec\u30d3",
+    "\u3066\u308c\u3073"
    ],
    "romaji": "terebi",
    "mora": [
@@ -2202,9 +2202,9 @@
     "bi"
    ],
    "moraKana": [
-    "て",
-    "れ",
-    "び"
+    "\u3066",
+    "\u308c",
+    "\u3073"
    ],
    "tags": [
     "Genki",
@@ -2218,10 +2218,10 @@
    "id": "n5-c29dae0c",
    "english": "sometimes",
    "prompt": "sometimes",
-   "kana": "ときどき",
+   "kana": "\u3068\u304d\u3069\u304d",
    "written": [
-    "時々",
-    "ときどき"
+    "\u6642\u3005",
+    "\u3068\u304d\u3069\u304d"
    ],
    "romaji": "tokidoki",
    "mora": [
@@ -2231,10 +2231,10 @@
     "ki"
    ],
    "moraKana": [
-    "と",
-    "き",
-    "ど",
-    "き"
+    "\u3068",
+    "\u304d",
+    "\u3069",
+    "\u304d"
    ],
    "tags": [
     "Genki",
@@ -2248,10 +2248,10 @@
    "id": "n5-de84238b",
    "english": "Saturday",
    "prompt": "Saturday",
-   "kana": "どようび",
+   "kana": "\u3069\u3088\u3046\u3073",
    "written": [
-    "土曜日",
-    "どようび"
+    "\u571f\u66dc\u65e5",
+    "\u3069\u3088\u3046\u3073"
    ],
    "romaji": "doyoubi",
    "mora": [
@@ -2261,10 +2261,10 @@
     "bi"
    ],
    "moraKana": [
-    "ど",
-    "よ",
-    "う",
-    "び"
+    "\u3069",
+    "\u3088",
+    "\u3046",
+    "\u3073"
    ],
    "tags": [
     "Genki",
@@ -2279,10 +2279,10 @@
    "id": "n5-c3d80f8c",
    "english": "Sunday",
    "prompt": "Sunday",
-   "kana": "にちようび",
+   "kana": "\u306b\u3061\u3088\u3046\u3073",
    "written": [
-    "日曜日",
-    "にちようび"
+    "\u65e5\u66dc\u65e5",
+    "\u306b\u3061\u3088\u3046\u3073"
    ],
    "romaji": "nichiyoubi",
    "mora": [
@@ -2293,11 +2293,11 @@
     "bi"
    ],
    "moraKana": [
-    "に",
-    "ち",
-    "よ",
-    "う",
-    "び"
+    "\u306b",
+    "\u3061",
+    "\u3088",
+    "\u3046",
+    "\u3073"
    ],
    "tags": [
     "Genki",
@@ -2312,12 +2312,12 @@
    "id": "n5-4a7000d6",
    "english": "to sleep; to go to sleep; to go to bed",
    "prompt": "to sleep",
-   "kana": "ねる",
+   "kana": "\u306d\u308b",
    "written": [
-    "寝る",
-    "ねる",
-    "眠る",
-    "ねむる"
+    "\u5bdd\u308b",
+    "\u306d\u308b",
+    "\u7720\u308b",
+    "\u306d\u3080\u308b"
    ],
    "romaji": "neru",
    "mora": [
@@ -2325,8 +2325,8 @@
     "ru"
    ],
    "moraKana": [
-    "ね",
-    "る"
+    "\u306d",
+    "\u308b"
    ],
    "tags": [
     "Genki",
@@ -2340,7 +2340,7 @@
    "alts": [
     {
      "id": "n4-a73b02d6",
-     "kana": "ねむる",
+     "kana": "\u306d\u3080\u308b",
      "romaji": "nemuru"
     }
    ]
@@ -2349,10 +2349,10 @@
    "id": "n5-0ffd6115",
    "english": "early",
    "prompt": "early",
-   "kana": "はやい",
+   "kana": "\u306f\u3084\u3044",
    "written": [
-    "早い",
-    "はやい"
+    "\u65e9\u3044",
+    "\u306f\u3084\u3044"
    ],
    "romaji": "hayai",
    "mora": [
@@ -2361,9 +2361,9 @@
     "i"
    ],
    "moraKana": [
-    "は",
-    "や",
-    "い"
+    "\u306f",
+    "\u3084",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -2377,12 +2377,12 @@
    "id": "n5-9f61ccc2",
    "english": "dinner, evening meal",
    "prompt": "dinner",
-   "kana": "ばんごはん",
+   "kana": "\u3070\u3093\u3054\u306f\u3093",
    "written": [
-    "晩御飯",
-    "ばんごはん",
-    "夕飯",
-    "ゆうはん"
+    "\u6669\u5fa1\u98ef",
+    "\u3070\u3093\u3054\u306f\u3093",
+    "\u5915\u98ef",
+    "\u3086\u3046\u306f\u3093"
    ],
    "romaji": "bangohan",
    "mora": [
@@ -2393,11 +2393,11 @@
     "n"
    ],
    "moraKana": [
-    "ば",
-    "ん",
-    "ご",
-    "は",
-    "ん"
+    "\u3070",
+    "\u3093",
+    "\u3054",
+    "\u306f",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -2409,7 +2409,7 @@
    "alts": [
     {
      "id": "n5-0ee6b272",
-     "kana": "ゆうはん",
+     "kana": "\u3086\u3046\u306f\u3093",
      "romaji": "yuuhan"
     }
    ]
@@ -2418,10 +2418,10 @@
    "id": "n5-a780acb0",
    "english": "lunch, midday meal",
    "prompt": "lunch",
-   "kana": "ひるごはん",
+   "kana": "\u3072\u308b\u3054\u306f\u3093",
    "written": [
-    "昼御飯",
-    "ひるごはん"
+    "\u663c\u5fa1\u98ef",
+    "\u3072\u308b\u3054\u306f\u3093"
    ],
    "romaji": "hirugohan",
    "mora": [
@@ -2432,11 +2432,11 @@
     "n"
    ],
    "moraKana": [
-    "ひ",
-    "る",
-    "ご",
-    "は",
-    "ん"
+    "\u3072",
+    "\u308b",
+    "\u3054",
+    "\u306f",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -2450,10 +2450,10 @@
    "id": "n5-b4772e80",
    "english": "every day",
    "prompt": "every day",
-   "kana": "まいにち",
+   "kana": "\u307e\u3044\u306b\u3061",
    "written": [
-    "毎日",
-    "まいにち"
+    "\u6bce\u65e5",
+    "\u307e\u3044\u306b\u3061"
    ],
    "romaji": "mainichi",
    "mora": [
@@ -2463,10 +2463,10 @@
     "chi"
    ],
    "moraKana": [
-    "ま",
-    "い",
-    "に",
-    "ち"
+    "\u307e",
+    "\u3044",
+    "\u306b",
+    "\u3061"
    ],
    "tags": [
     "Genki",
@@ -2480,10 +2480,10 @@
    "id": "n5-501ee091",
    "english": "every night",
    "prompt": "every night",
-   "kana": "まいばん",
+   "kana": "\u307e\u3044\u3070\u3093",
    "written": [
-    "毎晩",
-    "まいばん"
+    "\u6bce\u6669",
+    "\u307e\u3044\u3070\u3093"
    ],
    "romaji": "maiban",
    "mora": [
@@ -2493,10 +2493,10 @@
     "n"
    ],
    "moraKana": [
-    "ま",
-    "い",
-    "ば",
-    "ん"
+    "\u307e",
+    "\u3044",
+    "\u3070",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -2510,10 +2510,10 @@
    "id": "n5-e3d391e7",
    "english": "water",
    "prompt": "water",
-   "kana": "みず",
+   "kana": "\u307f\u305a",
    "written": [
-    "水",
-    "みず"
+    "\u6c34",
+    "\u307f\u305a"
    ],
    "romaji": "mizu",
    "mora": [
@@ -2521,8 +2521,8 @@
     "zu"
    ],
    "moraKana": [
-    "み",
-    "ず"
+    "\u307f",
+    "\u305a"
    ],
    "tags": [
     "Genki",
@@ -2536,9 +2536,9 @@
    "id": "n5-d7c45d9e",
    "english": "you",
    "prompt": "you",
-   "kana": "あなた",
+   "kana": "\u3042\u306a\u305f",
    "written": [
-    "あなた"
+    "\u3042\u306a\u305f"
    ],
    "romaji": "anata",
    "mora": [
@@ -2547,9 +2547,9 @@
     "ta"
    ],
    "moraKana": [
-    "あ",
-    "な",
-    "た"
+    "\u3042",
+    "\u306a",
+    "\u305f"
    ],
    "tags": [
     "Genki",
@@ -2563,10 +2563,10 @@
    "id": "n5-7af94911",
    "english": "dog",
    "prompt": "dog",
-   "kana": "いぬ",
+   "kana": "\u3044\u306c",
    "written": [
-    "犬",
-    "いぬ"
+    "\u72ac",
+    "\u3044\u306c"
    ],
    "romaji": "inu",
    "mora": [
@@ -2574,8 +2574,8 @@
     "nu"
    ],
    "moraKana": [
-    "い",
-    "ぬ"
+    "\u3044",
+    "\u306c"
    ],
    "tags": [
     "Genki",
@@ -2589,10 +2589,10 @@
    "id": "n5-b7ef783f",
    "english": "shopping",
    "prompt": "shopping",
-   "kana": "かいもの",
+   "kana": "\u304b\u3044\u3082\u306e",
    "written": [
-    "買い物",
-    "かいもの"
+    "\u8cb7\u3044\u7269",
+    "\u304b\u3044\u3082\u306e"
    ],
    "romaji": "kaimono",
    "mora": [
@@ -2602,10 +2602,10 @@
     "no"
    ],
    "moraKana": [
-    "か",
-    "い",
-    "も",
-    "の"
+    "\u304b",
+    "\u3044",
+    "\u3082",
+    "\u306e"
    ],
    "tags": [
     "Genki",
@@ -2619,10 +2619,10 @@
    "id": "n5-90c36d1b",
    "english": "Tuesday",
    "prompt": "Tuesday",
-   "kana": "かようび",
+   "kana": "\u304b\u3088\u3046\u3073",
    "written": [
-    "火曜日",
-    "かようび"
+    "\u706b\u66dc\u65e5",
+    "\u304b\u3088\u3046\u3073"
    ],
    "romaji": "kayoubi",
    "mora": [
@@ -2632,10 +2632,10 @@
     "bi"
    ],
    "moraKana": [
-    "か",
-    "よ",
-    "う",
-    "び"
+    "\u304b",
+    "\u3088",
+    "\u3046",
+    "\u3073"
    ],
    "tags": [
     "Genki",
@@ -2649,10 +2649,10 @@
    "id": "n5-05f1d2a5",
    "english": "yesterday",
    "prompt": "yesterday",
-   "kana": "きのう",
+   "kana": "\u304d\u306e\u3046",
    "written": [
-    "昨日",
-    "きのう"
+    "\u6628\u65e5",
+    "\u304d\u306e\u3046"
    ],
    "romaji": "kinou",
    "mora": [
@@ -2661,9 +2661,9 @@
     "u"
    ],
    "moraKana": [
-    "き",
-    "の",
-    "う"
+    "\u304d",
+    "\u306e",
+    "\u3046"
    ],
    "tags": [
     "Genki",
@@ -2678,10 +2678,10 @@
    "id": "n5-df1ca857",
    "english": "Friday",
    "prompt": "Friday",
-   "kana": "きんようび",
+   "kana": "\u304d\u3093\u3088\u3046\u3073",
    "written": [
-    "金曜日",
-    "きんようび"
+    "\u91d1\u66dc\u65e5",
+    "\u304d\u3093\u3088\u3046\u3073"
    ],
    "romaji": "kin'youbi",
    "mora": [
@@ -2692,11 +2692,11 @@
     "bi"
    ],
    "moraKana": [
-    "き",
-    "ん",
-    "よ",
-    "う",
-    "び"
+    "\u304d",
+    "\u3093",
+    "\u3088",
+    "\u3046",
+    "\u3073"
    ],
    "tags": [
     "Genki",
@@ -2711,10 +2711,10 @@
    "id": "n5-c0b068d2",
    "english": "a class",
    "prompt": "a class",
-   "kana": "くらす",
+   "kana": "\u304f\u3089\u3059",
    "written": [
-    "クラス",
-    "くらす"
+    "\u30af\u30e9\u30b9",
+    "\u304f\u3089\u3059"
    ],
    "romaji": "kurasu",
    "mora": [
@@ -2723,9 +2723,9 @@
     "su"
    ],
    "moraKana": [
-    "く",
-    "ら",
-    "す"
+    "\u304f",
+    "\u3089",
+    "\u3059"
    ],
    "tags": [
     "Genki",
@@ -2739,10 +2739,10 @@
    "id": "n5-ddeded76",
    "english": "Monday",
    "prompt": "Monday",
-   "kana": "げつようび",
+   "kana": "\u3052\u3064\u3088\u3046\u3073",
    "written": [
-    "月曜日",
-    "げつようび"
+    "\u6708\u66dc\u65e5",
+    "\u3052\u3064\u3088\u3046\u3073"
    ],
    "romaji": "getsuyoubi",
    "mora": [
@@ -2753,11 +2753,11 @@
     "bi"
    ],
    "moraKana": [
-    "げ",
-    "つ",
-    "よ",
-    "う",
-    "び"
+    "\u3052",
+    "\u3064",
+    "\u3088",
+    "\u3046",
+    "\u3073"
    ],
    "tags": [
     "Genki",
@@ -2772,10 +2772,10 @@
    "id": "n5-e7e7c214",
    "english": "a park",
    "prompt": "a park",
-   "kana": "こうえん",
+   "kana": "\u3053\u3046\u3048\u3093",
    "written": [
-    "公園",
-    "こうえん"
+    "\u516c\u5712",
+    "\u3053\u3046\u3048\u3093"
    ],
    "romaji": "kouen",
    "mora": [
@@ -2785,10 +2785,10 @@
     "n"
    ],
    "moraKana": [
-    "こ",
-    "う",
-    "え",
-    "ん"
+    "\u3053",
+    "\u3046",
+    "\u3048",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -2803,9 +2803,9 @@
    "id": "n5-60a62ace",
    "english": "here, this place",
    "prompt": "here",
-   "kana": "ここ",
+   "kana": "\u3053\u3053",
    "written": [
-    "ここ"
+    "\u3053\u3053"
    ],
    "romaji": "koko",
    "mora": [
@@ -2813,8 +2813,8 @@
     "ko"
    ],
    "moraKana": [
-    "こ",
-    "こ"
+    "\u3053",
+    "\u3053"
    ],
    "tags": [
     "Genki",
@@ -2828,11 +2828,11 @@
   {
    "id": "n5-e14162ce",
    "english": "child(ren)",
-   "prompt": "child(ren)",
-   "kana": "こども",
+   "prompt": "child",
+   "kana": "\u3053\u3069\u3082",
    "written": [
-    "子供",
-    "こども"
+    "\u5b50\u4f9b",
+    "\u3053\u3069\u3082"
    ],
    "romaji": "kodomo",
    "mora": [
@@ -2841,9 +2841,9 @@
     "mo"
    ],
    "moraKana": [
-    "こ",
-    "ど",
-    "も"
+    "\u3053",
+    "\u3069",
+    "\u3082"
    ],
    "tags": [
     "Genki",
@@ -2859,10 +2859,10 @@
    "id": "n5-952a80fe",
    "english": "rice (cooked); meal",
    "prompt": "rice",
-   "kana": "ごはん",
+   "kana": "\u3054\u306f\u3093",
    "written": [
-    "御飯",
-    "ごはん"
+    "\u5fa1\u98ef",
+    "\u3054\u306f\u3093"
    ],
    "romaji": "gohan",
    "mora": [
@@ -2871,9 +2871,9 @@
     "n"
    ],
    "moraKana": [
-    "ご",
-    "は",
-    "ん"
+    "\u3054",
+    "\u306f",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -2887,10 +2887,10 @@
    "id": "n5-e5a5f382",
    "english": "a picture; a photograph",
    "prompt": "a picture",
-   "kana": "しゃしん",
+   "kana": "\u3057\u3083\u3057\u3093",
    "written": [
-    "写真",
-    "しゃしん"
+    "\u5199\u771f",
+    "\u3057\u3083\u3057\u3093"
    ],
    "romaji": "shashin",
    "mora": [
@@ -2899,9 +2899,9 @@
     "n"
    ],
    "moraKana": [
-    "しゃ",
-    "し",
-    "ん"
+    "\u3057\u3083",
+    "\u3057",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -2917,10 +2917,10 @@
    "id": "n5-225b351e",
    "english": "Wednesday",
    "prompt": "Wednesday",
-   "kana": "すいようび",
+   "kana": "\u3059\u3044\u3088\u3046\u3073",
    "written": [
-    "水曜日",
-    "すいようび"
+    "\u6c34\u66dc\u65e5",
+    "\u3059\u3044\u3088\u3046\u3073"
    ],
    "romaji": "suiyoubi",
    "mora": [
@@ -2931,11 +2931,11 @@
     "bi"
    ],
    "moraKana": [
-    "す",
-    "い",
-    "よ",
-    "う",
-    "び"
+    "\u3059",
+    "\u3044",
+    "\u3088",
+    "\u3046",
+    "\u3073"
    ],
    "tags": [
     "Genki",
@@ -2949,10 +2949,10 @@
    "id": "n5-7f4eaa15",
    "english": "last week",
    "prompt": "last week",
-   "kana": "せんしゅう",
+   "kana": "\u305b\u3093\u3057\u3085\u3046",
    "written": [
-    "先週",
-    "せんしゅう"
+    "\u5148\u9031",
+    "\u305b\u3093\u3057\u3085\u3046"
    ],
    "romaji": "senshuu",
    "mora": [
@@ -2962,10 +2962,10 @@
     "u"
    ],
    "moraKana": [
-    "せ",
-    "ん",
-    "しゅ",
-    "う"
+    "\u305b",
+    "\u3093",
+    "\u3057\u3085",
+    "\u3046"
    ],
    "tags": [
     "Genki",
@@ -2979,9 +2979,9 @@
    "id": "n5-fb182375",
    "english": "that place, there; bottom, sole",
    "prompt": "that place",
-   "kana": "そこ",
+   "kana": "\u305d\u3053",
    "written": [
-    "そこ"
+    "\u305d\u3053"
    ],
    "romaji": "soko",
    "mora": [
@@ -2989,8 +2989,8 @@
     "ko"
    ],
    "moraKana": [
-    "そ",
-    "こ"
+    "\u305d",
+    "\u3053"
    ],
    "tags": [
     "Genki",
@@ -3006,10 +3006,10 @@
    "id": "n5-2bc551f3",
    "english": "desk",
    "prompt": "desk",
-   "kana": "つくえ",
+   "kana": "\u3064\u304f\u3048",
    "written": [
-    "机",
-    "つくえ"
+    "\u673a",
+    "\u3064\u304f\u3048"
    ],
    "romaji": "tsukue",
    "mora": [
@@ -3018,9 +3018,9 @@
     "e"
    ],
    "moraKana": [
-    "つ",
-    "く",
-    "え"
+    "\u3064",
+    "\u304f",
+    "\u3048"
    ],
    "tags": [
     "Genki",
@@ -3036,10 +3036,10 @@
    "id": "n5-524dd5c8",
    "english": "letter",
    "prompt": "letter",
-   "kana": "てがみ",
+   "kana": "\u3066\u304c\u307f",
    "written": [
-    "手紙",
-    "てがみ"
+    "\u624b\u7d19",
+    "\u3066\u304c\u307f"
    ],
    "romaji": "tegami",
    "mora": [
@@ -3048,9 +3048,9 @@
     "mi"
    ],
    "moraKana": [
-    "て",
-    "が",
-    "み"
+    "\u3066",
+    "\u304c",
+    "\u307f"
    ],
    "tags": [
     "Genki",
@@ -3064,10 +3064,10 @@
    "id": "n5-000452af",
    "english": "department store",
    "prompt": "department store",
-   "kana": "でぱーと",
+   "kana": "\u3067\u3071\u30fc\u3068",
    "written": [
-    "デパート",
-    "でぱーと"
+    "\u30c7\u30d1\u30fc\u30c8",
+    "\u3067\u3071\u30fc\u3068"
    ],
    "romaji": "depa-to",
    "mora": [
@@ -3077,10 +3077,10 @@
     "to"
    ],
    "moraKana": [
-    "で",
-    "ぱ",
-    "ー",
-    "と"
+    "\u3067",
+    "\u3071",
+    "\u30fc",
+    "\u3068"
    ],
    "tags": [
     "Genki",
@@ -3094,9 +3094,9 @@
    "id": "n5-d52f01a9",
    "english": "why, for what reason",
    "prompt": "why",
-   "kana": "どうして",
+   "kana": "\u3069\u3046\u3057\u3066",
    "written": [
-    "どうして"
+    "\u3069\u3046\u3057\u3066"
    ],
    "romaji": "doushite",
    "mora": [
@@ -3106,10 +3106,10 @@
     "te"
    ],
    "moraKana": [
-    "ど",
-    "う",
-    "し",
-    "て"
+    "\u3069",
+    "\u3046",
+    "\u3057",
+    "\u3066"
    ],
    "tags": [
     "Genki",
@@ -3122,11 +3122,11 @@
   {
    "id": "n5-efcae8ab",
    "english": "cat",
-   "prompt": "cat",
-   "kana": "ねこ",
+   "prompt": "a cat",
+   "kana": "\u306d\u3053",
    "written": [
-    "猫",
-    "ねこ"
+    "\u732b",
+    "\u306d\u3053"
    ],
    "romaji": "neko",
    "mora": [
@@ -3134,8 +3134,8 @@
     "ko"
    ],
    "moraKana": [
-    "ね",
-    "こ"
+    "\u306d",
+    "\u3053"
    ],
    "tags": [
     "Genki",
@@ -3149,10 +3149,10 @@
    "id": "n5-b3adc95a",
    "english": "bread",
    "prompt": "bread",
-   "kana": "ぱん",
+   "kana": "\u3071\u3093",
    "written": [
-    "パン",
-    "ぱん"
+    "\u30d1\u30f3",
+    "\u3071\u3093"
    ],
    "romaji": "pan",
    "mora": [
@@ -3160,8 +3160,8 @@
     "n"
    ],
    "moraKana": [
-    "ぱ",
-    "ん"
+    "\u3071",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -3175,10 +3175,10 @@
    "id": "n5-5cbd42db",
    "english": "person; people",
    "prompt": "person",
-   "kana": "ひと",
+   "kana": "\u3072\u3068",
    "written": [
-    "人",
-    "ひと"
+    "\u4eba",
+    "\u3072\u3068"
    ],
    "romaji": "hito",
    "mora": [
@@ -3186,8 +3186,8 @@
     "to"
    ],
    "moraKana": [
-    "ひ",
-    "と"
+    "\u3072",
+    "\u3068"
    ],
    "tags": [
     "Genki",
@@ -3201,10 +3201,10 @@
    "id": "n5-d4b9e514",
    "english": "hospital",
    "prompt": "hospital",
-   "kana": "びょういん",
+   "kana": "\u3073\u3087\u3046\u3044\u3093",
    "written": [
-    "病院",
-    "びょういん"
+    "\u75c5\u9662",
+    "\u3073\u3087\u3046\u3044\u3093"
    ],
    "romaji": "byouin",
    "mora": [
@@ -3214,10 +3214,10 @@
     "n"
    ],
    "moraKana": [
-    "びょ",
-    "う",
-    "い",
-    "ん"
+    "\u3073\u3087",
+    "\u3046",
+    "\u3044",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -3231,10 +3231,10 @@
    "id": "n5-c367e3ed",
    "english": "hotel",
    "prompt": "hotel",
-   "kana": "ほてる",
+   "kana": "\u307b\u3066\u308b",
    "written": [
-    "ホテル",
-    "ほてる"
+    "\u30db\u30c6\u30eb",
+    "\u307b\u3066\u308b"
    ],
    "romaji": "hoteru",
    "mora": [
@@ -3243,9 +3243,9 @@
     "ru"
    ],
    "moraKana": [
-    "ほ",
-    "て",
-    "る"
+    "\u307b",
+    "\u3066",
+    "\u308b"
    ],
    "tags": [
     "Genki",
@@ -3259,10 +3259,10 @@
    "id": "n5-da1ed6b9",
    "english": "town; city",
    "prompt": "town",
-   "kana": "まち",
+   "kana": "\u307e\u3061",
    "written": [
-    "町",
-    "まち"
+    "\u753a",
+    "\u307e\u3061"
    ],
    "romaji": "machi",
    "mora": [
@@ -3270,8 +3270,8 @@
     "chi"
    ],
    "moraKana": [
-    "ま",
-    "ち"
+    "\u307e",
+    "\u3061"
    ],
    "tags": [
     "Genki",
@@ -3288,10 +3288,10 @@
    "id": "n5-a6d7429d",
    "english": "Thursday",
    "prompt": "Thursday",
-   "kana": "もくようび",
+   "kana": "\u3082\u304f\u3088\u3046\u3073",
    "written": [
-    "木曜日",
-    "もくようび"
+    "\u6728\u66dc\u65e5",
+    "\u3082\u304f\u3088\u3046\u3073"
    ],
    "romaji": "mokuyoubi",
    "mora": [
@@ -3302,11 +3302,11 @@
     "bi"
    ],
    "moraKana": [
-    "も",
-    "く",
-    "よ",
-    "う",
-    "び"
+    "\u3082",
+    "\u304f",
+    "\u3088",
+    "\u3046",
+    "\u3073"
    ],
    "tags": [
     "Genki",
@@ -3321,9 +3321,9 @@
    "id": "n5-7f51f5a9",
    "english": "hello (telephone greeting)",
    "prompt": "phone greeting",
-   "kana": "もしもし",
+   "kana": "\u3082\u3057\u3082\u3057",
    "written": [
-    "もしもし"
+    "\u3082\u3057\u3082\u3057"
    ],
    "romaji": "moshimoshi",
    "mora": [
@@ -3333,10 +3333,10 @@
     "shi"
    ],
    "moraKana": [
-    "も",
-    "し",
-    "も",
-    "し"
+    "\u3082",
+    "\u3057",
+    "\u3082",
+    "\u3057"
    ],
    "tags": [
     "Genki",
@@ -3350,10 +3350,10 @@
    "id": "n5-835ca471",
    "english": "restaurant",
    "prompt": "restaurant",
-   "kana": "れすとらん",
+   "kana": "\u308c\u3059\u3068\u3089\u3093",
    "written": [
-    "レストラン",
-    "れすとらん"
+    "\u30ec\u30b9\u30c8\u30e9\u30f3",
+    "\u308c\u3059\u3068\u3089\u3093"
    ],
    "romaji": "resutoran",
    "mora": [
@@ -3364,11 +3364,11 @@
     "n"
    ],
    "moraKana": [
-    "れ",
-    "す",
-    "と",
-    "ら",
-    "ん"
+    "\u308c",
+    "\u3059",
+    "\u3068",
+    "\u3089",
+    "\u3093"
    ],
    "tags": [
     "Genki",
@@ -3382,10 +3382,10 @@
    "id": "n5-a375891d",
    "english": "new",
    "prompt": "new",
-   "kana": "あたらしい",
+   "kana": "\u3042\u305f\u3089\u3057\u3044",
    "written": [
-    "新しい",
-    "あたらしい"
+    "\u65b0\u3057\u3044",
+    "\u3042\u305f\u3089\u3057\u3044"
    ],
    "romaji": "atarashii",
    "mora": [
@@ -3396,11 +3396,11 @@
     "i"
    ],
    "moraKana": [
-    "あ",
-    "た",
-    "ら",
-    "し",
-    "い"
+    "\u3042",
+    "\u305f",
+    "\u3089",
+    "\u3057",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -3414,10 +3414,10 @@
    "id": "n5-e8684d8b",
    "english": "hot (in reference to weather), warm",
    "prompt": "hot (in reference to weather)",
-   "kana": "あつい",
+   "kana": "\u3042\u3064\u3044",
    "written": [
-    "暑い",
-    "あつい"
+    "\u6691\u3044",
+    "\u3042\u3064\u3044"
    ],
    "romaji": "atsui",
    "mora": [
@@ -3426,9 +3426,9 @@
     "i"
    ],
    "moraKana": [
-    "あ",
-    "つ",
-    "い"
+    "\u3042",
+    "\u3064",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -3444,10 +3444,10 @@
    "id": "n5-7cbd2223",
    "english": "hot (objects)",
    "prompt": "hot (objects)",
-   "kana": "あつい",
+   "kana": "\u3042\u3064\u3044",
    "written": [
-    "熱い",
-    "あつい"
+    "\u71b1\u3044",
+    "\u3042\u3064\u3044"
    ],
    "romaji": "atsui",
    "mora": [
@@ -3456,9 +3456,9 @@
     "i"
    ],
    "moraKana": [
-    "あ",
-    "つ",
-    "い"
+    "\u3042",
+    "\u3064",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -3472,10 +3472,10 @@
    "id": "n5-ac62a5e9",
    "english": "busy (people, days)",
    "prompt": "busy",
-   "kana": "いそがしい",
+   "kana": "\u3044\u305d\u304c\u3057\u3044",
    "written": [
-    "忙しい",
-    "いそがしい"
+    "\u5fd9\u3057\u3044",
+    "\u3044\u305d\u304c\u3057\u3044"
    ],
    "romaji": "isogashii",
    "mora": [
@@ -3486,11 +3486,11 @@
     "i"
    ],
    "moraKana": [
-    "い",
-    "そ",
-    "が",
-    "し",
-    "い"
+    "\u3044",
+    "\u305d",
+    "\u304c",
+    "\u3057",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -3504,10 +3504,10 @@
    "id": "n5-b4aa466b",
    "english": "sea, beach",
    "prompt": "sea",
-   "kana": "うみ",
+   "kana": "\u3046\u307f",
    "written": [
-    "海",
-    "うみ"
+    "\u6d77",
+    "\u3046\u307f"
    ],
    "romaji": "umi",
    "mora": [
@@ -3515,8 +3515,8 @@
     "mi"
    ],
    "moraKana": [
-    "う",
-    "み"
+    "\u3046",
+    "\u307f"
    ],
    "tags": [
     "Genki",
@@ -3530,12 +3530,12 @@
    "id": "n5-856c8807",
    "english": "big, large",
    "prompt": "big",
-   "kana": "おおきい",
+   "kana": "\u304a\u304a\u304d\u3044",
    "written": [
-    "大きい",
-    "おおきい",
-    "大きな",
-    "おおきな"
+    "\u5927\u304d\u3044",
+    "\u304a\u304a\u304d\u3044",
+    "\u5927\u304d\u306a",
+    "\u304a\u304a\u304d\u306a"
    ],
    "romaji": "ookii",
    "mora": [
@@ -3545,10 +3545,10 @@
     "i"
    ],
    "moraKana": [
-    "お",
-    "お",
-    "き",
-    "い"
+    "\u304a",
+    "\u304a",
+    "\u304d",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -3560,7 +3560,7 @@
    "alts": [
     {
      "id": "n5-3bc51f42",
-     "kana": "おおきな",
+     "kana": "\u304a\u304a\u304d\u306a",
      "romaji": "ookina"
     }
    ]
@@ -3569,10 +3569,10 @@
    "id": "n5-dc5fa2ca",
    "english": "interesting, amusing",
    "prompt": "interesting",
-   "kana": "おもしろい",
+   "kana": "\u304a\u3082\u3057\u308d\u3044",
    "written": [
-    "面白い",
-    "おもしろい"
+    "\u9762\u767d\u3044",
+    "\u304a\u3082\u3057\u308d\u3044"
    ],
    "romaji": "omoshiroi",
    "mora": [
@@ -3583,11 +3583,11 @@
     "i"
    ],
    "moraKana": [
-    "お",
-    "も",
-    "し",
-    "ろ",
-    "い"
+    "\u304a",
+    "\u3082",
+    "\u3057",
+    "\u308d",
+    "\u3044"
    ],
    "tags": [
     "Genki",
@@ -3603,10 +3603,10 @@
    "id": "n5-d10d2432",
    "english": "to swim",
    "prompt": "to swim",
-   "kana": "およぐ",
+   "kana": "\u304a\u3088\u3050",
    "written": [
-    "泳ぐ",
-    "およぐ"
+    "\u6cf3\u3050",
+    "\u304a\u3088\u3050"
    ],
    "romaji": "oyogu",
    "mora": [
@@ -3615,9 +3615,9 @@
     "gu"
    ],
    "moraKana": [
-    "お",
-    "よ",
-    "ぐ"
+    "\u304a",
+    "\u3088",
+    "\u3050"
    ],
    "tags": [
     "Genki",
