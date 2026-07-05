@@ -1,24 +1,24 @@
-// Hidden feature gate for pre-release exercises (rungs 3–4 of the difficulty
-// ladder: "say it back" sentence shadowing and "build it" free production).
-// Enable with ?labs=1 (persists, like ?debug=1); disable with ?labs=0.
-// ?rung=shadow|build|cloze forces that exercise type for any word that has
-// the prerequisites, bypassing the card-maturity ladder — testing only.
+// Rungs 3–4 of the difficulty ladder ("say it back" sentence shadowing and
+// "build it" free production) — now live for everyone. ?labs=0 remains as a
+// persisted opt-out/kill switch (?labs=1 re-enables). ?rung=shadow|build|cloze
+// forces that exercise type for any word that has the prerequisites,
+// bypassing the card-maturity ladder — testing only.
 
-const KEY = 'kotoba-labs';
+const KEY = 'kotoba-labs-off';
 const hasDom = typeof window !== 'undefined';
 
 function resolve(): boolean {
-  if (!hasDom) return false;
+  if (!hasDom) return true;
   const params = new URLSearchParams(window.location.search);
-  if (params.get('labs') === '1') {
-    try { window.localStorage.setItem(KEY, '1'); } catch { /* storage unavailable */ }
-    return true;
-  }
   if (params.get('labs') === '0') {
-    try { window.localStorage.removeItem(KEY); } catch { /* storage unavailable */ }
+    try { window.localStorage.setItem(KEY, '1'); } catch { /* storage unavailable */ }
     return false;
   }
-  try { return window.localStorage.getItem(KEY) === '1'; } catch { return false; }
+  if (params.get('labs') === '1') {
+    try { window.localStorage.removeItem(KEY); } catch { /* storage unavailable */ }
+    return true;
+  }
+  try { return window.localStorage.getItem(KEY) !== '1'; } catch { return true; }
 }
 
 export const labsEnabled = resolve();

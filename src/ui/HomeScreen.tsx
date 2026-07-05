@@ -49,6 +49,12 @@ export function HomeScreen() {
       </button>
       {nothingToDo && !loadError.value && <p class="hint">All caught up — nothing due and no new words selected.</p>}
       <p class="hint">Mount the phone, tap START once, then it’s all voice.</p>
+      <p class="hint support">
+        Like this?{' '}
+        <a href="https://buymeacoffee.com/kotobaapp" target="_blank" rel="noopener noreferrer">
+          Buy me a coffee ☕
+        </a>
+      </p>
     </div>
   );
 }

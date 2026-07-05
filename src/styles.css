@@ -500,3 +500,10 @@ button:disabled {
   color: #ff8a8a;
   border: 1px solid #5a2a2a;
 }
+
+/* Buy-me-a-coffee support link on the home screen. */
+.hint.support a {
+  color: var(--accent, #7c7cf0);
+  text-decoration: none;
+}
+.hint.support a:hover { text-decoration: underline; }
