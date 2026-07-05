@@ -15,7 +15,7 @@ export function HomeScreen() {
   return (
     <div class="screen home">
       <header>
-        <h1>ことば Kotoba</h1>
+        <h1><span class="brand-kanji">言葉</span> Kotoba</h1>
         <button class="ghost" onClick={() => (screen.value = 'settings')}>
           Settings
         </button>

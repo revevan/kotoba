@@ -85,6 +85,12 @@ export function SessionScreen() {
               </div>
             )}
             {isQuizzing && <div class="word-ja mystery">?</div>}
+            {s.phase.endsWith('-listening') && !selfGrading && (
+              <div class="listenviz">
+                <span class="bars"><span></span><span></span><span></span><span></span><span></span></span>
+                <span class="listenviz-caption">listening…</span>
+              </div>
+            )}
             {buildNote.value && <div class="recognized">{buildNote.value}</div>}
             {sentence && (clozing || shadowing || (showAnswer && item?.mode === 'cloze')) && (
               <div class="sentence">
