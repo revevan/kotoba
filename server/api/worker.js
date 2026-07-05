@@ -7,8 +7,12 @@
  *   POST /auth/logout   (Bearer)                   -> { ok: true }
  *   GET  /sync          (Bearer)                   -> { data, updatedAt }
  *   PUT  /sync          (Bearer) { data, updatedAt } -> { ok, updatedAt }
+ *   POST /feedback      { type, message, contact? } -> { ok: true }
+ *   GET  /admin/feedback?secret=…                  -> [ …submissions ]
+ *   POST /admin/feedback/:id/resolve?secret=…      -> { resolved }
  *
  * Secrets / vars (wrangler):
+ *   ADMIN_SECRET   (secret, gates /admin/*)
  *   RESEND_API_KEY (secret, required to send mail)
  *   MAIL_FROM      (var, e.g. "Kotoba <login@yourdomain>")
  *   ALLOWED_ORIGIN (var, the app origin, e.g. https://revevan.github.io)
@@ -53,8 +57,15 @@ export default {
           return await syncGet(request, env, cors);
         case 'PUT /sync':
           return await syncPut(request, env, cors);
-        default:
+        case 'POST /feedback':
+          return await feedbackPost(request, env, cors);
+        case 'GET /admin/feedback':
+          return await feedbackList(request, env, cors);
+        default: {
+          const m = /^POST \/admin\/feedback\/(\d+)\/resolve$/.exec(route);
+          if (m) return await feedbackResolve(request, env, cors, Number(m[1]));
           return json({ error: 'not-found' }, 404, cors);
+        }
       }
     } catch (e) {
       return json({ error: 'server', detail: String(e) }, 500, cors);
@@ -156,6 +167,49 @@ async function syncPut(request, env, cors) {
     .bind(userId, data, updatedAt)
     .run();
   return json({ ok: true, updatedAt }, 200, cors);
+}
+
+const FEEDBACK_TYPES = ['bug', 'feedback', 'feature'];
+const MAX_FEEDBACK_CHARS = 4000;
+
+async function feedbackPost(request, env, cors) {
+  const body = await readJson(request);
+  const type = FEEDBACK_TYPES.includes(body.type) ? body.type : null;
+  const message = String(body.message ?? '').trim();
+  if (!type) return json({ error: 'bad-type' }, 400, cors);
+  if (!message) return json({ error: 'message-required' }, 400, cors);
+  if (message.length > MAX_FEEDBACK_CHARS) return json({ error: 'too-long' }, 413, cors);
+
+  const contact = String(body.contact ?? '').trim().slice(0, 200) || null;
+  const context = String(body.context ?? '').trim().slice(0, 500) || null;
+  await env.DB.prepare(
+    'INSERT INTO feedback (type, message, contact, context, created_at, resolved) VALUES (?, ?, ?, ?, ?, 0)',
+  )
+    .bind(type, message, contact, context, Date.now())
+    .run();
+  return json({ ok: true }, 200, cors);
+}
+
+function isAdmin(request, env) {
+  const secret = new URL(request.url).searchParams.get('secret');
+  return Boolean(env.ADMIN_SECRET) && secret === env.ADMIN_SECRET;
+}
+
+async function feedbackList(request, env, cors) {
+  if (!isAdmin(request, env)) return json({ error: 'unauthorized' }, 401, cors);
+  const { results } = await env.DB.prepare(
+    'SELECT rowid AS id, type, message, contact, context, created_at, resolved FROM feedback ORDER BY created_at DESC LIMIT 500',
+  ).all();
+  return json(results, 200, cors);
+}
+
+async function feedbackResolve(request, env, cors, id) {
+  if (!isAdmin(request, env)) return json({ error: 'unauthorized' }, 401, cors);
+  const row = await env.DB.prepare('SELECT resolved FROM feedback WHERE rowid = ?').bind(id).first();
+  if (!row) return json({ error: 'not-found' }, 404, cors);
+  const resolved = row.resolved ? 0 : 1;
+  await env.DB.prepare('UPDATE feedback SET resolved = ? WHERE rowid = ?').bind(resolved, id).run();
+  return json({ resolved: Boolean(resolved) }, 200, cors);
 }
 
 async function authUser(request, env) {

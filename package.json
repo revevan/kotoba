@@ -14,7 +14,8 @@
     "gen-sentences-local": "tsx tools/gen-sentences-local.ts",
     "publish-sentences": "tsx tools/publish-sentences.ts",
     "pipeline": "tsx tools/pipeline/run.ts",
-    "sync-audio-r2": "tsx tools/sync-audio-r2.ts"
+    "sync-audio-r2": "tsx tools/sync-audio-r2.ts",
+    "feedback": "tsx tools/feedback.ts"
   },
   "dependencies": {
     "@patdx/kuromoji": "^1.0.4",

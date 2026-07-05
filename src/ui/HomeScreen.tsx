@@ -1,5 +1,67 @@
+import { useState } from 'preact/hooks';
 import { deckIndex, deckProgress, dueCount, enabledDeckIds, loadError, newAvailable, screen } from '../state';
 import { startSession, updateSetting } from '../session/controller';
+import { sendFeedback } from '../sync/client';
+import { cloudSyncEnabled } from '../sync/config';
+
+function FeedbackForm() {
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+
+  if (!cloudSyncEnabled) return null;
+  if (status === 'sent') return <p class="hint">Thanks — got it! 🙏</p>;
+  if (!open)
+    return (
+      <p class="hint support">
+        Something broken or missing?{' '}
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            setOpen(true);
+          }}
+        >
+          Report a bug
+        </a>
+      </p>
+    );
+
+  return (
+    <form
+      class="feedback"
+      onSubmit={(e) => {
+        e.preventDefault();
+        const f = e.currentTarget as HTMLFormElement;
+        const type = (f.elements.namedItem('type') as HTMLSelectElement).value as 'bug' | 'feedback' | 'feature';
+        const message = (f.elements.namedItem('message') as HTMLTextAreaElement).value.trim();
+        const contact = (f.elements.namedItem('contact') as HTMLInputElement).value.trim();
+        if (!message) return;
+        setStatus('sending');
+        sendFeedback(type, message, contact).then(
+          () => setStatus('sent'),
+          () => setStatus('error'),
+        );
+      }}
+    >
+      <select name="type">
+        <option value="bug">Bug</option>
+        <option value="feedback">Feedback</option>
+        <option value="feature">Feature idea</option>
+      </select>
+      <textarea name="message" rows={3} placeholder="What happened? What did you expect?" required />
+      <input name="contact" type="email" placeholder="Email (optional — for follow-up)" />
+      <div class="feedback-actions">
+        <button type="submit" disabled={status === 'sending'}>
+          {status === 'sending' ? 'Sending…' : 'Send'}
+        </button>
+        <button type="button" class="ghost" onClick={() => setOpen(false)}>
+          Cancel
+        </button>
+      </div>
+      {status === 'error' && <p class="error">Couldn’t send — please try again.</p>}
+    </form>
+  );
+}
 
 export function HomeScreen() {
   const decks = deckIndex.value;
@@ -55,6 +117,7 @@ export function HomeScreen() {
           Buy me a coffee ☕
         </a>
       </p>
+      <FeedbackForm />
     </div>
   );
 }

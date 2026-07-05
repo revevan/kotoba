@@ -70,3 +70,13 @@ export async function pushRemote(token: string, data: unknown): Promise<void> {
   if (r.status === 401) throw new Error('unauthorized');
   if (!r.ok) throw new Error(`push failed (${r.status})`);
 }
+
+/** Submit a bug report / feature request from the in-app form. */
+export async function sendFeedback(type: 'bug' | 'feedback' | 'feature', message: string, contact?: string): Promise<void> {
+  const context = `${location.pathname}${location.search} · ${navigator.userAgent}`.slice(0, 500);
+  const r = await call('/feedback', {
+    method: 'POST',
+    body: JSON.stringify({ type, message, contact: contact || undefined, context }),
+  });
+  if (!r.ok) throw new Error(`Couldn't send right now (${r.status}). Try again in a moment.`);
+}
