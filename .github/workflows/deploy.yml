@@ -40,9 +40,7 @@ jobs:
           # Audio corpus on Cloudflare R2 (not a secret — it's a public CDN
           # host). When set, the build strips dist/audio and the app fetches
           # clips from here; unset it to roll back to same-origin audio.
-          # DO NOT ENABLE until audio.kotobaapp.com is connected and the
-          # backfill sync has run (see docs/r2-audio-migration-plan.md).
-          # VITE_AUDIO_BASE_URL: https://audio.kotobaapp.com/
+          VITE_AUDIO_BASE_URL: https://audio.kotobaapp.com/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
