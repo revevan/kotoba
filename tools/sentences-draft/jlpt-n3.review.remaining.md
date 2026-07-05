@@ -1,5 +1,8 @@
 # jlpt-n3 — remaining review items
 
+> 2026-07-08: all cloze-mechanical sections (needs-cloze-span / failed-revalidation)
+> were repaired by tools/repair-cloze.ts and shipped. Content-decision sections
+> remain below; they are also consolidated in native-review.csv.
 ## reject — needs a content decision (41)
 
 | word | sentence | note |
@@ -45,43 +48,6 @@
 | un | 試験の結果は「不」でした。 | 不 alone isn't a grade; the fail grade is 不可(ふか). 不 is a bound prefix. Fix. | suggestion: 試験の結果は「不可」でした。 |
 | un | このテストの点では「不」になりますか。 | 不 alone unnatural for "fail" → 不可. | suggestion: この点数だと「不可」になりますか。 |
 | un | 「不」を取りたくないので、毎日頑張ります。 | 不 → 不可 (the failing grade). | suggestion: 「不可」を取りたくないので、毎日頑張ります。 |
-
-## needs cloze span (7)
-
-| word | sentence | note |
-| --- | --- | --- |
-| to accompany | 彼女にずっと寄り添っていたいです。 | couldn't locate "そう" |
-| to hate | 子供は苦い薬を嫌います。 | couldn't locate "きらう" |
-| to consult with | 重要なことなので、専門家に諮ります。 | couldn't locate "はかる" |
-| to combine | この二つの布を合わせて、服を作ります。 | couldn't locate "あわせます" |
-| skate | 冬にスケート場でスケートをします。 | couldn't locate "すけーと" |
-| to wet | 絵を描く前に、筆を水で濡らします。 | couldn't locate "ぬらして" |
-| to cover | 顔を手で覆いたくなりました。 | couldn't locate "おおいたい" |
-
-## authoring — needs cloze span (20)
-
-| word | sentence | note |
-| --- | --- | --- |
-| schedule | 明日のスケジュールを確認します。 | couldn't locate "すけじゅーる" |
-| celebration | 卒業のお祝いに時計をもらいました。 | couldn't locate "いわい" |
-| upper | 上着を脱いでハンガーに掛けました。 | couldn't locate "うわ" |
-| energy | 運動するとエネルギーを使います。 | couldn't locate "えねるぎー" |
-| to lower (advanced) | 棚から重い箱を下ろしました。 | couldn't locate "おろして" |
-| maybe | 明日は雨が降るかもしれません。 | couldn't locate "かもしれない" |
-| ex- | 彼は今も旧姓を使っています。 | couldn't locate "きゅう" |
-| cloth | 古い布切れで窓を拭きました。 | couldn't locate "きれ" |
-| to append | 資料に説明を加えました。 | couldn't locate "くわえて" |
-| to spill | テーブルにコーヒーをこぼしました。 | couldn't locate "こぼして" |
-| service | このホテルはサービスがいいです。 | couldn't locate "さーびす" |
-| objection | その意見に異はありませんでした。 | couldn't locate "い" |
-| capitulation | 兵士たちは敵に降伏しました。 | couldn't locate "こうふく" |
-| pair | この花瓶は対で売っています。 | couldn't locate "つい" |
-| to embrace | 母は赤ちゃんをそっと抱きました。 | couldn't locate "だきました" |
-| tea (advanced) | 朝は熱いお茶を飲みます。 | couldn't locate "ちゃ" |
-| simultaneous | 二つの事件が同時に起こりました。 | couldn't locate "どうじ" |
-| training | 毎日トレーニングをしています。 | couldn't locate "とれーにんぐ" |
-| dividing | 彼の打率は三割二分です。 | couldn't locate "ぶ" |
-| size | この本はB5判です。 | couldn't locate "はん" |
 
 ## FYI: shipped with off-whitelist words (human-approved) (160)
 
@@ -248,31 +214,15 @@
 | Ms. | 会議で田中女史に会いました。 | 田中 |
 | good fortune | 初詣で今年の福を祈りました。 | 初詣 |
 
-## failed revalidation (cloze correctness) (24)
+## headword mismatch — sentence held back until native review (7)
 
 | word | sentence | note |
 | --- | --- | --- |
-| to stop (advanced) | 痛いところを手で押さえます。 | cloze is not the target word |
-| angle | 三角形には三つの角があります。 | cloze appears more than once |
-| books | 図書館で珍しい図書を借りました。 | cloze appears more than once |
-| to take the place of | 都合が悪いので、誰か私に代わってくれませんか。 | cloze is not the target word |
-| sex | 書類に性別を書いてください。 | cloze is not the target word |
-| to love | 私は家族を心から愛しています。 | cloze is not the target word |
-| first volume | この小説の上巻を読みました。 | cloze is not the target word |
-| gland | 首の腺が腫れています。 | cloze is not the target word |
-| last (year) | 昨年、日本へ行きました。 | cloze is not the target word |
-| to pour (drink) | 父にお酒を注ぎました。 | cloze is not the target word |
-| seasoning | この料理は醤油で味付けします。 | cloze is not the target word |
-| group | 空を鳥の群れが飛んでいます。 | cloze is not the target word |
-| to be furnished with | この部屋にはエアコンが備えてあります。 | cloze is not the target word |
-| even number | 二や四は偶数です。 | cloze is not the target word |
-| to associate with | 私は彼と長く付き合っています。 | cloze is not the target word |
-| books | 図書館で図書を借りました。 | cloze appears more than once |
-| being skilled in | 彼には絵の才能があります。 | cloze is not the target word |
-| path | この道は狭いので気をつけてください。 | cloze is not the target word |
-| to punish | 規則を破った人を罰します。 | cloze is not the target word |
-| un | 試験の結果は不可でした。 | cloze is not the target word |
-| masses | 政治家は大衆の声を聞くべきです。 | cloze is not the target word |
-| dwelling | 新しい住まいを探しています。 | cloze is not the target word |
-| ornamentation | 壁を絵で装飾しました。 | cloze is not the target word |
-| thigh | 転んで太ももを打ちました。 | cloze is not the target word |
+| to accompany | 彼女にずっと寄り添っていたいです。 | corrected sentence no longer contains the current (wrong) headword; ships once the headword fix in native-review.csv is confirmed |
+| gland | 首の腺が腫れています。 | corrected sentence no longer contains the current (wrong) headword; ships once the headword fix in native-review.csv is confirmed |
+| to pour (drink) | 父にお酒を注ぎました。 | corrected sentence no longer contains the current (wrong) headword; ships once the headword fix in native-review.csv is confirmed |
+| seasoning | この料理は醤油で味付けします。 | corrected sentence no longer contains the current (wrong) headword; ships once the headword fix in native-review.csv is confirmed |
+| path | この道は狭いので気をつけてください。 | corrected sentence no longer contains the current (wrong) headword; ships once the headword fix in native-review.csv is confirmed |
+| ornamentation | 壁を絵で装飾しました。 | corrected sentence no longer contains the current (wrong) headword; ships once the headword fix in native-review.csv is confirmed |
+| thigh | 転んで太ももを打ちました。 | corrected sentence no longer contains the current (wrong) headword; ships once the headword fix in native-review.csv is confirmed |
+

@@ -11,11 +11,16 @@ export function Landing() {
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
+  const [agreed, setAgreed] = useState(false);
 
   const sendCode = async () => {
     const addr = email.trim();
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)) {
       setError('Enter a valid email address.');
+      return;
+    }
+    if (!agreed) {
+      setError('Please agree to the Terms and Privacy Policy first.');
       return;
     }
     setError('');
@@ -92,6 +97,14 @@ export function Landing() {
                 disabled={step === 'working'}
                 onInput={(e) => setEmail((e.currentTarget as HTMLInputElement).value)}
               />
+              <label class="auth-consent">
+                <input type="checkbox" checked={agreed} onChange={(e) => setAgreed((e.currentTarget as HTMLInputElement).checked)} />
+                <span>
+                  I agree to the{' '}
+                  <a href="/terms.html" target="_blank" rel="noopener noreferrer">Terms</a> and{' '}
+                  <a href="/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                </span>
+              </label>
               <button class="auth-btn" disabled={step === 'working'} onClick={() => void sendCode()}>
                 {step === 'working' ? 'Sending…' : 'Email me a code'}
               </button>
@@ -101,6 +114,10 @@ export function Landing() {
           <button class="auth-link guest" onClick={() => (enteredApp.value = true)}>
             Just try it without an account
           </button>
+          <p class="auth-fineprint">
+            By using Kotoba you agree to the <a href="/terms.html" target="_blank" rel="noopener noreferrer">Terms</a> and{' '}
+            <a href="/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+          </p>
         </div>
       ) : (
         <div class="landing-auth">

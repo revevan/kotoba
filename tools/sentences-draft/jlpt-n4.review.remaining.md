@@ -1,13 +1,8 @@
 # jlpt-n4 — remaining review items
 
-## needs cloze span (3)
-
-| word | sentence | note |
-| --- | --- | --- |
-| to be empty | さっきまで教室が空いていました。 | couldn't locate "すいていました" |
-| to increase | 最近、仕事が増えました。 | couldn't locate "ふえた" |
-| (honorific) to be | 土曜日、先生は家においでになりますか。 | couldn't locate "おいでになる" |
-
+> 2026-07-08: all cloze-mechanical sections (needs-cloze-span / failed-revalidation)
+> were repaired by tools/repair-cloze.ts and shipped. Content-decision sections
+> remain below; they are also consolidated in native-review.csv.
 ## reject — needs a content decision (11)
 
 | word | sentence | note |
@@ -23,16 +18,6 @@
 | however much one may ~ | いくらても分かりません。 | Headword いくらても missing verb; pattern is いくら〜ても. Fix headword. | suggestion: いくら考えても分かりません。 |
 | -- extra-modest expression for 言う -- | 彼は明日休むと申しました。 | 申す is humble (own actions); wrong for a third party. Standard use: self-introduction 申します. | suggestion: 私は田中と申します。 |
 | -- extra-modest expression for 言う -- | お名前を申してください。 | 申す (humble) can't ask another's name; needs respectful おっしゃる. Headword misuse. | suggestion: お名前をおっしゃってください。 |
-
-## authoring — needs cloze span (5)
-
-| word | sentence | note |
-| --- | --- | --- |
-| motorcycle ) | 兄はオートバイで学校へ行きます。 | couldn't locate "おーとばい" |
-| overcoat | 寒いのでオーバーを着ます。 | couldn't locate "おーばー" |
-| Mr. | お客様、こちらへどうぞ。 | couldn't locate "さま" |
-| the town of ~ | 私は緑町に住んでいます。 | couldn't locate "ちょう" |
-| hot water | お湯を沸かしてお茶を入れます。 | couldn't locate "ゆ" |
 
 ## FYI: shipped with off-whitelist words (human-approved) (49)
 
@@ -88,18 +73,3 @@
 | Mr. (junior) ~ | 田中君は私の友達です。 | 田中 |
 | nurse | 姉は病院で看護師をしています。 | 看護 |
 
-## failed revalidation (cloze correctness) (11)
-
-| word | sentence | note |
-| --- | --- | --- |
-| to get down | 次の駅で電車を降りてください。 | cloze is not the target word |
-| to get down | バスを降りたら、電話をください。 | cloze is not the target word |
-| to drop | 電車の中で財布を落としました。 | cloze is not the target word |
-| to drop | 階段で荷物を落としませんでしたか。 | cloze is not the target word |
-| to drop | 電車で傘を落としました。 | cloze is not the target word |
-| to ask | 先生に一つ伺いたいことがあります。 | cloze is not the target word |
-| to ask | 先生に一つ伺いたいことがあります。 | cloze is not the target word |
-| encyclopedia | 分からない言葉を百科事典で調べます。 | cloze is not the target word |
-| -- extra-modest expression for いる -- | 私は今、事務所におります。 | cloze is not the target word |
-| to descend | 熱が下がりました。 | cloze is not the target word |
-| to drop | 電車で財布を落としました。 | cloze is not the target word |

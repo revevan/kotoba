@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Kotoba</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <style>
+    :root {
+      --bg: #10101a; --panel: #1e1e2e; --border: #2c2c40; --hairline: #34344a;
+      --text: #f0f0f5; --body: #b8b8c8; --muted: #9a9aae; --accent: #7c7cf0;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); }
+    body {
+      color: var(--body);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased; line-height: 1.7;
+    }
+    a { color: var(--accent); }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+    h1 { color: var(--text); font-size: 34px; line-height: 1.2; margin-bottom: 6px; }
+    h2 { color: var(--text); font-size: 21px; margin: 36px 0 10px; }
+    p, ul { margin-bottom: 14px; }
+    ul { padding-left: 22px; }
+    li { margin-bottom: 6px; }
+    .updated { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+    .summary {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px 20px; margin: 22px 0 8px;
+    }
+    .summary strong { color: var(--text); }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; margin-bottom: 14px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--text); font-weight: 600; }
+    .home { display: inline-block; margin-bottom: 28px; font-size: 14px; text-decoration: none; color: var(--muted); }
+    .home:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="home" href="/">← kotobaapp.com</a>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: July 8, 2026</p>
+
+    <div class="summary">
+      <p><strong>The short version:</strong> Kotoba collects the minimum needed to run a
+      voice-first study app — your email if you make an account, your study progress,
+      and your voice while you're answering (processed for speech recognition, never
+      stored by us). No ads, no tracking across the web, and we never sell your data.</p>
+    </div>
+
+    <h2>What we collect and why</h2>
+    <ul>
+      <li><strong>Email address</strong> — only if you create an account, used to send
+        one-time sign-in codes and to sync your progress across devices.</li>
+      <li><strong>Study progress</strong> — which words you've studied and your review
+        history, so spaced repetition works and syncs across devices. Without an account
+        this stays only on your device.</li>
+      <li><strong>Voice audio</strong> — while a session is listening, microphone audio
+        is streamed to our speech-recognition provider to transcribe your answer. Audio is
+        processed transiently for transcription; Kotoba does not store recordings. You can
+        decline microphone access and use the on-screen buttons instead.</li>
+      <li><strong>"Build it" answers</strong> — in the sentence-building exercise, your
+        transcribed answer (text, not audio) is sent to an AI model for grading and is not
+        stored after grading.</li>
+      <li><strong>Feedback</strong> — if you use the in-app report form, we store your
+        message, an optional contact address you choose to give, and the page URL and
+        browser version to help reproduce bugs.</li>
+      <li><strong>Local storage</strong> — your settings, session token, and cached audio
+        live in your browser's storage so the app works offline. We use no advertising or
+        cross-site tracking cookies.</li>
+    </ul>
+
+    <h2>Who processes data for us</h2>
+    <p>Kotoba runs on a small set of infrastructure providers, each receiving only what
+    their job requires:</p>
+    <table>
+      <tr><th>Provider</th><th>What it does</th><th>What it sees</th></tr>
+      <tr><td>Cloudflare</td><td>API hosting, database, audio delivery</td><td>Account email, progress data, feedback, request metadata (IP)</td></tr>
+      <tr><td>Deepgram</td><td>Speech recognition</td><td>Voice audio during answers (transient)</td></tr>
+      <tr><td>Anthropic</td><td>AI grading of built sentences</td><td>Your answer as text (transient)</td></tr>
+      <tr><td>Resend</td><td>Sign-in code emails</td><td>Your email address</td></tr>
+      <tr><td>GitHub Pages</td><td>Static site hosting</td><td>Request metadata (IP)</td></tr>
+      <tr><td>Google Fonts</td><td>Font delivery</td><td>Request metadata (IP)</td></tr>
+    </table>
+
+    <h2>What we don't do</h2>
+    <ul>
+      <li>We do not sell or share your personal information for advertising. Because
+        nothing is sold or shared, opt-out signals like Global Privacy Control have
+        nothing to opt out of — you're already there.</li>
+      <li>We do not profile you or make automated decisions with legal effect.</li>
+      <li>We do not store your voice.</li>
+    </ul>
+
+    <h2>Retention and deletion</h2>
+    <p>Account data (email + progress) is kept while your account exists. To delete your
+    account and all synced data, ask via the in-app feedback form or
+    <a href="https://github.com/revevan/kotoba/issues">GitHub</a> and we'll remove it.
+    Local data can be cleared any time by clearing your browser storage.</p>
+
+    <h2>Your rights</h2>
+    <p>Depending on where you live (e.g. GDPR in Europe, CCPA/CPRA in California), you may
+    have rights to access, correct, export, or delete your personal data, and to complain
+    to a supervisory authority. Contact us through the channels above and we'll honor
+    these requests regardless of where you live.</p>
+
+    <h2>Children</h2>
+    <p>Kotoba is not directed at children under 13, and we don't knowingly collect their
+    data. If you believe a child has created an account, contact us and we'll delete it.</p>
+
+    <h2>Changes</h2>
+    <p>If this policy changes materially, we'll update the date above and note the change
+    on the site. Continued use after a change means you accept the updated policy.</p>
+
+    <h2>Contact</h2>
+    <p>Questions? Use the in-app feedback form or open an issue on
+    <a href="https://github.com/revevan/kotoba/issues">GitHub</a>.</p>
+  </div>
+</body>
+</html>

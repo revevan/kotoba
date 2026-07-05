@@ -759,6 +759,15 @@
       "clozeReading": "お"
     },
     {
+      "id": "s-a8cd9948",
+      "textJa": "お誕生日おめでとうございます。",
+      "readingKana": "おたんじょうびおめでとうございます。",
+      "textEn": "Happy birthday!",
+      "clozeSurface": "お誕生",
+      "clozeReading": "お",
+      "clozeEligible": false
+    },
+    {
       "id": "s-5643f23a",
       "textJa": "先生のお仕事はとても忙しいです。",
       "readingKana": "せんせいのおしごとはとてもいそがしいです。",
@@ -1967,6 +1976,22 @@
       "textEn": "Since there's no knife, I'll use a fork.",
       "clozeSurface": "フォーク",
       "clozeReading": "ふぉーく"
+    },
+    {
+      "id": "s-09f2d5a7",
+      "textJa": "フォークで食べます。",
+      "readingKana": "ふぉーくでたべます。",
+      "textEn": "I eat with a fork.",
+      "clozeSurface": "フォーク",
+      "clozeReading": "ふぉーく"
+    },
+    {
+      "id": "s-09f2d5a7",
+      "textJa": "フォークで食べます。",
+      "readingKana": "ふぉーくでたべます。",
+      "textEn": "I eat with a fork.",
+      "clozeSurface": "フォーク",
+      "clozeReading": "ふぉーく"
     }
   ],
   "n5-d6724909": [
@@ -2052,6 +2077,22 @@
       "clozeSurface": "ボールペン",
       "clozeReading": "ぼーるぺん",
       "clozeEligible": false
+    },
+    {
+      "id": "s-31ce9587",
+      "textJa": "ボールペンで書きます。",
+      "readingKana": "ぼーるぺんでかきます。",
+      "textEn": "I write with a ballpoint pen.",
+      "clozeSurface": "ボールペン",
+      "clozeReading": "ぼーるぺん"
+    },
+    {
+      "id": "s-31ce9587",
+      "textJa": "ボールペンで書きます。",
+      "readingKana": "ぼーるぺんでかきます。",
+      "textEn": "I write with a ballpoint pen.",
+      "clozeSurface": "ボールペン",
+      "clozeReading": "ぼーるぺん"
     }
   ],
   "n5-72287979": [
@@ -2279,6 +2320,48 @@
       "clozeSurface": "暇",
       "clozeReading": "ひま",
       "clozeEligible": false
+    }
+  ],
+  "n5-bce685ef": [
+    {
+      "id": "s-2a790547",
+      "textJa": "他の店で買いました。",
+      "readingKana": "ほかのみせでかいました。",
+      "textEn": "I bought it at another store.",
+      "clozeSurface": "他",
+      "clozeReading": "ほか"
+    },
+    {
+      "id": "s-6be9a85e",
+      "textJa": "他の色はありますか。",
+      "readingKana": "ほかのいろはありますか。",
+      "textEn": "Do you have another color?",
+      "clozeSurface": "他",
+      "clozeReading": "ほか"
+    },
+    {
+      "id": "s-3aec4fd9",
+      "textJa": "他の道を歩きましょう。",
+      "readingKana": "ほかのみちをあるきましょう。",
+      "textEn": "Let's walk on another road.",
+      "clozeSurface": "他",
+      "clozeReading": "ほか"
+    },
+    {
+      "id": "s-dffcb6c8",
+      "textJa": "他の店へ行きます。",
+      "readingKana": "たのみせへいきます。",
+      "textEn": "I go to another store.",
+      "clozeSurface": "他",
+      "clozeReading": "ほか"
+    },
+    {
+      "id": "s-dffcb6c8",
+      "textJa": "他の店へ行きます。",
+      "readingKana": "たのみせへいきます。",
+      "textEn": "I go to another store.",
+      "clozeSurface": "他",
+      "clozeReading": "ほか"
     }
   ],
   "n5-41fe4e40": [
@@ -3685,6 +3768,22 @@
       "textEn": "I want to play the guitar tomorrow.",
       "clozeSurface": "弾きたい",
       "clozeReading": "ひきたい"
+    },
+    {
+      "id": "s-7a2d445a",
+      "textJa": "ギターを弾きます。",
+      "readingKana": "ぎたーをはじきます。",
+      "textEn": "I play the guitar.",
+      "clozeSurface": "弾きます",
+      "clozeReading": "ひきます"
+    },
+    {
+      "id": "s-7a2d445a",
+      "textJa": "ギターを弾きます。",
+      "readingKana": "ぎたーをはじきます。",
+      "textEn": "I play the guitar.",
+      "clozeSurface": "弾きます",
+      "clozeReading": "ひきます"
     }
   ],
   "n5-693e343d": [
@@ -5065,6 +5164,22 @@
       "clozeSurface": "タクシー",
       "clozeReading": "たくしー",
       "clozeEligible": false
+    },
+    {
+      "id": "s-77a7b385",
+      "textJa": "タクシーで行きます。",
+      "readingKana": "たくしーでいきます。",
+      "textEn": "I go by taxi.",
+      "clozeSurface": "タクシー",
+      "clozeReading": "たくしー"
+    },
+    {
+      "id": "s-77a7b385",
+      "textJa": "タクシーで行きます。",
+      "readingKana": "たくしーでいきます。",
+      "textEn": "I go by taxi.",
+      "clozeSurface": "タクシー",
+      "clozeReading": "たくしー"
     }
   ],
   "n5-31b75444": [
@@ -10280,6 +10395,14 @@
       "clozeSurface": "りっぱ",
       "clozeReading": "りっぱ",
       "clozeEligible": false
+    },
+    {
+      "id": "s-85ad4cfe",
+      "textJa": "兄は立派な医者です。",
+      "readingKana": "あにはりっぱないしゃです。",
+      "textEn": "My older brother is a splendid doctor.",
+      "clozeSurface": "立派な",
+      "clozeReading": "りっぱな"
     }
   ],
   "n5-2cd9164b": [
@@ -11460,6 +11583,40 @@
       "textEn": "Please press the elevator button.",
       "clozeSurface": "押して",
       "clozeReading": "おして"
+    }
+  ],
+  "n5-fbc19ee3": [
+    {
+      "id": "s-0b3c7af6",
+      "textJa": "仕事が終わりましたから、家へ帰ります。",
+      "readingKana": "しごとがおわりましたから、いえへかえります。",
+      "textEn": "Since work finished, I'll go home.",
+      "clozeSurface": "終わりました",
+      "clozeReading": "おわりました"
+    },
+    {
+      "id": "s-204dc7c7",
+      "textJa": "宿題がまだ終わりません。",
+      "readingKana": "しゅくだいがまだおわりません。",
+      "textEn": "The homework isn't finished yet.",
+      "clozeSurface": "終わりません",
+      "clozeReading": "おわりません"
+    },
+    {
+      "id": "s-c70ef4ba",
+      "textJa": "授業は何時に終わりますか。",
+      "readingKana": "じゅぎょうはなんじにおわりますか。",
+      "textEn": "What time does class finish?",
+      "clozeSurface": "終わります",
+      "clozeReading": "おわります"
+    },
+    {
+      "id": "s-ff47cfff",
+      "textJa": "授業は三時に終わります。",
+      "readingKana": "じゅぎょうはさんじにおわります。",
+      "textEn": "Class finishes at three.",
+      "clozeSurface": "終わります",
+      "clozeReading": "おわります"
     }
   ],
   "n5-8d07ff21": [
@@ -17907,6 +18064,16 @@
       "clozeReading": "くち"
     }
   ],
+  "n5-03b76e3a": [
+    {
+      "id": "s-17ca1da2",
+      "textJa": "学生は手を挙げます。",
+      "readingKana": "がくせいはてをあげます。",
+      "textEn": "The student raises their hand.",
+      "clozeSurface": "挙げます",
+      "clozeReading": "あげます"
+    }
+  ],
   "n5-624b6296": [
     {
       "id": "s-51286054",
@@ -17955,6 +18122,24 @@
       "textEn": "I listen to music on the radio-cassette player.",
       "clozeSurface": "ラジカセ",
       "clozeReading": "らじかせ"
+    }
+  ],
+  "n5-ecd448e4": [
+    {
+      "id": "s-f8455dc4",
+      "textJa": "資料をコピーします。",
+      "readingKana": "しりょうをこぴーします。",
+      "textEn": "I copy the documents.",
+      "clozeSurface": "コピー",
+      "clozeReading": "こぴー"
+    },
+    {
+      "id": "s-f8455dc4",
+      "textJa": "資料をコピーします。",
+      "readingKana": "しりょうをこぴーします。",
+      "textEn": "I copy the documents.",
+      "clozeSurface": "コピー",
+      "clozeReading": "こぴー"
     }
   ]
 }

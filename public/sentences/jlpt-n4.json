@@ -2280,6 +2280,32 @@
       "clozeReading": "かえり"
     }
   ],
+  "n4-7d8a53d1": [
+    {
+      "id": "s-731ec3c2",
+      "textJa": "次の駅で電車を降りてください。",
+      "readingKana": "つぎのえきででんしゃをおりてください。",
+      "textEn": "Please get off the train at the next station.",
+      "clozeSurface": "降りて",
+      "clozeReading": "おりて"
+    },
+    {
+      "id": "s-1c07a035",
+      "textJa": "バスを降りたら、電話をください。",
+      "readingKana": "ばすをおりたら、でんわをください。",
+      "textEn": "Please call me when you get off the bus.",
+      "clozeSurface": "降りたら",
+      "clozeReading": "おりたら"
+    },
+    {
+      "id": "s-65a0109c",
+      "textJa": "おばあさんはもう階段を下りましたか。",
+      "readingKana": "おばあさんはもうかいだんをおりましたか。",
+      "textEn": "Has grandma already gone down the stairs?",
+      "clozeSurface": "下りました",
+      "clozeReading": "おりました"
+    }
+  ],
   "n4-a3d1598a": [
     {
       "id": "s-5c30b91e",
@@ -3673,6 +3699,14 @@
       "clozeSurface": "空いたら",
       "clozeReading": "すいたら",
       "clozeEligible": false
+    },
+    {
+      "id": "s-1dfd918a",
+      "textJa": "さっきまで教室が空いていました。",
+      "readingKana": "さっきまできょうしつがあいていました。",
+      "textEn": "The classroom was empty until a moment ago.",
+      "clozeSurface": "空いて",
+      "clozeReading": "すいて"
     }
   ],
   "n4-19d3aa5a": [
@@ -3902,6 +3936,22 @@
       "clozeSurface": "オートバイ",
       "clozeReading": "おーとばい",
       "clozeEligible": false
+    },
+    {
+      "id": "s-10a7b017",
+      "textJa": "兄はオートバイで学校へ行きます。",
+      "readingKana": "あにはおーとばいでがっこうへいきます。",
+      "textEn": "My brother goes to school by motorcycle.",
+      "clozeSurface": "オートバイ",
+      "clozeReading": "おーとばい"
+    },
+    {
+      "id": "s-10a7b017",
+      "textJa": "兄はオートバイで学校へ行きます。",
+      "readingKana": "あにはおーとばいでがっこうへいきます。",
+      "textEn": "My brother goes to school by motorcycle.",
+      "clozeSurface": "オートバイ",
+      "clozeReading": "おーとばい"
     }
   ],
   "n4-3fb281d8": [
@@ -6096,6 +6146,14 @@
       "clozeSurface": "増えたら",
       "clozeReading": "ふえたら",
       "clozeEligible": false
+    },
+    {
+      "id": "s-2e4cf150",
+      "textJa": "最近、仕事が増えました。",
+      "readingKana": "さいきん、しごとがふえました。",
+      "textEn": "Recently my work has increased.",
+      "clozeSurface": "増えました",
+      "clozeReading": "ふえました"
     }
   ],
   "n4-0e81393a": [
@@ -6347,6 +6405,34 @@
       "textEn": "Since I might be late, I have to change the train time.",
       "clozeSurface": "変えなければなりません",
       "clozeReading": "かえなければなりません"
+    }
+  ],
+  "n4-4134887d": [
+    {
+      "id": "s-c264bf09",
+      "textJa": "土曜日、先生は家においでになりますか。",
+      "readingKana": "どようび、せんせいはいえにおいでになりますか。",
+      "textEn": "Will the teacher be home on Saturday?",
+      "clozeSurface": "おいで",
+      "clozeReading": "おいで"
+    },
+    {
+      "id": "s-293a0837",
+      "textJa": "部長は今朝、会社においでになると思います。",
+      "readingKana": "ぶちょうは、けさ、かいしゃにおいでになるとおもいます。",
+      "textEn": "I think the department head is at the office this morning.",
+      "clozeSurface": "おいでになる",
+      "clozeReading": "おいでになる",
+      "clozeEligible": false
+    },
+    {
+      "id": "s-abaa91d1",
+      "textJa": "部長は明日、駅においでになる予定です。",
+      "readingKana": "ぶちょうはあした、えきにおいでになるよていです。",
+      "textEn": "The department manager plans to be at the station tomorrow.",
+      "clozeSurface": "おいでになる",
+      "clozeReading": "おいでになる",
+      "clozeEligible": false
     }
   ],
   "n4-e56a3d0e": [
@@ -6604,6 +6690,22 @@
       "clozeSurface": "オーバー",
       "clozeReading": "おーばー",
       "clozeEligible": false
+    },
+    {
+      "id": "s-3b2c8348",
+      "textJa": "寒いのでオーバーを着ます。",
+      "readingKana": "さむいのでおーばーをきます。",
+      "textEn": "It's cold, so I put on an overcoat.",
+      "clozeSurface": "オーバー",
+      "clozeReading": "おーばー"
+    },
+    {
+      "id": "s-3b2c8348",
+      "textJa": "寒いのでオーバーを着ます。",
+      "readingKana": "さむいのでおーばーをきます。",
+      "textEn": "It's cold, so I put on an overcoat.",
+      "clozeSurface": "オーバー",
+      "clozeReading": "おーばー"
     }
   ],
   "n4-d9fb62e6": [
@@ -10385,6 +10487,22 @@
       "clozeSurface": "町",
       "clozeReading": "ちょう",
       "clozeEligible": false
+    },
+    {
+      "id": "s-0bf26cb4",
+      "textJa": "私は緑町に住んでいます。",
+      "readingKana": "わたしはみどりちょうにすんでいます。",
+      "textEn": "I live in Midori Town.",
+      "clozeSurface": "町",
+      "clozeReading": "ちょう"
+    },
+    {
+      "id": "s-0bf26cb4",
+      "textJa": "私は緑町に住んでいます。",
+      "readingKana": "わたしはみどりちょうにすんでいます。",
+      "textEn": "I live in Midori Town.",
+      "clozeSurface": "町",
+      "clozeReading": "ちょう"
     }
   ],
   "n4-cda0e472": [
@@ -11325,6 +11443,22 @@
       "clozeSurface": "湯",
       "clozeReading": "ゆ",
       "clozeEligible": false
+    },
+    {
+      "id": "s-6332584e",
+      "textJa": "お湯を沸かしてお茶を入れます。",
+      "readingKana": "おゆをわかしておちゃをいれます。",
+      "textEn": "I boil water and make tea.",
+      "clozeSurface": "湯",
+      "clozeReading": "ゆ"
+    },
+    {
+      "id": "s-6332584e",
+      "textJa": "お湯を沸かしてお茶を入れます。",
+      "readingKana": "おゆをわかしておちゃをいれます。",
+      "textEn": "I boil water and make tea.",
+      "clozeSurface": "湯",
+      "clozeReading": "ゆ"
     }
   ],
   "n4-71795d43": [
@@ -13659,6 +13793,40 @@
       "textEn": "Is the TV on?",
       "clozeSurface": "点いています",
       "clozeReading": "ついています"
+    }
+  ],
+  "n4-4a7c492e": [
+    {
+      "id": "s-74773759",
+      "textJa": "電車の中で財布を落としました。",
+      "readingKana": "でんしゃのなかでさいふをおとしました。",
+      "textEn": "I dropped my wallet on the train.",
+      "clozeSurface": "落としました",
+      "clozeReading": "おとしました"
+    },
+    {
+      "id": "s-24669d43",
+      "textJa": "階段で荷物を落としませんでしたか。",
+      "readingKana": "かいだんでにもつをおとしませんでしたか。",
+      "textEn": "Didn't you drop your luggage on the stairs?",
+      "clozeSurface": "落としませんでした",
+      "clozeReading": "おとしませんでした"
+    },
+    {
+      "id": "s-9382ed9f",
+      "textJa": "電車で傘を落としました。",
+      "readingKana": "でんしゃでかさをおとしました。",
+      "textEn": "I dropped my umbrella on the train.",
+      "clozeSurface": "落としました",
+      "clozeReading": "おとしました"
+    },
+    {
+      "id": "s-e19499fb",
+      "textJa": "電車で財布を落としました。",
+      "readingKana": "でんしゃでさいふをおとしました。",
+      "textEn": "I dropped my wallet on the train.",
+      "clozeSurface": "落としました",
+      "clozeReading": "おとしました"
     }
   ],
   "n4-7575f392": [
@@ -16271,6 +16439,14 @@
   ],
   "n4-d12ee07b": [
     {
+      "id": "s-7e1b0939",
+      "textJa": "先生に一つ伺いたいことがあります。",
+      "readingKana": "せんせいにひとつうかがいたいことがあります。",
+      "textEn": "There's one thing I'd like to ask the teacher.",
+      "clozeSurface": "伺いたい",
+      "clozeReading": "うかがいたい"
+    },
+    {
       "id": "s-19a1f553",
       "textJa": "駅への道をうかがってもいいですか。",
       "readingKana": "えきへのみちをうかがってもいいですか。",
@@ -16498,16 +16674,6 @@
       "clozeReading": "おもいました"
     }
   ],
-  "n4-7d8a53d1": [
-    {
-      "id": "s-65a0109c",
-      "textJa": "おばあさんはもう階段を下りましたか。",
-      "readingKana": "おばあさんはもうかいだんをおりましたか。",
-      "textEn": "Has grandma already gone down the stairs?",
-      "clozeSurface": "下りました",
-      "clozeReading": "おりました"
-    }
-  ],
   "n4-bf6ea49a": [
     {
       "id": "s-7220b35c",
@@ -16604,26 +16770,6 @@
       "clozeReading": "おちる"
     }
   ],
-  "n4-4134887d": [
-    {
-      "id": "s-293a0837",
-      "textJa": "部長は今朝、会社においでになると思います。",
-      "readingKana": "ぶちょうは、けさ、かいしゃにおいでになるとおもいます。",
-      "textEn": "I think the department head is at the office this morning.",
-      "clozeSurface": "おいでになる",
-      "clozeReading": "おいでになる",
-      "clozeEligible": false
-    },
-    {
-      "id": "s-abaa91d1",
-      "textJa": "部長は明日、駅においでになる予定です。",
-      "readingKana": "ぶちょうはあした、えきにおいでになるよていです。",
-      "textEn": "The department manager plans to be at the station tomorrow.",
-      "clozeSurface": "おいでになる",
-      "clozeReading": "おいでになる",
-      "clozeEligible": false
-    }
-  ],
   "n4-05272e38": [
     {
       "id": "s-0328c353",
@@ -16662,6 +16808,22 @@
       "clozeSurface": "様",
       "clozeReading": "さま",
       "clozeEligible": false
+    },
+    {
+      "id": "s-38adc98c",
+      "textJa": "お客様、こちらへどうぞ。",
+      "readingKana": "おきゃくさま、こちらへどうぞ。",
+      "textEn": "Right this way, sir.",
+      "clozeSurface": "様",
+      "clozeReading": "さま"
+    },
+    {
+      "id": "s-38adc98c",
+      "textJa": "お客様、こちらへどうぞ。",
+      "readingKana": "おきゃくさま、こちらへどうぞ。",
+      "textEn": "Right this way, sir.",
+      "clozeSurface": "様",
+      "clozeReading": "さま"
     }
   ],
   "n4-3b72e538": [
@@ -16673,6 +16835,14 @@
       "clozeSurface": "おる",
       "clozeReading": "おる",
       "clozeEligible": false
+    },
+    {
+      "id": "s-37f9dbd4",
+      "textJa": "私は今、事務所におります。",
+      "readingKana": "わたしはいま、じむしょにおります。",
+      "textEn": "I am in the office right now.",
+      "clozeSurface": "おります",
+      "clozeReading": "おります"
     }
   ],
   "n4-3184ada0": [
@@ -16726,6 +16896,16 @@
       "clozeReading": "けんかしました"
     }
   ],
+  "n4-997428d8": [
+    {
+      "id": "s-98cdbf96",
+      "textJa": "分からない言葉を百科事典で調べます。",
+      "readingKana": "わからないことばをひゃっかじてんでしらべます。",
+      "textEn": "I look up unknown words in an encyclopedia.",
+      "clozeSurface": "事典",
+      "clozeReading": "じてん"
+    }
+  ],
   "n4-119968bd": [
     {
       "id": "s-331938e3",
@@ -16754,6 +16934,16 @@
       "textEn": "I was surprised by the loud noise.",
       "clozeSurface": "びっくりしました",
       "clozeReading": "びっくりしました"
+    }
+  ],
+  "n4-3b10f121": [
+    {
+      "id": "s-ad894b75",
+      "textJa": "熱が下がりました。",
+      "readingKana": "ねつがさがりました。",
+      "textEn": "My fever went down.",
+      "clozeSurface": "下がりました",
+      "clozeReading": "さがりました"
     }
   ],
   "n4-cfbf9fa6": [

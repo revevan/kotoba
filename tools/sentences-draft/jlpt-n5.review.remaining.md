@@ -3,6 +3,9 @@
 Everything else from the corrected review has been applied and republished.
 These need a human decision (mostly headword/gloss-level, not sentence-level).
 
+> 2026-07-08: all cloze-mechanical sections (needs-cloze-span / failed-revalidation)
+> were repaired by tools/repair-cloze.ts and shipped. Content-decision sections
+> remain below; they are also consolidated in native-review.csv.
 ## flag (needs decision) (10)
 
 | word | sentence | note |
@@ -18,14 +21,6 @@ These need a human decision (mostly headword/gloss-level, not sentence-level).
 | job opening | その口は難しい仕事ですか。 | Same idiomatic concern; 仕事 in sentence aids recoverability. |
 | one month | 仕事で一月旅行します。 | 一月 ambiguous (いちがつ); add context. Gloss "one month". |
 
-## revise-needs-cloze (3)
-
-| word | sentence | note |
-| --- | --- | --- |
-| other | 他の店で買いました。 | couldn't locate cloze span for "ほか" |
-| other | 他の色はありますか。 | couldn't locate cloze span for "ほか" |
-| other | 他の道を歩きましょう。 | couldn't locate cloze span for "ほか" |
-
 ## reject (content issue) (7)
 
 | word | sentence | note |
@@ -37,18 +32,6 @@ These need a human decision (mostly headword/gloss-level, not sentence-level).
 | radio cassette player | そのラジオカセを貸してください。 | ラジオカセ→ラジカセ. |
 | kind | あの先生は厚くないです。 | WRONG WORD: 厚い(あつい)=thick, not "kind". Correct "kind" = 優しい(やさしい). Fix headword. |
 | radio cassette player | ラジオカセが欲しいです。 | ラジオカセ→ラジカセ. |
-
-## manual-needs-cloze (7)
-
-| word | sentence | note |
-| --- | --- | --- |
-| word | この語の意味を調べます。 | couldn't locate cloze span for "ご" |
-| to copy | 資料をコピーします。 | couldn't locate cloze span for "こぴーします" |
-| taxi | タクシーで行きます。 | couldn't locate cloze span for "たくしー" |
-| to play (a string instrument or piano) | ギターを弾きます。 | couldn't locate cloze span for "ひきます" |
-| fork | フォークで食べます。 | couldn't locate cloze span for "ふぉーく" |
-| ball-point pen | ボールペンで書きます。 | couldn't locate cloze span for "ぼーるぺん" |
-| other | 他の店へ行きます。 | couldn't locate cloze span for "ほか" |
 
 ## FYI: shipped with off-whitelist words (human-approved) (16)
 
@@ -71,14 +54,3 @@ These need a human decision (mostly headword/gloss-level, not sentence-level).
 | radio cassette player | ラジカセで音楽を聞きます。 | ラジカセ |
 | I (formal) | わたくしは新しい社員です。 | 社員 |
 
-## failed revalidation (cloze correctness) (7)
-
-| word | sentence | note |
-| --- | --- | --- |
-| honorable ~ (honorific) | お誕生日おめでとうございます。 | cloze appears more than once |
-| splendid | 兄は立派な医者です。 | cloze is not the target word |
-| to finish | 仕事が終わりましたから、家へ帰ります。 | cloze is not the target word |
-| to finish | 宿題がまだ終わりません。 | cloze is not the target word |
-| to finish | 授業は何時に終わりますか。 | cloze is not the target word |
-| to finish | 授業は三時に終わります。 | cloze is not the target word |
-| to raise hands | 学生は手を挙げます。 | cloze is not the target word |

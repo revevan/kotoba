@@ -2413,6 +2413,22 @@
       "textEn": "Since a baby was born, the family held a celebration.",
       "clozeSurface": "祝い",
       "clozeReading": "いわい"
+    },
+    {
+      "id": "s-2a27c1f6",
+      "textJa": "卒業のお祝いに時計をもらいました。",
+      "readingKana": "そつぎょうのおいわいにとけいをもらいました。",
+      "textEn": "I received a watch as a graduation gift.",
+      "clozeSurface": "祝い",
+      "clozeReading": "いわい"
+    },
+    {
+      "id": "s-2a27c1f6",
+      "textJa": "卒業のお祝いに時計をもらいました。",
+      "readingKana": "そつぎょうのおいわいにとけいをもらいました。",
+      "textEn": "I received a watch as a graduation gift.",
+      "clozeSurface": "祝い",
+      "clozeReading": "いわい"
     }
   ],
   "n3-900411a8": [
@@ -10564,6 +10580,14 @@
       "clozeSurface": "押えて",
       "clozeReading": "おさえて",
       "clozeEligible": false
+    },
+    {
+      "id": "s-d5bdc43f",
+      "textJa": "痛いところを手で押さえます。",
+      "readingKana": "いたいところをてでおさえます。",
+      "textEn": "I press the painful spot with my hand.",
+      "clozeSurface": "押さえます",
+      "clozeReading": "おさえます"
     }
   ],
   "n3-8bdd7c52": [
@@ -11039,6 +11063,22 @@
       "clozeSurface": "茶",
       "clozeReading": "ちゃ",
       "clozeEligible": false
+    },
+    {
+      "id": "s-36a289b8",
+      "textJa": "朝は熱いお茶を飲みます。",
+      "readingKana": "あさはあついおちゃをのみます。",
+      "textEn": "I drink hot tea in the morning.",
+      "clozeSurface": "茶",
+      "clozeReading": "ちゃ"
+    },
+    {
+      "id": "s-36a289b8",
+      "textJa": "朝は熱いお茶を飲みます。",
+      "readingKana": "あさはあついおちゃをのみます。",
+      "textEn": "I drink hot tea in the morning.",
+      "clozeSurface": "茶",
+      "clozeReading": "ちゃ"
     }
   ],
   "n3-d1b0f6e7": [
@@ -13446,6 +13486,22 @@
       "clozeSurface": "切れ",
       "clozeReading": "きれ",
       "clozeEligible": false
+    },
+    {
+      "id": "s-d13232f1",
+      "textJa": "古い布切れで窓を拭きました。",
+      "readingKana": "ふるいぬのぎれでまどをふきました。",
+      "textEn": "I wiped the window with an old piece of cloth.",
+      "clozeSurface": "切れ",
+      "clozeReading": "きれ"
+    },
+    {
+      "id": "s-d13232f1",
+      "textJa": "古い布切れで窓を拭きました。",
+      "readingKana": "ふるいぬのぎれでまどをふきました。",
+      "textEn": "I wiped the window with an old piece of cloth.",
+      "clozeSurface": "切れ",
+      "clozeReading": "きれ"
     }
   ],
   "n3-1c934a8a": [
@@ -14856,6 +14912,14 @@
       "clozeEligible": false
     },
     {
+      "id": "s-efd03449",
+      "textJa": "子供は苦い薬を嫌います。",
+      "readingKana": "こどもはにがいくすりをきらいます。",
+      "textEn": "The child hates bitter medicine.",
+      "clozeSurface": "嫌います",
+      "clozeReading": "きらいます"
+    },
+    {
       "id": "s-2e979a76",
       "textJa": "彼は運動を嫌います。",
       "readingKana": "かれはうんどうをきらいます。",
@@ -15111,6 +15175,14 @@
       "clozeSurface": "性",
       "clozeReading": "せい",
       "clozeEligible": false
+    },
+    {
+      "id": "s-7845aba4",
+      "textJa": "書類に性別を書いてください。",
+      "readingKana": "しょるいにせいべつをかいてください。",
+      "textEn": "Write your sex on the form.",
+      "clozeSurface": "性",
+      "clozeReading": "せい"
     }
   ],
   "n3-7bac0dad": [
@@ -16988,6 +17060,14 @@
       "textEn": "At school, how many angles does this shape have?",
       "clozeSurface": "角",
       "clozeReading": "かく"
+    },
+    {
+      "id": "s-fc48933a",
+      "textJa": "三角形には三つの角があります。",
+      "readingKana": "さんかっけいにはみっつのかくがあります。",
+      "textEn": "A triangle has three angles/corners.",
+      "clozeSurface": "角が",
+      "clozeReading": "かく"
     }
   ],
   "n3-1faf48a7": [
@@ -17017,6 +17097,14 @@
       "clozeSurface": "群",
       "clozeReading": "むれ",
       "clozeEligible": false
+    },
+    {
+      "id": "s-aff93ba1",
+      "textJa": "空を鳥の群れが飛んでいます。",
+      "readingKana": "そらをとりのむれがとんでいます。",
+      "textEn": "A flock of birds is flying in the sky.",
+      "clozeSurface": "群",
+      "clozeReading": "ぐん"
     }
   ],
   "n3-bff34370": [
@@ -17064,6 +17152,22 @@
       "clozeSurface": "対",
       "clozeReading": "つい",
       "clozeEligible": false
+    },
+    {
+      "id": "s-7c48523e",
+      "textJa": "この花瓶は対で売っています。",
+      "readingKana": "このかびんはたいでうっています。",
+      "textEn": "This vase is sold as a pair.",
+      "clozeSurface": "対",
+      "clozeReading": "たい"
+    },
+    {
+      "id": "s-7c48523e",
+      "textJa": "この花瓶は対で売っています。",
+      "readingKana": "このかびんはたいでうっています。",
+      "textEn": "This vase is sold as a pair.",
+      "clozeSurface": "対",
+      "clozeReading": "たい"
     }
   ],
   "n3-682ccae4": [
@@ -17998,6 +18102,14 @@
       "textEn": "It was decided that the new train fare would be consulted on at the meeting.",
       "clozeSurface": "諮る",
       "clozeReading": "はかる"
+    },
+    {
+      "id": "s-dda9e4c8",
+      "textJa": "重要なことなので、専門家に諮ります。",
+      "readingKana": "じゅうようなことなので、せんもんかにはかります。",
+      "textEn": "Since it's important, I'll consult the experts.",
+      "clozeSurface": "諮ります",
+      "clozeReading": "はかります"
     }
   ],
   "n3-db30ec48": [
@@ -19244,6 +19356,14 @@
       "textEn": "I want everyone to combine their strength.",
       "clozeSurface": "合わせたい",
       "clozeReading": "あわせたい"
+    },
+    {
+      "id": "s-7a6f7a41",
+      "textJa": "この二つの布を合わせて、服を作ります。",
+      "readingKana": "このふたつのぬのをあわせて、ふくをつくります。",
+      "textEn": "I combine these two fabrics to make clothes.",
+      "clozeSurface": "合わせて",
+      "clozeReading": "あわせて"
     }
   ],
   "n3-cbd1de9a": [
@@ -23387,6 +23507,14 @@
   ],
   "n3-f0de5561": [
     {
+      "id": "s-4e79c059",
+      "textJa": "図書館で珍しい図書を借りました。",
+      "readingKana": "としょかんでめずらしいとしょをかりました。",
+      "textEn": "I borrowed a rare book at the library.",
+      "clozeSurface": "図書を",
+      "clozeReading": "としょ"
+    },
+    {
       "id": "s-dc370730",
       "textJa": "この図書は貸し出しできますか。",
       "readingKana": "このとしょはかしだしできますか。",
@@ -23394,6 +23522,14 @@
       "clozeSurface": "図書",
       "clozeReading": "としょ",
       "clozeEligible": false
+    },
+    {
+      "id": "s-74629bb4",
+      "textJa": "図書館で図書を借りました。",
+      "readingKana": "としょかんでとしょをかりました。",
+      "textEn": "I borrowed books at the library.",
+      "clozeSurface": "図書を",
+      "clozeReading": "としょ"
     }
   ],
   "n3-b6fc78a3": [
@@ -24404,6 +24540,14 @@
   ],
   "n3-d4b9ec52": [
     {
+      "id": "s-c41a5ef4",
+      "textJa": "冬にスケート場でスケートをします。",
+      "readingKana": "ふゆにすけえとじょうですけえとをします。",
+      "textEn": "In winter I skate at the skating rink.",
+      "clozeSurface": "スケートを",
+      "clozeReading": "すけーと"
+    },
+    {
       "id": "s-18bc8979",
       "textJa": "昨日初めてスケートをしました。",
       "readingKana": "きのうはじめてすけーとをしました。",
@@ -24457,6 +24601,14 @@
       "textEn": "I ended up getting my clothes wet in the rain.",
       "clozeSurface": "濡らして",
       "clozeReading": "ぬらして"
+    },
+    {
+      "id": "s-4cdbf056",
+      "textJa": "絵を描く前に、筆を水で濡らします。",
+      "readingKana": "えをえがくまえに、ふでをみずでぬらします。",
+      "textEn": "Before painting, I wet the brush with water.",
+      "clozeSurface": "濡らします",
+      "clozeReading": "ぬらします"
     }
   ],
   "n3-a49d27dc": [
@@ -26365,6 +26517,22 @@
       "clozeSurface": "旧",
       "clozeReading": "きゅう",
       "clozeEligible": false
+    },
+    {
+      "id": "s-3364479e",
+      "textJa": "彼は今も旧姓を使っています。",
+      "readingKana": "かれはいまもきゅうせいをつかっています。",
+      "textEn": "He still uses his former surname.",
+      "clozeSurface": "旧",
+      "clozeReading": "きゅう"
+    },
+    {
+      "id": "s-3364479e",
+      "textJa": "彼は今も旧姓を使っています。",
+      "readingKana": "かれはいまもきゅうせいをつかっています。",
+      "textEn": "He still uses his former surname.",
+      "clozeSurface": "旧",
+      "clozeReading": "きゅう"
     }
   ],
   "n3-6cb82f1b": [
@@ -28842,6 +29010,14 @@
       "textEn": "You must be tired, shall I take your place?",
       "clozeSurface": "代りましょう",
       "clozeReading": "かわりましょう"
+    },
+    {
+      "id": "s-94e89fd1",
+      "textJa": "都合が悪いので、誰か私に代わってくれませんか。",
+      "readingKana": "つごうがわるいので、だれかわたしにかわってくれませんか。",
+      "textEn": "I'm not available, so could someone take my place?",
+      "clozeSurface": "代わって",
+      "clozeReading": "かわって"
     }
   ],
   "n3-409c05c7": [
@@ -30032,6 +30208,14 @@
       "textEn": "Snow covered the town.",
       "clozeSurface": "覆いました",
       "clozeReading": "おおいました"
+    },
+    {
+      "id": "s-847b8f94",
+      "textJa": "顔を手で覆いたくなりました。",
+      "readingKana": "かおをてでおおいたくなりました。",
+      "textEn": "I felt like covering my face with my hands.",
+      "clozeSurface": "覆いたく",
+      "clozeReading": "おおいたく"
     }
   ],
   "n3-bfc6c232": [
@@ -33337,6 +33521,22 @@
       "textJa": "電話のサービスについて質問があります。",
       "readingKana": "でんわのさーびすについてしつもんがあります。",
       "textEn": "I have a question about the phone service.",
+      "clozeSurface": "サービス",
+      "clozeReading": "さーびす"
+    },
+    {
+      "id": "s-33622518",
+      "textJa": "このホテルはサービスがいいです。",
+      "readingKana": "このほてるはさーびすがいいです。",
+      "textEn": "This hotel has good service.",
+      "clozeSurface": "サービス",
+      "clozeReading": "さーびす"
+    },
+    {
+      "id": "s-33622518",
+      "textJa": "このホテルはサービスがいいです。",
+      "readingKana": "このほてるはさーびすがいいです。",
+      "textEn": "This hotel has good service.",
       "clozeSurface": "サービス",
       "clozeReading": "さーびす"
     }
@@ -36714,6 +36914,22 @@
       "textEn": "We convert the sun's energy into electricity.",
       "clozeSurface": "エネルギー",
       "clozeReading": "えねるぎー"
+    },
+    {
+      "id": "s-f080b190",
+      "textJa": "運動するとエネルギーを使います。",
+      "readingKana": "うんどうするとえねるぎーをつかいます。",
+      "textEn": "Exercising uses energy.",
+      "clozeSurface": "エネルギー",
+      "clozeReading": "えねるぎー"
+    },
+    {
+      "id": "s-f080b190",
+      "textJa": "運動するとエネルギーを使います。",
+      "readingKana": "うんどうするとえねるぎーをつかいます。",
+      "textEn": "Exercising uses energy.",
+      "clozeSurface": "エネルギー",
+      "clozeReading": "えねるぎー"
     }
   ],
   "n3-e4eae34d": [
@@ -37712,6 +37928,22 @@
       "clozeSurface": "トレーニング",
       "clozeReading": "とれーにんぐ",
       "clozeEligible": false
+    },
+    {
+      "id": "s-ffd57af4",
+      "textJa": "毎日トレーニングをしています。",
+      "readingKana": "まいにちとれーにんぐをしています。",
+      "textEn": "I train every day.",
+      "clozeSurface": "トレーニング",
+      "clozeReading": "とれーにんぐ"
+    },
+    {
+      "id": "s-ffd57af4",
+      "textJa": "毎日トレーニングをしています。",
+      "readingKana": "まいにちとれーにんぐをしています。",
+      "textEn": "I train every day.",
+      "clozeSurface": "トレーニング",
+      "clozeReading": "とれーにんぐ"
     }
   ],
   "n3-933e2c8f": [
@@ -39466,6 +39698,16 @@
       "clozeReading": "せいき"
     }
   ],
+  "n3-2b53b3fa": [
+    {
+      "id": "s-aecd355f",
+      "textJa": "私は家族を心から愛しています。",
+      "readingKana": "わたしはかぞくをこころからあいしています。",
+      "textEn": "I love my family from the bottom of my heart.",
+      "clozeSurface": "愛して",
+      "clozeReading": "あいして"
+    }
+  ],
   "n3-86d201cd": [
     {
       "id": "s-19b91193",
@@ -39504,6 +39746,16 @@
       "textEn": "In my student days I worked hard at club activities.",
       "clozeSurface": "活動",
       "clozeReading": "かつどう"
+    }
+  ],
+  "n3-7cffee2b": [
+    {
+      "id": "s-a08e925c",
+      "textJa": "この小説の上巻を読みました。",
+      "readingKana": "このしょうせつのじょうかんをよみました。",
+      "textEn": "I read the first volume of this novel.",
+      "clozeSurface": "上",
+      "clozeReading": "かみ"
     }
   ],
   "n3-4be78ed5": [
@@ -39674,6 +39926,16 @@
       "textEn": "This restaurant has big portions.",
       "clozeSurface": "盛り",
       "clozeReading": "もり"
+    }
+  ],
+  "n3-adb2752b": [
+    {
+      "id": "s-955231d3",
+      "textJa": "昨年、日本へ行きました。",
+      "readingKana": "さくねん、にっぽんへいきました。",
+      "textEn": "I went to Japan last year.",
+      "clozeSurface": "昨",
+      "clozeReading": "さく"
     }
   ],
   "n3-53f70650": [
@@ -39856,6 +40118,16 @@
       "clozeReading": "そこで"
     }
   ],
+  "n3-38a891db": [
+    {
+      "id": "s-0c0db37f",
+      "textJa": "この部屋にはエアコンが備えてあります。",
+      "readingKana": "このへやにはえあこんがそなえてあります。",
+      "textEn": "This room is furnished with an air conditioner.",
+      "clozeSurface": "備えて",
+      "clozeReading": "そなえて"
+    }
+  ],
   "n3-de55b0c4": [
     {
       "id": "s-239e8ba1",
@@ -39986,6 +40258,16 @@
       "clozeReading": "たたんで"
     }
   ],
+  "n3-68f1823a": [
+    {
+      "id": "s-7255feb1",
+      "textJa": "二や四は偶数です。",
+      "readingKana": "にやよんはぐうすうです。",
+      "textEn": "Two and four are even numbers.",
+      "clozeSurface": "偶",
+      "clozeReading": "たま"
+    }
+  ],
   "n3-8c79b968": [
     {
       "id": "s-3e2643a2",
@@ -40014,6 +40296,16 @@
       "textEn": "I correspond with my friend by letter.",
       "clozeSurface": "通信",
       "clozeReading": "つうしん"
+    }
+  ],
+  "n3-abc4560c": [
+    {
+      "id": "s-a5914014",
+      "textJa": "私は彼と長く付き合っています。",
+      "readingKana": "わたしはかれとながくつきあっています。",
+      "textEn": "I've been associating with him for a long time.",
+      "clozeSurface": "付き合って",
+      "clozeReading": "つきあって"
     }
   ],
   "n3-c35f7912": [
@@ -40116,6 +40408,16 @@
       "clozeReading": "の"
     }
   ],
+  "n3-2c36e221": [
+    {
+      "id": "s-38eb2764",
+      "textJa": "彼には絵の才能があります。",
+      "readingKana": "かれにはえのさいのうがあります。",
+      "textEn": "He has a talent for drawing.",
+      "clozeSurface": "能",
+      "clozeReading": "のう"
+    }
+  ],
   "n3-b78da97a": [
     {
       "id": "s-fc66708a",
@@ -40126,6 +40428,26 @@
       "clozeReading": "はっこう"
     }
   ],
+  "n3-e409b802": [
+    {
+      "id": "s-1adecd51",
+      "textJa": "規則を破った人を罰します。",
+      "readingKana": "きそくをやぶったひとをばっします。",
+      "textEn": "We punish those who break the rules.",
+      "clozeSurface": "罰します",
+      "clozeReading": "ばっします"
+    }
+  ],
+  "n3-87e2d692": [
+    {
+      "id": "s-19e4c361",
+      "textJa": "試験の結果は不可でした。",
+      "readingKana": "しけんのけっかはふかでした。",
+      "textEn": "The exam result was a fail.",
+      "clozeSurface": "不",
+      "clozeReading": "ふ"
+    }
+  ],
   "n3-7b6df95f": [
     {
       "id": "s-3286e69c",
@@ -40134,6 +40456,26 @@
       "textEn": "I wound a bandage around my hand.",
       "clozeSurface": "巻きました",
       "clozeReading": "まきました"
+    }
+  ],
+  "n3-6dc69448": [
+    {
+      "id": "s-dd3cb2c9",
+      "textJa": "政治家は大衆の声を聞くべきです。",
+      "readingKana": "せいじかはたいしゅうのこえをきくべきです。",
+      "textEn": "Politicians should listen to the voice of the masses.",
+      "clozeSurface": "衆",
+      "clozeReading": "しゅう"
+    }
+  ],
+  "n3-3a3239f1": [
+    {
+      "id": "s-8302f691",
+      "textJa": "新しい住まいを探しています。",
+      "readingKana": "あたらしいすまいをさがしています。",
+      "textEn": "I'm looking for a new dwelling.",
+      "clozeSurface": "住",
+      "clozeReading": "じゅう"
     }
   ],
   "n3-4b69a028": [
@@ -40164,6 +40506,222 @@
       "textEn": "I put a label on the box.",
       "clozeSurface": "ラベル",
       "clozeReading": "らべる"
+    }
+  ],
+  "n3-5e537b46": [
+    {
+      "id": "s-4534965f",
+      "textJa": "明日のスケジュールを確認します。",
+      "readingKana": "あしたのすけじゅーるをかくにんします。",
+      "textEn": "I check tomorrow's schedule.",
+      "clozeSurface": "スケジュール",
+      "clozeReading": "すけじゅーる"
+    },
+    {
+      "id": "s-4534965f",
+      "textJa": "明日のスケジュールを確認します。",
+      "readingKana": "あしたのすけじゅーるをかくにんします。",
+      "textEn": "I check tomorrow's schedule.",
+      "clozeSurface": "スケジュール",
+      "clozeReading": "すけじゅーる"
+    }
+  ],
+  "n3-240f50c9": [
+    {
+      "id": "s-68000706",
+      "textJa": "上着を脱いでハンガーに掛けました。",
+      "readingKana": "うわぎをぬいではんがーにかけました。",
+      "textEn": "I took off my jacket and hung it on a hanger.",
+      "clozeSurface": "上",
+      "clozeReading": "うわ"
+    },
+    {
+      "id": "s-68000706",
+      "textJa": "上着を脱いでハンガーに掛けました。",
+      "readingKana": "うわぎをぬいではんがーにかけました。",
+      "textEn": "I took off my jacket and hung it on a hanger.",
+      "clozeSurface": "上",
+      "clozeReading": "うわ"
+    }
+  ],
+  "n3-2accddd9": [
+    {
+      "id": "s-aa7fe2d7",
+      "textJa": "棚から重い箱を下ろしました。",
+      "readingKana": "たなからおもいはこをおろしました。",
+      "textEn": "I took a heavy box down from the shelf.",
+      "clozeSurface": "下ろしました",
+      "clozeReading": "おろしました"
+    },
+    {
+      "id": "s-aa7fe2d7",
+      "textJa": "棚から重い箱を下ろしました。",
+      "readingKana": "たなからおもいはこをおろしました。",
+      "textEn": "I took a heavy box down from the shelf.",
+      "clozeSurface": "下ろしました",
+      "clozeReading": "おろしました"
+    }
+  ],
+  "n3-c674c178": [
+    {
+      "id": "s-472d7083",
+      "textJa": "明日は雨が降るかもしれません。",
+      "readingKana": "あしたはあめがふるかもしれません。",
+      "textEn": "It might rain tomorrow.",
+      "clozeSurface": "かも",
+      "clozeReading": "かも"
+    },
+    {
+      "id": "s-472d7083",
+      "textJa": "明日は雨が降るかもしれません。",
+      "readingKana": "あしたはあめがふるかもしれません。",
+      "textEn": "It might rain tomorrow.",
+      "clozeSurface": "かも",
+      "clozeReading": "かも"
+    }
+  ],
+  "n3-2ea999e0": [
+    {
+      "id": "s-0aebc5ff",
+      "textJa": "資料に説明を加えました。",
+      "readingKana": "しりょうにせつめいをくわえました。",
+      "textEn": "I added an explanation to the materials.",
+      "clozeSurface": "加えました",
+      "clozeReading": "くわえました"
+    },
+    {
+      "id": "s-0aebc5ff",
+      "textJa": "資料に説明を加えました。",
+      "readingKana": "しりょうにせつめいをくわえました。",
+      "textEn": "I added an explanation to the materials.",
+      "clozeSurface": "加えました",
+      "clozeReading": "くわえました"
+    }
+  ],
+  "n3-25f84532": [
+    {
+      "id": "s-9ab567d0",
+      "textJa": "テーブルにコーヒーをこぼしました。",
+      "readingKana": "てーぶるにこーひーをこぼしました。",
+      "textEn": "I spilled coffee on the table.",
+      "clozeSurface": "こぼしました",
+      "clozeReading": "こぼしました"
+    },
+    {
+      "id": "s-9ab567d0",
+      "textJa": "テーブルにコーヒーをこぼしました。",
+      "readingKana": "てーぶるにこーひーをこぼしました。",
+      "textEn": "I spilled coffee on the table.",
+      "clozeSurface": "こぼしました",
+      "clozeReading": "こぼしました"
+    }
+  ],
+  "n3-806d69e7": [
+    {
+      "id": "s-b996863d",
+      "textJa": "その意見に異はありませんでした。",
+      "readingKana": "そのいけんにことはありませんでした。",
+      "textEn": "There was no objection to that opinion.",
+      "clozeSurface": "異",
+      "clozeReading": "い"
+    },
+    {
+      "id": "s-b996863d",
+      "textJa": "その意見に異はありませんでした。",
+      "readingKana": "そのいけんにことはありませんでした。",
+      "textEn": "There was no objection to that opinion.",
+      "clozeSurface": "異",
+      "clozeReading": "い"
+    }
+  ],
+  "n3-c2b9936a": [
+    {
+      "id": "s-f7190c8e",
+      "textJa": "兵士たちは敵に降伏しました。",
+      "readingKana": "へいしたちはてきにごうぶくしました。",
+      "textEn": "The soldiers surrendered to the enemy.",
+      "clozeSurface": "降伏",
+      "clozeReading": "こうふく"
+    },
+    {
+      "id": "s-f7190c8e",
+      "textJa": "兵士たちは敵に降伏しました。",
+      "readingKana": "へいしたちはてきにごうぶくしました。",
+      "textEn": "The soldiers surrendered to the enemy.",
+      "clozeSurface": "降伏",
+      "clozeReading": "こうふく"
+    }
+  ],
+  "n3-4c9dcaa6": [
+    {
+      "id": "s-568ff409",
+      "textJa": "母は赤ちゃんをそっと抱きました。",
+      "readingKana": "はははあかちゃんをそっといだきました。",
+      "textEn": "The mother gently held her baby.",
+      "clozeSurface": "抱きました",
+      "clozeReading": "だきました"
+    },
+    {
+      "id": "s-568ff409",
+      "textJa": "母は赤ちゃんをそっと抱きました。",
+      "readingKana": "はははあかちゃんをそっといだきました。",
+      "textEn": "The mother gently held her baby.",
+      "clozeSurface": "抱きました",
+      "clozeReading": "だきました"
+    }
+  ],
+  "n3-15860441": [
+    {
+      "id": "s-47b6434a",
+      "textJa": "二つの事件が同時に起こりました。",
+      "readingKana": "ふたつのじけんがどうじにおこりました。",
+      "textEn": "Two incidents happened at the same time.",
+      "clozeSurface": "同時",
+      "clozeReading": "どうじ"
+    },
+    {
+      "id": "s-47b6434a",
+      "textJa": "二つの事件が同時に起こりました。",
+      "readingKana": "ふたつのじけんがどうじにおこりました。",
+      "textEn": "Two incidents happened at the same time.",
+      "clozeSurface": "同時",
+      "clozeReading": "どうじ"
+    }
+  ],
+  "n3-33fbcc7a": [
+    {
+      "id": "s-3b83b2e3",
+      "textJa": "彼の打率は三割二分です。",
+      "readingKana": "かれのだりつはさんわりにふんです。",
+      "textEn": "His batting average is three-twenty.",
+      "clozeSurface": "分",
+      "clozeReading": "ぶ"
+    },
+    {
+      "id": "s-3b83b2e3",
+      "textJa": "彼の打率は三割二分です。",
+      "readingKana": "かれのだりつはさんわりにふんです。",
+      "textEn": "His batting average is three-twenty.",
+      "clozeSurface": "分",
+      "clozeReading": "ぶ"
+    }
+  ],
+  "n3-5febaf68": [
+    {
+      "id": "s-fb42eca6",
+      "textJa": "この本はB5判です。",
+      "readingKana": "このほんはB5ばんです。",
+      "textEn": "This book is B5-size.",
+      "clozeSurface": "判",
+      "clozeReading": "はん"
+    },
+    {
+      "id": "s-fb42eca6",
+      "textJa": "この本はB5判です。",
+      "readingKana": "このほんはB5ばんです。",
+      "textEn": "This book is B5-size.",
+      "clozeSurface": "判",
+      "clozeReading": "はん"
     }
   ]
 }
