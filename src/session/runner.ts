@@ -1,16 +1,21 @@
 import type { Sentence, Word } from '../types';
 import type { ClipItem } from '../audio/clips';
 import {
+  buildPromptSequence,
+  buildRevealSequence,
   clozePromptSequence,
   clozeRevealSequence,
   correctSequence,
   phraseSequence,
   quizPromptSequence,
   revealSequence,
+  shadowPromptSequence,
+  shadowRevealSequence,
   teachSequence,
 } from '../audio/clips';
 import { dlog } from '../debug/log';
 import { gradeAnswer, gradeCloze, isDontKnow } from '../matching/match';
+import { gradeShadow } from '../matching/shadow';
 import { expandWithReadings } from '../matching/reading';
 import { parseCommand } from '../speech/commands';
 import type { ListenFn } from '../speech/recognizer';
@@ -44,6 +49,9 @@ export interface RunnerDeps {
   /** Local-VAD wait for the teach "repeat after me" echo — paces the step
    * without transcribing (no Deepgram cost). Omitted = use full recognition. */
   waitForEcho?(timeoutMs: number): Promise<'spoke' | 'silent' | 'aborted'>;
+  /** Rung 4 ("build it") LLM grading of a free-production transcript. Omitted
+   * or failing ⇒ the answer falls back to reveal + self-grade. */
+  gradeBuild?(word: Word, transcript: string): Promise<{ verdict: 'good' | 'again'; note?: string }>;
   words: Map<string, Word>;
   /** Whether the cloze prompt leads with the English translation. */
   clozeEnglishFirst?: boolean;
@@ -55,11 +63,18 @@ const LISTEN_TIMEOUTS: Record<ListenKind, number> = {
   'teach-echo': 5000,
   'quiz-answer': 7000,
   'cloze-answer': 7000,
+  // Composing takes longer than recalling — give production exercises room.
+  'shadow-answer': 10000,
+  'build-answer': 12000,
   // Short: the verdict is already in (missed), this is only the brief window
   // to say "got it" and override. Don't make a real miss sit and wait.
   'self-grade': 4000,
   resume: 10000,
 };
+
+/** VAD overrides: a whole sentence needs a longer utterance window and a
+ *  slightly longer pause before we decide the speaker is done. */
+const LONG_UTTERANCE = { maxUtteranceMs: 10000, trailingSilenceMs: 1100 };
 
 /**
  * Expected-answer terms to bias the cloud recognizer toward, gathered from the
@@ -71,6 +86,9 @@ function answerHints(kind: ListenKind, word?: Word, sentence?: Sentence): string
   const terms: string[] = [];
   if (kind === 'cloze-answer' && sentence) {
     terms.push(sentence.clozeReading, sentence.clozeSurface);
+  } else if (kind === 'shadow-answer' && sentence && word) {
+    // Bias toward the sentence being shadowed (and its target word).
+    terms.push(sentence.clozeSurface, sentence.clozeReading, word.kana);
   } else if (word) {
     terms.push(word.kana, ...word.written);
     for (const alt of word.alts ?? []) terms.push(alt.kana);
@@ -192,6 +210,14 @@ export class SessionRunner {
         // A cloze item always carries a sentence; if it somehow went missing,
         // fall back to a plain prompt rather than play an empty gap.
         return sentence ? clozePromptSequence(sentence, { englishFirst: this.deps.clozeEnglishFirst }) : quizPromptSequence(word!);
+      case 'shadow-prompt':
+        return sentence ? shadowPromptSequence(sentence) : quizPromptSequence(word!);
+      case 'build-prompt':
+        return buildPromptSequence(word!);
+      case 'shadow-reveal':
+        return sentence ? shadowRevealSequence(sentence) : revealSequence(word!);
+      case 'build-reveal':
+        return buildRevealSequence(word!, sentence);
       case 'correct':
         return correctSequence(word!, sentence);
       case 'reveal':
@@ -251,12 +277,13 @@ export class SessionRunner {
         return;
       }
 
-      const ja = kind === 'teach-echo' || kind === 'quiz-answer' || kind === 'cloze-answer';
+      const ja = kind === 'teach-echo' || kind === 'quiz-answer' || kind === 'cloze-answer' || kind === 'shadow-answer' || kind === 'build-answer';
+      const long = kind === 'shadow-answer' || kind === 'build-answer';
       const lang = ja ? 'ja-JP' : 'en-US';
       const word = wordId ? this.deps.words.get(wordId) : undefined;
       const sentence = this.sentenceFor(word, sentenceId);
       const hints = ja ? answerHints(kind, word, sentence) : undefined;
-      const res = await this.deps.listen({ lang, timeoutMs, hints });
+      const res = await this.deps.listen({ lang, timeoutMs, hints, ...(long ? LONG_UTTERANCE : {}) });
       if (gen !== this.listenGen || this.stopped) return;
       let outcome: ListenOutcome;
       let recognized: string | undefined;
@@ -267,6 +294,12 @@ export class SessionRunner {
           // For spoken Japanese, also grade against the reading of each
           // alternative so a kanji transcription still matches by pronunciation.
           const graded = ja ? await expandWithReadings(res.alternatives) : res.alternatives;
+          if (gen !== this.listenGen || this.stopped) return;
+          if (kind === 'build-answer') {
+            outcome = await this.classifyBuild(word, recognized, graded);
+            if (gen !== this.listenGen || this.stopped) return;
+            break;
+          }
           outcome = this.classify(kind, graded, word, sentence);
           break;
         }
@@ -296,6 +329,32 @@ export class SessionRunner {
     }
   }
 
+  /** Rung 4: the word must be heard in the utterance (cheap local gate), then
+   *  the LLM judges correctness. Grader missing/unreachable ⇒ nomatch, which
+   *  flows to the reveal + self-grade — the exercise still works offline. */
+  private async classifyBuild(word: Word | undefined, transcript: string | undefined, graded: string[]): Promise<ListenOutcome> {
+    if (!word || !transcript) return 'nomatch';
+    if (isDontKnow(graded)) return 'dontknow';
+    const forms = [word.kana, ...word.written, ...(word.alts?.map((a) => a.kana) ?? [])];
+    const heardWord = graded.some((alt) => forms.some((f) => f.length > 0 && alt.includes(f)));
+    if (!heardWord) {
+      dlog('runner', 'build: target word not heard in transcript');
+      return 'nomatch';
+    }
+    if (!this.deps.gradeBuild) return 'nomatch';
+    try {
+      const { verdict, note } = await this.deps.gradeBuild(word, transcript);
+      this.lastBuildNote = note ?? null;
+      return verdict === 'good' ? 'match' : 'nomatch';
+    } catch (e) {
+      dlog('runner', `gradeBuild failed: ${e}`);
+      return 'nomatch';
+    }
+  }
+
+  /** Grader feedback for the most recent build answer (UI display only). */
+  lastBuildNote: string | null = null;
+
   private classify(kind: ListenKind, alternatives: string[], word: Word | undefined, sentence?: Sentence): ListenOutcome {
     switch (kind) {
       case 'quiz-answer':
@@ -304,6 +363,11 @@ export class SessionRunner {
       case 'cloze-answer':
         if (isDontKnow(alternatives)) return 'dontknow';
         return sentence && gradeCloze(alternatives, sentence).matched ? 'match' : 'nomatch';
+      case 'shadow-answer':
+        if (isDontKnow(alternatives)) return 'dontknow';
+        return sentence && gradeShadow(alternatives, sentence).matched ? 'match' : 'nomatch';
+      case 'build-answer':
+        return 'nomatch'; // handled by classifyBuild (async)
       case 'teach-echo':
         return word && gradeAnswer(alternatives, word).matched ? 'match' : 'speech';
       case 'self-grade': {

@@ -243,7 +243,12 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
     let vad: VadState = { speechStartMs: null, lastVoiceMs: null };
     let peak = 0; // loudest frame seen, for diagnosing missed speech
     const startedAt = performance.now();
-    const cfg: VadConfig = { ...VAD_BASE, noSpeechTimeoutMs: opts.timeoutMs };
+    const cfg: VadConfig = {
+      ...VAD_BASE,
+      ...(opts.maxUtteranceMs ? { maxUtteranceMs: opts.maxUtteranceMs } : {}),
+      ...(opts.trailingSilenceMs ? { trailingSilenceMs: opts.trailingSilenceMs } : {}),
+      noSpeechTimeoutMs: opts.timeoutMs,
+    };
     let calibFrames = 0;
     let calibSum = 0;
 

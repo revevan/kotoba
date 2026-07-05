@@ -19,6 +19,13 @@ export interface ListenOptions {
    * Ignored by the Web Speech recognizer, which has no equivalent knob.
    */
   hints?: string[];
+  /**
+   * VAD overrides for long utterances (sentence shadowing / free production):
+   * the defaults cap a clip at 2.5s of speech, which cuts a sentence off.
+   * Ignored by the Web Speech recognizer.
+   */
+  maxUtteranceMs?: number;
+  trailingSilenceMs?: number;
 }
 
 export type ListenFn = (opts: ListenOptions) => Promise<SRResult>;

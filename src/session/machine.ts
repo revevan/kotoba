@@ -2,7 +2,7 @@
 // APIs in here — the runner executes effects and feeds results back as events,
 // which keeps the whole teach/quiz/self-grade flow unit-testable.
 
-export type Mode = 'teach' | 'quiz' | 'cloze';
+export type Mode = 'teach' | 'quiz' | 'cloze' | 'shadow' | 'build';
 
 export interface Item {
   wordId: string;
@@ -16,14 +16,18 @@ export type PlayKind =
   | 'teach'
   | 'quiz-prompt'
   | 'cloze-prompt'
+  | 'shadow-prompt'
+  | 'build-prompt'
   | 'correct'
   | 'reveal'
   | 'cloze-reveal'
+  | 'shadow-reveal'
+  | 'build-reveal'
   | 'paused'
   | 'resuming'
   | 'done';
 
-export type ListenKind = 'teach-echo' | 'quiz-answer' | 'cloze-answer' | 'self-grade' | 'resume';
+export type ListenKind = 'teach-echo' | 'quiz-answer' | 'cloze-answer' | 'shadow-answer' | 'build-answer' | 'self-grade' | 'resume';
 
 export type RateMode = 'auto' | 'self' | 'skip' | 'timeout';
 
@@ -60,6 +64,10 @@ export type Phase =
   | 'quiz-listening'
   | 'cloze-playing'
   | 'cloze-listening'
+  | 'shadow-playing'
+  | 'shadow-listening'
+  | 'build-playing'
+  | 'build-listening'
   | 'correct-playing'
   | 'reveal-playing'
   | 'self-grade-listening'
@@ -141,6 +149,12 @@ function enterItem(s: MachineState): Step {
   if (item.mode === 'cloze') {
     return step({ ...s, phase: 'cloze-playing', retries: 0 }, { type: 'play', kind: 'cloze-prompt', wordId: item.wordId, sentenceId: item.sentenceId });
   }
+  if (item.mode === 'shadow') {
+    return step({ ...s, phase: 'shadow-playing', retries: 0 }, { type: 'play', kind: 'shadow-prompt', wordId: item.wordId, sentenceId: item.sentenceId });
+  }
+  if (item.mode === 'build') {
+    return step({ ...s, phase: 'build-playing', retries: 0 }, { type: 'play', kind: 'build-prompt', wordId: item.wordId, sentenceId: item.sentenceId });
+  }
   return step({ ...s, phase: 'quiz-playing', retries: 0 }, { type: 'play', kind: 'quiz-prompt', wordId: item.wordId });
 }
 
@@ -187,7 +201,11 @@ function degrade(s: MachineState): MachineState {
  *  reveal plays the full natural sentence; a plain quiz just names the word. */
 function toReveal(s: MachineState): Step {
   const item = currentItem(s)!;
-  const kind = item.mode === 'cloze' ? 'cloze-reveal' : 'reveal';
+  const kind =
+    item.mode === 'cloze' ? 'cloze-reveal'
+    : item.mode === 'shadow' ? 'shadow-reveal'
+    : item.mode === 'build' ? 'build-reveal'
+    : 'reveal';
   return step({ ...s, phase: 'reveal-playing', retries: 0 }, { type: 'play', kind, wordId: item.wordId, sentenceId: item.sentenceId });
 }
 
@@ -273,19 +291,27 @@ export function reduce(s: MachineState, ev: Event): Step {
       break;
 
     case 'cloze-playing':
+    case 'shadow-playing':
+    case 'build-playing': {
       if (ev.type === 'playDone') {
         if (s.degraded) return toReveal(s);
         const item = currentItem(s)!;
-        return step({ ...s, phase: 'cloze-listening', retries: 0 }, { type: 'listen', kind: 'cloze-answer', wordId: item.wordId, sentenceId: item.sentenceId });
+        const kind: ListenKind = s.phase === 'cloze-playing' ? 'cloze-answer' : s.phase === 'shadow-playing' ? 'shadow-answer' : 'build-answer';
+        const next: Phase = s.phase === 'cloze-playing' ? 'cloze-listening' : s.phase === 'shadow-playing' ? 'shadow-listening' : 'build-listening';
+        return step({ ...s, phase: next, retries: 0 }, { type: 'listen', kind, wordId: item.wordId, sentenceId: item.sentenceId });
       }
       if (outcome === 'cmd-repeat') return enterItem(s);
       if (outcome === 'cmd-skip') return gradeSelf(s, 'again', 'skip');
       break;
+    }
 
-    // A cloze answer grades exactly like a quiz answer (single-word match); only
-    // the reveal differs, and toReveal derives that from the item's mode.
+    // Cloze/shadow/build answers grade like a quiz answer — the runner did the
+    // mode-specific matching (single word, sentence coverage, LLM verdict) and
+    // reports match/nomatch; only the reveal differs, derived from item.mode.
     case 'quiz-listening':
-    case 'cloze-listening': {
+    case 'cloze-listening':
+    case 'shadow-listening':
+    case 'build-listening': {
       if (outcome === 'cmd-repeat') return enterItem(s);
       if (outcome === 'cmd-skip') return gradeSelf(s, 'again', 'skip');
       if (outcome === 'match') {

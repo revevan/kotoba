@@ -83,7 +83,29 @@ export class Player {
   private playOne(src: string, gen: number): Promise<PlayOutcome> {
     return new Promise((resolve) => {
       const el = this.el;
+      // Stall guard: play() can hang forever without ended/error/pause firing
+      // (no audio output, autoplay left pending, wedged element) — and in that
+      // state el.paused may even read false while currentTime never advances.
+      // Zero playback progress across three checks ⇒ skip the clip like a load
+      // error; any progress resets the count. Never let one clip strand the
+      // session.
+      let stalls = 0;
+      const stallTimer = setInterval(() => {
+        if (el.currentTime === 0) {
+          stalls++;
+          if (stalls >= 3) {
+            dlog('player', `clip stalled (no playback progress): ${src.split('/').slice(-2).join('/')}`);
+            cleanup();
+            resolve(gen === this.generation ? 'done' : 'cancelled');
+          }
+        } else {
+          stalls = 0;
+        }
+      }, 2000);
+      let finished = false;
       const cleanup = () => {
+        finished = true;
+        clearInterval(stallTimer);
         el.removeEventListener('ended', onEnded);
         el.removeEventListener('error', onError);
         el.removeEventListener('pause', onPause);
@@ -93,7 +115,10 @@ export class Player {
         resolve(gen === this.generation ? 'done' : 'cancelled');
       };
       const onError = () => {
-        // Missing/failed clip: skip it rather than wedge the session.
+        // Missing/failed clip: skip it rather than wedge the session. The
+        // finished guard silences the late play()-rejection that can land
+        // after a stall already resolved this clip.
+        if (finished) return;
         dlog('player', `clip failed (${el.error?.code ?? 'play-rejected'}): ${src.split('/').slice(-2).join('/')}`);
         cleanup();
         resolve(gen === this.generation ? 'done' : 'cancelled');

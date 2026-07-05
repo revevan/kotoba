@@ -11,6 +11,8 @@ import { abortListening, listen, srAvailable } from '../speech/recognizer';
 import { cloudAbort, cloudListen, cloudReleaseMic, cloudSrAvailable, cloudWaitForEcho, primeCloudAudio, primeMic } from '../speech/cloudRecognizer';
 import { cloudSttEnabled } from '../speech/sttConfig';
 import { mockAbort, mockListen, mockMode } from '../speech/mock';
+import { gradeBuild } from '../speech/grader';
+import { forcedRung, labsEnabled } from '../labs';
 import { acquireWakeLock, keepWakeLockAlive, releaseWakeLock } from '../platform/wakeLock';
 import { warmupMic } from '../platform/unlock';
 import { requestPersistentStorage } from '../platform/storage';
@@ -22,6 +24,7 @@ import { chooseExerciseType, pickClozeSentence, pickSentence } from './selectExe
 import { SessionRunner } from './runner';
 import type { TapCommand } from './machine';
 import {
+  buildNote,
   clozeEnglishFirst,
   clozeMinIntervalDays,
   deckIndex,
@@ -192,18 +195,31 @@ export async function startSession(): Promise<void> {
     enableCloze: enableCloze.value,
     minIntervalDays: clozeMinIntervalDays.value,
     forceMature: forceClozeMode,
+    // Pre-release rungs 3–4, gated behind ?labs=1.
+    ...(labsEnabled ? { labs: { shadowMinIntervalDays: 14, buildMinIntervalDays: 30, force: forcedRung } } : {}),
   };
   const decorate: Decorate = (wordId, role) => {
     const word = words.get(wordId);
-    if (!word?.sentences?.length) return {};
     const card = cardById.get(wordId);
     // A teach slot is the teaching step itself; only quiz slots (a real review
-    // or a just-taught word's in-session re-quiz) can become a cloze — and a
-    // cloze must rotate within the cloze-eligible subset of the pool.
-    if (role !== 'teach' && chooseExerciseType(card, word, clozeCfg) === 'cloze') {
-      const sentence = pickClozeSentence(word, card?.reps ?? 0);
-      if (sentence) return { mode: 'cloze', sentenceId: sentence.id };
+    // or a just-taught word's in-session re-quiz) upgrade to a higher rung.
+    if (word && role !== 'teach') {
+      const type = chooseExerciseType(card, word, clozeCfg);
+      if (type === 'build') {
+        // Model answer for the reveal, when the word has one.
+        const sentence = pickSentence(word, card?.reps ?? 0);
+        return { mode: 'build', ...(sentence ? { sentenceId: sentence.id } : {}) };
+      }
+      if (type === 'shadow') {
+        const sentence = pickSentence(word, card?.reps ?? 0);
+        if (sentence) return { mode: 'shadow', sentenceId: sentence.id };
+      }
+      if (type === 'cloze') {
+        const sentence = pickClozeSentence(word, card?.reps ?? 0);
+        if (sentence) return { mode: 'cloze', sentenceId: sentence.id };
+      }
     }
+    if (!word?.sentences?.length) return {};
     const sentence = pickSentence(word, card?.reps ?? 0);
     return sentence ? { sentenceId: sentence.id } : {};
   };
@@ -223,6 +239,19 @@ export async function startSession(): Promise<void> {
     // Cloud path only: pace the teach echo locally instead of paying Deepgram to
     // transcribe a "repeat after me" we never grade.
     waitForEcho: !mockMode && cloudSttEnabled ? cloudWaitForEcho : undefined,
+    // Rung 4 grader (labs): mock mode approves anything that reached grading.
+    // The wrapper mirrors the note into state for on-screen feedback.
+    gradeBuild: !labsEnabled
+      ? undefined
+      : async (word, transcript) => {
+          const v = mockMode
+            ? { verdict: 'good' as const, note: 'mock grader' }
+            : cloudSttEnabled
+              ? await gradeBuild(word, transcript)
+              : { verdict: 'again' as const };
+          buildNote.value = v.note ?? null;
+          return v;
+        },
     rate,
     markLearned: async (wordId) => {
       if (!(await getCard(wordId))) {
@@ -239,6 +268,11 @@ export async function startSession(): Promise<void> {
     onChange: (state, word) => {
       sessionState.value = state;
       sessionWord.value = word;
+      // Grader feedback belongs to one attempt: clear it when a new prompt
+      // starts (reveal/correct keep it visible).
+      if (state.phase.endsWith('-playing') && state.phase !== 'reveal-playing' && state.phase !== 'correct-playing') {
+        buildNote.value = null;
+      }
     },
     onEnded: () => {
       void loadHomeData();

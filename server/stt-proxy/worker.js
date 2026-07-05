@@ -37,6 +37,23 @@ export default {
     if (request.method !== 'POST') {
       return json({ error: 'method-not-allowed' }, 405, cors);
     }
+
+    // Rung-4 sentence grader: POST /grade { word:{kana,written,english}, transcript }
+    //   200 -> { verdict: "good"|"again", note }
+    if (new URL(request.url).pathname === '/grade') {
+      if (!env.ANTHROPIC_API_KEY) return json({ error: 'grader-misconfigured' }, 500, cors);
+      try {
+        const body = await request.json();
+        if (!body?.word?.kana || typeof body.transcript !== 'string' || !body.transcript.trim()) {
+          return json({ error: 'bad-body' }, 400, cors);
+        }
+        const result = await gradeSentence(body.word, body.transcript.slice(0, 300), env);
+        return json(result, 200, cors);
+      } catch (e) {
+        return json({ error: 'upstream', detail: String(e) }, 502, cors);
+      }
+    }
+
     if (!env.DEEPGRAM_API_KEY) {
       return json({ error: 'proxy-misconfigured' }, 500, cors);
     }
@@ -101,6 +118,46 @@ async function transcribe(audio, language, apiKey, hints = []) {
     // transcribed too, e.g. "きんようび妙帯" for 金曜日).
     words: (alt?.words ?? []).map((w) => ({ word: w.word, start: w.start, end: w.end })),
   };
+}
+
+/**
+ * LLM grading for the "build a sentence" exercise. Lenient by design: the
+ * transcript comes from far-field speech recognition, so particle slips and
+ * STT artifacts must not fail a genuinely correct sentence. Haiku by default —
+ * this is a yes/no judgment on one short sentence (override: GRADE_MODEL var).
+ */
+async function gradeSentence(word, transcript, env) {
+  const model = env.GRADE_MODEL || 'claude-haiku-4-5';
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': env.ANTHROPIC_API_KEY,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model,
+      max_tokens: 150,
+      system:
+        'You grade one sentence spoken by a Japanese learner (beginner–intermediate). The input is a speech-to-text ' +
+        'transcript and may contain recognition artifacts. Grade whether the TARGET WORD is used correctly and the ' +
+        'sentence is meaningful Japanese. Be lenient: ignore minor particle/conjugation slips and obvious STT errors. ' +
+        'Grade "again" only when the target word is missing or clearly misused, or the utterance is not a meaningful ' +
+        'sentence. Reply with JSON only: {"verdict":"good"|"again","note":"<one short encouraging sentence, ≤12 words>"}',
+      messages: [{
+        role: 'user',
+        content: `TARGET WORD: ${word.written?.[0] ?? word.kana}（${word.kana}） = "${word.english ?? ''}"\nTRANSCRIPT: 「${transcript}」`,
+      }],
+    }),
+  });
+  if (!resp.ok) throw new Error(`anthropic ${resp.status}`);
+  const data = await resp.json();
+  const text = (data.content || []).find((b) => b.type === 'text')?.text ?? '';
+  const start = text.indexOf('{');
+  const end = text.lastIndexOf('}');
+  if (start === -1 || end === -1) return { verdict: 'again', note: '' };
+  const parsed = JSON.parse(text.slice(start, end + 1));
+  return { verdict: parsed.verdict === 'good' ? 'good' : 'again', note: String(parsed.note ?? '').slice(0, 120) };
 }
 
 function dedupe(items) {

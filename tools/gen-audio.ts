@@ -31,6 +31,8 @@ const PHRASES: Record<string, string> = {
   'also-hear': 'You may also hear —',
   'for-example': 'For example —',
   'fill-the-blank': 'Fill in the blank.',
+  'repeat-the-sentence': 'Repeat the sentence —',
+  'make-a-sentence': 'Make your own sentence with —',
   // "resume" is a heteronym and the neural voice reads it as the noun "résumé".
   // The free Edge endpoint rejects SSML <phoneme>, so spell it phonetically to
   // force the verb /rɪˈzum/. (On-screen the button still reads "Resume".)

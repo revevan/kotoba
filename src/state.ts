@@ -36,3 +36,5 @@ export const clozeEnglishFirst = signal(true); // play the EN translation before
 export const sessionState = signal<MachineState | null>(null);
 export const sessionWord = signal<Word | undefined>(undefined);
 export const prefetchProgress = signal<{ done: number; total: number } | null>(null);
+/** Rung-4 grader feedback for the current item (labs; cleared on next prompt). */
+export const buildNote = signal<string | null>(null);

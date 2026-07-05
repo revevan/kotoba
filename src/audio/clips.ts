@@ -79,6 +79,40 @@ export function clozePromptSequence(sentence: Sentence, opts: { englishFirst?: b
   ];
 }
 
+/** Rung 3 prompt: "repeat the sentence — <sentence>". The learner says it back. */
+export function shadowPromptSequence(sentence: Sentence): ClipItem[] {
+  return [
+    { src: phraseClip('repeat-the-sentence'), gapMs: 300 },
+    { src: senClip(sentence.id) },
+  ];
+}
+
+/** Rung 3 reveal: replay the sentence once, then self-grade. */
+export function shadowRevealSequence(sentence: Sentence): ClipItem[] {
+  return [
+    { src: phraseClip('not-quite'), gapMs: 120 },
+    { src: senClip(sentence.id), gapMs: 500 },
+    { src: phraseClip('knew-it') },
+  ];
+}
+
+/** Rung 4 prompt: "make your own sentence with — <word>". */
+export function buildPromptSequence(w: Word): ClipItem[] {
+  return [
+    { src: phraseClip('make-a-sentence'), gapMs: 300 },
+    { src: jaClip(w.id) },
+  ];
+}
+
+/** Rung 4 reveal: model answer is the word's example sentence (when it has one). */
+export function buildRevealSequence(w: Word, sentence?: Sentence): ClipItem[] {
+  return [
+    { src: phraseClip('not-quite'), gapMs: 120 },
+    ...(sentence ? [{ src: phraseClip('for-example'), gapMs: 120 }, { src: senClip(sentence.id), gapMs: 500 }] : [{ src: jaClip(w.id), gapMs: 500 }]),
+    { src: phraseClip('knew-it') },
+  ];
+}
+
 /** Rung 2 reveal: name the word, then play the full natural sentence in context. */
 export function clozeRevealSequence(w: Word, sentence: Sentence): ClipItem[] {
   return [
@@ -109,7 +143,7 @@ export const phraseSequence = (key: string): ClipItem[] => [{ src: phraseClip(ke
 /** Every audio URL a session item set can need — used to warm the cache. */
 export function sessionClipUrls(words: Word[]): string[] {
   const urls = new Set<string>();
-  for (const key of ['in-japanese', 'repeat-after-me', 'also-hear', 'how-do-you-say', 'correct', 'not-quite', 'the-answer-is', 'knew-it', 'session-start', 'session-done', 'paused', 'resuming', 'for-example', 'fill-the-blank']) {
+  for (const key of ['in-japanese', 'repeat-after-me', 'also-hear', 'how-do-you-say', 'correct', 'not-quite', 'the-answer-is', 'knew-it', 'session-start', 'session-done', 'paused', 'resuming', 'for-example', 'fill-the-blank', 'repeat-the-sentence', 'make-a-sentence']) {
     urls.add(phraseClip(key));
   }
   for (const w of words) {

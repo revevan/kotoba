@@ -1,4 +1,4 @@
-import { prefetchProgress, sessionState, sessionWord } from '../state';
+import { buildNote, prefetchProgress, sessionState, sessionWord } from '../state';
 import { endSession, tap } from '../session/controller';
 import { mockMode, mockPending, mockSubmit } from '../speech/mock';
 import type { Phase } from '../session/machine';
@@ -12,6 +12,10 @@ const PHASE_BADGE: Record<Phase, { text: string; cls: string }> = {
   'quiz-listening': { text: 'YOUR ANSWER?', cls: 'listening' },
   'cloze-playing': { text: 'FILL THE BLANK', cls: 'speaking' },
   'cloze-listening': { text: 'SAY THE MISSING WORD', cls: 'listening' },
+  'shadow-playing': { text: 'REPEAT THE SENTENCE', cls: 'speaking' },
+  'shadow-listening': { text: 'SAY IT BACK', cls: 'listening' },
+  'build-playing': { text: 'MAKE A SENTENCE', cls: 'speaking' },
+  'build-listening': { text: 'YOUR SENTENCE?', cls: 'listening' },
   'correct-playing': { text: 'CORRECT', cls: 'correct' },
   'reveal-playing': { text: 'NOT QUITE', cls: 'reveal' },
   'self-grade-listening': { text: 'MISSED — say “got it” to override', cls: 'reveal' },
@@ -28,8 +32,9 @@ export function SessionScreen() {
 
   const badge = PHASE_BADGE[s.phase];
   const showAnswer = ['teach-playing', 'teach-listening', 'correct-playing', 'reveal-playing', 'self-grade-listening'].includes(s.phase);
-  const isQuizzing = s.phase === 'quiz-playing' || s.phase === 'quiz-listening';
+  const isQuizzing = s.phase === 'quiz-playing' || s.phase === 'quiz-listening' || s.phase === 'build-playing' || s.phase === 'build-listening';
   const clozing = s.phase === 'cloze-playing' || s.phase === 'cloze-listening';
+  const shadowing = s.phase === 'shadow-playing' || s.phase === 'shadow-listening';
   const selfGrading = s.phase === 'reveal-playing' || s.phase === 'self-grade-listening';
   // The sentence backing the current item (cloze source / rung-1 example).
   const item = s.queue[s.idx];
@@ -80,7 +85,8 @@ export function SessionScreen() {
               </div>
             )}
             {isQuizzing && <div class="word-ja mystery">?</div>}
-            {sentence && (clozing || (showAnswer && item?.mode === 'cloze')) && (
+            {buildNote.value && <div class="recognized">{buildNote.value}</div>}
+            {sentence && (clozing || shadowing || (showAnswer && item?.mode === 'cloze')) && (
               <div class="sentence">
                 <div class="sentence-ja">{clozing ? sentence.textJa.replace(sentence.clozeSurface, '＿＿＿') : sentence.textJa}</div>
                 {showAnswer && <div class="sentence-en">{sentence.textEn}</div>}

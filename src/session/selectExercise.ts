@@ -10,6 +10,13 @@ export interface ClozeConfig {
   minIntervalDays: number;
   /** `?cloze=1` debug override: treat any word-with-sentence as mature. */
   forceMature?: boolean;
+  /** Labs (rungs 3–4): sentence shadowing + free production, pre-release. */
+  labs?: {
+    shadowMinIntervalDays: number;
+    buildMinIntervalDays: number;
+    /** `?rung=` debug override: force this type when prerequisites are met. */
+    force?: 'cloze' | 'shadow' | 'build' | null;
+  };
 }
 
 /**
@@ -27,13 +34,23 @@ export function clozeSentences(word: Word): Sentence[] {
   return (word.sentences ?? []).filter((s) => s.clozeEligible !== false);
 }
 
-export function chooseExerciseType(card: Card | undefined, word: Word, cfg: ClozeConfig): 'quiz' | 'cloze' {
-  if (!cfg.enableCloze) return 'quiz';
-  if (clozeSentences(word).length === 0) return 'quiz';
-  if (cfg.forceMature) return 'cloze';
+export function chooseExerciseType(card: Card | undefined, word: Word, cfg: ClozeConfig): 'quiz' | 'cloze' | 'shadow' | 'build' {
+  // Debug override (labs only): force a rung when its prerequisites are met.
+  if (cfg.labs?.force === 'build') return 'build';
+  if (cfg.labs?.force === 'shadow' && (word.sentences?.length ?? 0) > 0) return 'shadow';
+  if (cfg.labs?.force === 'cloze' && clozeSentences(word).length > 0) return 'cloze';
+  if (cfg.forceMature) return clozeSentences(word).length > 0 ? 'cloze' : 'quiz';
+
   if (!card || card.state !== State.Review) return 'quiz';
-  if ((card.scheduled_days ?? 0) < cfg.minIntervalDays) return 'quiz';
-  return 'cloze';
+  const days = card.scheduled_days ?? 0;
+
+  // The ladder, top rung first: build (free production) → shadow (say the
+  // sentence back) → cloze (fill the blank) → plain recall. Each rung needs
+  // maturity plus its content prerequisite; missing either falls through.
+  if (cfg.labs && days >= cfg.labs.buildMinIntervalDays) return 'build';
+  if (cfg.labs && days >= cfg.labs.shadowMinIntervalDays && (word.sentences?.length ?? 0) > 0) return 'shadow';
+  if (cfg.enableCloze && days >= cfg.minIntervalDays && clozeSentences(word).length > 0) return 'cloze';
+  return 'quiz';
 }
 
 /**
