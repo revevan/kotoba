@@ -18141,5 +18141,31 @@
       "clozeSurface": "コピー",
       "clozeReading": "こぴー"
     }
+  ],
+  "n5-534b796a": [
+    {
+      "id": "s-9d88c775",
+      "textJa": "お母さん、ありがとう。",
+      "readingKana": "おかあさん、ありがとう。",
+      "textEn": "Thanks, Mom.",
+      "clozeSurface": "ありがとう",
+      "clozeReading": "ありがとう"
+    },
+    {
+      "id": "s-020bc9c1",
+      "textJa": "本当にありがとう。",
+      "readingKana": "ほんとうにありがとう。",
+      "textEn": "Thank you so much.",
+      "clozeSurface": "ありがとう",
+      "clozeReading": "ありがとう"
+    },
+    {
+      "id": "s-0dc5d7f4",
+      "textJa": "みんな、ありがとう。",
+      "readingKana": "みんな、ありがとう。",
+      "textEn": "Thanks, everyone.",
+      "clozeSurface": "ありがとう",
+      "clozeReading": "ありがとう"
+    }
   ]
 }
