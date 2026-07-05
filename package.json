@@ -13,7 +13,8 @@
     "gen-sentences": "tsx tools/gen-sentences.ts",
     "gen-sentences-local": "tsx tools/gen-sentences-local.ts",
     "publish-sentences": "tsx tools/publish-sentences.ts",
-    "pipeline": "tsx tools/pipeline/run.ts"
+    "pipeline": "tsx tools/pipeline/run.ts",
+    "sync-audio-r2": "tsx tools/sync-audio-r2.ts"
   },
   "dependencies": {
     "@patdx/kuromoji": "^1.0.4",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.110.0",
+    "@aws-sdk/client-s3": "^3.1079.0",
     "@preact/preset-vite": "^2.9.0",
     "@types/node": "^25.9.3",
     "msedge-tts": "^2.0.0",

@@ -7,7 +7,11 @@ export interface ClipItem {
   gapMs?: number;
 }
 
-const base = () => `${import.meta.env.BASE_URL}audio/`;
+// Audio corpus base. Production points at the R2 custom domain via
+// VITE_AUDIO_BASE_URL (see docs/r2-audio-migration-plan.md); unset — local
+// dev, preview, rollback — falls back to same-origin /audio/ from public/.
+const AUDIO_BASE = (import.meta.env.VITE_AUDIO_BASE_URL as string | undefined) || `${import.meta.env.BASE_URL}audio/`;
+const base = () => AUDIO_BASE;
 
 export const jaClip = (id: string) => `${base()}ja/${id}.mp3`;
 export const jaSlowClip = (id: string) => `${base()}ja-slow/${id}.mp3`;

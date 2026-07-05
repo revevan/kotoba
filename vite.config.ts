@@ -1,4 +1,5 @@
 import { execSync } from 'node:child_process';
+import { rmSync } from 'node:fs';
 import { defineConfig } from 'vite';
 import preact from '@preact/preset-vite';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -25,6 +26,15 @@ export default defineConfig({
   define: { __BUILD_ID__: JSON.stringify(buildId()) },
   plugins: [
     preact(),
+    {
+      // When audio is served from R2 (VITE_AUDIO_BASE_URL set in CI), the
+      // corpus is dead weight in the Pages artifact — strip it from the build
+      // output. Local builds (no env var) keep same-origin audio untouched.
+      name: 'drop-audio-from-build',
+      closeBundle() {
+        if (process.env.VITE_AUDIO_BASE_URL) rmSync('dist/audio', { recursive: true, force: true });
+      },
+    },
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
@@ -53,7 +63,8 @@ export default defineConfig({
         navigateFallbackAllowlist: [/^\/app/],
         runtimeCaching: [
           {
-            urlPattern: ({ url }) => url.pathname.includes('/audio/'),
+            // Same-origin /audio/ paths (dev/rollback) or the R2 audio host.
+            urlPattern: ({ url }) => url.pathname.includes('/audio/') || (!!process.env.VITE_AUDIO_BASE_URL && url.href.startsWith(process.env.VITE_AUDIO_BASE_URL)),
             handler: 'CacheFirst',
             options: {
               cacheName: 'kotoba-audio',

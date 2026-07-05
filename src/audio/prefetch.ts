@@ -17,7 +17,9 @@ export async function prefetchAudio(urls: string[], onProgress?: (done: number, 
       await Promise.all(
         missing.slice(i, i + batch).map(async (url) => {
           try {
-            await cache.add(url);
+            // Explicit CORS mode: a bare string URL would fetch no-cors
+            // cross-origin and cache an opaque (quota-padded) response.
+            await cache.add(new Request(url, { mode: 'cors' }));
           } catch {
             /* missing clip or offline; playback will skip it */
           }

@@ -37,6 +37,10 @@ jobs:
           # URL of the deployed login/sync API (see server/api). When unset the
           # app runs local-only with no sign-in.
           VITE_API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
+          # Audio corpus on Cloudflare R2 (not a secret — it's a public CDN
+          # host). When set, the build strips dist/audio and the app fetches
+          # clips from here; unset it to roll back to same-origin audio.
+          VITE_AUDIO_BASE_URL: https://audio.kotobaapp.com/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

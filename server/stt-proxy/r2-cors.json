@@ -1,0 +1,11 @@
+{
+  "rules": [
+    {
+      "allowed": {
+        "origins": ["https://kotobaapp.com", "https://www.kotobaapp.com", "https://revevan.github.io", "http://localhost:5173", "http://localhost:4173"],
+        "methods": ["GET", "HEAD"]
+      },
+      "maxAgeSeconds": 86400
+    }
+  ]
+}

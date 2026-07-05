@@ -40,6 +40,9 @@ export type PlayOutcome = 'done' | 'cancelled';
  */
 export class Player {
   private el: HTMLAudioElement = new Audio();
+  // crossOrigin set in the constructor: audio may come from the R2 CDN
+  // (audio.kotobaapp.com), and anonymous CORS keeps responses non-opaque so
+  // the service worker's runtime cache stores them without quota padding.
   private generation = 0;
   private timer: ReturnType<typeof setTimeout> | null = null;
   private gapResolve: ((o: PlayOutcome) => void) | null = null;
@@ -47,7 +50,9 @@ export class Player {
   /** Called when the OS pauses playback out from under us (phone call, Siri,
    *  CarPlay ducking). Without it the clip's 'ended' never fires and the
    *  session would sit silent forever; the owner typically pauses the session. */
-  constructor(private onInterrupt?: () => void) {}
+  constructor(private onInterrupt?: () => void) {
+    this.el.crossOrigin = 'anonymous';
+  }
 
   /** Must be called synchronously inside the session-start tap handler. */
   unlock(): void {
