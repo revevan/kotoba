@@ -832,12 +832,12 @@
    "id": "n5-901bb831",
    "english": "apartment (abbr.)",
    "prompt": "apartment",
-   "kana": "あぱあと",
+   "kana": "あぱーと",
    "written": [
     "アパート",
-    "あぱあと"
+    "あぱーと"
    ],
-   "romaji": "apaato",
+   "romaji": "apa-to",
    "mora": [
     "a",
     "pa",
@@ -847,7 +847,7 @@
    "moraKana": [
     "あ",
     "ぱ",
-    "あ",
+    "ー",
     "と"
    ],
    "tags": [
@@ -2494,12 +2494,12 @@
    "id": "n5-863934ac",
    "english": "elevator",
    "prompt": "elevator",
-   "kana": "えれべえたあ",
+   "kana": "えれべーたー",
    "written": [
     "エレベーター",
-    "えれべえたあ"
+    "えれべーたー"
    ],
-   "romaji": "erebeetaa",
+   "romaji": "erebe-ta-",
    "mora": [
     "e",
     "re",
@@ -2512,9 +2512,9 @@
     "え",
     "れ",
     "べ",
-    "え",
+    "ー",
     "た",
-    "あ"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -5142,12 +5142,12 @@
    "id": "n5-478feb61",
    "english": "curry (abbr. for curry and rice)",
    "prompt": "curry",
-   "kana": "かれえ",
+   "kana": "かれー",
    "written": [
     "カレー",
-    "かれえ"
+    "かれー"
    ],
-   "romaji": "karee",
+   "romaji": "kare-",
    "mora": [
     "ka",
     "re",
@@ -5156,7 +5156,7 @@
    "moraKana": [
     "か",
     "れ",
-    "え"
+    "ー"
    ],
    "tags": [
     "Genki",
@@ -5171,12 +5171,12 @@
    "id": "n5-c11ccbfd",
    "english": "calendar",
    "prompt": "calendar",
-   "kana": "かれんだあ",
+   "kana": "かれんだー",
    "written": [
     "カレンダー",
-    "かれんだあ"
+    "かれんだー"
    ],
-   "romaji": "karendaa",
+   "romaji": "karenda-",
    "mora": [
     "ka",
     "re",
@@ -5189,7 +5189,7 @@
     "れ",
     "ん",
     "だ",
-    "あ"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -5446,12 +5446,12 @@
    "id": "n5-cab76efc",
    "english": "guitar",
    "prompt": "guitar",
-   "kana": "ぎたあ",
+   "kana": "ぎたー",
    "written": [
     "ギター",
-    "ぎたあ"
+    "ぎたー"
    ],
-   "romaji": "gitaa",
+   "romaji": "gita-",
    "mora": [
     "gi",
     "ta",
@@ -5460,7 +5460,7 @@
    "moraKana": [
     "ぎ",
     "た",
-    "あ"
+    "ー"
    ],
    "tags": [
     "Genki",
@@ -6888,23 +6888,23 @@
    "id": "n5-99a8fca0",
    "english": "coffee",
    "prompt": "coffee",
-   "kana": "こうひい",
+   "kana": "こーひー",
    "written": [
     "コーヒー",
-    "こうひい"
+    "こーひー"
    ],
-   "romaji": "kouhii",
+   "romaji": "ko-hi-",
    "mora": [
     "ko",
-    "u",
+    "o",
     "hi",
     "i"
    ],
    "moraKana": [
     "こ",
-    "う",
+    "ー",
     "ひ",
-    "い"
+    "ー"
    ],
    "tags": [
     "Genki",
@@ -7326,12 +7326,12 @@
    "id": "n5-ecd448e4",
    "english": "to copy",
    "prompt": "to copy",
-   "kana": "こぴいする",
+   "kana": "こぴーする",
    "written": [
     "コピーする",
-    "こぴいする"
+    "こぴーする"
    ],
-   "romaji": "kopiisuru",
+   "romaji": "kopi-suru",
    "mora": [
     "ko",
     "pi",
@@ -7342,7 +7342,7 @@
    "moraKana": [
     "こ",
     "ぴ",
-    "い",
+    "ー",
     "す",
     "る"
    ],
@@ -8565,12 +8565,12 @@
    "id": "n5-966cff7d",
    "english": "shower",
    "prompt": "shower",
-   "kana": "しゃわあ",
+   "kana": "しゃわー",
    "written": [
     "シャワー",
-    "しゃわあ"
+    "しゃわー"
    ],
-   "romaji": "shawaa",
+   "romaji": "shawa-",
    "mora": [
     "sha",
     "wa",
@@ -8579,7 +8579,7 @@
    "moraKana": [
     "しゃ",
     "わ",
-    "あ"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -9006,12 +9006,12 @@
    "id": "n5-da317004",
    "english": "skirt",
    "prompt": "skirt",
-   "kana": "すかあと",
+   "kana": "すかーと",
    "written": [
     "スカート",
-    "すかあと"
+    "すかーと"
    ],
-   "romaji": "sukaato",
+   "romaji": "suka-to",
    "mora": [
     "su",
     "ka",
@@ -9021,7 +9021,7 @@
    "moraKana": [
     "す",
     "か",
-    "あ",
+    "ー",
     "と"
    ],
    "tags": [
@@ -9218,22 +9218,22 @@
    "id": "n5-cbb27c16",
    "english": "heater (lit: stove)",
    "prompt": "heater",
-   "kana": "すとうぶ",
+   "kana": "すとーぶ",
    "written": [
     "ストーブ",
-    "すとうぶ"
+    "すとーぶ"
    ],
-   "romaji": "sutoubu",
+   "romaji": "suto-bu",
    "mora": [
     "su",
     "to",
-    "u",
+    "o",
     "bu"
    ],
    "moraKana": [
     "す",
     "と",
-    "う",
+    "ー",
     "ぶ"
    ],
    "tags": [
@@ -9248,12 +9248,12 @@
    "id": "n5-866724a7",
    "english": "spoon",
    "prompt": "spoon",
-   "kana": "すぷうん",
+   "kana": "すぷーん",
    "written": [
     "スプーン",
-    "すぷうん"
+    "すぷーん"
    ],
-   "romaji": "supuun",
+   "romaji": "supu-n",
    "mora": [
     "su",
     "pu",
@@ -9263,7 +9263,7 @@
    "moraKana": [
     "す",
     "ぷ",
-    "う",
+    "ー",
     "ん"
    ],
    "tags": [
@@ -9276,22 +9276,22 @@
    "id": "n5-680166e9",
    "english": "sport(s)",
    "prompt": "sport",
-   "kana": "すぽうつ",
+   "kana": "すぽーつ",
    "written": [
     "スポーツ",
-    "すぽうつ"
+    "すぽーつ"
    ],
-   "romaji": "supoutsu",
+   "romaji": "supo-tsu",
    "mora": [
     "su",
     "po",
-    "u",
+    "o",
     "tsu"
    ],
    "moraKana": [
     "す",
     "ぽ",
-    "う",
+    "ー",
     "つ"
    ],
    "tags": [
@@ -9445,12 +9445,12 @@
    "id": "n5-a7db7358",
    "english": "sweater",
    "prompt": "sweater",
-   "kana": "せえたあ",
+   "kana": "せーたー",
    "written": [
     "セーター",
-    "せえたあ"
+    "せーたー"
    ],
-   "romaji": "seetaa",
+   "romaji": "se-ta-",
    "mora": [
     "se",
     "e",
@@ -9459,9 +9459,9 @@
    ],
    "moraKana": [
     "せ",
-    "え",
+    "ー",
     "た",
-    "あ"
+    "ー"
    ],
    "tags": [
     "Genki",
@@ -10203,12 +10203,12 @@
    "id": "n5-50f9d89e",
    "english": "taxi",
    "prompt": "taxi",
-   "kana": "たくしい",
+   "kana": "たくしー",
    "written": [
     "タクシー",
-    "たくしい"
+    "たくしー"
    ],
-   "romaji": "takushii",
+   "romaji": "takushi-",
    "mora": [
     "ta",
     "ku",
@@ -10219,7 +10219,7 @@
     "た",
     "く",
     "し",
-    "い"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -11464,12 +11464,12 @@
    "id": "n5-b29e9540",
    "english": "tape",
    "prompt": "tape",
-   "kana": "てえぷ",
+   "kana": "てーぷ",
    "written": [
     "テープ",
-    "てえぷ"
+    "てーぷ"
    ],
-   "romaji": "teepu",
+   "romaji": "te-pu",
    "mora": [
     "te",
     "e",
@@ -11477,7 +11477,7 @@
    ],
    "moraKana": [
     "て",
-    "え",
+    "ー",
     "ぷ"
    ],
    "tags": [
@@ -11492,31 +11492,31 @@
    "id": "n5-32a79b84",
    "english": "tape recorder",
    "prompt": "tape recorder",
-   "kana": "てえぷれこうだあ",
+   "kana": "てーぷれこーだー",
    "written": [
     "テープレコーダー",
-    "てえぷれこうだあ"
+    "てーぷれこーだー"
    ],
-   "romaji": "teepurekoudaa",
+   "romaji": "te-pureko-da-",
    "mora": [
     "te",
     "e",
     "pu",
     "re",
     "ko",
-    "u",
+    "o",
     "da",
     "a"
    ],
    "moraKana": [
     "て",
-    "え",
+    "ー",
     "ぷ",
     "れ",
     "こ",
-    "う",
+    "ー",
     "だ",
-    "あ"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -11528,12 +11528,12 @@
    "id": "n5-c33a5aaa",
    "english": "table",
    "prompt": "table",
-   "kana": "てえぶる",
+   "kana": "てーぶる",
    "written": [
     "テーブル",
-    "てえぶる"
+    "てーぶる"
    ],
-   "romaji": "teeburu",
+   "romaji": "te-buru",
    "mora": [
     "te",
     "e",
@@ -11542,7 +11542,7 @@
    ],
    "moraKana": [
     "て",
-    "え",
+    "ー",
     "ぶ",
     "る"
    ],
@@ -11730,12 +11730,12 @@
    "id": "n5-000452af",
    "english": "(abbr.) department store",
    "prompt": "department store",
-   "kana": "でぱあと",
+   "kana": "でぱーと",
    "written": [
     "デパート",
-    "でぱあと"
+    "でぱーと"
    ],
-   "romaji": "depaato",
+   "romaji": "depa-to",
    "mora": [
     "de",
     "pa",
@@ -11745,7 +11745,7 @@
    "moraKana": [
     "で",
     "ぱ",
-    "あ",
+    "ー",
     "と"
    ],
    "tags": [
@@ -13626,14 +13626,14 @@
    "id": "n5-db8f7dcf",
    "english": "news",
    "prompt": "news",
-   "kana": "にゅうす",
+   "kana": "にゅーす",
    "written": [
     "ニュース",
-    "にゅうす",
+    "にゅーす",
     "便り",
     "たより"
    ],
-   "romaji": "nyuusu",
+   "romaji": "nyu-su",
    "mora": [
     "nyu",
     "u",
@@ -13641,7 +13641,7 @@
    ],
    "moraKana": [
     "にゅ",
-    "う",
+    "ー",
     "す"
    ],
    "tags": [
@@ -13859,20 +13859,20 @@
    "id": "n5-3e9768f9",
    "english": "notebook",
    "prompt": "notebook",
-   "kana": "のうと",
+   "kana": "のーと",
    "written": [
     "ノート",
-    "のうと"
+    "のーと"
    ],
-   "romaji": "nouto",
+   "romaji": "no-to",
    "mora": [
     "no",
-    "u",
+    "o",
     "to"
    ],
    "moraKana": [
     "の",
-    "う",
+    "ー",
     "と"
    ],
    "tags": [
@@ -14019,12 +14019,12 @@
    "id": "n5-6fdc0543",
    "english": "a party",
    "prompt": "a party",
-   "kana": "ぱあてぃい",
+   "kana": "ぱーてぃー",
    "written": [
     "パーティー",
-    "ぱあてぃい"
+    "ぱーてぃー"
    ],
-   "romaji": "paateii",
+   "romaji": "pa-tei-",
    "mora": [
     "pa",
     "a",
@@ -14033,9 +14033,9 @@
    ],
    "moraKana": [
     "ぱ",
-    "あ",
+    "ー",
     "てぃ",
-    "い"
+    "ー"
    ],
    "tags": [
     "Genki",
@@ -14458,12 +14458,12 @@
    "id": "n5-4164fd4b",
    "english": "butter",
    "prompt": "butter",
-   "kana": "ばたあ",
+   "kana": "ばたー",
    "written": [
     "バター",
-    "ばたあ"
+    "ばたー"
    ],
-   "romaji": "bataa",
+   "romaji": "bata-",
    "mora": [
     "ba",
     "ta",
@@ -14472,7 +14472,7 @@
    "moraKana": [
     "ば",
     "た",
-    "あ"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -15741,12 +15741,12 @@
    "id": "n5-557da2a7",
    "english": "swimming pool",
    "prompt": "swimming pool",
-   "kana": "ぷうる",
+   "kana": "ぷーる",
    "written": [
     "プール",
-    "ぷうる"
+    "ぷーる"
    ],
-   "romaji": "puuru",
+   "romaji": "pu-ru",
    "mora": [
     "pu",
     "u",
@@ -15754,7 +15754,7 @@
    ],
    "moraKana": [
     "ぷ",
-    "う",
+    "ー",
     "る"
    ],
    "tags": [
@@ -15769,20 +15769,20 @@
    "id": "n5-9974795e",
    "english": "fork",
    "prompt": "fork",
-   "kana": "ふぉうく",
+   "kana": "ふぉーく",
    "written": [
     "フォーク",
-    "ふぉうく"
+    "ふぉーく"
    ],
-   "romaji": "fuouku",
+   "romaji": "fuo-ku",
    "mora": [
     "fuo",
-    "u",
+    "o",
     "ku"
    ],
    "moraKana": [
     "ふぉ",
-    "う",
+    "ー",
     "く"
    ],
    "tags": [
@@ -16153,12 +16153,12 @@
    "id": "n5-fd65988c",
    "english": "a page",
    "prompt": "a page",
-   "kana": "ぺえじ",
+   "kana": "ぺーじ",
    "written": [
     "ページ",
-    "ぺえじ"
+    "ぺーじ"
    ],
-   "romaji": "peeji",
+   "romaji": "pe-ji",
    "mora": [
     "pe",
     "e",
@@ -16166,7 +16166,7 @@
    ],
    "moraKana": [
     "ぺ",
-    "え",
+    "ー",
     "じ"
    ],
    "tags": [
@@ -16403,22 +16403,22 @@
    "id": "n5-7b1a1fb7",
    "english": "ball-point pen",
    "prompt": "ball-point pen",
-   "kana": "ぼうるぺん",
+   "kana": "ぼーるぺん",
    "written": [
     "ボールペン",
-    "ぼうるぺん"
+    "ぼーるぺん"
    ],
-   "romaji": "bourupen",
+   "romaji": "bo-rupen",
    "mora": [
     "bo",
-    "u",
+    "o",
     "ru",
     "pe",
     "n"
    ],
    "moraKana": [
     "ぼ",
-    "う",
+    "ー",
     "る",
     "ぺ",
     "ん"
@@ -17793,14 +17793,14 @@
    "id": "n5-10e00194",
    "english": "meter",
    "prompt": "meter",
-   "kana": "めえとる",
+   "kana": "めーとる",
    "written": [
     "メートル",
-    "めえとる",
+    "めーとる",
     "計器",
     "けいき"
    ],
-   "romaji": "meetoru",
+   "romaji": "me-toru",
    "mora": [
     "me",
     "e",
@@ -17809,7 +17809,7 @@
    ],
    "moraKana": [
     "め",
-    "え",
+    "ー",
     "と",
     "る"
    ],
@@ -19191,24 +19191,24 @@
    "id": "n5-8c949745",
    "english": "record",
    "prompt": "record",
-   "kana": "れこうど",
+   "kana": "れこーど",
    "written": [
     "レコード",
-    "れこうど",
+    "れこーど",
     "記録",
     "きろく"
    ],
-   "romaji": "rekoudo",
+   "romaji": "reko-do",
    "mora": [
     "re",
     "ko",
-    "u",
+    "o",
     "do"
    ],
    "moraKana": [
     "れ",
     "こ",
-    "う",
+    "ー",
     "ど"
    ],
    "tags": [

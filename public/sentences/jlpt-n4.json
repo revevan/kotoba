@@ -329,7 +329,7 @@
     {
       "id": "s-b111ab47",
       "textJa": "ここでボールを投げないでください。",
-      "readingKana": "ここでぼうるをなげないでください。",
+      "readingKana": "ここでぼーるをなげないでください。",
       "textEn": "Please don't throw a ball here.",
       "clozeSurface": "投げないで",
       "clozeReading": "なげないで",
@@ -1058,7 +1058,7 @@
     {
       "id": "s-69e42bb8",
       "textJa": "コンサートの席を予約しましたか。",
-      "readingKana": "こんさあとのせきをよやくしましたか。",
+      "readingKana": "こんさーとのせきをよやくしましたか。",
       "textEn": "Did you reserve seats for the concert?",
       "clozeSurface": "予約",
       "clozeReading": "よやく"
@@ -1158,7 +1158,7 @@
     {
       "id": "s-28c26003",
       "textJa": "スポーツ、例えばテニスが好きです。",
-      "readingKana": "すぽうつ、たとえばてにすがすきです。",
+      "readingKana": "すぽーつ、たとえばてにすがすきです。",
       "textEn": "I like sports, for example tennis.",
       "clozeSurface": "例えば",
       "clozeReading": "たとえば",
@@ -1552,7 +1552,7 @@
     {
       "id": "s-7afbdfe0",
       "textJa": "コーヒーと紅茶、両方好きです。",
-      "readingKana": "こうひいとこうちゃ、りょうほうすきです。",
+      "readingKana": "こーひーとこうちゃ、りょうほうすきです。",
       "textEn": "I like both coffee and tea.",
       "clozeSurface": "両方",
       "clozeReading": "りょうほう",
@@ -2566,7 +2566,7 @@
     {
       "id": "s-c3e7bc9c",
       "textJa": "毎日ケーキを食べたら太ります。",
-      "readingKana": "まいにちけえきをたべたらふとります。",
+      "readingKana": "まいにちけーきをたべたらふとります。",
       "textEn": "If you eat cake every day, you'll gain weight.",
       "clozeSurface": "太ります",
       "clozeReading": "ふとります"
@@ -2683,7 +2683,7 @@
     {
       "id": "s-db03f267",
       "textJa": "答をノートに書いてください。",
-      "readingKana": "こたえをのうとにかいてください。",
+      "readingKana": "こたえをのーとにかいてください。",
       "textEn": "Please write the answer in your notebook.",
       "clozeSurface": "答",
       "clozeReading": "こたえ",
@@ -2703,7 +2703,7 @@
     {
       "id": "s-544a5543",
       "textJa": "もちろん、明日のパーティーに行きます。",
-      "readingKana": "もちろん、あしたのぱあてぃいにいきます。",
+      "readingKana": "もちろん、あしたのぱーてぃーにいきます。",
       "textEn": "Of course, I'll go to tomorrow's party.",
       "clozeSurface": "もちろん",
       "clozeReading": "もちろん",
@@ -3057,7 +3057,7 @@
     {
       "id": "s-b0484ef8",
       "textJa": "この間、初めてカレーを食べました。",
-      "readingKana": "このかん、はじめてかれえをたべました。",
+      "readingKana": "このかん、はじめてかれーをたべました。",
       "textEn": "The other day, I ate curry for the first time.",
       "clozeSurface": "この間",
       "clozeReading": "このあいだ",
@@ -3261,7 +3261,7 @@
     {
       "id": "s-78341dd9",
       "textJa": "友達にあげたセーターは彼に合いました。",
-      "readingKana": "ともだちにあげたせえたあはかれにあいました。",
+      "readingKana": "ともだちにあげたせーたーはかれにあいました。",
       "textEn": "The sweater I gave my friend fit him.",
       "clozeSurface": "合いました",
       "clozeReading": "あいました",
@@ -3323,7 +3323,7 @@
     {
       "id": "s-bcf526c8",
       "textJa": "先生は毎朝コーヒーを召し上がります。",
-      "readingKana": "せんせいはまいあさこうひいをめしあがります。",
+      "readingKana": "せんせいはまいあさこーひーをめしあがります。",
       "textEn": "The teacher has coffee every morning.",
       "clozeSurface": "召し上がります",
       "clozeReading": "めしあがります"
@@ -3439,7 +3439,7 @@
     {
       "id": "s-a1c81324",
       "textJa": "デパートへプレゼントを買いに行きましょう。",
-      "readingKana": "でぱあとへぷれぜんとをかいにいきましょう。",
+      "readingKana": "でぱーとへぷれぜんとをかいにいきましょう。",
       "textEn": "Let's go to the department store to buy a present.",
       "clozeSurface": "プレゼント",
       "clozeReading": "ぷれぜんと",
@@ -3477,7 +3477,7 @@
     {
       "id": "s-b71f288e",
       "textJa": "具合が良くなったら、プールで泳ぎましょう。",
-      "readingKana": "ぐあいがよくなったら、ぷうるでおよぎましょう。",
+      "readingKana": "ぐあいがよくなったら、ぷーるでおよぎましょう。",
       "textEn": "If your condition gets better, let's swim in the pool.",
       "clozeSurface": "具合",
       "clozeReading": "ぐあい",
@@ -3552,7 +3552,7 @@
     {
       "id": "s-56a207f2",
       "textJa": "政治のニュースをよく見ますか。",
-      "readingKana": "せいじのにゅうすをよくみますか。",
+      "readingKana": "せいじのにゅーすをよくみますか。",
       "textEn": "Do you often watch political news?",
       "clozeSurface": "政治",
       "clozeReading": "せいじ",
@@ -3775,7 +3775,7 @@
     {
       "id": "s-9b1e852f",
       "textJa": "特別なパーティーに行きませんか。",
-      "readingKana": "とくべつなぱあてぃいにいきませんか。",
+      "readingKana": "とくべつなぱーてぃーにいきませんか。",
       "textEn": "Won't you go to a special party?",
       "clozeSurface": "特別",
       "clozeReading": "とくべつ",
@@ -3803,7 +3803,7 @@
     {
       "id": "s-b863ed6e",
       "textJa": "コンサートは込むと思います。",
-      "readingKana": "こんさあとはこむとおもいます。",
+      "readingKana": "こんさーとはこむとおもいます。",
       "textEn": "I think the concert will be crowded.",
       "clozeSurface": "込む",
       "clozeReading": "こむ"
@@ -3879,7 +3879,7 @@
     {
       "id": "s-81fa53c9",
       "textJa": "毎日オートバイで会社へ行きますか。",
-      "readingKana": "まいにちおうとばいでかいしゃへいきますか。",
+      "readingKana": "まいにちおーとばいでかいしゃへいきますか。",
       "textEn": "Do you go to the office by motorcycle every day?",
       "clozeSurface": "オートバイ",
       "clozeReading": "おーとばい",
@@ -3888,7 +3888,7 @@
     {
       "id": "s-5c6d92d9",
       "textJa": "兄は毎朝オートバイで出かけます。",
-      "readingKana": "あにはまいあさおうとばいででかけます。",
+      "readingKana": "あにはまいあさおーとばいででかけます。",
       "textEn": "My brother goes out by motorcycle every morning.",
       "clozeSurface": "オートバイ",
       "clozeReading": "おーとばい",
@@ -3897,7 +3897,7 @@
     {
       "id": "s-138b1a7e",
       "textJa": "兄はオートバイを持っています。",
-      "readingKana": "あにはおうとばいをもっています。",
+      "readingKana": "あにはおーとばいをもっています。",
       "textEn": "My older brother has a motorcycle.",
       "clozeSurface": "オートバイ",
       "clozeReading": "おーとばい",
@@ -3937,7 +3937,7 @@
     {
       "id": "s-0850a87f",
       "textJa": "デパートのエスカレーターで三階へ上がります。",
-      "readingKana": "でぱあとのえすかれーたーでさんがいへあがります。",
+      "readingKana": "でぱーとのえすかれーたーでさんがいへあがります。",
       "textEn": "I go up to the third floor by the department store escalator.",
       "clozeSurface": "エスカレーター",
       "clozeReading": "えすかれーたー",
@@ -5389,7 +5389,7 @@
     {
       "id": "s-81781bee",
       "textJa": "友達が来る前にケーキを焼きました。",
-      "readingKana": "ともだちがくるまえにけえきをやきました。",
+      "readingKana": "ともだちがくるまえにけーきをやきました。",
       "textEn": "I baked a cake before my friend came.",
       "clozeSurface": "焼きました",
       "clozeReading": "やきました"
@@ -6017,7 +6017,7 @@
     {
       "id": "s-be5f583c",
       "textJa": "パーティーの後、料理はまだ残っていますか。",
-      "readingKana": "ぱあてぃいのあと、りょうりはまだのこっていますか。",
+      "readingKana": "ぱーてぃーのあと、りょうりはまだのこっていますか。",
       "textEn": "Is there still food remaining after the party?",
       "clozeSurface": "残って",
       "clozeReading": "のこって"
@@ -6120,7 +6120,7 @@
     {
       "id": "s-62b752f2",
       "textJa": "メニューから好きな料理を選びたいです。",
-      "readingKana": "めにゅうからすきなりょうりをえらびたいです。",
+      "readingKana": "めにゅーからすきなりょうりをえらびたいです。",
       "textEn": "I want to choose my favorite dish from the menu.",
       "clozeSurface": "選びたい",
       "clozeReading": "えらびたい",
@@ -6280,7 +6280,7 @@
     {
       "id": "s-5ab7353b",
       "textJa": "毎朝、ワープロで手紙を打ちます。",
-      "readingKana": "まいあさ、わあぷろでてがみをうちます。",
+      "readingKana": "まいあさ、わーぷろでてがみをうちます。",
       "textEn": "Every morning I type a letter on the word processor.",
       "clozeSurface": "打ちます",
       "clozeReading": "うちます"
@@ -6561,7 +6561,7 @@
     {
       "id": "s-48892496",
       "textJa": "授業でスクリーンを見たり、ノートを書いたりします。",
-      "readingKana": "じゅぎょうですくりーんをみたり、のうとをかいたりします。",
+      "readingKana": "じゅぎょうですくりーんをみたり、のーとをかいたりします。",
       "textEn": "In class, we do things like watch the screen and write notes.",
       "clozeSurface": "スクリーン",
       "clozeReading": "すくりーん",
@@ -6581,7 +6581,7 @@
     {
       "id": "s-1590d341",
       "textJa": "そのオーバーは暖かいと思います。",
-      "readingKana": "そのおうばあはあたたかいとおもいます。",
+      "readingKana": "そのおーばーはあたたかいとおもいます。",
       "textEn": "I think that overcoat is warm.",
       "clozeSurface": "オーバー",
       "clozeReading": "おーばー",
@@ -6590,7 +6590,7 @@
     {
       "id": "s-220b51f6",
       "textJa": "そのオーバーは高いでしょう。",
-      "readingKana": "そのおうばあはたかいでしょう。",
+      "readingKana": "そのおーばーはたかいでしょう。",
       "textEn": "That overcoat is probably expensive.",
       "clozeSurface": "オーバー",
       "clozeReading": "おーばー",
@@ -6599,7 +6599,7 @@
     {
       "id": "s-796d4f40",
       "textJa": "妹にオーバーを貸してあげました。",
-      "readingKana": "いもうとにおうばあをかしてあげました。",
+      "readingKana": "いもうとにおーばーをかしてあげました。",
       "textEn": "I lent my little sister an overcoat.",
       "clozeSurface": "オーバー",
       "clozeReading": "おーばー",
@@ -8170,7 +8170,7 @@
     {
       "id": "s-cced48eb",
       "textJa": "このビルにはエレベーターがありません。",
-      "readingKana": "このびるにはえれべえたあがありません。",
+      "readingKana": "このびるにはえれべーたーがありません。",
       "textEn": "This building doesn't have an elevator.",
       "clozeSurface": "ビル",
       "clozeReading": "びる"
@@ -8670,7 +8670,7 @@
     {
       "id": "s-ef72a017",
       "textJa": "港は遠いから、タクシーで行きます。",
-      "readingKana": "みなとはとおいから、たくしいでいきます。",
+      "readingKana": "みなとはとおいから、たくしーでいきます。",
       "textEn": "Since the harbor is far, I'll go by taxi.",
       "clozeSurface": "港",
       "clozeReading": "みなと",
@@ -9192,7 +9192,7 @@
     {
       "id": "s-495ca8a8",
       "textJa": "経済のニュースをよく見ます。",
-      "readingKana": "けいざいのにゅうすをよくみます。",
+      "readingKana": "けいざいのにゅーすをよくみます。",
       "textEn": "I often watch economic news.",
       "clozeSurface": "経済",
       "clozeReading": "けいざい",
@@ -9210,7 +9210,7 @@
     {
       "id": "s-7ac5fbf3",
       "textJa": "毎朝、経済ニュースを読みます。",
-      "readingKana": "まいあさ、けいざいにゅうすをよみます。",
+      "readingKana": "まいあさ、けいざいにゅーすをよみます。",
       "textEn": "Every morning, I read economic news.",
       "clozeSurface": "経済",
       "clozeReading": "けいざい",
@@ -10889,7 +10889,7 @@
     {
       "id": "s-2f510d17",
       "textJa": "このカレーは全然辛くなかったです。",
-      "readingKana": "このかれえはぜんぜんからくなかったです。",
+      "readingKana": "このかれーはぜんぜんからくなかったです。",
       "textEn": "This curry wasn't spicy at all.",
       "clozeSurface": "全然",
       "clozeReading": "ぜんぜん",
@@ -10937,7 +10937,7 @@
     {
       "id": "s-2f5d9cbd",
       "textJa": "テーブルの真ん中にお皿を置いてください。",
-      "readingKana": "てえぶるのまんなかにおさらをおいてください。",
+      "readingKana": "てーぶるのまんなかにおさらをおいてください。",
       "textEn": "Please put the plate in the middle of the table.",
       "clozeSurface": "真ん中",
       "clozeReading": "まんなか"
@@ -11265,7 +11265,7 @@
     {
       "id": "s-9ad8b865",
       "textJa": "パーティーでケーキを食べますか。",
-      "readingKana": "ぱあてぃいでけーきをたべますか。",
+      "readingKana": "ぱーてぃーでけーきをたべますか。",
       "textEn": "Will you eat cake at the party?",
       "clozeSurface": "ケーキ",
       "clozeReading": "けーき",
@@ -11397,7 +11397,7 @@
     {
       "id": "s-73b45dd3",
       "textJa": "このセーターは木綿ではありません。",
-      "readingKana": "このせえたあはもめんではありません。",
+      "readingKana": "このせーたーはもめんではありません。",
       "textEn": "This sweater is not cotton.",
       "clozeSurface": "木綿",
       "clozeReading": "もめん",
@@ -11851,7 +11851,7 @@
     {
       "id": "s-73d1b2ff",
       "textJa": "母はそのニュースを聞いて喜びました。",
-      "readingKana": "はははそのにゅうすをきいてよろこびました。",
+      "readingKana": "はははそのにゅーすをきいてよろこびました。",
       "textEn": "My mother was pleased to hear the news.",
       "clozeSurface": "喜びました",
       "clozeReading": "よろこびました"
@@ -12038,7 +12038,7 @@
     {
       "id": "s-12181884",
       "textJa": "このプールは浅いです。",
-      "readingKana": "このぷうるはあさいです。",
+      "readingKana": "このぷーるはあさいです。",
       "textEn": "This pool is shallow.",
       "clozeSurface": "浅い",
       "clozeReading": "あさい",
@@ -12056,7 +12056,7 @@
     {
       "id": "s-3df3ed50",
       "textJa": "学校のプールは浅いです。",
-      "readingKana": "がっこうのぷうるはあさいです。",
+      "readingKana": "がっこうのぷーるはあさいです。",
       "textEn": "The school pool is shallow.",
       "clozeSurface": "浅い",
       "clozeReading": "あさい",
@@ -12215,7 +12215,7 @@
     {
       "id": "s-8017171a",
       "textJa": "お祝いのパーティーに一緒に来ませんか。",
-      "readingKana": "おいわいのぱあてぃいにいっしょにきませんか。",
+      "readingKana": "おいわいのぱーてぃーにいっしょにきませんか。",
       "textEn": "Won't you come together to the celebration party?",
       "clozeSurface": "お祝い",
       "clozeReading": "おいわい",
@@ -12639,7 +12639,7 @@
     {
       "id": "s-0f7d2af1",
       "textJa": "熱いストーブに触ってはいけません。",
-      "readingKana": "あついすとうぶにさわってはいけません。",
+      "readingKana": "あついすとーぶにさわってはいけません。",
       "textEn": "You must not touch the hot heater.",
       "clozeSurface": "触って",
       "clozeReading": "さわって"
@@ -12905,7 +12905,7 @@
     {
       "id": "s-a4d0fabe",
       "textJa": "六時にニュースを放送します。",
-      "readingKana": "ろくじににゅうすをほうそうします。",
+      "readingKana": "ろくじににゅーすをほうそうします。",
       "textEn": "They broadcast the news at six o'clock.",
       "clozeSurface": "放送します",
       "clozeReading": "ほうそうします",
@@ -13092,7 +13092,7 @@
     {
       "id": "s-15e0e1d3",
       "textJa": "お嬢さんも一緒にパーティーに来てください。",
-      "readingKana": "おじょうさんもいっしょにぱあてぃいにきてください。",
+      "readingKana": "おじょうさんもいっしょにぱーてぃーにきてください。",
       "textEn": "Please have your daughter come to the party too.",
       "clozeSurface": "お嬢さん",
       "clozeReading": "おじょうさん",
@@ -14125,7 +14125,7 @@
     {
       "id": "s-c14be937",
       "textJa": "パーティーで踊りました。",
-      "readingKana": "ぱあてぃいでおどりました。",
+      "readingKana": "ぱーてぃーでおどりました。",
       "textEn": "I danced at the party.",
       "clozeSurface": "踊りました",
       "clozeReading": "おどりました",
@@ -14292,7 +14292,7 @@
     {
       "id": "s-4076c49f",
       "textJa": "来月、新しいアパートに引っ越します。",
-      "readingKana": "らいげつ、あたらしいあぱあとにひっこします。",
+      "readingKana": "らいげつ、あたらしいあぱーとにひっこします。",
       "textEn": "I will move to a new apartment next month.",
       "clozeSurface": "引っ越します",
       "clozeReading": "ひっこします"
@@ -14505,7 +14505,7 @@
     {
       "id": "s-e9f00ba0",
       "textJa": "ここでギターを弾いてもよろしいですか。",
-      "readingKana": "ここでぎたあをひいてもよろしいですか。",
+      "readingKana": "ここでぎたーをひいてもよろしいですか。",
       "textEn": "May I play the guitar here?",
       "clozeSurface": "よろしい",
       "clozeReading": "よろしい"
@@ -14817,7 +14817,7 @@
     {
       "id": "s-d9673ab4",
       "textJa": "パーティーの時間が決まったら、知らせてくれますか。",
-      "readingKana": "ぱあてぃいのじかんがきまったら、しらせてくれますか。",
+      "readingKana": "ぱーてぃーのじかんがきまったら、しらせてくれますか。",
       "textEn": "Once the party time is decided, will you let me know?",
       "clozeSurface": "知らせて",
       "clozeReading": "しらせて"
@@ -14835,7 +14835,7 @@
     {
       "id": "s-7bc34e68",
       "textJa": "新しいデパートを案内したいです。",
-      "readingKana": "あたらしいでぱあとをあんないしたいです。",
+      "readingKana": "あたらしいでぱーとをあんないしたいです。",
       "textEn": "I want to guide you around the new department store.",
       "clozeSurface": "案内",
       "clozeReading": "あんない",
@@ -14872,7 +14872,7 @@
     {
       "id": "s-ce06f255",
       "textJa": "誕生日パーティーに招待したいです。",
-      "readingKana": "たんじょうびぱあてぃいにしょうたいしたいです。",
+      "readingKana": "たんじょうびぱーてぃーにしょうたいしたいです。",
       "textEn": "I want to invite you to my birthday party.",
       "clozeSurface": "招待",
       "clozeReading": "しょうたい"
@@ -15043,7 +15043,7 @@
     {
       "id": "s-1deb18d6",
       "textJa": "明日のパーティーを楽しみにしています。",
-      "readingKana": "あしたのぱあてぃいをたのしみにしています。",
+      "readingKana": "あしたのぱーてぃーをたのしみにしています。",
       "textEn": "I'm looking forward to tomorrow's party.",
       "clozeSurface": "楽しみ",
       "clozeReading": "たのしみ"
@@ -16730,7 +16730,7 @@
     {
       "id": "s-331938e3",
       "textJa": "サッカーで足をけがしました。",
-      "readingKana": "さっかあであしをけがしました。",
+      "readingKana": "さっかーであしをけがしました。",
       "textEn": "I injured my leg playing soccer.",
       "clozeSurface": "けがしました",
       "clozeReading": "けがしました"
@@ -16740,7 +16740,7 @@
     {
       "id": "s-6a3b6853",
       "textJa": "出かける前にメールをチェックします。",
-      "readingKana": "でかけるまえにめえるをちぇっくします。",
+      "readingKana": "でかけるまえにめーるをちぇっくします。",
       "textEn": "I check my email before going out.",
       "clozeSurface": "チェックします",
       "clozeReading": "ちぇっくします"

@@ -517,12 +517,12 @@
    "id": "n3-19ae7e2c",
    "english": "jeans",
    "prompt": "jeans",
-   "kana": "じいんず",
+   "kana": "じーんず",
    "written": [
     "ジーンズ",
-    "じいんず"
+    "じーんず"
    ],
-   "romaji": "jiinzu",
+   "romaji": "ji-nzu",
    "mora": [
     "ji",
     "i",
@@ -531,7 +531,7 @@
    ],
    "moraKana": [
     "じ",
-    "い",
+    "ー",
     "ん",
     "ず"
    ],
@@ -2051,12 +2051,12 @@
    "id": "n3-d3981bb9",
    "english": "juice, soft drink; deuce",
    "prompt": "juice",
-   "kana": "じゅうす",
+   "kana": "じゅーす",
    "written": [
     "ジュース",
-    "じゅうす"
+    "じゅーす"
    ],
-   "romaji": "juusu",
+   "romaji": "ju-su",
    "mora": [
     "ju",
     "u",
@@ -2064,7 +2064,7 @@
    ],
    "moraKana": [
     "じゅ",
-    "う",
+    "ー",
     "す"
    ],
    "tags": [
@@ -4621,12 +4621,12 @@
    "id": "n3-26c09d13",
    "english": "(Western) soup",
    "prompt": "soup",
-   "kana": "すうぷ",
+   "kana": "すーぷ",
    "written": [
     "スープ",
-    "すうぷ"
+    "すーぷ"
    ],
-   "romaji": "suupu",
+   "romaji": "su-pu",
    "mora": [
     "su",
     "u",
@@ -4634,7 +4634,7 @@
    ],
    "moraKana": [
     "す",
-    "う",
+    "ー",
     "ぷ"
    ],
    "tags": [
@@ -4681,12 +4681,12 @@
    "id": "n3-006938b0",
    "english": "ski",
    "prompt": "ski",
-   "kana": "すきい",
+   "kana": "すきー",
    "written": [
     "スキー",
-    "すきい"
+    "すきー"
    ],
-   "romaji": "sukii",
+   "romaji": "suki-",
    "mora": [
     "su",
     "ki",
@@ -4695,7 +4695,7 @@
    "moraKana": [
     "す",
     "き",
-    "い"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -4794,12 +4794,12 @@
    "id": "n3-d4b9ec52",
    "english": "skate(s), skating",
    "prompt": "skate",
-   "kana": "すけえと",
+   "kana": "すけーと",
    "written": [
     "スケート",
-    "すけえと"
+    "すけーと"
    ],
-   "romaji": "sukeeto",
+   "romaji": "suke-to",
    "mora": [
     "su",
     "ke",
@@ -4809,7 +4809,7 @@
    "moraKana": [
     "す",
     "け",
-    "え",
+    "ー",
     "と"
    ],
    "tags": [
@@ -4822,12 +4822,12 @@
    "id": "n3-5e537b46",
    "english": "schedule",
    "prompt": "schedule",
-   "kana": "すけじゅうる",
+   "kana": "すけじゅーる",
    "written": [
     "スケジュール",
-    "すけじゅうる"
+    "すけじゅーる"
    ],
-   "romaji": "sukejuuru",
+   "romaji": "sukeju-ru",
    "mora": [
     "su",
     "ke",
@@ -4839,7 +4839,7 @@
     "す",
     "け",
     "じゅ",
-    "う",
+    "ー",
     "る"
    ],
    "tags": [
@@ -5186,14 +5186,14 @@
    "id": "n3-5212a341",
    "english": "speech",
    "prompt": "speech",
-   "kana": "すぴいち",
+   "kana": "すぴーち",
    "written": [
     "スピーチ",
-    "すぴいち",
+    "すぴーち",
     "演説",
     "えんぜつ"
    ],
-   "romaji": "supiichi",
+   "romaji": "supi-chi",
    "mora": [
     "su",
     "pi",
@@ -5203,7 +5203,7 @@
    "moraKana": [
     "す",
     "ぴ",
-    "い",
+    "ー",
     "ち"
    ],
    "tags": [
@@ -6370,12 +6370,12 @@
    "id": "n3-f043bac4",
    "english": "ice cream",
    "prompt": "ice cream",
-   "kana": "あいすくりいむ",
+   "kana": "あいすくりーむ",
    "written": [
     "アイスクリーム",
-    "あいすくりいむ"
+    "あいすくりーむ"
    ],
-   "romaji": "aisukuriimu",
+   "romaji": "aisukuri-mu",
    "mora": [
     "a",
     "i",
@@ -6391,7 +6391,7 @@
     "す",
     "く",
     "り",
-    "い",
+    "ー",
     "む"
    ],
    "tags": [
@@ -8866,12 +8866,12 @@
    "id": "n3-ca9bc436",
    "english": "one's image",
    "prompt": "one's image",
-   "kana": "いめえじ",
+   "kana": "いめーじ",
    "written": [
     "イメージ",
-    "いめえじ"
+    "いめーじ"
    ],
-   "romaji": "imeeji",
+   "romaji": "ime-ji",
    "mora": [
     "i",
     "me",
@@ -8881,7 +8881,7 @@
    "moraKana": [
     "い",
     "め",
-    "え",
+    "ー",
     "じ"
    ],
    "tags": [
@@ -9253,12 +9253,12 @@
    "id": "n3-b17099ed",
    "english": "whiskey",
    "prompt": "whiskey",
-   "kana": "ういすきい",
+   "kana": "ういすきー",
    "written": [
     "ウイスキー",
-    "ういすきい"
+    "ういすきー"
    ],
-   "romaji": "uisukii",
+   "romaji": "uisuki-",
    "mora": [
     "u",
     "i",
@@ -9271,7 +9271,7 @@
     "い",
     "す",
     "き",
-    "い"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -10157,12 +10157,12 @@
    "id": "n3-bb90d011",
    "english": "energy (GER: energie)",
    "prompt": "energy",
-   "kana": "えねるぎい",
+   "kana": "えねるぎー",
    "written": [
     "エネルギー",
-    "えねるぎい"
+    "えねるぎー"
    ],
-   "romaji": "enerugii",
+   "romaji": "enerugi-",
    "mora": [
     "e",
     "ne",
@@ -10175,7 +10175,7 @@
     "ね",
     "る",
     "ぎ",
-    "い"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -11733,12 +11733,12 @@
    "id": "n3-fc009fe9",
    "english": "card, curd",
    "prompt": "card",
-   "kana": "かあど",
+   "kana": "かーど",
    "written": [
     "カード",
-    "かあど"
+    "かーど"
    ],
-   "romaji": "kaado",
+   "romaji": "ka-do",
    "mora": [
     "ka",
     "a",
@@ -11746,7 +11746,7 @@
    ],
    "moraKana": [
     "か",
-    "あ",
+    "ー",
     "ど"
    ],
    "tags": [
@@ -17199,12 +17199,12 @@
    "id": "n3-f934a82b",
    "english": "cream",
    "prompt": "cream",
-   "kana": "くりいむ",
+   "kana": "くりーむ",
    "written": [
     "クリーム",
-    "くりいむ"
+    "くりーむ"
    ],
-   "romaji": "kuriimu",
+   "romaji": "kuri-mu",
    "mora": [
     "ku",
     "ri",
@@ -17214,7 +17214,7 @@
    "moraKana": [
     "く",
     "り",
-    "い",
+    "ー",
     "む"
    ],
    "tags": [
@@ -17957,14 +17957,14 @@
    "id": "n3-52ea8055",
    "english": "game",
    "prompt": "game",
-   "kana": "げえむ",
+   "kana": "げーむ",
    "written": [
     "ゲーム",
-    "げえむ",
+    "げーむ",
     "競技",
     "きょうぎ"
    ],
-   "romaji": "geemu",
+   "romaji": "ge-mu",
    "mora": [
     "ge",
     "e",
@@ -17972,7 +17972,7 @@
    ],
    "moraKana": [
     "げ",
-    "え",
+    "ー",
     "む"
    ],
    "tags": [
@@ -19418,20 +19418,20 @@
    "id": "n3-898e63f0",
    "english": "coach",
    "prompt": "coach",
-   "kana": "こうち",
+   "kana": "こーち",
    "written": [
     "コーチ",
-    "こうち"
+    "こーち"
    ],
-   "romaji": "kouchi",
+   "romaji": "ko-chi",
    "mora": [
     "ko",
-    "u",
+    "o",
     "chi"
    ],
    "moraKana": [
     "こ",
-    "う",
+    "ー",
     "ち"
    ],
    "tags": [
@@ -19444,20 +19444,20 @@
    "id": "n3-5c8cfe5a",
    "english": "code; cord; chord",
    "prompt": "code",
-   "kana": "こうど",
+   "kana": "こーど",
    "written": [
     "コード",
-    "こうど"
+    "こーど"
    ],
-   "romaji": "koudo",
+   "romaji": "ko-do",
    "mora": [
     "ko",
-    "u",
+    "o",
     "do"
    ],
    "moraKana": [
     "こ",
-    "う",
+    "ー",
     "ど"
    ],
    "tags": [
@@ -19522,20 +19522,20 @@
    "id": "n3-be24541b",
    "english": "goal",
    "prompt": "goal",
-   "kana": "ごうる",
+   "kana": "ごーる",
    "written": [
     "ゴール",
-    "ごうる"
+    "ごーる"
    ],
-   "romaji": "gouru",
+   "romaji": "go-ru",
    "mora": [
     "go",
-    "u",
+    "o",
     "ru"
    ],
    "moraKana": [
     "ご",
-    "う",
+    "ー",
     "る"
    ],
    "tags": [
@@ -20622,12 +20622,12 @@
    "id": "n3-d919d9b1",
    "english": "service, support system; goods or services without charge",
    "prompt": "service",
-   "kana": "さあびす",
+   "kana": "さーびす",
    "written": [
     "サービス",
-    "さあびす"
+    "さーびす"
    ],
-   "romaji": "saabisu",
+   "romaji": "sa-bisu",
    "mora": [
     "sa",
     "a",
@@ -20636,7 +20636,7 @@
    ],
    "moraKana": [
     "さ",
-    "あ",
+    "ー",
     "び",
     "す"
    ],
@@ -24002,22 +24002,22 @@
    "id": "n3-850ae9d7",
    "english": "Europe",
    "prompt": "Europe",
-   "kana": "ようろっぱ",
+   "kana": "よーろっぱ",
    "written": [
     "ヨーロッパ",
-    "ようろっぱ"
+    "よーろっぱ"
    ],
-   "romaji": "youroppa",
+   "romaji": "yo-roppa",
    "mora": [
     "yo",
-    "u",
+    "o",
     "ro",
     "q",
     "pa"
    ],
    "moraKana": [
     "よ",
-    "う",
+    "ー",
     "ろ",
     "っ",
     "ぱ"
@@ -24501,12 +24501,12 @@
    "id": "n3-cc2fe5c2",
    "english": "lighter; writer",
    "prompt": "lighter",
-   "kana": "らいたあ",
+   "kana": "らいたー",
    "written": [
     "ライター",
-    "らいたあ"
+    "らいたー"
    ],
-   "romaji": "raitaa",
+   "romaji": "raita-",
    "mora": [
     "ra",
     "i",
@@ -24517,7 +24517,7 @@
     "ら",
     "い",
     "た",
-    "あ"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -25688,12 +25688,12 @@
    "id": "n3-880bbac9",
    "english": "questionnaire (FRE: enquete), survey",
    "prompt": "questionnaire",
-   "kana": "あんけえと",
+   "kana": "あんけーと",
    "written": [
     "アンケート",
-    "あんけえと"
+    "あんけーと"
    ],
-   "romaji": "ankeeto",
+   "romaji": "anke-to",
    "mora": [
     "a",
     "n",
@@ -25705,7 +25705,7 @@
     "あ",
     "ん",
     "け",
-    "え",
+    "ー",
     "と"
    ],
    "tags": [
@@ -28525,12 +28525,12 @@
    "id": "n3-5d6d86ea",
    "english": "sofa, couch",
    "prompt": "sofa",
-   "kana": "そふぁあ",
+   "kana": "そふぁー",
    "written": [
     "ソファー",
-    "そふぁあ"
+    "そふぁー"
    ],
-   "romaji": "sofuaa",
+   "romaji": "sofua-",
    "mora": [
     "so",
     "fua",
@@ -28539,7 +28539,7 @@
    "moraKana": [
     "そ",
     "ふぁ",
-    "あ"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -29381,12 +29381,12 @@
    "id": "n3-1142cc60",
    "english": "typewriter",
    "prompt": "typewriter",
-   "kana": "たいぷらいたあ",
+   "kana": "たいぷらいたー",
    "written": [
     "タイプライター",
-    "たいぷらいたあ"
+    "たいぷらいたー"
    ],
-   "romaji": "taipuraitaa",
+   "romaji": "taipuraita-",
    "mora": [
     "ta",
     "i",
@@ -29403,7 +29403,7 @@
     "ら",
     "い",
     "た",
-    "あ"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -30762,12 +30762,12 @@
    "id": "n3-92f8eb26",
    "english": "cheese",
    "prompt": "cheese",
-   "kana": "ちいず",
+   "kana": "ちーず",
    "written": [
     "チーズ",
-    "ちいず"
+    "ちーず"
    ],
-   "romaji": "chiizu",
+   "romaji": "chi-zu",
    "mora": [
     "chi",
     "i",
@@ -30775,7 +30775,7 @@
    ],
    "moraKana": [
     "ち",
-    "い",
+    "ー",
     "ず"
    ],
    "tags": [
@@ -30790,12 +30790,12 @@
    "id": "n3-6efa571b",
    "english": "team",
    "prompt": "team",
-   "kana": "ちいむ",
+   "kana": "ちーむ",
    "written": [
     "チーム",
-    "ちいむ"
+    "ちーむ"
    ],
-   "romaji": "chiimu",
+   "romaji": "chi-mu",
    "mora": [
     "chi",
     "i",
@@ -30803,7 +30803,7 @@
    ],
    "moraKana": [
     "ち",
-    "い",
+    "ー",
     "む"
    ],
    "tags": [
@@ -32831,12 +32831,12 @@
    "id": "n3-45a12733",
    "english": "date (in the sense of 'social engagement' only)",
    "prompt": "date (in the sense of 'social engagement'",
-   "kana": "でえと",
+   "kana": "でーと",
    "written": [
     "デート",
-    "でえと"
+    "でーと"
    ],
-   "romaji": "deeto",
+   "romaji": "de-to",
    "mora": [
     "de",
     "e",
@@ -32844,7 +32844,7 @@
    ],
    "moraKana": [
     "で",
-    "え",
+    "ー",
     "と"
    ],
    "tags": [
@@ -34806,12 +34806,12 @@
    "id": "n3-d384fdc6",
    "english": "training",
    "prompt": "training",
-   "kana": "とれえにんぐ",
+   "kana": "とれーにんぐ",
    "written": [
     "トレーニング",
-    "とれえにんぐ"
+    "とれーにんぐ"
    ],
-   "romaji": "toreeningu",
+   "romaji": "tore-ningu",
    "mora": [
     "to",
     "re",
@@ -34823,7 +34823,7 @@
    "moraKana": [
     "と",
     "れ",
-    "え",
+    "ー",
     "に",
     "ん",
     "ぐ"
@@ -36806,12 +36806,12 @@
    "id": "n3-f4d72bac",
    "english": "percent",
    "prompt": "percent",
-   "kana": "ぱあせんと",
+   "kana": "ぱーせんと",
    "written": [
     "パーセント",
-    "ぱあせんと"
+    "ぱーせんと"
    ],
-   "romaji": "paasento",
+   "romaji": "pa-sento",
    "mora": [
     "pa",
     "a",
@@ -36821,7 +36821,7 @@
    ],
    "moraKana": [
     "ぱ",
-    "あ",
+    "ー",
     "せ",
     "ん",
     "と"
@@ -37440,24 +37440,24 @@
    "id": "n3-34d45c0d",
    "english": "passport",
    "prompt": "passport",
-   "kana": "ぱすぽうと",
+   "kana": "ぱすぽーと",
    "written": [
     "パスポート",
-    "ぱすぽうと"
+    "ぱすぽーと"
    ],
-   "romaji": "pasupouto",
+   "romaji": "pasupo-to",
    "mora": [
     "pa",
     "su",
     "po",
-    "u",
+    "o",
     "to"
    ],
    "moraKana": [
     "ぱ",
     "す",
     "ぽ",
-    "う",
+    "ー",
     "と"
    ],
    "tags": [
@@ -38409,12 +38409,12 @@
    "id": "n3-a250345a",
    "english": "beer",
    "prompt": "beer",
-   "kana": "びいる",
+   "kana": "びーる",
    "written": [
     "ビール",
-    "びいる"
+    "びーる"
    ],
-   "romaji": "biiru",
+   "romaji": "bi-ru",
    "mora": [
     "bi",
     "i",
@@ -38422,7 +38422,7 @@
    ],
    "moraKana": [
     "び",
-    "い",
+    "ー",
     "る"
    ],
    "tags": [
@@ -40580,12 +40580,12 @@
    "id": "n3-abb0098c",
    "english": "a brake",
    "prompt": "a brake",
-   "kana": "ぶれえき",
+   "kana": "ぶれーき",
    "written": [
     "ブレーキ",
-    "ぶれえき"
+    "ぶれーき"
    ],
-   "romaji": "bureeki",
+   "romaji": "bure-ki",
    "mora": [
     "bu",
     "re",
@@ -40595,7 +40595,7 @@
    "moraKana": [
     "ぶ",
     "れ",
-    "え",
+    "ー",
     "き"
    ],
    "tags": [
@@ -41259,20 +41259,20 @@
    "id": "n3-8713c85a",
    "english": "porter; boy",
    "prompt": "porter",
-   "kana": "ぼうい",
+   "kana": "ぼーい",
    "written": [
     "ボーイ",
-    "ぼうい"
+    "ぼーい"
    ],
-   "romaji": "boui",
+   "romaji": "bo-i",
    "mora": [
     "bo",
-    "u",
+    "o",
     "i"
    ],
    "moraKana": [
     "ぼ",
-    "う",
+    "ー",
     "い"
    ],
    "tags": [
@@ -41287,20 +41287,20 @@
    "id": "n3-81be71c0",
    "english": "rowing boat",
    "prompt": "rowing boat",
-   "kana": "ぼうと",
+   "kana": "ぼーと",
    "written": [
     "ボート",
-    "ぼうと"
+    "ぼーと"
    ],
-   "romaji": "bouto",
+   "romaji": "bo-to",
    "mora": [
     "bo",
-    "u",
+    "o",
     "to"
    ],
    "moraKana": [
     "ぼ",
-    "う",
+    "ー",
     "と"
    ],
    "tags": [
@@ -41313,20 +41313,20 @@
    "id": "n3-539184f9",
    "english": "platform; home",
    "prompt": "platform",
-   "kana": "ほうむ",
+   "kana": "ほーむ",
    "written": [
     "ホーム",
-    "ほうむ"
+    "ほーむ"
    ],
-   "romaji": "houmu",
+   "romaji": "ho-mu",
    "mora": [
     "ho",
-    "u",
+    "o",
     "mu"
    ],
    "moraKana": [
     "ほ",
-    "う",
+    "ー",
     "む"
    ],
    "tags": [
@@ -41339,22 +41339,22 @@
    "id": "n3-00a722f4",
    "english": "ball; bowl",
    "prompt": "ball",
-   "kana": "ぼうる",
+   "kana": "ぼーる",
    "written": [
     "ボール",
-    "ぼうる",
+    "ぼーる",
     "玉",
     "たま"
    ],
-   "romaji": "bouru",
+   "romaji": "bo-ru",
    "mora": [
     "bo",
-    "u",
+    "o",
     "ru"
    ],
    "moraKana": [
     "ぼ",
-    "う",
+    "ー",
     "る"
    ],
    "tags": [
@@ -42141,12 +42141,12 @@
    "id": "n3-e69c98ce",
    "english": "bar owner, master (e.g., arts, science)",
    "prompt": "bar owner",
-   "kana": "ますたあ",
+   "kana": "ますたー",
    "written": [
     "マスター",
-    "ますたあ"
+    "ますたー"
    ],
-   "romaji": "masutaa",
+   "romaji": "masuta-",
    "mora": [
     "ma",
     "su",
@@ -42157,7 +42157,7 @@
     "ま",
     "す",
     "た",
-    "あ"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -44202,12 +44202,12 @@
    "id": "n3-1e0d4a21",
    "english": "data",
    "prompt": "data",
-   "kana": "でえた",
+   "kana": "でーた",
    "written": [
     "データ",
-    "でえた"
+    "でーた"
    ],
-   "romaji": "deeta",
+   "romaji": "de-ta",
    "mora": [
     "de",
     "e",
@@ -44215,7 +44215,7 @@
    ],
    "moraKana": [
     "で",
-    "え",
+    "ー",
     "た"
    ],
    "tags": [
@@ -44256,12 +44256,12 @@
    "id": "n3-4a6c083d",
    "english": "dessert",
    "prompt": "dessert",
-   "kana": "でざあと",
+   "kana": "でざーと",
    "written": [
     "デザート",
-    "でざあと"
+    "でざーと"
    ],
-   "romaji": "dezaato",
+   "romaji": "deza-to",
    "mora": [
     "de",
     "za",
@@ -44271,7 +44271,7 @@
    "moraKana": [
     "で",
     "ざ",
-    "あ",
+    "ー",
     "と"
    ],
    "tags": [
@@ -45252,12 +45252,12 @@
    "id": "n3-53712327",
    "english": "massage",
    "prompt": "massage",
-   "kana": "まっさあじ",
+   "kana": "まっさーじ",
    "written": [
     "マッサージ",
-    "まっさあじ"
+    "まっさーじ"
    ],
-   "romaji": "massaaji",
+   "romaji": "massa-ji",
    "mora": [
     "ma",
     "q",
@@ -45269,7 +45269,7 @@
     "ま",
     "っ",
     "さ",
-    "あ",
+    "ー",
     "じ"
    ],
    "tags": [
@@ -45345,12 +45345,12 @@
    "id": "n3-79941c86",
    "english": "message",
    "prompt": "message",
-   "kana": "めっせえじ",
+   "kana": "めっせーじ",
    "written": [
     "メッセージ",
-    "めっせえじ"
+    "めっせーじ"
    ],
-   "romaji": "messeeji",
+   "romaji": "messe-ji",
    "mora": [
     "me",
     "q",
@@ -45362,7 +45362,7 @@
     "め",
     "っ",
     "せ",
-    "え",
+    "ー",
     "じ"
    ],
    "tags": [

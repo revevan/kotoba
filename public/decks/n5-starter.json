@@ -1269,12 +1269,12 @@
    "id": "n5-b29e9540",
    "english": "tape",
    "prompt": "tape",
-   "kana": "てえぷ",
+   "kana": "てーぷ",
    "written": [
     "テープ",
-    "てえぷ"
+    "てーぷ"
    ],
-   "romaji": "teepu",
+   "romaji": "te-pu",
    "mora": [
     "te",
     "e",
@@ -1282,7 +1282,7 @@
    ],
    "moraKana": [
     "て",
-    "え",
+    "ー",
     "ぷ"
    ],
    "tags": [
@@ -1505,20 +1505,20 @@
    "id": "n5-3e9768f9",
    "english": "notebook",
    "prompt": "notebook",
-   "kana": "のうと",
+   "kana": "のーと",
    "written": [
     "ノート",
-    "のうと"
+    "のーと"
    ],
-   "romaji": "nouto",
+   "romaji": "no-to",
    "mora": [
     "no",
-    "u",
+    "o",
     "to"
    ],
    "moraKana": [
     "の",
-    "う",
+    "ー",
     "と"
    ],
    "tags": [
@@ -2040,23 +2040,23 @@
    "id": "n5-99a8fca0",
    "english": "coffee",
    "prompt": "coffee",
-   "kana": "こうひい",
+   "kana": "こーひー",
    "written": [
     "コーヒー",
-    "こうひい"
+    "こーひー"
    ],
-   "romaji": "kouhii",
+   "romaji": "ko-hi-",
    "mora": [
     "ko",
-    "u",
+    "o",
     "hi",
     "i"
    ],
    "moraKana": [
     "こ",
-    "う",
+    "ー",
     "ひ",
-    "い"
+    "ー"
    ],
    "tags": [
     "Genki",
@@ -2132,22 +2132,22 @@
    "id": "n5-680166e9",
    "english": "sport(s)",
    "prompt": "sport",
-   "kana": "すぽうつ",
+   "kana": "すぽーつ",
    "written": [
     "スポーツ",
-    "すぽうつ"
+    "すぽーつ"
    ],
-   "romaji": "supoutsu",
+   "romaji": "supo-tsu",
    "mora": [
     "su",
     "po",
-    "u",
+    "o",
     "tsu"
    ],
    "moraKana": [
     "す",
     "ぽ",
-    "う",
+    "ー",
     "つ"
    ],
    "tags": [
@@ -3064,12 +3064,12 @@
    "id": "n5-000452af",
    "english": "department store",
    "prompt": "department store",
-   "kana": "でぱあと",
+   "kana": "でぱーと",
    "written": [
     "デパート",
-    "でぱあと"
+    "でぱーと"
    ],
-   "romaji": "depaato",
+   "romaji": "depa-to",
    "mora": [
     "de",
     "pa",
@@ -3079,7 +3079,7 @@
    "moraKana": [
     "で",
     "ぱ",
-    "あ",
+    "ー",
     "と"
    ],
    "tags": [

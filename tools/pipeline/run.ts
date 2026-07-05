@@ -25,7 +25,7 @@ import {
   type LevelConfig,
 } from './config';
 import {
-  buildTokenizer, client, clozeMatchesTarget, countOccurrences, draftsDir, filterOffendersByReading, hashInt, loadDeck, maskCloze,
+  buildTokenizer, client, clozeMatchesTarget, countOccurrences, draftsDir, filterOffendersByReading, fixLoanwordReadings, hashInt, loadDeck, maskCloze,
   parseJsonText, readState, reusablePool, sentenceId, trigramJaccard, whitelistForms,
   whitelistText, wordById, writeState,
   type Cluster, type GenSentence, type JudgeScore, type PlanState, type RejectedSentence,
@@ -298,8 +298,13 @@ async function fetchResults(cfg: LevelConfig): Promise<void> {
       const parsed = parseJsonText<{ sentences: Array<Record<string, string>> }>(text);
       for (const s of parsed.sentences) {
         raw.push({
-          wordId: s.word_id, textJa: s.text_ja, readingKana: s.reading_kana, textEn: s.text_en,
-          clozeSurface: s.cloze_surface, clozeReading: s.cloze_reading, scenario: s.scenario, frame: s.frame,
+          wordId: s.word_id, textJa: s.text_ja,
+          // Deterministic repair of the generator's katakana long-vowel bug
+          // (びいる for びーる) — the largest defect class in every review.
+          readingKana: fixLoanwordReadings(s.text_ja, s.reading_kana),
+          textEn: s.text_en, clozeSurface: s.cloze_surface,
+          clozeReading: fixLoanwordReadings(s.cloze_surface, s.cloze_reading),
+          scenario: s.scenario, frame: s.frame,
         });
       }
     } catch (e) {

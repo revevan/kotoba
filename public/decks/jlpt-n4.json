@@ -702,22 +702,22 @@
    "id": "n4-8c5aedef",
    "english": "motorcycle (lit: auto-bi(ke))",
    "prompt": "motorcycle )",
-   "kana": "おうとばい",
+   "kana": "おーとばい",
    "written": [
     "オートバイ",
-    "おうとばい"
+    "おーとばい"
    ],
-   "romaji": "outobai",
+   "romaji": "o-tobai",
    "mora": [
     "o",
-    "u",
+    "o",
     "to",
     "ba",
     "i"
    ],
    "moraKana": [
     "お",
-    "う",
+    "ー",
     "と",
     "ば",
     "い"
@@ -2344,12 +2344,12 @@
    "id": "n4-51046a2c",
    "english": "escalator",
    "prompt": "escalator",
-   "kana": "えすかれえたあ",
+   "kana": "えすかれーたー",
    "written": [
     "エスカレーター",
-    "えすかれえたあ"
+    "えすかれーたー"
    ],
-   "romaji": "esukareetaa",
+   "romaji": "esukare-ta-",
    "mora": [
     "e",
     "su",
@@ -2364,9 +2364,9 @@
     "す",
     "か",
     "れ",
-    "え",
+    "ー",
     "た",
-    "あ"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -6261,12 +6261,12 @@
    "id": "n4-f64201d8",
    "english": "screen",
    "prompt": "screen",
-   "kana": "すくりいん",
+   "kana": "すくりーん",
    "written": [
     "スクリーン",
-    "すくりいん"
+    "すくりーん"
    ],
-   "romaji": "sukuriin",
+   "romaji": "sukuri-n",
    "mora": [
     "su",
     "ku",
@@ -6278,7 +6278,7 @@
     "す",
     "く",
     "り",
-    "い",
+    "ー",
     "ん"
    ],
    "tags": [
@@ -6629,12 +6629,12 @@
    "id": "n4-7fed8ed6",
    "english": "steak",
    "prompt": "steak",
-   "kana": "すてえき",
+   "kana": "すてーき",
    "written": [
     "ステーキ",
-    "すてえき"
+    "すてーき"
    ],
-   "romaji": "suteeki",
+   "romaji": "sute-ki",
    "mora": [
     "su",
     "te",
@@ -6644,7 +6644,7 @@
    "moraKana": [
     "す",
     "て",
-    "え",
+    "ー",
     "き"
    ],
    "tags": [
@@ -6747,23 +6747,23 @@
    "id": "n4-74be5dfb",
    "english": "overcoat; over, exceeding, exaggeration",
    "prompt": "overcoat",
-   "kana": "おうばあ",
+   "kana": "おーばー",
    "written": [
     "オーバー",
-    "おうばあ"
+    "おーばー"
    ],
-   "romaji": "oubaa",
+   "romaji": "o-ba-",
    "mora": [
     "o",
-    "u",
+    "o",
     "ba",
     "a"
    ],
    "moraKana": [
     "お",
-    "う",
+    "ー",
     "ば",
-    "あ"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -7163,12 +7163,12 @@
    "id": "n4-3f846810",
    "english": "announcer",
    "prompt": "announcer",
-   "kana": "あなうんさあ",
+   "kana": "あなうんさー",
    "written": [
     "アナウンサー",
-    "あなうんさあ"
+    "あなうんさー"
    ],
-   "romaji": "anaunsaa",
+   "romaji": "anaunsa-",
    "mora": [
     "a",
     "na",
@@ -7183,7 +7183,7 @@
     "う",
     "ん",
     "さ",
-    "あ"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -8258,12 +8258,12 @@
    "id": "n4-e3ee02aa",
    "english": "word processor",
    "prompt": "word processor",
-   "kana": "わあぷろ",
+   "kana": "わーぷろ",
    "written": [
     "ワープロ",
-    "わあぷろ"
+    "わーぷろ"
    ],
-   "romaji": "waapuro",
+   "romaji": "wa-puro",
    "mora": [
     "wa",
     "a",
@@ -8272,7 +8272,7 @@
    ],
    "moraKana": [
     "わ",
-    "あ",
+    "ー",
     "ぷ",
     "ろ"
    ],
@@ -10447,12 +10447,12 @@
    "id": "n4-0744f9c2",
    "english": "hamburger steak",
    "prompt": "hamburger steak",
-   "kana": "はんばあぐ",
+   "kana": "はんばーぐ",
    "written": [
     "ハンバーグ",
-    "はんばあぐ"
+    "はんばーぐ"
    ],
-   "romaji": "hanbaagu",
+   "romaji": "hanba-gu",
    "mora": [
     "ha",
     "n",
@@ -10464,7 +10464,7 @@
     "は",
     "ん",
     "ば",
-    "あ",
+    "ー",
     "ぐ"
    ],
    "tags": [
@@ -11366,12 +11366,12 @@
    "id": "n4-5ee99629",
    "english": "suit",
    "prompt": "suit",
-   "kana": "すうつ",
+   "kana": "すーつ",
    "written": [
     "スーツ",
-    "すうつ"
+    "すーつ"
    ],
-   "romaji": "suutsu",
+   "romaji": "su-tsu",
    "mora": [
     "su",
     "u",
@@ -11379,7 +11379,7 @@
    ],
    "moraKana": [
     "す",
-    "う",
+    "ー",
     "つ"
    ],
    "tags": [
@@ -13215,14 +13215,14 @@
    "id": "n4-3430daed",
    "english": "curtain",
    "prompt": "curtain",
-   "kana": "かあてん",
+   "kana": "かーてん",
    "written": [
     "カーテン",
-    "かあてん",
+    "かーてん",
     "幕",
     "まく"
    ],
-   "romaji": "kaaten",
+   "romaji": "ka-ten",
    "mora": [
     "ka",
     "a",
@@ -13231,7 +13231,7 @@
    ],
    "moraKana": [
     "か",
-    "あ",
+    "ー",
     "て",
     "ん"
    ],
@@ -14368,12 +14368,12 @@
    "id": "n4-e3fddb6c",
    "english": "accessory",
    "prompt": "accessory",
-   "kana": "あくせさりい",
+   "kana": "あくせさりー",
    "written": [
     "アクセサリー",
-    "あくせさりい"
+    "あくせさりー"
    ],
-   "romaji": "akusesarii",
+   "romaji": "akusesari-",
    "mora": [
     "a",
     "ku",
@@ -14388,7 +14388,7 @@
     "せ",
     "さ",
     "り",
-    "い"
+    "ー"
    ],
    "tags": [
     "JLPT",
@@ -14677,12 +14677,12 @@
    "id": "n4-7fcd9f40",
    "english": "suitcase",
    "prompt": "suitcase",
-   "kana": "すうつけえす",
+   "kana": "すーつけーす",
    "written": [
     "スーツケース",
-    "すうつけえす"
+    "すーつけーす"
    ],
-   "romaji": "suutsukeesu",
+   "romaji": "su-tsuke-su",
    "mora": [
     "su",
     "u",
@@ -14693,10 +14693,10 @@
    ],
    "moraKana": [
     "す",
-    "う",
+    "ー",
     "つ",
     "け",
-    "え",
+    "ー",
     "す"
    ],
    "tags": [
@@ -14886,12 +14886,12 @@
    "id": "n4-69478810",
    "english": "concert",
    "prompt": "concert",
-   "kana": "こんさあと",
+   "kana": "こんさーと",
    "written": [
     "コンサート",
-    "こんさあと"
+    "こんさーと"
    ],
-   "romaji": "konsaato",
+   "romaji": "konsa-to",
    "mora": [
     "ko",
     "n",
@@ -14903,7 +14903,7 @@
     "こ",
     "ん",
     "さ",
-    "あ",
+    "ー",
     "と"
    ],
    "tags": [
@@ -15581,12 +15581,12 @@
    "id": "n4-4a8448b5",
    "english": "cake",
    "prompt": "cake",
-   "kana": "けえき",
+   "kana": "けーき",
    "written": [
     "ケーキ",
-    "けえき"
+    "けーき"
    ],
-   "romaji": "keeki",
+   "romaji": "ke-ki",
    "mora": [
     "ke",
     "e",
@@ -15594,7 +15594,7 @@
    ],
    "moraKana": [
     "け",
-    "え",
+    "ー",
     "き"
    ],
    "tags": [
@@ -16691,26 +16691,26 @@
    "id": "n4-a0151662",
    "english": "alcohol",
    "prompt": "alcohol",
-   "kana": "あるこうる",
+   "kana": "あるこーる",
    "written": [
     "アルコール",
-    "あるこうる",
+    "あるこーる",
     "酒",
     "さけ"
    ],
-   "romaji": "arukouru",
+   "romaji": "aruko-ru",
    "mora": [
     "a",
     "ru",
     "ko",
-    "u",
+    "o",
     "ru"
    ],
    "moraKana": [
     "あ",
     "る",
     "こ",
-    "う",
+    "ー",
     "る"
    ],
    "tags": [

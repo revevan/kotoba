@@ -7,7 +7,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { TokenizerBuilder, type IpadicFeatures, type LoaderConfig } from '@patdx/kuromoji';
-import { toHiragana } from 'wanakana';
+import { toHiragana, toRomaji } from 'wanakana';
 import type { Deck, Sentence, Word } from '../../src/types';
 import { formsOf } from '../sentence-validate';
 
@@ -174,6 +174,71 @@ export interface JudgeScore {
 
 export function wordById(deck: Deck): Map<string, Word> {
   return new Map(deck.words.map((w) => [w.id, w]));
+}
+
+/** Vowel row of a kana character ('a'|'i'|'u'|'e'|'o'), or null. */
+function vowelRow(ch: string): string | null {
+  const r = toRomaji(ch);
+  const v = r[r.length - 1];
+  return 'aiueo'.includes(v) ? v : null;
+}
+
+/** The kana the generator writes in place of ー after this character. It uses
+ *  both the mechanical spelling (ぼお) and the phonological one (ぼう / げい),
+ *  so every plausible expansion must be tried. */
+function expansionsFor(prev: string): string[] {
+  switch (vowelRow(prev)) {
+    case 'a': return ['あ'];
+    case 'i': return ['い'];
+    case 'u': return ['う'];
+    case 'e': return ['え', 'い'];
+    case 'o': return ['う', 'お'];
+    default: return [];
+  }
+}
+
+/** All vowel-expanded misspellings of a reading containing ー (びーる → びいる;
+ *  ぼーる → ぼうる/ぼおる). Exported for the deck-kana repair in apply scripts. */
+export function vowelExpansions(good: string): string[] {
+  let variants = [''];
+  for (let i = 0; i < good.length; i++) {
+    const ch = good[i];
+    if (ch === 'ー' && i > 0) {
+      const opts = expansionsFor(good[i - 1]);
+      if (opts.length === 0) {
+        variants = variants.map((v) => v + ch);
+        continue;
+      }
+      variants = variants.flatMap((v) => opts.map((o) => v + o));
+    } else {
+      variants = variants.map((v) => v + ch);
+    }
+  }
+  return variants.filter((v) => v !== good);
+}
+
+const HIRA_ONLY = /^[ぁ-ゖー]+$/;
+
+/**
+ * The generator systematically writes katakana long vowels as plain vowels in
+ * readings (ビール → びいる, ボール → ぼうる, カード → かあど) — the single
+ * largest defect class across all three decks' reviews. Deterministically
+ * repair: for every katakana run in the sentence, replace any vowel-expanded
+ * spelling of its reading with the correct ー form.
+ */
+export function fixLoanwordReadings(textJa: string, reading: string): string {
+  let out = reading;
+  for (const run of textJa.match(/[ァ-ヶー]+/g) ?? []) {
+    if (!run.includes('ー')) continue;
+    // convertLongVowelMark:false — wanakana's default expands ー (ゲーム →
+    // げえむ), which is this very bug; keep the chōonpu.
+    const good = toHiragana(run.normalize('NFKC'), { convertLongVowelMark: false });
+    if (!HIRA_ONLY.test(good)) continue;
+    for (const bad of vowelExpansions(good)) {
+      if (out.includes(bad)) out = out.split(bad).join(good);
+    }
+  }
+  return out;
 }
 
 /**

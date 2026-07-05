@@ -77,7 +77,9 @@ function buildWord(level: string, expression: string, reading: string, meaning: 
   // and pairwise ("高校; 高等学校" / "こうこう; こうとうがっこう"). The first
   // pair is the primary; the rest become alts (taught aloud + accepted). These
   // rows used to be dropped entirely — the ';' failed the kana-only test.
-  const readings = reading.split(/[;；]/).map((r) => toHiragana(r.replace(/[～〜\s]/g, ''))).filter(Boolean);
+  // convertLongVowelMark:false — the default expands katakana ー (タクシー →
+  // たくしい), which corrupted every loanword reading in the decks.
+  const readings = reading.split(/[;；]/).map((r) => toHiragana(r.replace(/[～〜\s]/g, ''), { convertLongVowelMark: false })).filter(Boolean);
   const exprs = expression.split(/[;；]/).map((e) => e.replace(/[～〜\s]/g, '')).filter(Boolean);
   const kana = readings[0] ?? '';
   if (!kana || !KANA_ONLY.test(kana)) return null;

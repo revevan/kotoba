@@ -8,6 +8,7 @@ import { initialState, reduce, type Event, type Item, type ListenOutcome, type S
 import type { Card } from '../src/srs/scheduler';
 import type { Sentence, Word } from '../src/types';
 import { SessionRunner } from '../src/session/runner';
+import { fixLoanwordReadings } from '../tools/pipeline/lib';
 
 const sentence: Sentence = {
   id: 's1',
@@ -176,5 +177,21 @@ describe('machine shadow/build flow', () => {
     const s = run(start([{ wordId: 'w1', mode: 'shadow', sentenceId: 's1' }]), playDone, playDone, result('timeout'));
     expect(s.state.phase).toBe('reveal-playing');
     expect(s.effects).toEqual([{ type: 'play', kind: 'shadow-reveal', wordId: 'w1', sentenceId: 's1' }]);
+  });
+});
+
+describe('fixLoanwordReadings', () => {
+  it('repairs vowel-expanded loanword readings in every spelling style', () => {
+    expect(fixLoanwordReadings('ビールを飲みます。', 'びいるをのみます。')).toBe('びーるをのみます。');
+    expect(fixLoanwordReadings('子供はゲームが好きです。', 'こどもはげえむがすきです。')).toBe('こどもはげーむがすきです。');
+    expect(fixLoanwordReadings('ボールで遊びます。', 'ぼうるであそびます。')).toBe('ぼーるであそびます。');
+    expect(fixLoanwordReadings('誕生日のカード', 'たんじょうびのかあど')).toBe('たんじょうびのかーど');
+    expect(fixLoanwordReadings('パスポートとデータ', 'ぱすぽうととでえた')).toBe('ぱすぽーととでーた');
+  });
+  it('leaves correct readings and non-loanword text alone', () => {
+    expect(fixLoanwordReadings('ビールを飲みます。', 'びーるをのみます。')).toBe('びーるをのみます。');
+    expect(fixLoanwordReadings('毎朝走ります。', 'まいあさはしります。')).toBe('まいあさはしります。');
+    // 東京(とうきょう) contains an o-row + う — must not be "corrected".
+    expect(fixLoanwordReadings('東京へ行きます。', 'とうきょうへいきます。')).toBe('とうきょうへいきます。');
   });
 });
