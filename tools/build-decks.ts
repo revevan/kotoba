@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { toHiragana, toRomaji } from 'wanakana';
 import { moraClipKeys, segmentMora } from '../src/matching/mora';
 import { barePrompt, firstClause, resolvePrompts, richPrompt } from './prompt-resolve';
+import { genkiLesson, loadFreqRanks, orderWords } from './word-order';
 import type { Deck, DeckInfo, Word } from '../src/types';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -119,14 +120,6 @@ function buildWord(level: string, expression: string, reading: string, meaning: 
   };
 }
 
-function genkiLesson(tags: string[]): number | null {
-  for (const t of tags) {
-    const m = /^Genki_Ln\.(\d+)$/.exec(t);
-    if (m) return Number(m[1]);
-  }
-  return null;
-}
-
 async function buildLevel(level: string, seen: Set<string>): Promise<Word[]> {
   const rows = parseCsv(await fetchSource(level));
   const words: Word[] = [];
@@ -205,8 +198,9 @@ async function addLevel(level: string): Promise<void> {
   }
   console.log(`folded into shipped words: ${foldedIn} | disambiguated prompts: ${disambiguated}`);
 
+  const ranks = loadFreqRanks(sourcesDir);
   const infos = JSON.parse(readFileSync(join(decksDir, 'index.json'), 'utf8')) as DeckInfo[];
-  const info = writeDeck({ id: `jlpt-${level}`, name: `JLPT ${level.toUpperCase()}`, words: out });
+  const info = writeDeck({ id: `jlpt-${level}`, name: `JLPT ${level.toUpperCase()}`, words: orderWords(out, ranks) });
   const at = infos.findIndex((i) => i.id === info.id);
   if (at >= 0) infos[at] = info;
   else infos.push(info);
@@ -242,10 +236,13 @@ async function main() {
     .map((x) => x.w)
     .slice(0, 120);
 
+  // Teaching order: Genki lesson first, then frequency (see tools/word-order).
+  // The starter keeps its curated lesson-ordered slice.
+  const ranks = loadFreqRanks(sourcesDir);
   const infos = [
     writeDeck({ id: 'n5-starter', name: 'N5 Starter (Genki 1–6)', words: starter }),
-    writeDeck({ id: 'jlpt-n5', name: 'JLPT N5', words: n5r }),
-    writeDeck({ id: 'jlpt-n4', name: 'JLPT N4', words: n4r }),
+    writeDeck({ id: 'jlpt-n5', name: 'JLPT N5', words: orderWords(n5r, ranks) }),
+    writeDeck({ id: 'jlpt-n4', name: 'JLPT N4', words: orderWords(n4r, ranks) }),
   ];
   writeFileSync(join(decksDir, 'index.json'), JSON.stringify(infos, null, 2));
   console.log(`starter: ${starter.length} words`);
