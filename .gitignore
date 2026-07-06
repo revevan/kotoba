@@ -6,3 +6,4 @@ dev-dist/
 tools/pipeline/state/
 .env
 public/audio/
+kotoba-language-export.txt

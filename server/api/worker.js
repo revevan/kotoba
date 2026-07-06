@@ -8,8 +8,8 @@
  *   GET  /sync          (Bearer)                   -> { data, updatedAt }
  *   PUT  /sync          (Bearer) { data, updatedAt } -> { ok, updatedAt }
  *   POST /feedback      { type, message, contact? } -> { ok: true }
- *   GET  /admin/feedback?secret=…                  -> [ …submissions ]
- *   POST /admin/feedback/:id/resolve?secret=…      -> { resolved }
+ *   GET  /admin/feedback   (Bearer ADMIN_SECRET)  -> [ …submissions ]
+ *   POST /admin/feedback/:id/resolve (Bearer)      -> { resolved }
  *
  * Secrets / vars (wrangler):
  *   ADMIN_SECRET   (secret, gates /admin/*)
@@ -45,6 +45,25 @@ export default {
 
     const { pathname } = new URL(request.url);
     const route = `${request.method} ${pathname}`;
+    // Server-side guards for the unauthenticated public routes: CORS headers
+    // only constrain browsers, so require an allowlisted Origin and per-IP
+    // rate limits before doing work that costs money (Resend) or storage.
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    if ((pathname.startsWith('/auth/') || pathname === '/feedback') && request.method === 'POST') {
+      if (allowed.length > 0 && !allowed.includes(reqOrigin)) {
+        return json({ error: 'forbidden' }, 403, cors);
+      }
+      // Fast per-machine check first (ratelimit binding), then the exact
+      // global window in D1.
+      const limiter = pathname === '/feedback' ? env.RATE_FEEDBACK : env.RATE_AUTH;
+      if (limiter && !(await limiter.limit({ key: ip })).success) {
+        return json({ error: 'rate-limited' }, 429, cors);
+      }
+      const kind = pathname === '/feedback' ? 'fb' : 'auth';
+      const okMin = await rateLimit(env.DB, `${kind}:m:${ip}`, kind === 'fb' ? 5 : 6, 60_000);
+      const okHour = okMin && (await rateLimit(env.DB, `${kind}:h:${ip}`, 20, 3_600_000));
+      if (!okMin || !okHour) return json({ error: 'rate-limited' }, 429, cors);
+    }
     try {
       switch (route) {
         case 'POST /auth/request':
@@ -196,7 +215,7 @@ async function feedbackPost(request, env, cors) {
         body: JSON.stringify({
           from: env.MAIL_FROM || 'Kotoba <onboarding@resend.dev>',
           to: [env.NOTIFY_EMAIL],
-          subject: `Kotoba ${type}: ${message.slice(0, 60)}`,
+          subject: `Kotoba ${type}: ${message.replace(/\s+/g, ' ').slice(0, 60)}`,
           text: `${message}\n\ncontact: ${contact ?? '—'}\ncontext: ${context ?? '—'}\n\nList: npm run feedback`,
         }),
       });
@@ -208,7 +227,8 @@ async function feedbackPost(request, env, cors) {
 }
 
 function isAdmin(request, env) {
-  const secret = new URL(request.url).searchParams.get('secret');
+  // Header, not query param — query strings tend to end up in logs.
+  const secret = bearer(request);
   return Boolean(env.ADMIN_SECRET) && secret === env.ADMIN_SECRET;
 }
 
@@ -227,6 +247,28 @@ async function feedbackResolve(request, env, cors, id) {
   const resolved = row.resolved ? 0 : 1;
   await env.DB.prepare('UPDATE feedback SET resolved = ? WHERE rowid = ?').bind(resolved, id).run();
   return json({ resolved: Boolean(resolved) }, 200, cors);
+}
+
+/**
+ * Exact fixed-window limiter in D1. Returns false once `limit` requests have
+ * been counted inside the current window. Stale rows are pruned ~1% of calls.
+ */
+async function rateLimit(db, key, limit, windowMs) {
+  const now = Date.now();
+  const row = await db
+    .prepare(
+      'INSERT INTO rate_limits (key, count, reset_at) VALUES (?1, 1, ?2) ' +
+        'ON CONFLICT(key) DO UPDATE SET ' +
+        'count = CASE WHEN rate_limits.reset_at < ?3 THEN 1 ELSE rate_limits.count + 1 END, ' +
+        'reset_at = CASE WHEN rate_limits.reset_at < ?3 THEN ?2 ELSE rate_limits.reset_at END ' +
+        'RETURNING count',
+    )
+    .bind(key, now + windowMs, now)
+    .first();
+  if (Math.random() < 0.01) {
+    await db.prepare('DELETE FROM rate_limits WHERE reset_at < ?').bind(now).run();
+  }
+  return (row?.count ?? 1) <= limit;
 }
 
 async function authUser(request, env) {

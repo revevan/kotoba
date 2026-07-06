@@ -9,3 +9,24 @@ ALLOWED_ORIGIN = "https://kotobaapp.com,https://www.kotobaapp.com,https://reveva
 
 # DEEPGRAM_API_KEY is a secret, set it with:
 #   wrangler secret put DEEPGRAM_API_KEY
+
+# Per-IP rate limits (Workers Rate Limiting binding). CORS alone doesn't stop
+# curl — these caps keep a stranger from burning the Deepgram/Anthropic budget.
+[[unsafe.bindings]]
+name = "RATE_STT"
+type = "ratelimit"
+namespace_id = "1001"
+simple = { limit = 30, period = 60 }
+
+[[unsafe.bindings]]
+name = "RATE_GRADE"
+type = "ratelimit"
+namespace_id = "1002"
+simple = { limit = 12, period = 60 }
+
+# Shared D1 (same DB as kotoba-api) — used only for exact rate-limit windows;
+# the ratelimit bindings above are per-machine, so they under-count alone.
+[[d1_databases]]
+binding = "DB"
+database_name = "kotoba"
+database_id = "e416814c-b776-4a1f-9f39-66af94446d11"

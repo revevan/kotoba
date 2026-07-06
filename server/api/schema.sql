@@ -42,3 +42,11 @@ CREATE TABLE IF NOT EXISTS feedback (
   created_at INTEGER NOT NULL,
   resolved   INTEGER NOT NULL DEFAULT 0
 );
+
+-- Fixed-window rate limiting (exact, global — the Workers ratelimit binding
+-- only counts per-machine). Stale rows are pruned opportunistically.
+CREATE TABLE IF NOT EXISTS rate_limits (
+  key      TEXT PRIMARY KEY,
+  count    INTEGER NOT NULL,
+  reset_at INTEGER NOT NULL
+);

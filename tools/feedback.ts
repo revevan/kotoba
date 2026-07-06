@@ -34,12 +34,12 @@ async function main() {
   const resolveIdx = args.indexOf('--resolve');
   if (resolveIdx !== -1) {
     const id = args[resolveIdx + 1];
-    const r = await fetch(`${API}/admin/feedback/${id}/resolve?secret=${secret}`, { method: 'POST' });
+    const r = await fetch(`${API}/admin/feedback/${id}/resolve`, { method: 'POST', headers: { Authorization: `Bearer ${secret}` } });
     console.log(await r.text());
     return;
   }
 
-  const r = await fetch(`${API}/admin/feedback?secret=${secret}`);
+  const r = await fetch(`${API}/admin/feedback`, { headers: { Authorization: `Bearer ${secret}` } });
   if (!r.ok) throw new Error(`list failed (${r.status})`);
   type Item = { id: number; type: string; message: string; contact: string | null; context: string | null; created_at: number; resolved: number };
   let items = (await r.json()) as Item[];

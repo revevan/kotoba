@@ -38,10 +38,21 @@ export default {
       return json({ error: 'method-not-allowed' }, 405, cors);
     }
 
+    // Server-side access control — CORS headers only constrain browsers, so
+    // also require an allowlisted Origin and per-IP rate limits before
+    // touching the paid upstreams.
+    if (allowed.length > 0 && !allowed.includes(reqOrigin)) {
+      return json({ error: 'forbidden' }, 403, cors);
+    }
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+
     // Rung-4 sentence grader: POST /grade { word:{kana,written,english}, transcript }
     //   200 -> { verdict: "good"|"again", note }
     if (new URL(request.url).pathname === '/grade') {
       if (!env.ANTHROPIC_API_KEY) return json({ error: 'grader-misconfigured' }, 500, cors);
+      if (!(await allow(env, 'grade', ip, 12, 100))) {
+        return json({ error: 'rate-limited' }, 429, cors);
+      }
       try {
         const body = await request.json();
         if (!body?.word?.kana || typeof body.transcript !== 'string' || !body.transcript.trim()) {
@@ -52,6 +63,10 @@ export default {
       } catch (e) {
         return json({ error: 'upstream', detail: String(e) }, 502, cors);
       }
+    }
+
+    if (!(await allow(env, 'stt', ip, 40, 400))) {
+      return json({ error: 'rate-limited' }, 429, cors);
     }
 
     if (!env.DEEPGRAM_API_KEY) {
@@ -71,6 +86,10 @@ export default {
     }
     if (!audio || typeof audio === 'string') {
       return json({ error: 'no-audio' }, 400, cors);
+    }
+    // Answer clips are a few seconds of compressed audio (well under 1 MB).
+    if (audio.size > 2_000_000) {
+      return json({ error: 'audio-too-large' }, 413, cors);
     }
 
     const language = LANG_MAP[lang] || 'ja';
@@ -158,6 +177,40 @@ async function gradeSentence(word, transcript, env) {
   if (start === -1 || end === -1) return { verdict: 'again', note: '' };
   const parsed = JSON.parse(text.slice(start, end + 1));
   return { verdict: parsed.verdict === 'good' ? 'good' : 'again', note: String(parsed.note ?? '').slice(0, 120) };
+}
+
+/**
+ * Two-layer per-IP limiter: the ratelimit binding is a cheap per-machine
+ * check; the D1 fixed window is exact and global. Soft-fails open if a layer
+ * is unconfigured so a config slip can't take voice answers down.
+ */
+async function allow(env, kind, ip, perMin, perHour) {
+  const binding = kind === 'stt' ? env.RATE_STT : env.RATE_GRADE;
+  if (binding && !(await binding.limit({ key: ip })).success) return false;
+  if (!env.DB) return true;
+  try {
+    return (
+      (await rateLimit(env.DB, `${kind}:m:${ip}`, perMin, 60_000)) &&
+      (await rateLimit(env.DB, `${kind}:h:${ip}`, perHour, 3_600_000))
+    );
+  } catch {
+    return true;
+  }
+}
+
+async function rateLimit(db, key, limit, windowMs) {
+  const now = Date.now();
+  const row = await db
+    .prepare(
+      'INSERT INTO rate_limits (key, count, reset_at) VALUES (?1, 1, ?2) ' +
+        'ON CONFLICT(key) DO UPDATE SET ' +
+        'count = CASE WHEN rate_limits.reset_at < ?3 THEN 1 ELSE rate_limits.count + 1 END, ' +
+        'reset_at = CASE WHEN rate_limits.reset_at < ?3 THEN ?2 ELSE rate_limits.reset_at END ' +
+        'RETURNING count',
+    )
+    .bind(key, now + windowMs, now)
+    .first();
+  return (row?.count ?? 1) <= limit;
 }
 
 function dedupe(items) {
