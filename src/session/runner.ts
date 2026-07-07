@@ -11,6 +11,7 @@ import {
   revealSequence,
   shadowPromptSequence,
   shadowRevealSequence,
+  teach2Sequence,
   teachSequence,
 } from '../audio/clips';
 import { dlog } from '../debug/log';
@@ -203,7 +204,9 @@ export class SessionRunner {
       case 'intro':
         return phraseSequence('session-start');
       case 'teach':
-        return teachSequence(word!, sentence);
+        return teachSequence(word!);
+      case 'teach2':
+        return teach2Sequence(word!, sentence);
       case 'quiz-prompt':
         return quizPromptSequence(word!);
       case 'cloze-prompt':

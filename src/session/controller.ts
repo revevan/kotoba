@@ -2,7 +2,7 @@
 // constructs the runner with real (or mock) audio + speech deps.
 
 import { Player } from '../audio/player';
-import { sessionClipUrls } from '../audio/clips';
+import { sessionClipUrls, setPhraseLocale } from '../audio/clips';
 import { prefetchAudio } from '../audio/prefetch';
 import { getAllCards, getCard, logReview, putCard } from '../data/db';
 import { attachSentences, fetchDeck, fetchDeckIndex, wordMap } from '../data/decks';
@@ -24,6 +24,7 @@ import { chooseExerciseType, pickClozeSentence, pickSentence } from './selectExe
 import { SessionRunner } from './runner';
 import type { TapCommand } from './machine';
 import {
+  announcerJa,
   buildNote,
   clozeEnglishFirst,
   deckProgress,
@@ -54,9 +55,11 @@ async function restoreSettings(): Promise<void> {
   newPerDay.value = await getSetting('newPerDay', await getSetting('newPerSession', newPerDay.value));
   maxReviews.value = await getSetting('maxReviews', maxReviews.value);
   voiceEcho.value = await getSetting('voiceEcho', voiceEcho.value);
+  announcerJa.value = await getSetting('announcerJa', announcerJa.value);
   enableCloze.value = await getSetting('enableCloze', enableCloze.value);
   clozeMinIntervalDays.value = await getSetting('clozeMinIntervalDays', clozeMinIntervalDays.value);
   clozeEnglishFirst.value = await getSetting('clozeEnglishFirst', clozeEnglishFirst.value);
+  setPhraseLocale(announcerJa.value ? 'ja' : 'en');
 }
 
 /** Restore persisted settings, then load deck/card data. */
@@ -76,13 +79,17 @@ export async function afterSignIn(): Promise<void> {
 }
 
 export async function updateSetting(
-  key: 'enabledDecks' | 'newPerDay' | 'maxReviews' | 'voiceEcho' | 'enableCloze' | 'clozeMinIntervalDays' | 'clozeEnglishFirst',
+  key: 'enabledDecks' | 'newPerDay' | 'maxReviews' | 'voiceEcho' | 'announcerJa' | 'enableCloze' | 'clozeMinIntervalDays' | 'clozeEnglishFirst',
   value: unknown,
 ): Promise<void> {
   if (key === 'enabledDecks') enabledDeckIds.value = value as string[];
   if (key === 'newPerDay') newPerDay.value = value as number;
   if (key === 'maxReviews') maxReviews.value = value as number;
   if (key === 'voiceEcho') voiceEcho.value = value as boolean;
+  if (key === 'announcerJa') {
+    announcerJa.value = value as boolean;
+    setPhraseLocale(announcerJa.value ? 'ja' : 'en');
+  }
   if (key === 'enableCloze') enableCloze.value = value as boolean;
   if (key === 'clozeMinIntervalDays') clozeMinIntervalDays.value = value as number;
   if (key === 'clozeEnglishFirst') clozeEnglishFirst.value = value as boolean;

@@ -79,7 +79,8 @@ describe('SessionRunner robustness', () => {
     for (let i = 0; i < 10; i++) await flush();
 
     expect(phases).toContain('teach-listening');
-    expect(waitForEcho).toHaveBeenCalledTimes(1);
+    expect(phases).toContain('teach2-listening');
+    expect(waitForEcho).toHaveBeenCalledTimes(2); // one per teach echo
     expect(listen).not.toHaveBeenCalled(); // teach never hits Deepgram
     expect(phases[phases.length - 1]).toBe('done');
   });
@@ -95,8 +96,11 @@ describe('SessionRunner robustness', () => {
     // NOT fire while a slow-but-valid transcription could still be in flight…
     await vi.advanceTimersByTimeAsync(18000);
     expect(phases[phases.length - 1]).toBe('teach-listening');
-    // …but must force progress once the budget is exhausted.
+    // …but must force progress once the budget is exhausted (into teach part 2,
+    // whose own wedged listen needs a second watchdog to reach done).
     await vi.advanceTimersByTimeAsync(1001);
+    expect(phases[phases.length - 1]).toBe('teach2-listening');
+    await vi.advanceTimersByTimeAsync(19001);
     expect(phases[phases.length - 1]).toBe('done');
   });
 });

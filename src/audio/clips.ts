@@ -16,7 +16,15 @@ const base = () => AUDIO_BASE;
 export const jaClip = (id: string) => `${base()}ja/${id}.mp3`;
 export const jaSlowClip = (id: string) => `${base()}ja-slow/${id}.mp3`;
 export const enClip = (id: string) => `${base()}en/${id}.mp3`;
-export const phraseClip = (key: string) => `${base()}phrases/${key}.mp3`;
+
+/** Announcer locale: 'ja' swaps every narrator phrase for the phrases-ja/ set.
+ *  Word/sentence clips and the beep are locale-independent. */
+let phraseDir = 'phrases';
+export function setPhraseLocale(locale: 'en' | 'ja'): void {
+  phraseDir = locale === 'ja' ? 'phrases-ja' : 'phrases';
+}
+
+export const phraseClip = (key: string) => `${base()}${phraseDir}/${key}.mp3`;
 
 // Sentence audio, keyed by sentence id.
 export const senClip = (id: string) => `${base()}sen/${id}.mp3`; // full natural sentence
@@ -40,18 +48,29 @@ export function exampleTail(sentence: Sentence): ClipItem[] {
   return [{ src: phraseClip('for-example'), gapMs: 80 }, { src: senClip(sentence.id) }];
 }
 
-/** "apple … in Japanese … ringo … riiin—gooo … ringo … for example … <sentence>
- *  … repeat after me: ringo" (sentence tail only when one is provided). */
-export function teachSequence(w: Word, sentence?: Sentence): ClipItem[] {
+/** Teach part 1 — "apple … in Japanese … ringo … riiin—gooo … repeat after me:
+ *  ringo". Kept short so the learner speaks early: retrieval/production
+ *  research favors more speaking over extra passive listens. Context and
+ *  alternate readings follow in teach2Sequence, after the first echo. */
+export function teachSequence(w: Word): ClipItem[] {
   return [
     { src: enClip(w.id), gapMs: 200 },
     { src: phraseClip('in-japanese'), gapMs: 120 },
     { src: jaClip(w.id), gapMs: 450 },
     { src: jaSlowClip(w.id), gapMs: 450 },
-    { src: jaClip(w.id), gapMs: 350 },
+    { src: phraseClip('repeat-after-me'), gapMs: 120 },
+    { src: jaClip(w.id) },
+  ];
+}
+
+/** Teach part 2, after the first echo — "you may also hear … for example …
+ *  <sentence> … one more time: ringo" — then the second echo. The sentence
+ *  between the two productions spaces them (within-session lag). */
+export function teach2Sequence(w: Word, sentence?: Sentence): ClipItem[] {
+  return [
     ...altReadings(w),
     ...(sentence ? [...exampleTail(sentence), { gapMs: 300 }] : []),
-    { src: phraseClip('repeat-after-me'), gapMs: 120 },
+    { src: phraseClip('one-more-time'), gapMs: 120 },
     { src: jaClip(w.id) },
   ];
 }
@@ -147,7 +166,7 @@ export const phraseSequence = (key: string): ClipItem[] => [{ src: phraseClip(ke
 /** Every audio URL a session item set can need — used to warm the cache. */
 export function sessionClipUrls(words: Word[]): string[] {
   const urls = new Set<string>();
-  for (const key of ['in-japanese', 'repeat-after-me', 'also-hear', 'how-do-you-say', 'correct', 'not-quite', 'the-answer-is', 'knew-it', 'session-start', 'session-done', 'paused', 'resuming', 'for-example', 'fill-the-blank', 'repeat-the-sentence', 'make-a-sentence']) {
+  for (const key of ['in-japanese', 'repeat-after-me', 'one-more-time', 'also-hear', 'how-do-you-say', 'correct', 'not-quite', 'the-answer-is', 'knew-it', 'session-start', 'session-done', 'paused', 'resuming', 'for-example', 'fill-the-blank', 'repeat-the-sentence', 'make-a-sentence']) {
     urls.add(phraseClip(key));
   }
   for (const w of words) {

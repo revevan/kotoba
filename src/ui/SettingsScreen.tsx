@@ -1,5 +1,5 @@
 import { useRef, useState } from 'preact/hooks';
-import { auth, clozeEnglishFirst, clozeMinIntervalDays, enableCloze, enteredApp, maxReviews, newPerDay, screen, syncStatus, voiceEcho } from '../state';
+import { announcerJa, auth, clozeEnglishFirst, clozeMinIntervalDays, enableCloze, enteredApp, maxReviews, newPerDay, screen, syncStatus, voiceEcho } from '../state';
 import { resetProgress, updateSetting } from '../session/controller';
 import { downloadBackup, importBackup } from '../data/backup';
 import { loadHomeData } from '../session/controller';
@@ -105,6 +105,15 @@ export function SettingsScreen() {
           type="checkbox"
           checked={voiceEcho.value}
           onChange={(e) => void updateSetting('voiceEcho', (e.currentTarget as HTMLInputElement).checked)}
+        />
+      </label>
+
+      <label class="row">
+        <span>Announcer speaks Japanese</span>
+        <input
+          type="checkbox"
+          checked={announcerJa.value}
+          onChange={(e) => void updateSetting('announcerJa', (e.currentTarget as HTMLInputElement).checked)}
         />
       </label>
 

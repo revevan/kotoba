@@ -14,6 +14,7 @@ export interface Item {
 export type PlayKind =
   | 'intro'
   | 'teach'
+  | 'teach2'
   | 'quiz-prompt'
   | 'cloze-prompt'
   | 'shadow-prompt'
@@ -60,6 +61,8 @@ export type Phase =
   | 'intro'
   | 'teach-playing'
   | 'teach-listening'
+  | 'teach2-playing'
+  | 'teach2-listening'
   | 'quiz-playing'
   | 'quiz-listening'
   | 'cloze-playing'
@@ -162,6 +165,14 @@ function advance(s: MachineState): Step {
   return enterItem({ ...s, idx: s.idx + 1 });
 }
 
+/** Teach part 2: alternate readings + the word in a sentence, then a second
+ *  prompted production. Splitting the teach around the first echo trades
+ *  passive listening for speaking (retrieval/production research). */
+function toTeach2(s: MachineState): Step {
+  const item = currentItem(s)!;
+  return step({ ...s, phase: 'teach2-playing', retries: 0 }, { type: 'play', kind: 'teach2', wordId: item.wordId, sentenceId: item.sentenceId });
+}
+
 function finishTeach(s: MachineState): Step {
   const item = currentItem(s)!;
   const next = advance({ ...s, counts: { ...s.counts, taught: s.counts.taught + 1 } });
@@ -262,7 +273,7 @@ export function reduce(s: MachineState, ev: Event): Step {
 
     case 'teach-playing':
       if (ev.type === 'playDone') {
-        if (s.degraded || !s.voiceEcho) return finishTeach(s);
+        if (s.degraded || !s.voiceEcho) return toTeach2(s);
         return step({ ...s, phase: 'teach-listening', retries: 0 }, { type: 'listen', kind: 'teach-echo', wordId: currentItem(s)!.wordId });
       }
       if (outcome === 'cmd-repeat') return enterItem(s);
@@ -272,10 +283,31 @@ export function reduce(s: MachineState, ev: Event): Step {
     case 'teach-listening': {
       if (outcome === 'cmd-repeat') return enterItem(s);
       if (outcome === 'cmd-skip') return skipTeach(s);
+      if (outcome === 'denied' || outcome === 'unavailable') return toTeach2(degrade(s));
+      if (outcome === 'error') return toTeach2(bumpSrFailure(s));
+      if (outcome) {
+        // Lenient: any echo (or silence) moves on.
+        return toTeach2({ ...s, srFailures: 0 });
+      }
+      break;
+    }
+
+    case 'teach2-playing':
+      if (ev.type === 'playDone') {
+        if (s.degraded || !s.voiceEcho) return finishTeach(s);
+        return step({ ...s, phase: 'teach2-listening', retries: 0 }, { type: 'listen', kind: 'teach-echo', wordId: currentItem(s)!.wordId });
+      }
+      // Repeat replays just this half — the intro was already echoed.
+      if (outcome === 'cmd-repeat') return toTeach2(s);
+      if (outcome === 'cmd-skip') return skipTeach(s);
+      break;
+
+    case 'teach2-listening': {
+      if (outcome === 'cmd-repeat') return toTeach2(s);
+      if (outcome === 'cmd-skip') return skipTeach(s);
       if (outcome === 'denied' || outcome === 'unavailable') return finishTeach(degrade(s));
       if (outcome === 'error') return finishTeach(bumpSrFailure(s));
       if (outcome) {
-        // Lenient: any echo (or silence) moves on.
         return finishTeach({ ...s, srFailures: 0 });
       }
       break;

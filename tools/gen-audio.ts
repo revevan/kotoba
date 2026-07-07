@@ -23,6 +23,7 @@ const PHRASES: Record<string, string> = {
   'session-start': "Let's begin!",
   'in-japanese': 'In Japanese:',
   'repeat-after-me': 'Repeat after me.',
+  'one-more-time': 'One more time —',
   'how-do-you-say': 'How do you say —',
   'correct': 'Correct!',
   'not-quite': 'Not quite.',
@@ -39,6 +40,31 @@ const PHRASES: Record<string, string> = {
   'paused': "Paused. Press rezoom when you're ready.",
   'resuming': 'Resuming!',
   'session-done': 'Session complete. Great work!',
+};
+
+// Japanese announcer variants (Settings → "Announcer speaks Japanese"), same
+// keys, served from phrases-ja/. Phrases lead their sequence, so each must
+// work in prefix position before the word/sentence clip that follows it.
+// Voice commands stay English ("got it"/"missed it") — self-grade recognition
+// runs en-US regardless of the announcer voice.
+const PHRASES_JA: Record<string, string> = {
+  'session-start': '始めましょう！',
+  'in-japanese': '日本語で：',
+  'repeat-after-me': 'リピートしてください。',
+  'one-more-time': 'もう一度 —',
+  'how-do-you-say': '日本語でどう言いますか —',
+  'correct': '正解！',
+  'not-quite': '残念！',
+  'the-answer-is': '答えは —',
+  'knew-it': 'got it、か、missed it、と言ってください。',
+  'also-hear': 'こうも言います —',
+  'for-example': '例えば —',
+  'fill-the-blank': '空欄を埋めてください。',
+  'repeat-the-sentence': '文をリピートしてください —',
+  'make-a-sentence': 'この言葉で文を作ってください —',
+  'paused': '一時停止しました。準備ができたら、リジューム、を押してください。',
+  'resuming': '再開します！',
+  'session-done': 'セッション終了です。お疲れ様でした！',
 };
 
 interface Job {
@@ -113,6 +139,9 @@ function collectJobs(decks: Deck[]): Job[] {
   for (const [key, text] of Object.entries(PHRASES)) {
     jobs.set(`phrases/${key}.mp3`, { out: `phrases/${key}.mp3`, text, voice: EN_VOICE });
   }
+  for (const [key, text] of Object.entries(PHRASES_JA)) {
+    jobs.set(`phrases-ja/${key}.mp3`, { out: `phrases-ja/${key}.mp3`, text, voice: JA_VOICE });
+  }
   // Example sentences: full natural clip, English, and the pre/post split that
   // the cloze beep plays between. (The beep itself is a static WAV, below.)
   for (const s of loadSentences(decks)) {
@@ -156,7 +185,7 @@ async function main() {
   });
   console.log(`to generate: ${jobs.length} clips`);
 
-  for (const sub of ['ja', 'ja-slow', 'en', 'mora', 'phrases', 'sen', 'sen-en', 'sen-pre', 'sen-post']) {
+  for (const sub of ['ja', 'ja-slow', 'en', 'mora', 'phrases', 'phrases-ja', 'sen', 'sen-en', 'sen-pre', 'sen-post']) {
     mkdirSync(join(audioDir, sub), { recursive: true });
   }
   writeBeep(); // cloze gap filler — a static tone, not TTS

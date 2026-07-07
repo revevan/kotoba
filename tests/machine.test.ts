@@ -33,25 +33,48 @@ describe('session machine', () => {
     expect(s.state.phase).toBe('done');
   });
 
-  it('teach: play → echo listen → next item', () => {
+  it('teach: play → echo → context (teach2) → second echo → next item', () => {
     const s1 = run(start([teach('w1'), quiz('w2')]), playDone, playDone);
     expect(s1.state.phase).toBe('teach-listening');
     expect(s1.effects).toEqual([{ type: 'listen', kind: 'teach-echo', wordId: 'w1' }]);
 
     const s2 = run(s1, result('speech'));
+    expect(s2.state.phase).toBe('teach2-playing');
+    expect(s2.effects).toEqual([{ type: 'play', kind: 'teach2', wordId: 'w1' }]);
+
+    const s3 = run(s2, playDone);
+    expect(s3.state.phase).toBe('teach2-listening');
+    expect(s3.effects).toEqual([{ type: 'listen', kind: 'teach-echo', wordId: 'w1' }]);
+
+    const s4 = run(s3, result('speech'));
+    expect(s4.state.phase).toBe('quiz-playing');
+    expect(s4.state.counts.taught).toBe(1);
+  });
+
+  it('teach with voiceEcho off plays both halves without listening', () => {
+    const s1 = run(start([teach('w1'), quiz('w2')], false), playDone, playDone);
+    expect(s1.state.phase).toBe('teach2-playing');
+    const s2 = run(s1, playDone);
     expect(s2.state.phase).toBe('quiz-playing');
     expect(s2.state.counts.taught).toBe(1);
   });
 
-  it('teach with voiceEcho off skips the listen', () => {
-    const s = run(start([teach('w1'), quiz('w2')], false), playDone, playDone);
-    expect(s.state.phase).toBe('quiz-playing');
-    expect(s.state.counts.taught).toBe(1);
+  it('finishing a teach emits a learned effect (only studied words get scheduled)', () => {
+    const s = run(start([teach('w1'), quiz('w2')], false), playDone, playDone, playDone);
+    expect(s.effects).toContainEqual({ type: 'learned', wordId: 'w1' });
   });
 
-  it('finishing a teach emits a learned effect (only studied words get scheduled)', () => {
-    const s = run(start([teach('w1'), quiz('w2')], false), playDone, playDone);
-    expect(s.effects).toContainEqual({ type: 'learned', wordId: 'w1' });
+  it('skip during teach2 still leaves the word new', () => {
+    const s = run(start([teach('w1'), quiz('w1')]), playDone, playDone, result('speech'), playDone, result('cmd-skip'));
+    expect(s.effects.map((e) => e.type)).not.toContain('learned');
+    expect(s.state.phase).toBe('done'); // re-quiz dropped → nothing left
+    expect(s.state.counts.taught).toBe(0);
+  });
+
+  it('repeat during teach2 replays only the context half', () => {
+    const s = run(start([teach('w1')]), playDone, playDone, result('speech'), playDone, result('cmd-repeat'));
+    expect(s.state.phase).toBe('teach2-playing');
+    expect(s.effects).toEqual([{ type: 'play', kind: 'teach2', wordId: 'w1' }]);
   });
 
   it('skip during teach-playing leaves the word new and drops its re-quiz', () => {
@@ -193,7 +216,8 @@ describe('queue invariants', () => {
   it('counts add up over a full mixed session', () => {
     let s = start([teach('n1'), quiz('r1'), quiz('n1')]);
     s = run(s, playDone); // teach playing
-    s = run(s, playDone, result('speech')); // taught → quiz r1
+    s = run(s, playDone, result('speech')); // first echo → teach2
+    s = run(s, playDone, result('speech')); // second echo → taught → quiz r1
     s = run(s, playDone, result('match')); // correct → playing
     s = run(s, playDone); // → quiz n1
     s = run(s, playDone, result('nomatch'), playDone, result('gotit'));
