@@ -15,7 +15,7 @@ MAIL_FROM = "Kotoba <login@kotobaapp.com>"
 NOTIFY_EMAIL = "revevan@gmail.com"
 # Accounts allowed on the content-review page (app origin /review/).
 # Comma-separated login emails; add the reviewer's email here.
-REVIEWER_EMAILS = "revevan@gmail.com"
+REVIEWER_EMAILS = "revevan@gmail.com,mikimikit@gmail.com"
 
 [[d1_databases]]
 binding = "DB"
