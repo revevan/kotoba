@@ -1,0 +1,295 @@
+/* Content-review page. Inherits the app's base (:root vars, button reset)
+   from styles.css; everything here is rv-* scoped. */
+
+.rv-center {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  text-align: center;
+}
+
+.rv-center input {
+  font: inherit;
+  color: var(--fg);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  width: min(320px, 80vw);
+  text-align: center;
+}
+
+.rv-center h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 28px;
+}
+
+.rv-screen {
+  max-width: 640px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: calc(env(safe-area-inset-top) + 10px) 14px calc(env(safe-area-inset-bottom) + 10px);
+}
+
+.rv-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.rv-brand {
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.rv-deck {
+  color: var(--dim);
+  font-size: 14px;
+}
+
+.rv-count {
+  font-family: var(--display);
+  font-size: 18px;
+}
+
+.rv-unsaved {
+  color: var(--warn);
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.rv-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--bg2);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.rv-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+.rv-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rv-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px 12px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.rv-row.playing {
+  border-color: var(--accent);
+}
+
+.rv-row.flagged {
+  border-color: var(--bad);
+  background: color-mix(in srgb, var(--bad) 10%, var(--bg2));
+}
+
+.rv-row-text {
+  min-width: 0;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.r-en {
+  font-family: var(--display);
+  font-size: 20px;
+}
+
+.r-jp {
+  font-family: var(--jp);
+  font-size: 24px;
+}
+
+.r-jp.r-sen {
+  font-size: 19px;
+}
+
+.r-sub {
+  color: var(--dim);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.r-sen-en {
+  color: var(--faint);
+}
+
+.rv-row-btns {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.rv-play,
+.rv-flag {
+  padding: 8px 10px;
+  font-size: 13px;
+  border: 1px solid var(--border);
+}
+
+.rv-flag.on {
+  color: var(--bad);
+  border-color: var(--bad);
+}
+
+.rv-kinds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--dim);
+}
+
+.chip.on {
+  color: var(--fg);
+  border-color: var(--warn);
+  background: color-mix(in srgb, var(--warn) 12%, var(--bg2));
+}
+
+.rv-note {
+  font: inherit;
+  color: var(--fg);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px;
+  min-height: 64px;
+  resize: vertical;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.rv-note:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.rv-actions {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.rv-actions .primary {
+  flex: 1;
+  background: var(--accent);
+  color: #fff;
+}
+
+.rv-actions .primary.flagging {
+  background: var(--bad);
+}
+
+.primary.big {
+  padding: 14px 22px;
+  font-size: 16px;
+}
+
+.rv-center .primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--dim);
+}
+
+.rv-tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rv-auto {
+  color: var(--faint);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rv-recheck {
+  border: 1px solid var(--warn);
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-size: 14px;
+  background: color-mix(in srgb, var(--warn) 8%, var(--bg2));
+}
+
+.rv-fixnote {
+  margin-top: 4px;
+  color: var(--dim);
+}
+
+.rv-foot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.rv-dim {
+  color: var(--dim);
+}
+
+.rv-faint {
+  color: var(--faint);
+  font-size: 12px;
+}
+
+.rv-err {
+  color: var(--bad);
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .rv-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rv-row-btns {
+    align-self: flex-end;
+  }
+
+  .rv-actions {
+    flex-wrap: wrap;
+  }
+
+  .rv-actions .primary {
+    flex-basis: 100%;
+    order: -1;
+  }
+}

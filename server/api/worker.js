@@ -10,6 +10,10 @@
  *   POST /feedback      { type, message, contact? } -> { ok: true }
  *   GET  /admin/feedback   (Bearer ADMIN_SECRET)  -> [ …submissions ]
  *   POST /admin/feedback/:id/resolve (Bearer)      -> { resolved }
+ *   GET  /review/state  (Bearer, reviewer)         -> { reviews: [ …rows ] }
+ *   POST /review        (Bearer, reviewer) { wordId, deck, verdict, flags?, note? } -> { ok, status }
+ *   GET  /admin/reviews?status=open|fixed|all (Bearer ADMIN_SECRET) -> [ …rows ]
+ *   POST /admin/reviews/:wordId/status (Bearer) { status, fixNote? } -> { ok, status }
  *
  * Secrets / vars (wrangler):
  *   ADMIN_SECRET   (secret, gates /admin/*)
@@ -17,6 +21,7 @@
  *   MAIL_FROM      (var, e.g. "Kotoba <login@yourdomain>")
  *   ALLOWED_ORIGIN (var, the app origin, e.g. https://revevan.github.io)
  *   APP_NAME       (var, e.g. "Kotoba")
+ *   REVIEWER_EMAILS (var, comma-separated — accounts allowed on /review/*)
  *   DB             (D1 binding)
  */
 
@@ -80,9 +85,17 @@ export default {
           return await feedbackPost(request, env, cors);
         case 'GET /admin/feedback':
           return await feedbackList(request, env, cors);
+        case 'GET /review/state':
+          return await reviewState(request, env, cors);
+        case 'POST /review':
+          return await reviewPost(request, env, cors);
+        case 'GET /admin/reviews':
+          return await adminReviewList(request, env, cors);
         default: {
           const m = /^POST \/admin\/feedback\/(\d+)\/resolve$/.exec(route);
           if (m) return await feedbackResolve(request, env, cors, Number(m[1]));
+          const r = /^POST \/admin\/reviews\/([\w-]+)\/status$/.exec(route);
+          if (r) return await adminReviewStatus(request, env, cors, r[1]);
           return json({ error: 'not-found' }, 404, cors);
         }
       }
@@ -224,6 +237,102 @@ async function feedbackPost(request, env, cors) {
     }
   }
   return json({ ok: true }, 200, cors);
+}
+
+// ---- Content review (reviewer page at /review) ----
+
+const REVIEW_STATUSES = ['ok', 'open', 'fixed', 'verified', 'closed'];
+const MAX_REVIEW_NOTE_CHARS = 4000;
+const MAX_REVIEW_FLAGS_CHARS = 2000;
+
+/** Session user whose email is on the REVIEWER_EMAILS allowlist, or null. */
+async function authReviewer(request, env) {
+  const userId = await authUser(request, env);
+  if (!userId) return null;
+  const allowed = (env.REVIEWER_EMAILS || '').split(',').map((s) => s.trim().toLowerCase()).filter(Boolean);
+  if (allowed.length === 0) return null;
+  const row = await env.DB.prepare('SELECT email FROM users WHERE id = ?').bind(userId).first();
+  return row && allowed.includes(row.email) ? row.email : null;
+}
+
+const reviewRow = (r) => ({
+  wordId: r.word_id,
+  deck: r.deck,
+  verdict: r.verdict,
+  flags: r.flags ? JSON.parse(r.flags) : null,
+  note: r.note,
+  status: r.status,
+  fixNote: r.fix_note,
+  updatedAt: r.updated_at,
+});
+
+async function reviewState(request, env, cors) {
+  const reviewer = await authReviewer(request, env);
+  if (!reviewer) return json({ error: 'forbidden' }, 403, cors);
+  const { results } = await env.DB.prepare(
+    'SELECT word_id, deck, verdict, flags, note, status, fix_note, updated_at FROM content_reviews',
+  ).all();
+  return json({ reviews: results.map(reviewRow) }, 200, cors);
+}
+
+async function reviewPost(request, env, cors) {
+  const reviewer = await authReviewer(request, env);
+  if (!reviewer) return json({ error: 'forbidden' }, 403, cors);
+
+  const body = await readJson(request);
+  const wordId = String(body.wordId ?? '').trim();
+  const deck = String(body.deck ?? '').trim();
+  const verdict = body.verdict === 'good' || body.verdict === 'flagged' ? body.verdict : null;
+  if (!/^[\w-]{1,64}$/.test(wordId) || !/^[\w-]{1,64}$/.test(deck) || !verdict) {
+    return json({ error: 'bad-input' }, 400, cors);
+  }
+  const note = String(body.note ?? '').trim().slice(0, MAX_REVIEW_NOTE_CHARS) || null;
+  let flags = null;
+  if (body.flags != null) {
+    flags = JSON.stringify(body.flags);
+    if (flags.length > MAX_REVIEW_FLAGS_CHARS) return json({ error: 'too-long' }, 413, cors);
+  }
+
+  const existing = await env.DB.prepare('SELECT status FROM content_reviews WHERE word_id = ?').bind(wordId).first();
+  // 'good' on a fixed item is the reviewer confirming our fix; 'flagged'
+  // always (re)opens. fix_note survives a re-open so the next fix has context.
+  const status = verdict === 'good' ? (existing?.status === 'fixed' ? 'verified' : 'ok') : 'open';
+  const now = Date.now();
+  await env.DB.prepare(
+    'INSERT INTO content_reviews (word_id, deck, verdict, flags, note, status, fix_note, created_at, updated_at) ' +
+      'VALUES (?, ?, ?, ?, ?, ?, NULL, ?, ?) ' +
+      'ON CONFLICT(word_id) DO UPDATE SET deck = excluded.deck, verdict = excluded.verdict, ' +
+      'flags = excluded.flags, note = excluded.note, status = excluded.status, updated_at = excluded.updated_at',
+  )
+    .bind(wordId, deck, verdict, flags, note, status, now, now)
+    .run();
+  return json({ ok: true, status }, 200, cors);
+}
+
+async function adminReviewList(request, env, cors) {
+  if (!isAdmin(request, env)) return json({ error: 'unauthorized' }, 401, cors);
+  const want = new URL(request.url).searchParams.get('status') || 'open';
+  const stmt =
+    want === 'all'
+      ? env.DB.prepare('SELECT word_id, deck, verdict, flags, note, status, fix_note, updated_at FROM content_reviews ORDER BY updated_at DESC LIMIT 2000')
+      : env.DB.prepare('SELECT word_id, deck, verdict, flags, note, status, fix_note, updated_at FROM content_reviews WHERE status = ? ORDER BY updated_at DESC LIMIT 2000').bind(want);
+  const { results } = await stmt.all();
+  return json(results.map(reviewRow), 200, cors);
+}
+
+async function adminReviewStatus(request, env, cors, wordId) {
+  if (!isAdmin(request, env)) return json({ error: 'unauthorized' }, 401, cors);
+  const body = await readJson(request);
+  const status = REVIEW_STATUSES.includes(body.status) ? body.status : null;
+  if (!status) return json({ error: 'bad-status' }, 400, cors);
+  const fixNote = String(body.fixNote ?? '').trim().slice(0, MAX_REVIEW_NOTE_CHARS) || null;
+  const r = await env.DB.prepare(
+    'UPDATE content_reviews SET status = ?, fix_note = COALESCE(?, fix_note), updated_at = ? WHERE word_id = ?',
+  )
+    .bind(status, fixNote, Date.now(), wordId)
+    .run();
+  if (!r.meta.changes) return json({ error: 'not-found' }, 404, cors);
+  return json({ ok: true, status }, 200, cors);
 }
 
 function isAdmin(request, env) {

@@ -43,6 +43,24 @@ CREATE TABLE IF NOT EXISTS feedback (
   resolved   INTEGER NOT NULL DEFAULT 0
 );
 
+-- Content-review verdicts from the reviewer page (/review). One row per word —
+-- the current state, not a history. Lifecycle: verdict 'good' closes a word
+-- immediately (status 'ok'); 'flagged' opens it ('open') until the maintainers
+-- mark it 'fixed', which re-queues it on the reviewer's page for confirmation
+-- ('verified') — or they short-circuit straight to 'closed'.
+CREATE TABLE IF NOT EXISTS content_reviews (
+  word_id    TEXT PRIMARY KEY,
+  deck       TEXT NOT NULL,
+  verdict    TEXT NOT NULL,   -- good | flagged
+  flags      TEXT,            -- JSON from the review page: rows flagged + issue kinds
+  note       TEXT,            -- reviewer's free-text note (English or Japanese)
+  status     TEXT NOT NULL,   -- ok | open | fixed | verified | closed
+  fix_note   TEXT,            -- maintainer note on what was changed (shown on re-check)
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_content_reviews_status ON content_reviews (status);
+
 -- Fixed-window rate limiting (exact, global — the Workers ratelimit binding
 -- only counts per-machine). Stale rows are pruned opportunistically.
 CREATE TABLE IF NOT EXISTS rate_limits (

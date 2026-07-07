@@ -20,7 +20,9 @@ export default defineConfig({
   build: {
     rollupOptions: {
       // SPA lives at /app/; public/index.html is the static marketing page at /.
-      input: 'app/index.html',
+      // /review/ is the unlisted content-review page (gated by REVIEWER_EMAILS
+      // on the API worker).
+      input: { app: 'app/index.html', review: 'review/index.html' },
     },
   },
   define: { __BUILD_ID__: JSON.stringify(buildId()) },
