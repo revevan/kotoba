@@ -155,6 +155,7 @@
    "english": "father (formal)",
    "prompt": "father (formal)",
    "kana": "\u304a\u3068\u3046\u3055\u3093",
+   "speak": "\u304a\u7236\u3055\u3093",
    "written": [
     "\u304a\u7236\u3055\u3093",
     "\u304a\u3068\u3046\u3055\u3093"
@@ -378,7 +379,8 @@
     {
      "id": "n5-b1fa407b",
      "kana": "\u3054\u305c\u3093",
-     "romaji": "gozen"
+     "romaji": "gozen",
+     "speak": "\u5348\u524d"
     }
    ]
   },
@@ -625,6 +627,7 @@
    "english": "number, series of digits",
    "prompt": "number",
    "kana": "\u3070\u3093\u3054\u3046",
+   "speak": "\u756a\u53f7",
    "written": [
     "\u756a\u53f7",
     "\u3070\u3093\u3054\u3046"
@@ -655,6 +658,7 @@
    "english": "international student",
    "prompt": "international student",
    "kana": "\u308a\u3085\u3046\u304c\u304f\u305b\u3044",
+   "speak": "\u7559\u5b66\u751f",
    "written": [
     "\u7559\u5b66\u751f",
     "\u308a\u3085\u3046\u304c\u304f\u305b\u3044"

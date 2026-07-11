@@ -4,6 +4,8 @@ export interface AltReading {
   id: string;
   kana: string;
   romaji: string;
+  /** TTS input override for the clip (see Word.speak). */
+  speak?: string;
 }
 
 /**
@@ -38,6 +40,10 @@ export interface Word {
   prompt: string;
   /** Hiragana reading. */
   kana: string;
+  /** TTS input override for the isolated ja/ja-slow clips. Bare kana can lose
+   *  pitch-accent context (りゅうがくせい reads flat); the kanji surface restores
+   *  it. Display and answer matching still use kana. */
+  speak?: string;
   /** Accepted written forms (kanji/katakana expression; may equal kana). */
   written: string[];
   romaji: string;

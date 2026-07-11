@@ -372,11 +372,11 @@
     "approved": true
   },
   {
-    "id": "s-0f636195",
+    "id": "s-fd4b4981",
     "wordId": "n5-f2549372",
-    "textJa": "妹は大学の学生です。",
-    "readingKana": "いもうとはだいがくのがくせいです。",
-    "textEn": "My younger sister is a university student.",
+    "textJa": "あれは大学ですか。",
+    "readingKana": "あれはだいがくですか。",
+    "textEn": "Is that a university?",
     "clozeSurface": "大学",
     "clozeReading": "だいがく",
     "valid": true,
@@ -636,11 +636,11 @@
     "approved": true
   },
   {
-    "id": "s-5f6472bb",
+    "id": "s-3c37372f",
     "wordId": "n5-cd2f86ee",
-    "textJa": "電話はいくらですか。",
-    "readingKana": "でんわはいくらですか。",
-    "textEn": "How much is the phone?",
+    "textJa": "これはいくらですか。",
+    "readingKana": "これはいくらですか。",
+    "textEn": "How much is this?",
     "clozeSurface": "いくら",
     "clozeReading": "いくら",
     "valid": true,
@@ -696,11 +696,11 @@
     "approved": true
   },
   {
-    "id": "s-0cc0e5bd",
+    "id": "s-3442f369",
     "wordId": "n5-56e2ffcd",
-    "textJa": "お手洗いですか。",
-    "readingKana": "おてあらいですか。",
-    "textEn": "Is it the toilet?",
+    "textJa": "お手洗いはどこですか。",
+    "readingKana": "おてあらいはどこですか。",
+    "textEn": "Where is the restroom?",
     "clozeSurface": "お手洗い",
     "clozeReading": "おてあらい",
     "valid": true,

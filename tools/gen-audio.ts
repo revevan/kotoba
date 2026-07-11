@@ -157,12 +157,14 @@ function collectJobs(decks: Deck[]): Job[] {
   }
   for (const deck of decks) {
     for (const w of deck.words) {
-      jobs.set(`ja/${w.id}.mp3`, { out: `ja/${w.id}.mp3`, text: w.kana, voice: JA_VOICE });
-      jobs.set(`ja-slow/${w.id}.mp3`, { out: `ja-slow/${w.id}.mp3`, text: w.kana, voice: JA_VOICE, rate: '-40%' });
+      // `speak` overrides the TTS input where bare kana gets the pitch accent
+      // wrong (kanji restores the accent context); kana remains the default.
+      jobs.set(`ja/${w.id}.mp3`, { out: `ja/${w.id}.mp3`, text: w.speak ?? w.kana, voice: JA_VOICE });
+      jobs.set(`ja-slow/${w.id}.mp3`, { out: `ja-slow/${w.id}.mp3`, text: w.speak ?? w.kana, voice: JA_VOICE, rate: '-40%' });
       jobs.set(`en/${w.id}.mp3`, { out: `en/${w.id}.mp3`, text: w.prompt, voice: EN_VOICE });
       // Alternate readings reuse their original id; teach mentions them aloud.
       for (const alt of w.alts ?? []) {
-        jobs.set(`ja/${alt.id}.mp3`, { out: `ja/${alt.id}.mp3`, text: alt.kana, voice: JA_VOICE });
+        jobs.set(`ja/${alt.id}.mp3`, { out: `ja/${alt.id}.mp3`, text: alt.speak ?? alt.kana, voice: JA_VOICE });
       }
       w.mora.forEach((key, i) => {
         if (key === 'q') return;

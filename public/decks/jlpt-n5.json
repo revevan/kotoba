@@ -159,6 +159,7 @@
    "english": "number, series of digits",
    "prompt": "number",
    "kana": "ばんごう",
+   "speak": "番号",
    "written": [
     "番号",
     "ばんごう",
@@ -375,7 +376,8 @@
     {
      "id": "n5-b1fa407b",
      "kana": "あさ",
-     "romaji": "asa"
+     "romaji": "asa",
+     "speak": "朝"
     }
    ]
   },
@@ -684,6 +686,7 @@
    "english": "father (formal)",
    "prompt": "father (formal)",
    "kana": "おとうさん",
+   "speak": "お父さん",
    "written": [
     "お父さん",
     "おとうさん"
@@ -717,6 +720,7 @@
    "english": "international student",
    "prompt": "international student",
    "kana": "りゅうがくせい",
+   "speak": "留学生",
    "written": [
     "留学生",
     "りゅうがくせい"
