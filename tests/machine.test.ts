@@ -212,6 +212,50 @@ describe('session machine', () => {
   });
 });
 
+describe('re-drill on a miss', () => {
+  const practice = (id: string): Item => ({ wordId: id, mode: 'quiz', practice: true });
+
+  it('a missed word comes back later in the same session', () => {
+    const s = run(
+      start([quiz('w1'), quiz('w2'), quiz('w3'), quiz('w4'), quiz('w5'), quiz('w6')]),
+      playDone, // intro
+      playDone, // w1 prompt
+      result('nomatch'), // wrong → reveal
+      playDone,
+      result('missed'), // self-grade: missed
+    );
+    expect(s.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'again', mode: 'self' });
+    expect(s.state.queue.map((i) => i.wordId)).toEqual(['w1', 'w2', 'w3', 'w4', 'w5', 'w1', 'w6']);
+    expect(s.state.queue[5]).toEqual(practice('w1'));
+    expect(s.state.idx).toBe(1); // the re-drill is ahead, not now
+  });
+
+  it('the re-drill is practice only — answering it never re-rates the card', () => {
+    // The miss already scheduled the card a day out. If a correct repeat rated
+    // the card again it would reschedule it days out and erase the lapse.
+    const correct = run(start([practice('w1')]), playDone, playDone, result('match', 'ねこ'));
+    expect(correct.effects.some((e) => e.type === 'rate')).toBe(false);
+    expect(correct.effects).toEqual([{ type: 'play', kind: 'correct', wordId: 'w1' }]);
+
+    const missed = run(start([practice('w1')]), playDone, playDone, result('nomatch'), playDone, result('missed'));
+    expect(missed.effects.some((e) => e.type === 'rate')).toBe(false);
+  });
+
+  it('a re-drill missed again is not requeued — the word just waits for tomorrow', () => {
+    const s = run(start([practice('w1')]), playDone, playDone, result('nomatch'), playDone, result('missed'));
+    expect(s.state.queue).toHaveLength(1); // no second re-drill; no endless loop
+    expect(s.state.phase).toBe('done');
+  });
+
+  it('a skipped answer re-drills too, and a correct answer does not', () => {
+    const skipped = run(start([quiz('w1'), quiz('w2')]), playDone, playDone, { type: 'tap', cmd: 'skip' });
+    expect(skipped.state.queue.map((i) => i.wordId)).toEqual(['w1', 'w2', 'w1']);
+
+    const passed = run(start([quiz('w1'), quiz('w2')]), playDone, playDone, result('match'));
+    expect(passed.state.queue.map((i) => i.wordId)).toEqual(['w1', 'w2']);
+  });
+});
+
 describe('queue invariants', () => {
   it('counts add up over a full mixed session', () => {
     let s = start([teach('n1'), quiz('r1'), quiz('n1')]);

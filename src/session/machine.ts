@@ -9,6 +9,9 @@ export interface Item {
   mode: Mode;
   /** Example sentence chosen for this item (rung-1 tail, or the cloze source). */
   sentenceId?: string;
+  /** A re-drill of a word missed earlier this session: retrieval practice only,
+   *  never rated — the miss already scheduled the card. See `redrill`. */
+  practice?: true;
 }
 
 export type PlayKind =
@@ -220,14 +223,39 @@ function toReveal(s: MachineState): Step {
   return step({ ...s, phase: 'reveal-playing', retries: 0 }, { type: 'play', kind, wordId: item.wordId, sentenceId: item.sentenceId });
 }
 
+/** Items between a miss and its re-drill — same spacing as the teach re-quiz. */
+const REDRILL_GAP = 4;
+
+/** A missed word comes back later in the same session for one more attempt.
+ *  This is the short-term reinforcement the old 10-minute FSRS learning step was
+ *  supposed to give but couldn't: the queue is fixed once the session starts, so
+ *  a sub-day step re-drilled nothing and only made the word due again mid-session.
+ *
+ *  One re-drill per word per session — a re-drill that's missed again is not
+ *  requeued (that's the `practice` guard, and it's what stops an endless loop on
+ *  a word the user simply doesn't know yet); it just waits for tomorrow. */
+function redrill(s: MachineState, item: Item): Item[] {
+  if (item.practice) return s.queue;
+  const queue = [...s.queue];
+  queue.splice(Math.min(s.idx + 1 + REDRILL_GAP, queue.length), 0, { wordId: item.wordId, mode: 'quiz', practice: true });
+  return queue;
+}
+
+/** The rate effect for an item — unless it's a re-drill, which never rates. The
+ *  miss that queued it already set the card's interval (1 day); rating it again
+ *  here would let a correct repeat wipe out the lapse and reschedule the word
+ *  days out, which is exactly the "I missed it but it never came back" hole. */
+const rated = (item: Item, effect: Effect): Effect[] => (item.practice ? [] : [effect]);
+
 function gradeSelf(s: MachineState, rating: 'good' | 'again', mode: RateMode): Step {
   const item = currentItem(s)!;
   const counts =
     rating === 'good'
       ? { ...s.counts, correct: s.counts.correct + 1 }
       : { ...s.counts, missed: s.counts.missed + 1 };
-  const next = advance({ ...s, counts });
-  return { state: next.state, effects: [{ type: 'rate', wordId: item.wordId, rating, mode }, ...next.effects] };
+  const queue = rating === 'again' ? redrill(s, item) : s.queue;
+  const next = advance({ ...s, counts, queue });
+  return { state: next.state, effects: [...rated(item, { type: 'rate', wordId: item.wordId, rating, mode }), ...next.effects] };
 }
 
 export function reduce(s: MachineState, ev: Event): Step {
@@ -356,7 +384,7 @@ export function reduce(s: MachineState, ev: Event): Step {
         };
         return step(
           next,
-          { type: 'rate', wordId: item.wordId, rating: 'good', mode: 'auto', recognized: ev.type === 'listenResult' ? ev.recognized : undefined },
+          ...rated(item, { type: 'rate', wordId: item.wordId, rating: 'good', mode: 'auto', recognized: ev.type === 'listenResult' ? ev.recognized : undefined }),
           { type: 'play', kind: 'correct', wordId: item.wordId, sentenceId: item.sentenceId },
         );
       }
