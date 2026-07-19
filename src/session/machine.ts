@@ -27,6 +27,7 @@ export type PlayKind =
   | 'cloze-reveal'
   | 'shadow-reveal'
   | 'build-reveal'
+  | 'self-grade-reprompt'
   | 'paused'
   | 'resuming'
   | 'done';
@@ -77,6 +78,7 @@ export type Phase =
   | 'correct-playing'
   | 'reveal-playing'
   | 'self-grade-listening'
+  | 'self-grade-reprompt-playing'
   | 'pause-playing'
   | 'paused'
   | 'resume-playing'
@@ -417,18 +419,33 @@ export function reduce(s: MachineState, ev: Event): Step {
 
     case 'self-grade-listening': {
       // A revealed answer is a miss by default; "got it" is the override for a
-      // correct answer the recognizer didn't catch. Anything else (silence,
-      // an unrecognized utterance, an SR error) leaves it missed and moves on
-      // immediately — no retry, no waiting in limbo.
+      // correct answer the recognizer didn't catch. Silence or an SR error
+      // leaves it missed and moves on immediately — no waiting in limbo. But an
+      // *unrecognized utterance* is usually a garbled "got it" (they said
+      // something), so that gets one re-prompt before the miss is finalized.
       if (outcome === 'gotit') return gradeSelf(s, 'good', 'self');
       if (outcome === 'missed') return gradeSelf(s, 'again', 'self');
       if (outcome === 'cmd-repeat') return toReveal(s);
       if (outcome === 'cmd-skip') return gradeSelf(s, 'again', 'skip');
+      if (outcome === 'nomatch' && s.retries === 0) {
+        return step({ ...s, phase: 'self-grade-reprompt-playing', retries: 1 }, { type: 'play', kind: 'self-grade-reprompt', wordId: currentItem(s)!.wordId });
+      }
       if (outcome === 'denied' || outcome === 'unavailable') s = degrade(s);
       if (outcome === 'error') s = bumpSrFailure(s);
       if (outcome) return gradeSelf(s, 'again', 'timeout');
       break;
     }
+
+    case 'self-grade-reprompt-playing':
+      // Keeps retries=1, so a second unrecognized utterance falls through to
+      // the miss in self-grade-listening.
+      if (ev.type === 'playDone') {
+        return step({ ...s, phase: 'self-grade-listening' }, { type: 'listen', kind: 'self-grade', wordId: currentItem(s)!.wordId });
+      }
+      if (outcome === 'gotit') return gradeSelf(s, 'good', 'self');
+      if (outcome === 'missed') return gradeSelf(s, 'again', 'self');
+      if (outcome === 'cmd-skip') return gradeSelf(s, 'again', 'skip');
+      break;
 
     case 'pause-playing':
       // Land in paused with no listen — the mic is released while paused, so

@@ -92,15 +92,16 @@ describe('SessionRunner robustness', () => {
     await vi.advanceTimersByTimeAsync(0); // play intro + teach → reach the listen
 
     expect(phases).toContain('teach-listening');
-    // Watchdog budget = timeout (5000) + capture/POST overhead (14000): it must
-    // NOT fire while a slow-but-valid transcription could still be in flight…
-    await vi.advanceTimersByTimeAsync(18000);
+    // Watchdog budget = timeout (5000) + utterance window (3200) + POST budget
+    // (8000) + slack (3000): it must NOT fire while a slow-but-valid
+    // transcription could still be in flight…
+    await vi.advanceTimersByTimeAsync(19000);
     expect(phases[phases.length - 1]).toBe('teach-listening');
     // …but must force progress once the budget is exhausted (into teach part 2,
     // whose own wedged listen needs a second watchdog to reach done).
-    await vi.advanceTimersByTimeAsync(1001);
+    await vi.advanceTimersByTimeAsync(201);
     expect(phases[phases.length - 1]).toBe('teach2-listening');
-    await vi.advanceTimersByTimeAsync(19001);
+    await vi.advanceTimersByTimeAsync(19201);
     expect(phases[phases.length - 1]).toBe('done');
   });
 });

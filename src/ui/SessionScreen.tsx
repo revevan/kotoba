@@ -21,6 +21,7 @@ const PHASE_BADGE: Record<Phase, { text: string; cls: string }> = {
   'correct-playing': { text: 'CORRECT', cls: 'correct' },
   'reveal-playing': { text: 'NOT QUITE', cls: 'reveal' },
   'self-grade-listening': { text: 'MISSED — say “got it” to override', cls: 'reveal' },
+  'self-grade-reprompt-playing': { text: 'DIDN’T CATCH THAT — got it, or missed it?', cls: 'reveal' },
   'pause-playing': { text: 'PAUSING', cls: 'paused' },
   'paused': { text: 'PAUSED — mic off · tap Resume', cls: 'paused' },
   'resume-playing': { text: 'RESUMING', cls: 'speaking' },
@@ -33,13 +34,13 @@ export function SessionScreen() {
   if (!s) return null;
 
   const badge = PHASE_BADGE[s.phase];
-  const showAnswer = ['teach-playing', 'teach-listening', 'teach2-playing', 'teach2-listening', 'correct-playing', 'reveal-playing', 'self-grade-listening'].includes(s.phase);
+  const showAnswer = ['teach-playing', 'teach-listening', 'teach2-playing', 'teach2-listening', 'correct-playing', 'reveal-playing', 'self-grade-listening', 'self-grade-reprompt-playing'].includes(s.phase);
   const isQuizzing = s.phase === 'quiz-playing' || s.phase === 'quiz-listening' || s.phase === 'build-playing' || s.phase === 'build-listening';
   const clozing = s.phase === 'cloze-playing' || s.phase === 'cloze-listening';
   const shadowing = s.phase === 'shadow-playing' || s.phase === 'shadow-listening';
   // Teach part 2 plays the example sentence — show it while it's heard.
   const teaching2 = s.phase === 'teach2-playing' || s.phase === 'teach2-listening';
-  const selfGrading = s.phase === 'reveal-playing' || s.phase === 'self-grade-listening';
+  const selfGrading = s.phase === 'reveal-playing' || s.phase === 'self-grade-listening' || s.phase === 'self-grade-reprompt-playing';
   // The sentence backing the current item (cloze source / rung-1 example).
   const item = s.queue[s.idx];
   const sentence = item?.sentenceId ? word?.sentences?.find((x) => x.id === item.sentenceId) : undefined;

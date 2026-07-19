@@ -141,6 +141,40 @@ describe('session machine', () => {
     expect(s.state.counts.missed).toBe(0);
   });
 
+  it('self-grade garbled utterance re-prompts once; "got it" then still rates good', () => {
+    // Quiz miss → reveal → self-grade hears something that isn't a command
+    // (e.g. a misheard "got it") → re-prompt instead of finalizing the miss.
+    const s = run(start([quiz('w1')]), playDone, playDone, result('nomatch'), playDone, result('nomatch'));
+    expect(s.state.phase).toBe('self-grade-reprompt-playing');
+    expect(s.effects).toEqual([{ type: 'play', kind: 'self-grade-reprompt', wordId: 'w1' }]);
+
+    const s2 = run(s, playDone);
+    expect(s2.state.phase).toBe('self-grade-listening');
+    expect(s2.effects).toEqual([{ type: 'listen', kind: 'self-grade', wordId: 'w1' }]);
+
+    const s3 = run(s2, result('gotit'));
+    expect(s3.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'good', mode: 'self' });
+    expect(s3.state.counts.correct).toBe(1);
+    expect(s3.state.counts.missed).toBe(0);
+  });
+
+  it('self-grade second garbled utterance finalizes the miss', () => {
+    const s = run(
+      start([quiz('w1'), quiz('w2')]),
+      playDone, playDone, result('nomatch'), // miss → reveal
+      playDone, result('nomatch'), // garbled → re-prompt
+      playDone, result('nomatch'), // garbled again → miss stands
+    );
+    expect(s.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'again', mode: 'timeout' });
+    expect(s.state.counts.missed).toBe(1);
+    expect(s.state.idx).toBe(1); // moved on
+  });
+
+  it('self-grade re-prompt accepts a tap without waiting for the clip to end', () => {
+    const s = run(start([quiz('w1')]), playDone, playDone, result('nomatch'), playDone, result('nomatch'), { type: 'tap', cmd: 'gotit' });
+    expect(s.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'good', mode: 'self' });
+  });
+
   it('recognized echo clears on the next word and ignores self-grade commands', () => {
     // Wrong answer on w1 → reveal → "missed it" self-grade → on to w2.
     let s = run(start([quiz('w1'), quiz('w2')]), playDone, playDone, result('nomatch', '一社'));

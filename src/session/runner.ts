@@ -65,7 +65,7 @@ const LISTEN_TIMEOUTS: Record<ListenKind, number> = {
   'quiz-answer': 7000,
   'cloze-answer': 7000,
   // Composing takes longer than recalling — give production exercises room.
-  'shadow-answer': 10000,
+  'shadow-answer': 12000,
   'build-answer': 12000,
   // Short: the verdict is already in (missed), this is only the brief window
   // to say "got it" and override. Don't make a real miss sit and wait.
@@ -74,8 +74,9 @@ const LISTEN_TIMEOUTS: Record<ListenKind, number> = {
 };
 
 /** VAD overrides: a whole sentence needs a longer utterance window and a
- *  slightly longer pause before we decide the speaker is done. */
-const LONG_UTTERANCE = { maxUtteranceMs: 10000, trailingSilenceMs: 1100 };
+ *  longer pause before we decide the speaker is done — a learner repeating a
+ *  sentence pauses mid-clause in ways a one-word answer never does. */
+const LONG_UTTERANCE = { maxUtteranceMs: 14000, trailingSilenceMs: 1600 };
 
 /**
  * Expected-answer terms to bias the cloud recognizer toward, gathered from the
@@ -227,6 +228,9 @@ export class SessionRunner {
         return revealSequence(word!);
       case 'cloze-reveal':
         return sentence ? clozeRevealSequence(word!, sentence) : revealSequence(word!);
+      case 'self-grade-reprompt':
+        // Didn't catch the self-grade utterance — ask again ("say got it…").
+        return phraseSequence('knew-it');
       case 'paused':
         return phraseSequence('paused');
       case 'resuming':
@@ -239,16 +243,18 @@ export class SessionRunner {
   private async runListen(kind: ListenKind, wordId?: string, sentenceId?: string): Promise<void> {
     const gen = ++this.listenGen;
     const timeoutMs = LISTEN_TIMEOUTS[kind];
+    const long = kind === 'shadow-answer' || kind === 'build-answer';
     const degraded = this.state.degraded || !this.deps.srAvailable();
     const degradedWaitMs = kind === 'self-grade' ? 5000 : kind === 'resume' ? 10000 : 300;
 
     // A listen can legitimately outlive timeoutMs by a lot: speech can begin
     // just before the no-speech deadline, run a full utterance window plus
-    // trailing silence (~3.2s), and the transcription POST has its own 8s
-    // budget. The watchdog is a last line of defense against a *wedged*
-    // recognizer, so it must sit beyond that worst case — not race a valid
-    // answer that's still being transcribed.
-    const WATCHDOG_OVERHEAD_MS = 14000;
+    // trailing silence (~3.2s base, ~15.6s for sentence-length listens), and
+    // the transcription POST has its own 8s budget. The watchdog is a last
+    // line of defense against a *wedged* recognizer, so it must sit beyond
+    // that worst case — not race a valid answer that's still being transcribed.
+    const utteranceMs = long ? LONG_UTTERANCE.maxUtteranceMs + LONG_UTTERANCE.trailingSilenceMs : 3200;
+    const WATCHDOG_OVERHEAD_MS = utteranceMs + 8000 + 3000;
 
     // Last line of defense: if the listen somehow never produces an event
     // (recognizer wedged, exception below, …) force the session forward.
@@ -281,7 +287,6 @@ export class SessionRunner {
       }
 
       const ja = kind === 'teach-echo' || kind === 'quiz-answer' || kind === 'cloze-answer' || kind === 'shadow-answer' || kind === 'build-answer';
-      const long = kind === 'shadow-answer' || kind === 'build-answer';
       const lang = ja ? 'ja-JP' : 'en-US';
       const word = wordId ? this.deps.words.get(wordId) : undefined;
       const sentence = this.sentenceFor(word, sentenceId);
