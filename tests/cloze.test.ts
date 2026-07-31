@@ -58,14 +58,12 @@ describe('cloze machine flow', () => {
     expect(s.effects).toEqual([{ type: 'listen', kind: 'cloze-answer', wordId: 'w1', sentenceId: 's1' }]);
   });
 
-  it('a matched answer rates good and plays correct with the sentence tail', () => {
+  it('a matched answer plays correct with the sentence tail, rating deferred to clip end', () => {
     const s = run(start([cloze('w1')]), playDone, playDone, result('match', '医者'));
     expect(s.state.phase).toBe('correct-playing');
     expect(s.state.counts.correct).toBe(1);
-    expect(s.effects).toEqual([
-      { type: 'rate', wordId: 'w1', rating: 'good', mode: 'auto', recognized: '医者' },
-      { type: 'play', kind: 'correct', wordId: 'w1', sentenceId: 's1' },
-    ]);
+    expect(s.effects).toEqual([{ type: 'play', kind: 'correct', wordId: 'w1', sentenceId: 's1' }]);
+    expect(run(s, playDone).effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'good', mode: 'auto', recognized: '医者' });
   });
 
   it('a miss reveals the full sentence, then self-grades', () => {

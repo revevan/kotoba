@@ -160,7 +160,7 @@ describe('machine shadow/build flow', () => {
     expect(s2.state.phase).toBe('shadow-listening');
     const s3 = run(s2, result('match'));
     expect(s3.state.phase).toBe('correct-playing');
-    expect(s3.effects[0]).toMatchObject({ type: 'rate', wordId: 'w1', rating: 'good' });
+    expect(run(s3, playDone).effects[0]).toMatchObject({ type: 'rate', wordId: 'w1', rating: 'good' });
   });
 
   it('build: nomatch goes to the build reveal, then self-grade override works', () => {

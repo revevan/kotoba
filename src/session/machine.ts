@@ -413,6 +413,9 @@ export function reduce(s: MachineState, ev: Event): Step {
       if (outcome === 'cmd-repeat') return enterItem(s);
       if (outcome === 'cmd-skip') return gradeSelf(s, 'again', 'skip');
       if (outcome === 'match') {
+        // The 'good' rating is deferred until the correct clip ends (see
+        // correct-playing): the pass screen is also the "no, I actually missed
+        // it" window, and demoting must not first record a pass.
         const item = currentItem(s)!;
         const next: MachineState = {
           ...s,
@@ -420,11 +423,7 @@ export function reduce(s: MachineState, ev: Event): Step {
           srFailures: 0,
           counts: { ...s.counts, correct: s.counts.correct + 1 },
         };
-        return step(
-          next,
-          ...rated(item, { type: 'rate', wordId: rateTarget(item), rating: 'good', mode: 'auto', recognized: ev.type === 'listenResult' ? ev.recognized : undefined }),
-          { type: 'play', kind: 'correct', wordId: item.wordId, sentenceId: item.sentenceId },
-        );
+        return step(next, { type: 'play', kind: 'correct', wordId: item.wordId, sentenceId: item.sentenceId });
       }
       if (outcome === 'nomatch' || outcome === 'dontknow' || outcome === 'timeout' || outcome === 'speech') {
         return toReveal({ ...s, srFailures: 0 });
@@ -434,14 +433,30 @@ export function reduce(s: MachineState, ev: Event): Step {
       break;
     }
 
-    case 'correct-playing':
-      if (ev.type === 'playDone') return advance(s);
+    case 'correct-playing': {
+      // The recognizer is lenient by design, so a "pass" can be wrong. While
+      // the correct clip plays, "missed it" demotes the pass: the item is rated
+      // 'again' instead of 'good' and comes back for an in-session re-drill,
+      // exactly as if the recognizer had said nomatch.
+      const item = currentItem(s)!;
+      const good: Effect = { type: 'rate', wordId: rateTarget(item), rating: 'good', mode: 'auto', recognized: s.lastRecognized ?? undefined };
+      if (ev.type === 'playDone' || outcome === 'cmd-skip') {
+        const next = advance(s);
+        return { state: next.state, effects: [...rated(item, good), ...next.effects] };
+      }
       if (outcome === 'cmd-repeat') {
-        const item = currentItem(s)!;
         return step(s, { type: 'play', kind: 'correct', wordId: item.wordId, sentenceId: item.sentenceId });
       }
-      if (outcome === 'cmd-skip') return advance(s);
+      if (outcome === 'missed') {
+        const counts = { ...s.counts, correct: s.counts.correct - 1, missed: s.counts.missed + 1 };
+        const next = advance({ ...s, counts, queue: redrill(s, item) });
+        return {
+          state: next.state,
+          effects: [...rated(item, { type: 'rate', wordId: rateTarget(item), rating: 'again', mode: 'self', recognized: s.lastRecognized ?? undefined }), ...next.effects],
+        };
+      }
       break;
+    }
 
     case 'reveal-playing':
       if (ev.type === 'playDone') {

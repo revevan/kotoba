@@ -93,15 +93,35 @@ describe('session machine', () => {
     expect(s.state.counts.taught).toBe(0);
   });
 
-  it('quiz: matched answer rates good and plays correct', () => {
+  it('quiz: matched answer plays correct, and rates good once the clip ends', () => {
     const s = run(start([quiz('w1')]), playDone, playDone, result('match', '林檎'));
     expect(s.state.phase).toBe('correct-playing');
     expect(s.state.counts.correct).toBe(1);
-    expect(s.effects).toEqual([
-      { type: 'rate', wordId: 'w1', rating: 'good', mode: 'auto', recognized: '林檎' },
-      { type: 'play', kind: 'correct', wordId: 'w1' },
-    ]);
-    expect(run(s, playDone).state.phase).toBe('done');
+    // Rating is deferred to the end of the correct clip — that window is where
+    // "missed it" can still demote the pass.
+    expect(s.effects).toEqual([{ type: 'play', kind: 'correct', wordId: 'w1' }]);
+    const done = run(s, playDone);
+    expect(done.state.phase).toBe('done');
+    expect(done.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'good', mode: 'auto', recognized: '林檎' });
+  });
+
+  it('"missed it" during the correct clip demotes the pass to a rated miss + re-drill', () => {
+    const s = run(start([quiz('w1'), quiz('w2')]), playDone, playDone, result('match', '林檎'));
+    expect(s.state.phase).toBe('correct-playing');
+
+    const demoted = run(s, { type: 'tap', cmd: 'missed' });
+    expect(demoted.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'again', mode: 'self', recognized: '林檎' });
+    expect(demoted.state.counts).toEqual({ taught: 0, correct: 0, missed: 1 });
+    // The false pass re-drills later in the session, like any other miss.
+    expect(demoted.state.queue.filter((i) => i.wordId === 'w1' && i.practice)).toHaveLength(1);
+    expect(demoted.state.phase).toBe('quiz-playing'); // moved on to w2
+  });
+
+  it('a demoted re-drill pass stays unrated and is not requeued again', () => {
+    const p: Item = { wordId: 'w1', mode: 'quiz', practice: true };
+    const s = run(start([p]), playDone, playDone, result('match', 'ねこ'), { type: 'tap', cmd: 'missed' });
+    expect(s.effects.some((e) => e.type === 'rate')).toBe(false); // the original miss already scheduled it
+    expect(s.state.queue).toHaveLength(1); // one re-drill per word per session
   });
 
   it('quiz: no match reveals, then self-grade "got it" rates good', () => {
@@ -241,7 +261,10 @@ describe('session machine', () => {
   it('session completes with ended effect', () => {
     const s = run(start([quiz('w1')]), playDone, playDone, result('match'), playDone);
     expect(s.state.phase).toBe('done');
-    expect(s.effects).toEqual([{ type: 'play', kind: 'done' }]);
+    expect(s.effects).toEqual([
+      { type: 'rate', wordId: 'w1', rating: 'good', mode: 'auto', recognized: undefined },
+      { type: 'play', kind: 'done' },
+    ]);
     expect(run(s, playDone).effects).toEqual([{ type: 'ended' }]);
   });
 });
@@ -323,7 +346,8 @@ describe('conjugation items', () => {
 
     const s3 = run(s2, result('match', 'たべて'));
     expect(s3.state.phase).toBe('correct-playing');
-    expect(s3.effects[0]).toEqual({ type: 'rate', wordId: 'conj:te:ichidan', rating: 'good', mode: 'auto', recognized: 'たべて' });
+    const s4 = run(s3, playDone);
+    expect(s4.effects[0]).toEqual({ type: 'rate', wordId: 'conj:te:ichidan', rating: 'good', mode: 'auto', recognized: 'たべて' });
   });
 
   it('reveals with conj-reveal on a miss and rates the pattern card again', () => {

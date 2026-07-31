@@ -165,6 +165,11 @@ export function SessionScreen() {
             </>
           ) : (
             <>
+              {s.phase === 'correct-playing' && (
+                <button class="ctl bad" onClick={() => tap('missed')}>
+                  Missed it
+                </button>
+              )}
               <button class="ctl" onClick={() => tap('repeat')}>
                 Repeat
               </button>
