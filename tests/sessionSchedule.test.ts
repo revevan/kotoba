@@ -103,3 +103,21 @@ describe('a finished session leaves nothing due', () => {
     expect(+new Date(cards.get('n1')!.due)).toBeGreaterThan(+new Date(missed.due));
   });
 });
+
+describe('day-granularity dueness', () => {
+  // Local-time dates on purpose: isDue rolls over at local midnight.
+  it('a card scheduled for later today counts as due now', () => {
+    const card = { ...newCard(), due: new Date('2026-01-02T21:14:00') };
+    expect(isDue(card, new Date('2026-01-02T08:00:00'))).toBe(true); // same day, hours early
+    expect(isDue(card, new Date('2026-01-01T23:59:00'))).toBe(false); // yesterday: not yet
+    expect(isDue(card, new Date('2026-01-03T00:01:00'))).toBe(true); // overdue stays due
+  });
+
+  it("yesterday evening's miss shows up the next morning", () => {
+    const at = new Date('2026-01-01T21:14:00');
+    let card = newCard(at);
+    card = rateCard(card, 'again', at); // due ~9:14pm tomorrow, exact-time
+    expect(isDue(card, new Date('2026-01-02T07:30:00'))).toBe(true); // was false before the fix
+    expect(isDue(card, at)).toBe(false); // but not due tonight, right after the miss
+  });
+});

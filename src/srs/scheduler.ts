@@ -35,6 +35,14 @@ export function rateCard(card: Card, rating: SimpleRating, now: Date = new Date(
   return f.next(card, now, rating === 'good' ? Rating.Good : Rating.Again).card;
 }
 
+/** Day-granularity dueness: anything scheduled for today (local) counts now.
+ *
+ *  FSRS stores exact timestamps, so a word missed at 9:14pm lands due 9:14pm
+ *  tomorrow — under an exact-time comparison it was invisible the next morning
+ *  and the home count crept up through the day as the clock passed each card's
+ *  previous study time. Comparing against local end-of-day makes the count
+ *  stable all day and never lets a session end with cards still "due". */
 export function isDue(card: Card, now: Date = new Date()): boolean {
-  return new Date(card.due).getTime() <= now.getTime();
+  const endOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  return new Date(card.due).getTime() < endOfToday.getTime();
 }
