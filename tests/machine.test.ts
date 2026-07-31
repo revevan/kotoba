@@ -304,3 +304,48 @@ describe('queue invariants', () => {
     expect(s.state.phase).toBe('done');
   });
 });
+
+describe('conjugation items', () => {
+  const conj = (id: string, cardId = 'conj:te:ichidan'): Item => ({
+    wordId: id,
+    mode: 'conjugate',
+    conj: { cardId, form: 'te', group: 'ichidan' },
+  });
+
+  it('plays the conj prompt, listens, and rates the PATTERN card on a match', () => {
+    const s1 = run(start([conj('v1')]), playDone);
+    expect(s1.state.phase).toBe('conj-playing');
+    expect(s1.effects).toEqual([{ type: 'play', kind: 'conj-prompt', wordId: 'v1' }]);
+
+    const s2 = run(s1, playDone);
+    expect(s2.state.phase).toBe('conj-listening');
+    expect(s2.effects).toEqual([{ type: 'listen', kind: 'conj-answer', wordId: 'v1' }]);
+
+    const s3 = run(s2, result('match', 'たべて'));
+    expect(s3.state.phase).toBe('correct-playing');
+    expect(s3.effects[0]).toEqual({ type: 'rate', wordId: 'conj:te:ichidan', rating: 'good', mode: 'auto', recognized: 'たべて' });
+  });
+
+  it('reveals with conj-reveal on a miss and rates the pattern card again', () => {
+    const s = run(start([conj('v1')]), playDone, playDone, result('nomatch'));
+    expect(s.state.phase).toBe('reveal-playing');
+    expect(s.effects).toEqual([{ type: 'play', kind: 'conj-reveal', wordId: 'v1' }]);
+
+    const graded = run(s, playDone, result('missed'));
+    expect(graded.effects[0]).toEqual({ type: 'rate', wordId: 'conj:te:ichidan', rating: 'again', mode: 'self' });
+  });
+
+  it('re-drills the same pattern (not a plain quiz) after a miss, unrated', () => {
+    const missed = run(start([conj('v1'), quiz('w2')]), playDone, playDone, result('nomatch'), playDone, result('missed'));
+    const drill = missed.state.queue.find((i) => i.practice);
+    expect(drill).toBeDefined();
+    expect(drill!.mode).toBe('conjugate');
+    expect(drill!.conj?.cardId).toBe('conj:te:ichidan');
+  });
+
+  it('degraded mode goes straight to the reveal', () => {
+    const s = run(start([conj('v1')], true, true), playDone, playDone);
+    expect(s.state.phase).toBe('reveal-playing');
+    expect(s.effects).toEqual([{ type: 'play', kind: 'conj-reveal', wordId: 'v1' }]);
+  });
+});

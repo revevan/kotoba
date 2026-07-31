@@ -2,13 +2,28 @@
 // APIs in here — the runner executes effects and feeds results back as events,
 // which keeps the whole teach/quiz/self-grade flow unit-testable.
 
-export type Mode = 'teach' | 'quiz' | 'cloze' | 'shadow' | 'build';
+import type { ConjForm, PatternGroup } from '../conj/engine';
+
+export type Mode = 'teach' | 'quiz' | 'cloze' | 'shadow' | 'build' | 'conjugate';
+
+/** Conjugation payload: the pattern card being reviewed and the target form.
+ *  `wordId` on the item is the anchor verb sampled for this prompt. */
+export interface ItemConj {
+  /** Pattern card id (conj:{form}:{group}) — the FSRS unit that gets rated. */
+  cardId: string;
+  form: ConjForm;
+  group: PatternGroup;
+  /** First-ever practice of this pattern → the prompt leads with the rule. */
+  introduce?: boolean;
+}
 
 export interface Item {
   wordId: string;
   mode: Mode;
   /** Example sentence chosen for this item (rung-1 tail, or the cloze source). */
   sentenceId?: string;
+  /** Present iff mode === 'conjugate'. */
+  conj?: ItemConj;
   /** A re-drill of a word missed earlier this session: retrieval practice only,
    *  never rated — the miss already scheduled the card. See `redrill`. */
   practice?: true;
@@ -22,17 +37,19 @@ export type PlayKind =
   | 'cloze-prompt'
   | 'shadow-prompt'
   | 'build-prompt'
+  | 'conj-prompt'
   | 'correct'
   | 'reveal'
   | 'cloze-reveal'
   | 'shadow-reveal'
   | 'build-reveal'
+  | 'conj-reveal'
   | 'self-grade-reprompt'
   | 'paused'
   | 'resuming'
   | 'done';
 
-export type ListenKind = 'teach-echo' | 'quiz-answer' | 'cloze-answer' | 'shadow-answer' | 'build-answer' | 'self-grade' | 'resume';
+export type ListenKind = 'teach-echo' | 'quiz-answer' | 'cloze-answer' | 'shadow-answer' | 'build-answer' | 'conj-answer' | 'self-grade' | 'resume';
 
 export type RateMode = 'auto' | 'self' | 'skip' | 'timeout';
 
@@ -75,6 +92,8 @@ export type Phase =
   | 'shadow-listening'
   | 'build-playing'
   | 'build-listening'
+  | 'conj-playing'
+  | 'conj-listening'
   | 'correct-playing'
   | 'reveal-playing'
   | 'self-grade-listening'
@@ -163,6 +182,9 @@ function enterItem(s: MachineState): Step {
   if (item.mode === 'build') {
     return step({ ...s, phase: 'build-playing', retries: 0 }, { type: 'play', kind: 'build-prompt', wordId: item.wordId, sentenceId: item.sentenceId });
   }
+  if (item.mode === 'conjugate') {
+    return step({ ...s, phase: 'conj-playing', retries: 0 }, { type: 'play', kind: 'conj-prompt', wordId: item.wordId });
+  }
   return step({ ...s, phase: 'quiz-playing', retries: 0 }, { type: 'play', kind: 'quiz-prompt', wordId: item.wordId });
 }
 
@@ -221,6 +243,7 @@ function toReveal(s: MachineState): Step {
     item.mode === 'cloze' ? 'cloze-reveal'
     : item.mode === 'shadow' ? 'shadow-reveal'
     : item.mode === 'build' ? 'build-reveal'
+    : item.mode === 'conjugate' ? 'conj-reveal'
     : 'reveal';
   return step({ ...s, phase: 'reveal-playing', retries: 0 }, { type: 'play', kind, wordId: item.wordId, sentenceId: item.sentenceId });
 }
@@ -239,7 +262,13 @@ const REDRILL_GAP = 4;
 function redrill(s: MachineState, item: Item): Item[] {
   if (item.practice) return s.queue;
   const queue = [...s.queue];
-  queue.splice(Math.min(s.idx + 1 + REDRILL_GAP, queue.length), 0, { wordId: item.wordId, mode: 'quiz', practice: true });
+  // A missed conjugation re-drills the same pattern (same form + anchor), not a
+  // plain recall of the anchor verb — the pattern is what was missed.
+  const again: Item =
+    item.mode === 'conjugate' && item.conj
+      ? { wordId: item.wordId, mode: 'conjugate', conj: item.conj, practice: true }
+      : { wordId: item.wordId, mode: 'quiz', practice: true };
+  queue.splice(Math.min(s.idx + 1 + REDRILL_GAP, queue.length), 0, again);
   return queue;
 }
 
@@ -249,6 +278,9 @@ function redrill(s: MachineState, item: Item): Item[] {
  *  days out, which is exactly the "I missed it but it never came back" hole. */
 const rated = (item: Item, effect: Effect): Effect[] => (item.practice ? [] : [effect]);
 
+/** What a rating lands on: the pattern card for a conjugation, else the word. */
+const rateTarget = (item: Item): string => item.conj?.cardId ?? item.wordId;
+
 function gradeSelf(s: MachineState, rating: 'good' | 'again', mode: RateMode): Step {
   const item = currentItem(s)!;
   const counts =
@@ -257,7 +289,7 @@ function gradeSelf(s: MachineState, rating: 'good' | 'again', mode: RateMode): S
       : { ...s.counts, missed: s.counts.missed + 1 };
   const queue = rating === 'again' ? redrill(s, item) : s.queue;
   const next = advance({ ...s, counts, queue });
-  return { state: next.state, effects: [...rated(item, { type: 'rate', wordId: item.wordId, rating, mode }), ...next.effects] };
+  return { state: next.state, effects: [...rated(item, { type: 'rate', wordId: rateTarget(item), rating, mode }), ...next.effects] };
 }
 
 export function reduce(s: MachineState, ev: Event): Step {
@@ -354,12 +386,15 @@ export function reduce(s: MachineState, ev: Event): Step {
 
     case 'cloze-playing':
     case 'shadow-playing':
-    case 'build-playing': {
+    case 'build-playing':
+    case 'conj-playing': {
       if (ev.type === 'playDone') {
         if (s.degraded) return toReveal(s);
         const item = currentItem(s)!;
-        const kind: ListenKind = s.phase === 'cloze-playing' ? 'cloze-answer' : s.phase === 'shadow-playing' ? 'shadow-answer' : 'build-answer';
-        const next: Phase = s.phase === 'cloze-playing' ? 'cloze-listening' : s.phase === 'shadow-playing' ? 'shadow-listening' : 'build-listening';
+        const kind: ListenKind =
+          s.phase === 'cloze-playing' ? 'cloze-answer' : s.phase === 'shadow-playing' ? 'shadow-answer' : s.phase === 'build-playing' ? 'build-answer' : 'conj-answer';
+        const next: Phase =
+          s.phase === 'cloze-playing' ? 'cloze-listening' : s.phase === 'shadow-playing' ? 'shadow-listening' : s.phase === 'build-playing' ? 'build-listening' : 'conj-listening';
         return step({ ...s, phase: next, retries: 0 }, { type: 'listen', kind, wordId: item.wordId, sentenceId: item.sentenceId });
       }
       if (outcome === 'cmd-repeat') return enterItem(s);
@@ -373,7 +408,8 @@ export function reduce(s: MachineState, ev: Event): Step {
     case 'quiz-listening':
     case 'cloze-listening':
     case 'shadow-listening':
-    case 'build-listening': {
+    case 'build-listening':
+    case 'conj-listening': {
       if (outcome === 'cmd-repeat') return enterItem(s);
       if (outcome === 'cmd-skip') return gradeSelf(s, 'again', 'skip');
       if (outcome === 'match') {
@@ -386,7 +422,7 @@ export function reduce(s: MachineState, ev: Event): Step {
         };
         return step(
           next,
-          ...rated(item, { type: 'rate', wordId: item.wordId, rating: 'good', mode: 'auto', recognized: ev.type === 'listenResult' ? ev.recognized : undefined }),
+          ...rated(item, { type: 'rate', wordId: rateTarget(item), rating: 'good', mode: 'auto', recognized: ev.type === 'listenResult' ? ev.recognized : undefined }),
           { type: 'play', kind: 'correct', wordId: item.wordId, sentenceId: item.sentenceId },
         );
       }

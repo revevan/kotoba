@@ -2,6 +2,7 @@ import type { Deck, DeckInfo, Sentence, Word } from '../types';
 
 const base = `${import.meta.env.BASE_URL}decks/`;
 const sentencesBase = `${import.meta.env.BASE_URL}sentences/`;
+const conjCuesBase = `${import.meta.env.BASE_URL}conj-cues/`;
 
 /** Approved example sentences for a deck, keyed by wordId. */
 export type SentencePool = Record<string, Sentence[]>;
@@ -37,6 +38,25 @@ export async function attachSentences(decks: Deck[]): Promise<void> {
       for (const w of deck.words) {
         const list = pool[w.id];
         if (list?.length) w.sentences = list;
+      }
+    }),
+  );
+}
+
+/** English conjugation cues (see tools/gen-conj-cues.ts); optional content. */
+export async function attachConjCues(decks: Deck[]): Promise<void> {
+  await Promise.all(
+    decks.map(async (deck) => {
+      try {
+        const res = await fetch(`${conjCuesBase}${deck.id}.json`);
+        if (!res.ok) return;
+        const cues = (await res.json()) as Record<string, Word['conjCues']>;
+        for (const w of deck.words) {
+          const c = cues[w.id];
+          if (c) w.conjCues = c;
+        }
+      } catch {
+        /* missing cue file ⇒ label-prompt fallback */
       }
     }),
   );

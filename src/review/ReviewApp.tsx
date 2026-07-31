@@ -11,8 +11,9 @@
 
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import type { Word } from '../types';
-import { attachSentences, fetchDeck, fetchDeckIndex } from '../data/decks';
-import { enClip, jaClip, jaSlowClip, senClip, senEnClip } from '../audio/clips';
+import { attachConjCues, attachSentences, fetchDeck, fetchDeckIndex } from '../data/decks';
+import { enClip, enConjClip, jaClip, jaConjClip, jaSlowClip, senClip, senEnClip } from '../audio/clips';
+import { ALL_FORMS, FORM_LABELS, conjugate } from '../conj/engine';
 import { Player } from '../audio/player';
 import { prefetchAudio } from '../audio/prefetch';
 import { loadAuth, persistAuth, requestCode, verifyCode, type Auth } from '../sync/client';
@@ -53,6 +54,26 @@ function cardRows(w: Word): CardRow[] {
       lines: [{ text: `also heard: ${a.kana} · ${a.romaji}`, cls: 'r-sub' }],
       clips: [{ label: '▶', src: jaClip(a.id) }],
     });
+  }
+  // Conjugation practice content: every generated conjugated-form clip, plus
+  // the English meaning cue where one exists (label-prompt forms have none).
+  if (w.verbSubclass) {
+    for (const form of ALL_FORMS) {
+      const c = conjugate({ kana: w.kana, surface: w.written[0] ?? w.kana, subclass: w.verbSubclass }, form);
+      const cue = w.conjCues?.[form];
+      rows.push({
+        key: `conj:${form}`,
+        lines: [
+          { text: c.surface, cls: 'r-jp' },
+          { text: `${c.kana} · ${FORM_LABELS[form]}`, cls: 'r-sub' },
+          ...(cue ? [{ text: cue, cls: 'r-sub r-sen-en' }] : []),
+        ],
+        clips: [
+          { label: '▶ JA', src: jaConjClip(w.id, form) },
+          ...(cue ? [{ label: '▶ EN', src: enConjClip(w.id, form) }] : []),
+        ],
+      });
+    }
   }
   for (const s of w.sentences ?? []) {
     rows.push({
@@ -120,6 +141,7 @@ async function loadEntries(): Promise<Entry[]> {
   const index = await fetchDeckIndex(); // file order: n5-starter → n5 → n4 → n3
   const decks = await Promise.all(index.map(fetchDeck));
   await attachSentences(decks);
+  await attachConjCues(decks); // graceful: verbs without cue files just get JA rows
   const seen = new Set<string>();
   const entries: Entry[] = [];
   decks.forEach((deck, i) => {

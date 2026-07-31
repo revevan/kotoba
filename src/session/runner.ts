@@ -5,6 +5,9 @@ import {
   buildRevealSequence,
   clozePromptSequence,
   clozeRevealSequence,
+  conjCorrectSequence,
+  conjPromptSequence,
+  conjRevealSequence,
   correctSequence,
   phraseSequence,
   quizPromptSequence,
@@ -14,8 +17,9 @@ import {
   teach2Sequence,
   teachSequence,
 } from '../audio/clips';
+import { expectedAnswer, type Conjugated } from '../conj/engine';
 import { dlog } from '../debug/log';
-import { gradeAnswer, gradeCloze, isDontKnow } from '../matching/match';
+import { gradeAnswer, gradeCloze, gradeConjugation, isDontKnow } from '../matching/match';
 import { gradeShadow } from '../matching/shadow';
 import { expandWithReadings } from '../matching/reading';
 import { parseCommand } from '../speech/commands';
@@ -64,6 +68,8 @@ const LISTEN_TIMEOUTS: Record<ListenKind, number> = {
   'teach-echo': 5000,
   'quiz-answer': 7000,
   'cloze-answer': 7000,
+  // Transforming a known verb, not just recalling it — a bit more room.
+  'conj-answer': 9000,
   // Composing takes longer than recalling — give production exercises room.
   'shadow-answer': 12000,
   'build-answer': 12000,
@@ -84,9 +90,12 @@ const LONG_UTTERANCE = { maxUtteranceMs: 14000, trailingSilenceMs: 1600 };
  * decode to an empty transcript unaided; boosting the target reading and its
  * written forms recovers them without changing how the answer is graded.
  */
-function answerHints(kind: ListenKind, word?: Word, sentence?: Sentence): string[] | undefined {
+function answerHints(kind: ListenKind, word?: Word, sentence?: Sentence, expectedConj?: Conjugated): string[] | undefined {
   const terms: string[] = [];
-  if (kind === 'cloze-answer' && sentence) {
+  if (kind === 'conj-answer' && expectedConj) {
+    // The inflected target, not the dictionary form — grading is strict here.
+    terms.push(expectedConj.kana, expectedConj.surface, ...(expectedConj.altKana ?? []));
+  } else if (kind === 'cloze-answer' && sentence) {
     terms.push(sentence.clozeReading, sentence.clozeSurface);
   } else if (kind === 'shadow-answer' && sentence && word) {
     // Bias toward the sentence being shadowed (and its target word).
@@ -198,6 +207,19 @@ export class SessionRunner {
     return word.sentences?.find((s) => s.id === sentenceId);
   }
 
+  /** Current item's conjugation payload + expected answer (conjugate items only). */
+  private currentConj(): { conj: NonNullable<Item['conj']>; expected: Conjugated } | null {
+    const item = currentItem(this.state);
+    const word = item ? this.deps.words.get(item.wordId) : undefined;
+    if (!item?.conj || !word?.verbSubclass) return null;
+    return {
+      conj: item.conj,
+      // expectedAnswer, not conjugate: register-ambiguous cues accept the
+      // polite twin as an alt (たい/たいです are both right answers).
+      expected: expectedAnswer({ kana: word.kana, surface: word.written[0] ?? word.kana, subclass: word.verbSubclass }, item.conj.form),
+    };
+  }
+
   private sequenceFor(kind: PlayKind, wordId?: string, sentenceId?: string): ClipItem[] {
     const word = wordId ? this.deps.words.get(wordId) : undefined;
     const sentence = this.sentenceFor(word, sentenceId);
@@ -218,12 +240,24 @@ export class SessionRunner {
         return sentence ? shadowPromptSequence(sentence) : quizPromptSequence(word!);
       case 'build-prompt':
         return buildPromptSequence(word!);
+      case 'conj-prompt': {
+        const cc = this.currentConj();
+        return cc ? conjPromptSequence(word!, cc.conj) : quizPromptSequence(word!);
+      }
+      case 'conj-reveal': {
+        const cc = this.currentConj();
+        return cc ? conjRevealSequence(word!, cc.conj) : revealSequence(word!);
+      }
       case 'shadow-reveal':
         return sentence ? shadowRevealSequence(sentence) : revealSequence(word!);
       case 'build-reveal':
         return buildRevealSequence(word!, sentence);
-      case 'correct':
-        return correctSequence(word!, sentence);
+      case 'correct': {
+        // After a conjugation answer, confirm with the conjugated form — the
+        // dictionary form would read as a correction.
+        const cc = this.currentConj();
+        return cc ? conjCorrectSequence(word!, cc.conj) : correctSequence(word!, sentence);
+      }
       case 'reveal':
         return revealSequence(word!);
       case 'cloze-reveal':
@@ -286,11 +320,11 @@ export class SessionRunner {
         return;
       }
 
-      const ja = kind === 'teach-echo' || kind === 'quiz-answer' || kind === 'cloze-answer' || kind === 'shadow-answer' || kind === 'build-answer';
+      const ja = kind === 'teach-echo' || kind === 'quiz-answer' || kind === 'cloze-answer' || kind === 'shadow-answer' || kind === 'build-answer' || kind === 'conj-answer';
       const lang = ja ? 'ja-JP' : 'en-US';
       const word = wordId ? this.deps.words.get(wordId) : undefined;
       const sentence = this.sentenceFor(word, sentenceId);
-      const hints = ja ? answerHints(kind, word, sentence) : undefined;
+      const hints = ja ? answerHints(kind, word, sentence, this.currentConj()?.expected) : undefined;
       const res = await this.deps.listen({ lang, timeoutMs, hints, ...(long ? LONG_UTTERANCE : {}) });
       if (gen !== this.listenGen || this.stopped) return;
       let outcome: ListenOutcome;
@@ -371,6 +405,11 @@ export class SessionRunner {
       case 'cloze-answer':
         if (isDontKnow(alternatives)) return 'dontknow';
         return sentence && gradeCloze(alternatives, sentence).matched ? 'match' : 'nomatch';
+      case 'conj-answer': {
+        if (isDontKnow(alternatives)) return 'dontknow';
+        const cc = this.currentConj();
+        return cc && gradeConjugation(alternatives, cc.expected).matched ? 'match' : 'nomatch';
+      }
       case 'shadow-answer':
         if (isDontKnow(alternatives)) return 'dontknow';
         return sentence && gradeShadow(alternatives, sentence).matched ? 'match' : 'nomatch';

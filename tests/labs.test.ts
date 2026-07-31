@@ -195,3 +195,15 @@ describe('fixLoanwordReadings', () => {
     expect(fixLoanwordReadings('東京へ行きます。', 'とうきょうへいきます。')).toBe('とうきょうへいきます。');
   });
 });
+
+describe('conjEarlyAccess', () => {
+  it('admits only allowlisted accounts, case/whitespace-insensitively', async () => {
+    const { conjEarlyAccess } = await import('../src/labs');
+    expect(conjEarlyAccess('revevan@gmail.com')).toBe(true);
+    expect(conjEarlyAccess(' Revevan@Gmail.com ')).toBe(true);
+    expect(conjEarlyAccess('someone@example.com')).toBe(false);
+    expect(conjEarlyAccess(null)).toBe(false);
+    expect(conjEarlyAccess(undefined)).toBe(false);
+    expect(conjEarlyAccess('')).toBe(false);
+  });
+});

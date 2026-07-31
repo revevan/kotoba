@@ -320,6 +320,23 @@ button:disabled {
   min-height: 22px;
 }
 
+/* Conjugation item: the form being asked + its one-line rule on reveal. */
+.conj .conj-label {
+  font-family: var(--jp);
+  font-size: clamp(22px, 6vw, 32px);
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 6px;
+}
+
+.conj .conj-rule {
+  font-size: 16px;
+  color: var(--dim);
+  margin-top: 6px;
+  max-width: 90%;
+  margin-inline: auto;
+}
+
 /* Listening indicator: animated level bars + caption. */
 .listenviz {
   display: flex;

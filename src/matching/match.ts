@@ -64,6 +64,26 @@ export function gradeCloze(alternatives: string[], sentence: Sentence): MatchRes
   return matchKana(alternatives, sentence.clozeReading, [sentence.clozeSurface]);
 }
 
+import type { Conjugated } from '../conj/engine';
+
+/**
+ * Grade a spoken conjugation. STRICT on purpose: the Levenshtein tolerance the
+ * word matcher allows would accept the wrong form here — 食べた is distance 1
+ * from 食べて, and the ending IS the answer. Exact comparable-kana (or written
+ * surface) only; kanji transcripts still pass via the upstream reading
+ * expansion, and engine-provided alts (e.g. ら抜き potential) are accepted.
+ */
+export function gradeConjugation(alternatives: string[], expected: Conjugated): MatchResult {
+  const targets = new Set([toComparableKana(expected.kana), ...(expected.altKana ?? []).map(toComparableKana)]);
+  const surface = normalizeText(expected.surface);
+  for (const alt of alternatives) {
+    if (!alt) continue;
+    if (normalizeText(alt) === surface) return { matched: true, matchedAlternative: alt };
+    if (targets.has(toComparableKana(alt))) return { matched: true, matchedAlternative: alt };
+  }
+  return { matched: false };
+}
+
 const DONT_KNOW = ['わからない', 'わかりません', 'しらない', 'しりません', '分からない', '分かりません', '知らない', '知りません'];
 
 /** "I don't know" in the answer → go straight to the reveal. */

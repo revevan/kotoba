@@ -2,30 +2,34 @@
 // constructs the runner with real (or mock) audio + speech deps.
 
 import { Player } from '../audio/player';
-import { sessionClipUrls, setPhraseLocale } from '../audio/clips';
+import { toRomaji } from 'wanakana';
+import { conjClipUrls, sessionClipUrls, setPhraseLocale } from '../audio/clips';
+import { CONJ_DECK_ID, FORM_LABELS, FORM_MEANINGS, conjugate, formRegister, isConjCardId, ruleFor } from '../conj/engine';
 import { prefetchAudio } from '../audio/prefetch';
 import { getAllCards, getCard, logReview, putCard } from '../data/db';
-import { attachSentences, fetchDeck, fetchDeckIndex, wordMap } from '../data/decks';
+import { attachConjCues, attachSentences, fetchDeck, fetchDeckIndex, wordMap } from '../data/decks';
 import { isDue, newCard, rateCard } from '../srs/scheduler';
 import { abortListening, listen, srAvailable } from '../speech/recognizer';
 import { cloudAbort, cloudListen, cloudReleaseMic, cloudSrAvailable, cloudWaitForEcho, primeCloudAudio, primeMic } from '../speech/cloudRecognizer';
 import { cloudSttEnabled } from '../speech/sttConfig';
 import { mockAbort, mockListen, mockMode } from '../speech/mock';
 import { gradeBuild } from '../speech/grader';
-import { forcedRung, labsEnabled } from '../labs';
+import { conjEarlyAccess, forcedRung, labsEnabled } from '../labs';
 import { acquireWakeLock, keepWakeLockAlive, releaseWakeLock } from '../platform/wakeLock';
 import { warmupMic } from '../platform/unlock';
 import { requestPersistentStorage } from '../platform/storage';
 import { initReadingAnalyzer } from '../matching/reading';
 import { syncOnLoad, syncPush } from '../sync/sync';
 import type { Deck, Word } from '../types';
-import { buildQueue, type Decorate } from './queueBuilder';
+import { buildQueue, interleaveItems, type Decorate } from './queueBuilder';
+import { planConjugation, dueConjCount } from './conjPlanner';
 import { chooseExerciseType, pickClozeSentence, pickSentence } from './selectExercise';
 import { SessionRunner } from './runner';
-import type { TapCommand } from './machine';
+import type { Item, TapCommand } from './machine';
 import {
   announcerJa,
   buildNote,
+  conjInfo,
   clozeEnglishFirst,
   deckProgress,
   auth,
@@ -33,6 +37,7 @@ import {
   deckIndex,
   dueCount,
   enableCloze,
+  enableConjugation,
   enabledDeckIds,
   loadError,
   maxReviews,
@@ -59,6 +64,7 @@ async function restoreSettings(): Promise<void> {
   enableCloze.value = await getSetting('enableCloze', enableCloze.value);
   clozeMinIntervalDays.value = await getSetting('clozeMinIntervalDays', clozeMinIntervalDays.value);
   clozeEnglishFirst.value = await getSetting('clozeEnglishFirst', clozeEnglishFirst.value);
+  enableConjugation.value = await getSetting('enableConjugation', enableConjugation.value);
   setPhraseLocale(announcerJa.value ? 'ja' : 'en');
 }
 
@@ -79,7 +85,7 @@ export async function afterSignIn(): Promise<void> {
 }
 
 export async function updateSetting(
-  key: 'enabledDecks' | 'newPerDay' | 'maxReviews' | 'voiceEcho' | 'announcerJa' | 'enableCloze' | 'clozeMinIntervalDays' | 'clozeEnglishFirst',
+  key: 'enabledDecks' | 'newPerDay' | 'maxReviews' | 'voiceEcho' | 'announcerJa' | 'enableCloze' | 'clozeMinIntervalDays' | 'clozeEnglishFirst' | 'enableConjugation',
   value: unknown,
 ): Promise<void> {
   if (key === 'enabledDecks') enabledDeckIds.value = value as string[];
@@ -93,6 +99,7 @@ export async function updateSetting(
   if (key === 'enableCloze') enableCloze.value = value as boolean;
   if (key === 'clozeMinIntervalDays') clozeMinIntervalDays.value = value as number;
   if (key === 'clozeEnglishFirst') clozeEnglishFirst.value = value as boolean;
+  if (key === 'enableConjugation') enableConjugation.value = value as boolean;
   await setSetting(key, value);
   if (key === 'enabledDecks' || key === 'newPerDay') await loadHomeData();
 }
@@ -116,10 +123,15 @@ function startOfTodayMs(now = new Date()): number {
  * sessions: if you only got through 4 of 10, a later session offers the other
  * 6. Once all newPerDay are done, this is 0 and further sessions are
  * review-only — so you can't pile on extra new cards beyond the daily cap. */
-function newQuotaToday(cards: { addedAt: number }[], now = new Date()): number {
-  const learnedToday = cards.filter((c) => c.addedAt >= startOfTodayMs(now)).length;
+function newQuotaToday(cards: { wordId: string; addedAt: number }[], now = new Date()): number {
+  // Conjugation pattern cards have their own daily budget (see conjPlanner) and
+  // must not eat into the new-word quota.
+  const learnedToday = cards.filter((c) => !isConjCardId(c.wordId) && c.addedAt >= startOfTodayMs(now)).length;
   return Math.max(0, newPerDay.value - learnedToday);
 }
+
+/** Conjugation practice is live for this session (pre-release: early-access accounts only). */
+const conjActive = (): boolean => labsEnabled && conjEarlyAccess(auth.value?.email) && enableConjugation.value;
 
 /** Decks available without an account — the full JLPT decks need sign-up. */
 export const GUEST_DECK_IDS = ['n5-starter'];
@@ -139,6 +151,7 @@ export async function loadHomeData(): Promise<void> {
     const allDecks = await Promise.all(index.map(fetchDeck));
     loadedDecks = allDecks.filter((d) => enabled.some((e) => e.id === d.id));
     await attachSentences(loadedDecks); // graceful: words without sentences stay plain
+    await attachConjCues(loadedDecks); // graceful: verbs without cues use label prompts
     const words = wordMap(loadedDecks);
     const cards = await getAllCards();
     const cardIds = new Set(cards.map((c) => c.wordId));
@@ -148,7 +161,9 @@ export async function loadHomeData(): Promise<void> {
     const progress: Record<string, number> = {};
     for (const d of allDecks) progress[d.id] = d.words.filter((w) => cardIds.has(w.id)).length;
     deckProgress.value = progress;
-    dueCount.value = cards.filter((c) => words.has(c.wordId) && isDue(c.card, now)).length;
+    dueCount.value =
+      cards.filter((c) => words.has(c.wordId) && isDue(c.card, now)).length +
+      (conjActive() ? dueConjCount(cards, loadedDecks.flatMap((d) => d.words), now) : 0);
     const newInDeck = [...words.keys()].filter((id) => !cardIds.has(id)).length;
     // What's actually startable today: deck-available new words, capped by the daily quota.
     newAvailable.value = Math.min(newInDeck, newQuotaToday(cards, now));
@@ -165,7 +180,7 @@ function deckIdOf(wordId: string): string {
 }
 
 async function rate(wordId: string, rating: 'good' | 'again', mode: 'auto' | 'self' | 'skip' | 'timeout', recognized?: string): Promise<void> {
-  const row = (await getCard(wordId)) ?? { wordId, deckId: deckIdOf(wordId), card: newCard(), addedAt: Date.now() };
+  const row = (await getCard(wordId)) ?? { wordId, deckId: isConjCardId(wordId) ? CONJ_DECK_ID : deckIdOf(wordId), card: newCard(), addedAt: Date.now() };
   const state = row.card.state; // capture pre-rating state for the review log
   row.card = rateCard(row.card, rating);
   await putCard(row);
@@ -248,9 +263,25 @@ export async function startSession(): Promise<void> {
     return sentence ? { sentenceId: sentence.id } : {};
   };
 
-  const queue = buildQueue(due, fresh, 4, decorate);
+  let queue = buildQueue(due, fresh, 4, decorate);
+
+  // Conjugation practice (labs): due pattern cards + today's new patterns,
+  // anchored to mature verbs and spliced evenly through the session.
+  if (conjActive()) {
+    const plan = planConjugation({ cards, words: loadedDecks.flatMap((d) => d.words), now });
+    for (const id of plan.newCardIds) {
+      await putCard({ wordId: id, deckId: CONJ_DECK_ID, card: newCard(now), addedAt: Date.now() });
+    }
+    const conjItems: Item[] = plan.items.map((p) => ({
+      wordId: p.wordId,
+      mode: 'conjugate',
+      conj: { cardId: p.cardId, form: p.form, group: p.group, ...(p.introduce ? { introduce: true as const } : {}) },
+    }));
+    queue = interleaveItems(queue, conjItems);
+  }
+
   const queueWords = queue.map((i) => words.get(i.wordId)).filter((w): w is Word => !!w);
-  void prefetchAudio(sessionClipUrls(queueWords), (done, total) => {
+  void prefetchAudio([...sessionClipUrls(queueWords), ...conjClipUrls(queue, words)], (done, total) => {
     prefetchProgress.value = done >= total ? null : { done, total };
   });
 
@@ -292,6 +323,25 @@ export async function startSession(): Promise<void> {
     onChange: (state, word) => {
       sessionState.value = state;
       sessionWord.value = word;
+      // On-screen support for the current conjugation item: which form is
+      // being asked, its one-line rule (the "chart entry", shown on reveal),
+      // and the expected conjugated answer.
+      const item = state.queue[state.idx];
+      if (item?.conj && word?.verbSubclass) {
+        const expected = conjugate({ kana: word.kana, surface: word.written[0] ?? word.kana, subclass: word.verbSubclass }, item.conj.form);
+        conjInfo.value = {
+          label: FORM_LABELS[item.conj.form],
+          cue: word.conjCues?.[item.conj.form] ?? null,
+          register: formRegister(item.conj.form),
+          rule: ruleFor(item.conj.form, item.conj.group).en,
+          meaning: FORM_MEANINGS[item.conj.form],
+          answerKana: expected.kana,
+          answerSurface: expected.surface,
+          answerRomaji: toRomaji(expected.kana),
+        };
+      } else {
+        conjInfo.value = null;
+      }
       // Grader feedback belongs to one attempt: clear it when a new prompt
       // starts (reveal/correct keep it visible).
       if (state.phase.endsWith('-playing') && state.phase !== 'reveal-playing' && state.phase !== 'correct-playing') {

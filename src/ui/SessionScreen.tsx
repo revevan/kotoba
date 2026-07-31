@@ -1,4 +1,4 @@
-import { buildNote, prefetchProgress, sessionState, sessionWord } from '../state';
+import { buildNote, conjInfo, prefetchProgress, sessionState, sessionWord } from '../state';
 import { endSession, tap } from '../session/controller';
 import { mockMode, mockPending, mockSubmit } from '../speech/mock';
 import type { Phase } from '../session/machine';
@@ -18,6 +18,8 @@ const PHASE_BADGE: Record<Phase, { text: string; cls: string }> = {
   'shadow-listening': { text: 'SAY IT BACK', cls: 'listening' },
   'build-playing': { text: 'MAKE A SENTENCE', cls: 'speaking' },
   'build-listening': { text: 'YOUR SENTENCE?', cls: 'listening' },
+  'conj-playing': { text: 'CONJUGATE', cls: 'speaking' },
+  'conj-listening': { text: 'SAY THE FORM', cls: 'listening' },
   'correct-playing': { text: 'CORRECT', cls: 'correct' },
   'reveal-playing': { text: 'NOT QUITE', cls: 'reveal' },
   'self-grade-listening': { text: 'MISSED — say “got it” to override', cls: 'reveal' },
@@ -35,7 +37,7 @@ export function SessionScreen() {
 
   const badge = PHASE_BADGE[s.phase];
   const showAnswer = ['teach-playing', 'teach-listening', 'teach2-playing', 'teach2-listening', 'correct-playing', 'reveal-playing', 'self-grade-listening', 'self-grade-reprompt-playing'].includes(s.phase);
-  const isQuizzing = s.phase === 'quiz-playing' || s.phase === 'quiz-listening' || s.phase === 'build-playing' || s.phase === 'build-listening';
+  const isQuizzing = s.phase === 'quiz-playing' || s.phase === 'quiz-listening' || s.phase === 'build-playing' || s.phase === 'build-listening' || s.phase === 'conj-playing' || s.phase === 'conj-listening';
   const clozing = s.phase === 'cloze-playing' || s.phase === 'cloze-listening';
   const shadowing = s.phase === 'shadow-playing' || s.phase === 'shadow-listening';
   // Teach part 2 plays the example sentence — show it while it's heard.
@@ -78,8 +80,32 @@ export function SessionScreen() {
           </div>
         ) : (
           <>
-            <div class="word-en">{word?.english ?? ''}</div>
-            {showAnswer && word && (
+            {/* Conjugation items lead with the MEANING cue ("didn't sleep"),
+                not the grammar label — the label is the small line under it. */}
+            <div class="word-en">
+              {item?.conj && conjInfo.value?.cue
+                ? `${conjInfo.value.cue}${conjInfo.value.register ? ` (${conjInfo.value.register})` : ''}`
+                : word?.english ?? ''}
+            </div>
+            {item?.conj && conjInfo.value && (
+              <div class="conj">
+                <div class="conj-label">{conjInfo.value.label} · {word?.written[0] ?? word?.kana}</div>
+                {(showAnswer || selfGrading) && (
+                  <div class="conj-rule">
+                    {conjInfo.value.meaning}
+                    <br />
+                    {conjInfo.value.rule}
+                  </div>
+                )}
+              </div>
+            )}
+            {showAnswer && word && (item?.conj && conjInfo.value ? (
+              <div class="word-ja">
+                <div class="kana">{conjInfo.value.answerKana}</div>
+                <div class="romaji">{conjInfo.value.answerRomaji}</div>
+                {conjInfo.value.answerSurface !== conjInfo.value.answerKana && <div class="alts">{conjInfo.value.answerSurface}</div>}
+              </div>
+            ) : (
               <div class="word-ja">
                 <div class="kana">{word.kana}</div>
                 <div class="romaji">{word.romaji}</div>
@@ -88,7 +114,7 @@ export function SessionScreen() {
                   <div class="alts">also: {word.alts.map((a) => `${a.kana} (${a.romaji})`).join(', ')}</div>
                 ) : null}
               </div>
-            )}
+            ))}
             {isQuizzing && <div class="word-ja mystery">?</div>}
             {s.phase.endsWith('-listening') && !selfGrading && (
               <div class="listenviz">

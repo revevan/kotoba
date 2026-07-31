@@ -51,6 +51,13 @@ export interface Word {
   mora: string[];
   /** Hiragana morae, for display alongside the breakdown. */
   moraKana: string[];
+  /** Set for verbs (by tools/enrich-verbs.ts) — enables conjugation practice. */
+  pos?: 'verb';
+  /** Verb class, required for conjugation (see src/conj/engine.ts). */
+  verbSubclass?: import('./conj/engine').VerbSubclass;
+  /** English meaning cues per form ("didn't sleep"), attached at load time
+   *  from public/conj-cues/{deckId}.json; absent ⇒ label-prompt fallback. */
+  conjCues?: Partial<Record<import('./conj/engine').ConjForm, string>>;
   /** Alternate readings of the same meaning, mentioned when teaching this word. */
   alts?: AltReading[];
   /** Approved example-sentence pool, attached at load time; absent ⇒ plain behavior. */

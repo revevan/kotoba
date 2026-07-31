@@ -23,6 +23,15 @@ function resolve(): boolean {
 
 export const labsEnabled = resolve();
 
+// Conjugation practice is pre-release: only these signed-in accounts see it
+// (the toggle, the due-count contribution, and the session items) until the
+// public flip. To launch it to everyone, delete this gate and its call sites.
+const CONJ_EARLY_ACCESS = new Set(['revevan@gmail.com']);
+
+export function conjEarlyAccess(email: string | null | undefined): boolean {
+  return !!email && CONJ_EARLY_ACCESS.has(email.trim().toLowerCase());
+}
+
 /** Debug override: force one exercise type regardless of card maturity. */
 export const forcedRung: 'cloze' | 'shadow' | 'build' | null = (() => {
   if (!hasDom || !labsEnabled) {

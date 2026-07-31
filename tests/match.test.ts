@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { gradeAnswer, isDontKnow } from '../src/matching/match';
+import { gradeAnswer, gradeConjugation, isDontKnow } from '../src/matching/match';
+import { expectedAnswer } from '../src/conj/engine';
 import type { Word } from '../src/types';
 
 const ringo: Word = {
@@ -66,5 +67,50 @@ describe('isDontKnow', () => {
   });
   it('ignores answers', () => {
     expect(isDontKnow(['りんご'])).toBe(false);
+  });
+});
+
+describe('gradeConjugation', () => {
+  const te = { kana: 'たべて', surface: '食べて' };
+
+  it('accepts the exact kana or written surface', () => {
+    expect(gradeConjugation(['たべて'], te).matched).toBe(true);
+    expect(gradeConjugation(['食べて'], te).matched).toBe(true);
+    expect(gradeConjugation(['タベテ'], te).matched).toBe(true); // katakana transcript
+  });
+
+  it('REJECTS the wrong form at edit distance 1 — the ending is the answer', () => {
+    expect(gradeConjugation(['たべた'], te).matched).toBe(false);
+    expect(gradeConjugation(['たべる'], te).matched).toBe(false);
+    expect(gradeConjugation(['たべ'], te).matched).toBe(false);
+  });
+
+  it('rejects the answer embedded in a longer utterance', () => {
+    expect(gradeConjugation(['たべています'], te).matched).toBe(false);
+  });
+
+  it('accepts engine-provided alt readings (ら抜き potential)', () => {
+    const pot = { kana: 'たべられる', surface: '食べられる', altKana: ['たべれる'] };
+    expect(gradeConjugation(['たべれる'], pot).matched).toBe(true);
+    expect(gradeConjugation(['たべられる'], pot).matched).toBe(true);
+  });
+});
+
+describe('gradeConjugation with expectedAnswer (register handling)', () => {
+  const 食べる = { kana: 'たべる', surface: '食べる', subclass: 'ichidan' as const };
+
+  it('accepts the polite twin on untagged meaning cues', () => {
+    const tai = expectedAnswer(食べる, 'tai');
+    expect(gradeConjugation(['たべたいです'], tai).matched).toBe(true);
+    expect(gradeConjugation(['たべたい'], tai).matched).toBe(true);
+  });
+
+  it('rejects the other register when the cue tagged one', () => {
+    const nai = expectedAnswer(食べる, 'nai'); // cue said "casually"
+    expect(gradeConjugation(['たべません'], nai).matched).toBe(false);
+    expect(gradeConjugation(['たべない'], nai).matched).toBe(true);
+    const masen = expectedAnswer(食べる, 'masen'); // cue said "politely"
+    expect(gradeConjugation(['たべない'], masen).matched).toBe(false);
+    expect(gradeConjugation(['たべません'], masen).matched).toBe(true);
   });
 });

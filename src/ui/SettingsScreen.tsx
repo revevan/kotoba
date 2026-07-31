@@ -1,11 +1,12 @@
 import { useRef, useState } from 'preact/hooks';
-import { announcerJa, auth, clozeEnglishFirst, clozeMinIntervalDays, enableCloze, enteredApp, maxReviews, newPerDay, screen, syncStatus, voiceEcho } from '../state';
+import { announcerJa, auth, clozeEnglishFirst, clozeMinIntervalDays, enableCloze, enableConjugation, enteredApp, maxReviews, newPerDay, screen, syncStatus, voiceEcho } from '../state';
 import { resetProgress, updateSetting } from '../session/controller';
 import { downloadBackup, importBackup } from '../data/backup';
 import { loadHomeData } from '../session/controller';
 import { syncPush } from '../sync/sync';
 import { cloudSyncEnabled } from '../sync/config';
 import { logout } from '../sync/client';
+import { conjEarlyAccess } from '../labs';
 
 export function SettingsScreen() {
   const fileRef = useRef<HTMLInputElement>(null);
@@ -148,6 +149,17 @@ export function SettingsScreen() {
             />
           </label>
         </>
+      )}
+
+      {conjEarlyAccess(auth.value?.email) && (
+        <label class="row">
+          <span>Conjugation practice for known verbs</span>
+          <input
+            type="checkbox"
+            checked={enableConjugation.value}
+            onChange={(e) => void updateSetting('enableConjugation', (e.currentTarget as HTMLInputElement).checked)}
+          />
+        </label>
       )}
 
       <div class="row buttons">

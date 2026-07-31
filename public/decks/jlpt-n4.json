@@ -535,7 +535,9 @@
     "Intermediate_Japanese_Ln.2",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-gu"
   },
   {
    "id": "n4-fb589610",
@@ -634,7 +636,9 @@
     "Genki_Ln.7",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-8767e033",
@@ -661,7 +665,9 @@
     "Genki_Ln.7",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-8c44c3b4",
@@ -688,7 +694,9 @@
     "Genki_Ln.8",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-u"
   },
   {
    "id": "n4-24e8e6de",
@@ -744,7 +752,9 @@
     "Genki_Ln.8",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-760df900",
@@ -942,7 +952,9 @@
     "Genki_Ln.9",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-9d78abca",
@@ -1063,7 +1075,9 @@
     "Intermediate_Japanese_Ln.9",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-2892f2b0",
@@ -1100,7 +1114,9 @@
      "kana": "しはらう",
      "romaji": "shiharau"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-u"
   },
   {
    "id": "n4-08f94fed",
@@ -1615,7 +1631,9 @@
     "Genki_Ln.13",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ku"
   },
   {
    "id": "n4-85e963b2",
@@ -1825,7 +1843,9 @@
     "Genki_Ln.13",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-6a50d6e5",
@@ -1908,7 +1928,9 @@
     "Intermediate_Japanese_Ln.3",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-7dc85e5f",
@@ -2078,7 +2100,9 @@
     "Genki_Ln.15",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-812d4425",
@@ -2133,7 +2157,9 @@
     "Intermediate_Japanese_Ln.8",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-su"
   },
   {
    "id": "n4-d9d1b5af",
@@ -2342,7 +2368,9 @@
     "Genki_Ln.16",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-su"
   },
   {
    "id": "n4-1674c08e",
@@ -2383,7 +2411,9 @@
      "kana": "たまる",
      "romaji": "tamaru"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-349a9b06",
@@ -2410,7 +2440,9 @@
     "Genki_Ln.16",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-su"
   },
   {
    "id": "n4-d6e72044",
@@ -2492,7 +2524,9 @@
     "Intermediate_Japanese_Ln.3",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-bu"
   },
   {
    "id": "n4-aebcf13e",
@@ -2520,7 +2554,9 @@
     "Intermediate_Japanese_Ln.4",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-de369749",
@@ -2575,7 +2611,9 @@
     "Genki_Ln.18",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-cf252806",
@@ -2748,7 +2786,9 @@
     "Intermediate_Japanese_Ln.3",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-d6cf1025",
@@ -2953,7 +2993,9 @@
     "Genki_Ln.19",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-5816614c",
@@ -2983,7 +3025,9 @@
     "Intermediate_Japanese_Ln.2",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-ab315b28",
@@ -3101,7 +3145,9 @@
     "Intermediate_Japanese_Ln.8",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-5a9ce110",
@@ -3223,7 +3269,9 @@
     "Intermediate_Japanese_Ln.15",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-ae4986aa",
@@ -3523,7 +3571,9 @@
      "kana": "おどろく",
      "romaji": "odoroku"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "suru"
   },
   {
    "id": "n4-e44c35a4",
@@ -3626,7 +3676,9 @@
     "Genki_Ln.21",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-572c70b9",
@@ -3743,7 +3795,9 @@
     "Genki_Ln.21",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ku"
   },
   {
    "id": "n4-5ec66ecb",
@@ -3774,7 +3828,9 @@
     "Genki_Ln.21",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-77901b2d",
@@ -3801,7 +3857,9 @@
     "Genki_Ln.21",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-mu"
   },
   {
    "id": "n4-d1e4b6f1",
@@ -3828,7 +3886,9 @@
     "Genki_Ln.21",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-mu"
   },
   {
    "id": "n4-5fe848dd",
@@ -3855,7 +3915,9 @@
     "Genki_Ln.21",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-2059a1a5",
@@ -3883,7 +3945,9 @@
     "Genki_Ln.21",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-5f561270",
@@ -3998,7 +4062,9 @@
     "Genki_Ln.22",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-a3d1598a",
@@ -4026,7 +4092,9 @@
     "Intermediate_Japanese_Ln.6",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-bu"
   },
   {
    "id": "n4-e8975447",
@@ -4112,7 +4180,9 @@
     "Genki_Ln.22",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-u"
   },
   {
    "id": "n4-ec7426ca",
@@ -4255,7 +4325,9 @@
      "kana": "ます",
      "romaji": "masu"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-629b6df2",
@@ -4368,7 +4440,9 @@
      "kana": "なる",
      "romaji": "naru"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-320b1286",
@@ -4392,7 +4466,9 @@
     "Intermediate_Japanese_Ln.2",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-016ba017",
@@ -5663,7 +5739,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-edc0fb2a",
@@ -6070,7 +6148,9 @@
      "kana": "あたえる",
      "romaji": "ataeru"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-1a9552e4",
@@ -6095,7 +6175,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-220c6540",
@@ -6368,7 +6450,9 @@
      "kana": "たく",
      "romaji": "taku"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-d3411238",
@@ -6414,7 +6498,9 @@
      "kana": "たく",
      "romaji": "taku"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ku"
   },
   {
    "id": "n4-663497d7",
@@ -6741,7 +6827,9 @@
     "Intermediate_Japanese_Ln.3",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-u"
   },
   {
    "id": "n4-ccde5717",
@@ -8088,7 +8176,9 @@
      "kana": "うけとる",
      "romaji": "uketoru"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-u"
   },
   {
    "id": "n4-cd52db3c",
@@ -8263,7 +8353,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-74776290",
@@ -8573,7 +8665,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-f5fa38f5",
@@ -8713,7 +8807,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ku"
   },
   {
    "id": "n4-74e537f6",
@@ -8856,7 +8952,9 @@
      "kana": "こえる",
      "romaji": "koeru"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-20f8e263",
@@ -9000,7 +9098,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-tsu"
   },
   {
    "id": "n4-6ea9aab6",
@@ -9699,7 +9799,9 @@
      "kana": "くらす",
      "romaji": "kurasu"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-80f7e7cf",
@@ -9755,7 +9857,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-c1959d1d",
@@ -9958,7 +10062,9 @@
     "Intermediate_Japanese_Ln.4",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-75ae4c1c",
@@ -9981,7 +10087,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ku"
   },
   {
    "id": "n4-cd6d1d59",
@@ -10352,7 +10460,9 @@
      "kana": "すすめる",
      "romaji": "susumeru"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-mu"
   },
   {
    "id": "n4-8a024777",
@@ -10519,7 +10629,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-34d60634",
@@ -10555,7 +10667,9 @@
      "kana": "むく",
      "romaji": "muku"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-u"
   },
   {
    "id": "n4-da8eb11e",
@@ -10979,7 +11093,9 @@
      "kana": "うごかす",
      "romaji": "ugokasu"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ku"
   },
   {
    "id": "n4-79f98a03",
@@ -11098,7 +11214,9 @@
      "kana": "てきする",
      "romaji": "tekisuru"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-u"
   },
   {
    "id": "n4-755464f6",
@@ -11235,7 +11353,9 @@
      "kana": "たかまる",
      "romaji": "takamaru"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-39ddba7f",
@@ -11614,7 +11734,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-cf4c3440",
@@ -11797,7 +11919,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-3408f29b",
@@ -12117,7 +12241,9 @@
     "Intermediate_Japanese_Ln.8",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-su"
   },
   {
    "id": "n4-8632acfd",
@@ -12205,7 +12331,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-2e648c3b",
@@ -12434,7 +12562,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-ce5bbbb0",
@@ -12547,7 +12677,9 @@
      "kana": "ふれる",
      "romaji": "fureru"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-bdfe3407",
@@ -12577,7 +12709,9 @@
     "Intermediate_Japanese_Ln.4",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-tsu"
   },
   {
    "id": "n4-5ee99629",
@@ -12628,7 +12762,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-e23cfdc9",
@@ -12710,7 +12846,9 @@
     "Intermediate_Japanese_Ln.7",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-f64201d8",
@@ -12772,7 +12910,9 @@
      "kana": "ぶつ",
      "romaji": "butsu"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-tsu"
   },
   {
    "id": "n4-c9f6f9d6",
@@ -12847,7 +12987,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-820e9a07",
@@ -12922,7 +13064,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-u"
   },
   {
    "id": "n4-0744d7dd",
@@ -13030,7 +13174,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-b74f7415",
@@ -13090,7 +13236,9 @@
      "kana": "とう",
      "romaji": "tou"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-u"
   },
   {
    "id": "n4-bf6ea49a",
@@ -13161,7 +13309,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-73173362",
@@ -13186,7 +13336,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-8159e032",
@@ -13238,7 +13390,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-b5376dba",
@@ -13289,7 +13443,9 @@
     "Intermediate_Japanese_Ln.2",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-28e5dc34",
@@ -13347,7 +13503,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-e6747767",
@@ -13397,7 +13555,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-301b345b",
@@ -13424,7 +13584,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-307feb83",
@@ -13499,7 +13661,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-u"
   },
   {
    "id": "n4-80b0f725",
@@ -13552,7 +13716,9 @@
     "Intermediate_Japanese_Ln.2",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-1c271c97",
@@ -13574,7 +13740,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-su"
   },
   {
    "id": "n4-30df9f9d",
@@ -13673,7 +13841,9 @@
     "Intermediate_Japanese_Ln.7",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-b5c53f6c",
@@ -13806,7 +13976,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-c5c3f6b2",
@@ -13858,7 +14030,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-bu"
   },
   {
    "id": "n4-d88d0c25",
@@ -13934,7 +14108,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-e7d168fb",
@@ -14022,7 +14198,9 @@
      "kana": "さす",
      "romaji": "sasu"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-e3d1546f",
@@ -14109,7 +14287,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-bfa307f6",
@@ -14136,7 +14316,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-a2efbc83",
@@ -14392,7 +14574,9 @@
      "kana": "きずく",
      "romaji": "kizuku"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-c209fe58",
@@ -14658,7 +14842,9 @@
      "kana": "かえる",
      "romaji": "kaeru"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-28a392a5",
@@ -14683,7 +14869,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-b02c4eb0",
@@ -14787,7 +14975,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-7fed8ed6",
@@ -14860,7 +15050,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-mu"
   },
   {
    "id": "n4-3aa5016a",
@@ -14886,7 +15078,9 @@
     "Intermediate_Japanese_Ln.7",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-5008ea5d",
@@ -14911,7 +15105,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-30b18cb3",
@@ -15017,7 +15213,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-9ad9d5ac",
@@ -15096,7 +15294,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-e3037492",
@@ -15123,7 +15323,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-u"
   },
   {
    "id": "n4-407beeb7",
@@ -15164,7 +15366,9 @@
      "kana": "われる",
      "romaji": "wareru"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-bfd9d4d7",
@@ -15245,7 +15449,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-e3ee02aa",
@@ -15299,7 +15505,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-ec2683aa",
@@ -15322,7 +15530,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-mu"
   },
   {
    "id": "n4-a03f2c8d",
@@ -15349,7 +15559,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-31f75eb9",
@@ -15401,7 +15613,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-424d4d1b",
@@ -15499,7 +15713,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-37e02639",
@@ -15549,7 +15765,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-gu"
   },
   {
    "id": "n4-a8078f7a",
@@ -15655,7 +15873,9 @@
     "Intermediate_Japanese_Ln.9",
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-76c5a61d",
@@ -15682,7 +15902,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-7d8a53d1",
@@ -15716,7 +15938,9 @@
      "kana": "くだる",
      "romaji": "kudaru"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-3b10f121",
@@ -15741,7 +15965,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-5081a333",
@@ -15764,7 +15990,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-8c5aedef",
@@ -16048,7 +16276,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ku"
   },
   {
    "id": "n4-47e8cfaa",
@@ -16080,7 +16310,9 @@
      "kana": "よす",
      "romaji": "yosu"
     }
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-mu"
   },
   {
    "id": "n4-edabe7e0",
@@ -16131,7 +16363,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-51046a2c",
@@ -16193,7 +16427,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-d1fa99d1",
@@ -16247,7 +16483,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-56acbb3a",
@@ -16274,7 +16512,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-u"
   },
   {
    "id": "n4-c8fdb7db",
@@ -16324,7 +16564,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-mu"
   },
   {
    "id": "n4-ba0b304a",
@@ -16372,7 +16614,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-su"
   },
   {
    "id": "n4-7575f392",
@@ -16397,7 +16641,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-b2f378f9",
@@ -16424,7 +16670,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-su"
   },
   {
    "id": "n4-d0b47d23",
@@ -16451,7 +16699,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-46521fd9",
@@ -16480,7 +16730,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-2c97585d",
@@ -16505,7 +16757,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-bd7b78f1",
@@ -16534,7 +16788,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-769756ee",
@@ -16559,7 +16815,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-su"
   },
   {
    "id": "n4-f333d99b",
@@ -16584,7 +16842,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-048c2ac1",
@@ -16638,7 +16898,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ku"
   },
   {
    "id": "n4-8002b7a3",
@@ -16663,7 +16925,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-0816b1d2",
@@ -16690,7 +16954,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-6a5b4fc6",
@@ -16741,7 +17007,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-e7880969",
@@ -16764,7 +17032,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-4a7c492e",
@@ -16789,7 +17059,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-su"
   },
   {
    "id": "n4-b4baefe7",
@@ -16847,7 +17119,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "godan-ru"
   },
   {
    "id": "n4-95ea9917",
@@ -17185,7 +17459,9 @@
    "tags": [
     "JLPT",
     "JLPT_N4"
-   ]
+   ],
+   "pos": "verb",
+   "verbSubclass": "ichidan"
   },
   {
    "id": "n4-30f4eb68",

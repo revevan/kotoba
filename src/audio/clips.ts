@@ -1,3 +1,5 @@
+import { formRegister, labelPromptSegments, meaningSegments, ruleFor, segKey, type ConjForm, type PatternGroup, type SpeechSeg } from '../conj/engine';
+import type { ItemConj } from '../session/machine';
 import type { Sentence, Word } from '../types';
 
 export interface ClipItem {
@@ -23,6 +25,7 @@ let phraseDir = 'phrases';
 export function setPhraseLocale(locale: 'en' | 'ja'): void {
   phraseDir = locale === 'ja' ? 'phrases-ja' : 'phrases';
 }
+export const phraseLocale = (): 'en' | 'ja' => (phraseDir === 'phrases-ja' ? 'ja' : 'en');
 
 export const phraseClip = (key: string) => `${base()}${phraseDir}/${key}.mp3`;
 
@@ -33,6 +36,33 @@ export const senPreClip = (id: string) => `${base()}sen-pre/${id}.mp3`; // sente
 export const senPostClip = (id: string) => `${base()}sen-post/${id}.mp3`; // sentence after the gap
 /** Short beep that fills the cloze gap. A static WAV asset, not TTS. */
 export const beepClip = () => `${base()}phrases/beep.wav`;
+
+/** Pre-generated conjugated form of a verb (see tools/gen-audio.ts). */
+export const jaConjClip = (wordId: string, form: ConjForm) => `${base()}ja-conj/${wordId}-${form}.mp3`;
+/** Spoken English meaning cue for a verb × form ("didn't sleep"). */
+export const enConjClip = (wordId: string, form: ConjForm) => `${base()}en-conj/${wordId}-${form}.mp3`;
+/** Register tag appended to ambiguous meaning cues ("…casually?"). */
+export const registerClip = (register: 'casual' | 'polite') => phraseClip(`register-${register}`);
+
+/** Segment clips are locale-independent (always phrases/): the EN half is the
+ *  announcer, the JA half is the Japanese voice — same for both locales. */
+const segClip = (seg: SpeechSeg) => `${base()}phrases/${segKey(seg)}.mp3`;
+
+/**
+ * A rule/meaning line as stitched audio: EN fragments in the announcer voice,
+ * kana in the Japanese voice — the app's normal "In Japanese: … りんご"
+ * pattern, so the Japanese terms actually sound Japanese.
+ */
+export function segmentSequence(segs: SpeechSeg[], trailingGapMs = 0): ClipItem[] {
+  const items: ClipItem[] = segs.map((s) => (s.lang === 'pause' ? { gapMs: 280 } : { src: segClip(s), gapMs: 140 }));
+  if (items.length > 0) items[items.length - 1] = { ...items[items.length - 1], gapMs: trailingGapMs };
+  return items;
+}
+
+/** Spoken one-line rule for a pattern, stitched EN/JA. */
+export const ruleClips = (form: ConjForm, group: PatternGroup, trailingGapMs = 0) => segmentSequence(ruleFor(form, group).segments, trailingGapMs);
+/** Spoken meaning of a form ("This is the plain negative — …"), stitched. */
+export const meaningClips = (form: ConjForm, trailingGapMs = 0) => segmentSequence(meaningSegments(form), trailingGapMs);
 
 /** Alternate readings: "you may also hear — ee". Empty when there are none. */
 function altReadings(w: Word): ClipItem[] {
@@ -161,6 +191,67 @@ export function revealSequence(w: Word): ClipItem[] {
   ];
 }
 
+/**
+ * Conjugation prompt. Meaning-first when the verb has an English cue for the
+ * form: "How do you say — didn't sleep — casually? … 寝る" (meaning→form
+ * production, like real speech). Forms without a clean English meaning
+ * (te/conditionals/passive/causative) fall back to the label prompt:
+ * "Say the te-form of — 寝る".
+ *
+ * An introduction (first practice of the pattern) leads with what the form
+ * MEANS and its rule, so the first attempt is guided, not a cold guess.
+ */
+export function conjPromptSequence(w: Word, conj: ItemConj): ClipItem[] {
+  // Generous pauses: the intro is two dense sentences — breathing room between
+  // "what it means", "how it's built", and the actual question keeps it from
+  // feeling like a wall of words.
+  const intro: ClipItem[] = conj.introduce
+    ? [...meaningClips(conj.form, 700), ...ruleClips(conj.form, conj.group, 900)]
+    : [];
+  const cue = w.conjCues?.[conj.form];
+  if (!cue) {
+    // Label prompt. Stitched EN/JA for the EN announcer ("Say the — て — form
+    // of —"); the JA announcer's own clip is already native Japanese.
+    const label = labelPromptSegments(conj.form);
+    const prompt: ClipItem[] =
+      label && phraseLocale() === 'en'
+        ? segmentSequence(label, 120)
+        : [{ src: phraseClip(`conj-${conj.form}`), gapMs: 120 }];
+    return [...intro, ...prompt, { src: jaClip(w.id) }];
+  }
+  const register = formRegister(conj.form);
+  return [
+    ...intro,
+    { src: phraseClip('how-do-you-say'), gapMs: 80 },
+    { src: enConjClip(w.id, conj.form), gapMs: register ? 60 : 250 },
+    ...(register ? [{ src: registerClip(register), gapMs: 250 }] : []),
+    { src: jaClip(w.id) },
+  ];
+}
+
+/** Conjugation correct: confirm, then replay the conjugated form once. */
+export function conjCorrectSequence(w: Word, conj: ItemConj): ClipItem[] {
+  return [
+    { src: phraseClip('correct'), gapMs: 80 },
+    { src: jaConjClip(w.id, conj.form) },
+  ];
+}
+
+/** Conjugation reveal: the answer, then the one-line rule — the "chart" lives
+ *  here, as feedback at the point of error. Label-cued forms also restate what
+ *  the form means (their prompt couldn't convey it). */
+export function conjRevealSequence(w: Word, conj: ItemConj): ClipItem[] {
+  const labelCued = !w.conjCues?.[conj.form];
+  return [
+    { src: phraseClip('not-quite'), gapMs: 80 },
+    { src: phraseClip('the-answer-is'), gapMs: 120 },
+    { src: jaConjClip(w.id, conj.form), gapMs: 650 },
+    ...(labelCued ? meaningClips(conj.form, 550) : []),
+    ...ruleClips(conj.form, conj.group, 600),
+    { src: phraseClip('knew-it') },
+  ];
+}
+
 export const phraseSequence = (key: string): ClipItem[] => [{ src: phraseClip(key) }];
 
 /** Every audio URL a session item set can need — used to warm the cache. */
@@ -183,5 +274,32 @@ export function sessionClipUrls(words: Word[]): string[] {
     }
   }
   if (words.some((w) => w.sentences?.length)) urls.add(beepClip());
+  return [...urls];
+}
+
+/** Audio a session's conjugation items can need (prompt/rule/answer clips). */
+export function conjClipUrls(items: Array<{ wordId: string; conj?: ItemConj }>, words: Map<string, Word>): string[] {
+  const urls = new Set<string>();
+  const addSegs = (segs: SpeechSeg[] | null) => {
+    for (const s of segs ?? []) if (s.lang !== 'pause') urls.add(segClip(s));
+  };
+  for (const it of items) {
+    if (!it.conj) continue;
+    const { form, group } = it.conj;
+    addSegs(ruleFor(form, group).segments);
+    addSegs(meaningSegments(form));
+    urls.add(jaConjClip(it.wordId, form));
+    urls.add(jaClip(it.wordId));
+    const cue = words.get(it.wordId)?.conjCues?.[form];
+    if (cue) {
+      urls.add(phraseClip('how-do-you-say'));
+      urls.add(enConjClip(it.wordId, form));
+      const register = formRegister(form);
+      if (register) urls.add(registerClip(register));
+    } else {
+      addSegs(labelPromptSegments(form));
+      urls.add(phraseClip(`conj-${form}`));
+    }
+  }
   return [...urls];
 }

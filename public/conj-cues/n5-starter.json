@@ -1,0 +1,44 @@
+{
+ "n5-e2d50137": {
+  "masu": "get up",
+  "masen": "doesn't get up",
+  "mashita": "got up",
+  "masendeshita": "didn't get up",
+  "ta": "got up",
+  "nai": "doesn't get up",
+  "nakatta": "didn't get up",
+  "tai": "want to get up",
+  "teiru": "is getting up",
+  "potential": "can get up",
+  "volitional": "let's get up",
+  "imperative": "get up!"
+ },
+ "n5-4a7000d6": {
+  "masu": "sleep",
+  "masen": "doesn't sleep",
+  "mashita": "slept",
+  "masendeshita": "didn't sleep",
+  "ta": "slept",
+  "nai": "doesn't sleep",
+  "nakatta": "didn't sleep",
+  "tai": "want to sleep",
+  "teiru": "is sleeping",
+  "potential": "can sleep",
+  "volitional": "let's sleep",
+  "imperative": "sleep!"
+ },
+ "n5-d10d2432": {
+  "masu": "swim",
+  "masen": "doesn't swim",
+  "mashita": "swam",
+  "masendeshita": "didn't swim",
+  "ta": "swam",
+  "nai": "doesn't swim",
+  "nakatta": "didn't swim",
+  "tai": "want to swim",
+  "teiru": "is swimming",
+  "potential": "can swim",
+  "volitional": "let's swim",
+  "imperative": "swim!"
+ }
+}

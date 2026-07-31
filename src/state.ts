@@ -36,6 +36,9 @@ export const clozeMinIntervalDays = signal(7); // interval a word must reach bef
 // Default on: the app is handsfree-first, and without the spoken EN hint the
 // only clue to the gapped word is on screen — useless while driving.
 export const clozeEnglishFirst = signal(true); // play the EN translation before the gapped prompt
+// Conjugation practice: pattern cards (te-form, plain past, …) interleaved into
+// sessions once their anchor verbs are mature. Pre-release: also needs ?labs=1.
+export const enableConjugation = signal(true);
 
 // Live session
 export const sessionState = signal<MachineState | null>(null);
@@ -43,3 +46,16 @@ export const sessionWord = signal<Word | undefined>(undefined);
 export const prefetchProgress = signal<{ done: number; total: number } | null>(null);
 /** Rung-4 grader feedback for the current item (labs; cleared on next prompt). */
 export const buildNote = signal<string | null>(null);
+/** Current conjugation item's on-screen support: the meaning cue being asked
+ *  ("didn't sleep"), its register, form label, rule + meaning lines, and the
+ *  expected answer (shown on reveal/correct). */
+export const conjInfo = signal<{
+  label: string;
+  cue: string | null;
+  register: 'casual' | 'polite' | null;
+  rule: string;
+  meaning: string;
+  answerKana: string;
+  answerSurface: string;
+  answerRomaji: string;
+} | null>(null);

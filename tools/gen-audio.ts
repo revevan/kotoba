@@ -8,6 +8,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pipeline } from 'node:stream/promises';
 import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
+import { ALL_FORMS, allSpeechSegments, conjugate, segKey, type ConjForm } from '../src/conj/engine';
 import type { Deck, Sentence } from '../src/types';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -40,6 +41,30 @@ const PHRASES: Record<string, string> = {
   'paused': "Paused. Press rezoom when you're ready.",
   'resuming': 'Resuming!',
   'session-done': 'Session complete. Great work!',
+};
+
+/** Conjugation prompts, one per form (clip key conj-{form}); the verb clip
+ *  follows the phrase, so each must work in prefix position. */
+const CONJ_PROMPTS: Record<ConjForm, { en: string; ja: string }> = {
+  masu: { en: 'Say the polite form of —', ja: 'ます形にしてください —' },
+  masen: { en: 'Say the polite negative of —', ja: '丁寧な否定形にしてください —' },
+  mashita: { en: 'Say the polite past of —', ja: '丁寧な過去形にしてください —' },
+  masendeshita: { en: 'Say the polite past negative of —', ja: '丁寧な過去の否定形にしてください —' },
+  // EN te/ba/tara label prompts play as stitched segments at runtime; these
+  // single-clip variants remain only as fallbacks.
+  te: { en: 'Say the te-form of —', ja: 'て形にしてください —' },
+  ta: { en: 'Say the plain past of —', ja: '過去形にしてください —' },
+  nai: { en: 'Say the negative of —', ja: 'ない形にしてください —' },
+  nakatta: { en: 'Say the past negative of —', ja: '過去の否定形にしてください —' },
+  tai: { en: 'Say the want-to form of —', ja: 'たい形にしてください —' },
+  teiru: { en: 'Say the progressive form of —', ja: 'ている形にしてください —' },
+  potential: { en: 'Say the potential form of —', ja: '可能形にしてください —' },
+  volitional: { en: 'Say the volitional form of —', ja: '意向形にしてください —' },
+  ba: { en: 'Say the ba-conditional of —', ja: 'ば形にしてください —' },
+  tara: { en: 'Say the tara-conditional of —', ja: 'たら形にしてください —' },
+  passive: { en: 'Say the passive form of —', ja: '受身形にしてください —' },
+  causative: { en: 'Say the causative form of —', ja: '使役形にしてください —' },
+  imperative: { en: 'Say the imperative form of —', ja: '命令形にしてください —' },
 };
 
 // Japanese announcer variants (Settings → "Announcer speaks Japanese"), same
@@ -109,6 +134,18 @@ function writeBeep(): void {
   writeFileSync(out, buf);
 }
 
+/** Meaning-cue texts per deck (tools/gen-conj-cues.ts output), lazily loaded. */
+const cuePools = new Map<string, Record<string, Record<string, string>>>();
+function cuesFor(deckId: string, wordId: string): Record<string, string> {
+  let pool = cuePools.get(deckId);
+  if (!pool) {
+    const path = join(root, 'public', 'conj-cues', `${deckId}.json`);
+    pool = existsSync(path) ? (JSON.parse(readFileSync(path, 'utf8')) as Record<string, Record<string, string>>) : {};
+    cuePools.set(deckId, pool);
+  }
+  return pool[wordId] ?? {};
+}
+
 function loadDecks(only: string[]): Deck[] {
   const files = readdirSync(decksDir).filter((f) => f.endsWith('.json') && f !== 'index.json');
   const decks = files.map((f) => JSON.parse(readFileSync(join(decksDir, f), 'utf8')) as Deck);
@@ -142,6 +179,25 @@ function collectJobs(decks: Deck[]): Job[] {
   for (const [key, text] of Object.entries(PHRASES_JA)) {
     jobs.set(`phrases-ja/${key}.mp3`, { out: `phrases-ja/${key}.mp3`, text, voice: JA_VOICE });
   }
+  // Conjugation prompts + rule feedback. Rule text is romaji-English (the EN
+  // voice can't read kana); the Japanese-announcer locale gets the same EN rule
+  // clip — only the short prompt phrase is localized.
+  for (const [form, text] of Object.entries(CONJ_PROMPTS)) {
+    jobs.set(`phrases/conj-${form}.mp3`, { out: `phrases/conj-${form}.mp3`, text: text.en, voice: EN_VOICE });
+    jobs.set(`phrases-ja/conj-${form}.mp3`, { out: `phrases-ja/conj-${form}.mp3`, text: text.ja, voice: JA_VOICE });
+  }
+  // Rules, meaning intros, and label prompts are STITCHED at playback from
+  // shared segment clips: English fragments in the announcer voice, kana in
+  // the Japanese voice (see engine allSpeechSegments / clips segmentSequence).
+  // Both slowed a touch — these lines are the dense teaching moments.
+  for (const seg of allSpeechSegments()) {
+    const out = `phrases/${segKey(seg)}.mp3`;
+    jobs.set(out, { out, text: seg.text, voice: seg.lang === 'ja' ? JA_VOICE : EN_VOICE, rate: seg.lang === 'ja' ? '-20%' : '-8%' });
+  }
+  for (const [key, text] of [['register-casual', 'casually?'], ['register-polite', 'politely?']] as const) {
+    jobs.set(`phrases/${key}.mp3`, { out: `phrases/${key}.mp3`, text, voice: EN_VOICE });
+    jobs.set(`phrases-ja/${key}.mp3`, { out: `phrases-ja/${key}.mp3`, text, voice: EN_VOICE });
+  }
   // Example sentences: full natural clip, English, and the pre/post split that
   // the cloze beep plays between. (The beep itself is a static WAV, below.)
   for (const s of loadSentences(decks)) {
@@ -170,6 +226,18 @@ function collectJobs(decks: Deck[]): Job[] {
         if (key === 'q') return;
         jobs.set(`mora/${key}.mp3`, { out: `mora/${key}.mp3`, text: w.moraKana[i] === 'ー' ? w.moraKana[i - 1] ?? 'あ' : w.moraKana[i], voice: JA_VOICE, rate: '-20%' });
       });
+      // Conjugated forms for verbs (conjugation practice). The kanji surface is
+      // the TTS input for the same reason as `speak`: pitch-accent context.
+      if (w.pos === 'verb' && w.verbSubclass) {
+        for (const form of ALL_FORMS) {
+          const c = conjugate({ kana: w.kana, surface: w.written[0] ?? w.kana, subclass: w.verbSubclass }, form);
+          jobs.set(`ja-conj/${w.id}-${form}.mp3`, { out: `ja-conj/${w.id}-${form}.mp3`, text: c.surface, voice: JA_VOICE });
+        }
+        // English meaning cues ("didn't sleep") from public/conj-cues/.
+        for (const [form, text] of Object.entries(cuesFor(deck.id, w.id))) {
+          jobs.set(`en-conj/${w.id}-${form}.mp3`, { out: `en-conj/${w.id}-${form}.mp3`, text, voice: EN_VOICE });
+        }
+      }
     }
   }
   return [...jobs.values()];
@@ -187,7 +255,7 @@ async function main() {
   });
   console.log(`to generate: ${jobs.length} clips`);
 
-  for (const sub of ['ja', 'ja-slow', 'en', 'mora', 'phrases', 'phrases-ja', 'sen', 'sen-en', 'sen-pre', 'sen-post']) {
+  for (const sub of ['ja', 'ja-slow', 'en', 'mora', 'phrases', 'phrases-ja', 'sen', 'sen-en', 'sen-pre', 'sen-post', 'ja-conj', 'en-conj']) {
     mkdirSync(join(audioDir, sub), { recursive: true });
   }
   writeBeep(); // cloze gap filler — a static tone, not TTS

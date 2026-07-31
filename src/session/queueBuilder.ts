@@ -59,3 +59,20 @@ export function buildQueue(reviewIds: string[], newIds: string[], gap = 4, decor
   out.push(...scheduled.map((sc) => sc.item));
   return out;
 }
+
+/**
+ * Splice extras (conjugation prompts) evenly through an existing queue, never
+ * before the first item. Even spread = interleaving: a conjugation item lands
+ * between vocab reviews, and consecutive extras never cluster at the end.
+ */
+export function interleaveItems(queue: Item[], extras: Item[]): Item[] {
+  if (extras.length === 0) return queue;
+  if (queue.length === 0) return [...extras];
+  const out = [...queue];
+  // Insert back-to-front so earlier indices stay valid.
+  for (let i = extras.length - 1; i >= 0; i--) {
+    const at = Math.ceil(((i + 1) * queue.length) / (extras.length + 1));
+    out.splice(at, 0, extras[i]);
+  }
+  return out;
+}
