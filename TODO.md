@@ -44,9 +44,9 @@
 ### Phase 4 — GEO content & outreach (weeks 4–6)
 
 - [ ] Restructure marketing page into answer-first quotable sections (literal question H2s, direct answers)
-- [ ] Publish honest "Best apps for learning Japanese while driving (2026)" roundup on kotobaapp.com incl. Pimsleur/JapanesePod101/Anki
-- [ ] Publish "Kotoba vs Pimsleur" and "Kotoba vs Anki" comparison pages
-- [ ] Quora: thorough, disclosed answer on ["Is there an app to learn another language while driving?"](https://www.quora.com/Is-there-an-app-to-learn-another-language-while-driving) — already ranks page 1 of Google; cheapest high-leverage placement
+- [x] Publish honest "Best apps for learning Japanese while driving (2026)" roundup — live 2026-08-07 at /best-apps-learn-japanese-while-driving; 7 apps ranked by use case (Pimsleur, Kotoba, Danki, JPod101, Language Transfer, Audio Flash, JLPT Speak) with disclosure + ItemList schema; refresh every 1–2 months (visible updated date)
+- [x] Publish "Kotoba vs Pimsleur" and "Kotoba vs Anki" comparison pages — live 2026-08-07 at /kotoba-vs-pimsleur and /kotoba-vs-anki; footers sitewide now link all 9 content pages
+- [x] Quora: answered ["Is there an app to learn another language while driving?"](https://www.quora.com/Is-there-an-app-to-learn-another-language-while-driving) (Evan, 2026-08-07). Further targets found by search: [best apps beginner/intermediate](https://www.quora.com/What-are-the-best-apps-for-learning-Japanese-as-a-beginner-and-intermediate), [free sites besides Duolingo](https://www.quora.com/Are-there-any-free-sites-aside-from-Duolingo-that-teach-Japanese-and-even-help-with-actual-fluency), [learn Japanese from an audio book](https://www.quora.com/How-can-I-learn-Japanese-from-an-audio-book), [free Mango/Pimsleur alternative](https://www.quora.com/Is-there-a-free-alternative-to-Mango-Languages-or-Pimsleur), [best approach for JLPT](https://www.quora.com/How-is-the-best-approach-to-learn-Japanese-for-JLPT)
 - [ ] Listicle outreach: pitch articles cited in the prompt audit + FluentU/Speechling/LinguaJunkie driving posts (blurb + screenshots; angle: only interactive hands-free option, free; expect ~15–25% hit rate, 2–6 week confirms)
 - [ ] Republish adapted versions of the roundup on Medium and LinkedIn (both heavily cited by AI engines; reframe each, don't duplicate verbatim)
 - [ ] Builder-angle post on dev.to or HackerNoon ("I built an audio-only SRS because Anki can't run hands-free") — feeds HN/Indie Hackers organically
