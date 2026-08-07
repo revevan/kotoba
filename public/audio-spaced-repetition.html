@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audio Spaced Repetition, Explained</title>
+  <meta name="description" content="Audio spaced repetition moves the full SRS loop — prompt, recall, grading, scheduling — into sound, so you can do real flashcard reviews with no screen. How it works, why passive playlists aren't it, and the tools that implement it." />
+  <link rel="canonical" href="https://kotobaapp.com/audio-spaced-repetition" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <meta name="theme-color" content="#10101a" />
+  <meta property="og:title" content="Audio Spaced Repetition, Explained" />
+  <meta property="og:description" content="The full SRS loop — prompt, recall, grading, scheduling — entirely in sound. How it works and which tools implement it." />
+  <meta property="og:url" content="https://kotobaapp.com/audio-spaced-repetition" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Kotoba" />
+  <meta property="og:image" content="https://kotobaapp.com/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Audio Spaced Repetition, Explained" />
+  <meta name="twitter:description" content="The full SRS loop — prompt, recall, grading, scheduling — entirely in sound. How it works and which tools implement it." />
+  <meta name="twitter:image" content="https://kotobaapp.com/og.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://kotobaapp.com/audio-spaced-repetition#article",
+        "headline": "Audio Spaced Repetition, Explained",
+        "description": "What audio spaced repetition is, why passive playlists don't qualify, how the eyes-free review loop works, and the tools that implement it.",
+        "url": "https://kotobaapp.com/audio-spaced-repetition",
+        "datePublished": "2026-08-07",
+        "dateModified": "2026-08-07",
+        "author": { "@type": "Organization", "@id": "https://kotobaapp.com/#org", "name": "Kotoba" },
+        "publisher": { "@type": "Organization", "@id": "https://kotobaapp.com/#org", "name": "Kotoba" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://kotobaapp.com/audio-spaced-repetition#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is audio spaced repetition?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Spaced repetition where the entire review loop happens in sound: the app speaks a prompt, you recall and say the answer aloud, the answer is graded, and the item is rescheduled based on how you did. It keeps the memory science of an SRS like Anki while removing the screen entirely."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is listening to a vocabulary playlist spaced repetition?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. A playlist replays every item on a fixed schedule regardless of whether you know it, and never asks you to recall anything. Spaced repetition requires per-item scheduling driven by your recall performance — which requires the system to test you and register the result."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does audio spaced repetition work as well as visual flashcards?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For spoken vocabulary, it can work better: every rep trains listening and pronunciation, not just recognition of text. What it can't do is anything inherently visual — kanji recognition, spelling. Most learners pair audio SRS for the ears with a visual tool for the writing system."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What tools implement audio spaced repetition?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kotoba (free, browser-based, Japanese, speech-recognition graded, FSRS), Danki (paid iOS, Japanese, voice commands, FSRS), and partial versions: Audio Flash (audio playback of decks with timed pauses, honor-system grading) and Anki's auto-advance (screen-on, auto-grades itself, so scheduling degrades)."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Kotoba", "item": "https://kotobaapp.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Audio spaced repetition", "item": "https://kotobaapp.com/audio-spaced-repetition" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #10101a;
+      --band: #13131f;
+      --panel: #1e1e2e;
+      --border: #2c2c40;
+      --hairline: #34344a;
+      --text: #f0f0f5;
+      --body: #b8b8c8;
+      --muted: #9a9aae;
+      --faint: #6c6c80;
+      --accent: #7c7cf0;
+      --success: #6fdc8c;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); }
+    body {
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+    .display { font-family: 'Newsreader', Georgia, serif; font-weight: 400; }
+    .eyebrow {
+      font-size: 13px; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .eyebrow.accent { color: var(--accent); }
+    nav { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; padding-bottom: 20px; }
+    .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+    .brand .kanji { font-size: 22px; color: var(--accent); font-family: 'Hiragino Mincho ProN', 'Yu Mincho', serif; font-weight: 600; }
+    .brand .name { font-size: 17px; font-weight: 600; letter-spacing: .02em; }
+    .pill {
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      padding: 9px 18px; border: 1px solid var(--hairline); border-radius: 99px;
+      transition: color .15s ease, border-color .15s ease;
+    }
+    .pill:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-primary {
+      display: inline-block; background: var(--accent); color: var(--bg);
+      font-weight: 700; text-decoration: none; border-radius: 12px;
+      font-size: 17px; padding: 15px 30px;
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .btn-primary:hover { filter: brightness(1.12); transform: translateY(-1px); }
+    article { padding-top: 40px; padding-bottom: 80px; max-width: 720px; }
+    article .eyebrow { margin-bottom: 16px; }
+    article h1 {
+      font-size: clamp(34px, 5vw, 52px); line-height: 1.1; letter-spacing: -.01em;
+      margin-bottom: 24px; text-wrap: balance;
+    }
+    .answer {
+      background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+      border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      font-size: 17px; line-height: 1.65; color: var(--text); text-wrap: pretty;
+    }
+    article h2 {
+      font-family: 'Newsreader', Georgia, serif; font-weight: 400;
+      font-size: clamp(24px, 3vw, 32px); line-height: 1.2;
+      margin: 48px 0 16px;
+    }
+    article p { font-size: 16px; line-height: 1.7; color: var(--body); margin-bottom: 18px; text-wrap: pretty; }
+    article ul, article ol { margin: 0 0 18px 20px; }
+    article li { font-size: 16px; line-height: 1.7; color: var(--body); margin-bottom: 10px; }
+    article a { color: var(--text); text-decoration-color: var(--accent); text-underline-offset: 3px; }
+    article a:hover { color: var(--accent); }
+    article strong { color: var(--text); }
+    .compare { width: 100%; border-collapse: collapse; margin: 8px 0 18px; font-size: 15px; }
+    .compare th, .compare td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--body); vertical-align: top; }
+    .compare th { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+    .compare td:first-child { color: var(--text); font-weight: 600; }
+    .table-scroll { overflow-x: auto; }
+    .loop {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+      padding: 20px 24px; margin: 8px 0 18px; font-size: 15px; line-height: 1.9; color: var(--body);
+    }
+    .loop .step { color: var(--accent); font-weight: 700; }
+    .cta-block {
+      margin: 44px 0; padding: 28px; text-align: center;
+      background: var(--band); border: 1px solid var(--border); border-radius: 16px;
+    }
+    .cta-block p { color: var(--muted); font-size: 15px; margin: 14px 0 0; }
+    .faq-item h3 { margin: 28px 0 8px; font-size: 19px; font-weight: 600; line-height: 1.35; }
+    .disclosure { font-size: 14px; color: var(--faint); font-style: italic; }
+    footer { border-top: 1px solid var(--panel); }
+    .foot {
+      padding-top: 32px; padding-bottom: 32px;
+      display: flex; flex-wrap: wrap; gap: 16px; align-items: baseline; justify-content: space-between;
+      font-size: 13px; color: var(--faint);
+    }
+    .foot p { line-height: 1.6; max-width: 60ch; }
+    .foot a { color: var(--muted); }
+    .foot a:hover { color: var(--accent); }
+  </style>
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "fc0f93f667a148359d469a95c172d5a9"}'></script>
+</head>
+<body>
+
+<nav class="wrap">
+  <a href="/?stay" class="brand">
+    <span class="kanji">言葉</span>
+    <span class="name">Kotoba</span>
+  </a>
+  <a href="/app/" class="pill">Open app</a>
+</nav>
+
+<article class="wrap">
+  <p class="eyebrow accent">Guide · Updated August 2026</p>
+  <h1 class="display">Audio spaced repetition, explained.</h1>
+
+  <p class="answer">
+    Audio spaced repetition is a full SRS review loop — prompt, recall, grading, rescheduling —
+    carried out entirely in sound. The app speaks the question, you say the answer, it registers
+    how you did and decides when that item comes back. It keeps everything that makes Anki work
+    while removing the screen, which makes real studying possible while driving, walking, or doing
+    chores. <a href="/?stay">Kotoba</a> implements it for Japanese vocabulary, free.
+  </p>
+
+  <h2>Why spaced repetition normally needs a screen</h2>
+  <p>
+    Spaced repetition has two moving parts: <strong>active recall</strong> (you're asked, you retrieve) and
+    <strong>per-item scheduling</strong> (each card returns just before you'd forget it, based on your
+    history with that card). Classic SRS apps deliver both through a screen — read the card, flip
+    it, tap a grade. The grade is the crucial data point: without knowing whether you got the card
+    right, the scheduler is blind. That single tap is why "just listen to your deck" never worked
+    as studying — export your cards to audio and you keep the content but lose the recall <em>and</em>
+    the scheduling. A playlist plays word #47 on Tuesday whether you've known it for a year or
+    never learned it.
+  </p>
+
+  <h2>Moving the loop into sound</h2>
+  <p>Every screen interaction has an audio equivalent:</p>
+  <div class="loop">
+    <span class="step">Prompt</span> — the app speaks the cue: "apple … in Japanese?"<br />
+    <span class="step">Recall</span> — a pause. You retrieve the word and say it: 「りんご」<br />
+    <span class="step">Grade</span> — speech recognition checks what you said; when it can't be sure, you
+    self-grade by voice ("got it" / "missed it")<br />
+    <span class="step">Schedule</span> — the result feeds the SRS algorithm; the word's next appearance
+    moves out (or snaps back)
+  </div>
+  <p>
+    That grading step is what separates audio spaced repetition from audio playback. Once the
+    system hears your answer, the scheduler has the same information a screen tap would give it —
+    so the intervals stay honest, reviews stay short, and hard words get the extra reps
+    automatically. Kotoba runs this loop with <strong>FSRS</strong>, the same modern scheduling algorithm
+    recent versions of Anki use.
+  </p>
+
+  <h2>Does it work as well as visual flashcards?</h2>
+  <p>
+    For <em>spoken</em> vocabulary, often better. A text flashcard trains you to produce a word when you
+    see English text; an audio flashcard trains you to produce it in real time from sound, with
+    your mouth — which is the skill conversation actually demands. Every rep doubles as listening
+    and pronunciation practice, and hearing each word inside a native example sentence builds
+    comprehension alongside recall. The honest limits: anything inherently visual — kanji
+    recognition, spelling — still needs your eyes, and speech recognition occasionally mishears,
+    which is why a voice self-grade fallback matters. Ears for the vocabulary, eyes for the writing
+    system, is the pairing that works.
+  </p>
+
+  <h2>Tools that implement it</h2>
+  <p class="disclosure">Disclosure: this page is by the developer of Kotoba.</p>
+  <div class="table-scroll">
+  <table class="compare">
+    <tr><th>Tool</th><th>Recall step</th><th>Grading</th><th>Scheduling</th><th>Cost</th></tr>
+    <tr><td>Kotoba (web)</td><td>Spoken answer</td><td>Speech recognition + voice self-grade</td><td>FSRS per word</td><td>Free</td></tr>
+    <tr><td>Danki (iOS)</td><td>Recall pause</td><td>Voice commands ("good"/"again")</td><td>FSRS</td><td>$9.99 once</td></tr>
+    <tr><td>Audio Flash</td><td>Recall pause</td><td>Honor system (none registered)</td><td>Playback-level, not per-recall</td><td>Freemium</td></tr>
+    <tr><td>Anki auto-advance</td><td>Recall pause</td><td>Auto-grades every card the same</td><td>Degrades — scheduler gets no real data</td><td>Free</td></tr>
+  </table>
+  </div>
+  <p>
+    The pattern: the further right you go on grading fidelity, the more the scheduling actually
+    means something. Auto-advancing Anki keeps the audio but feeds the scheduler fiction; a timed
+    pause without grading is closer to a playlist with gaps. If your deck is Japanese vocabulary,
+    the full loop already exists — see <a href="/japanese-audio-flashcards">Japanese audio
+    flashcards</a> for the hands-on comparison, or <a href="/anki-while-driving">Anki while
+    driving</a> if you're coming from an existing deck.
+  </p>
+
+  <div class="cta-block">
+    <a href="/app/" class="btn-primary">Hear the loop yourself →</a>
+    <p>Free · JLPT N5–N3 · The first session takes two minutes to try</p>
+  </div>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-item">
+    <h3>Is listening to vocabulary audio on repeat spaced repetition?</h3>
+    <p>No — repetition alone isn't spaced repetition. Without a recall attempt and a registered
+      result, there's nothing to space. That's recognition practice, useful but much weaker.</p>
+  </div>
+  <div class="faq-item">
+    <h3>What algorithm does Kotoba use?</h3>
+    <p>FSRS — the open spaced-repetition scheduler that modern Anki versions ship. Each word's
+      interval adapts to your actual recall history with it.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Can audio SRS handle sentences, not just words?</h3>
+    <p>Yes — as words mature in Kotoba, prompts graduate from single words to cloze sentences: you
+      hear the native example sentence with a beep where the word belongs and supply it. Same
+      scheduling, higher difficulty rung.</p>
+  </div>
+  <div class="faq-item">
+    <h3>What about languages other than Japanese?</h3>
+    <p>The concept is language-agnostic, but Kotoba currently implements it for Japanese only.
+      For other languages the closest options are passive audio courses, which drop the grading
+      half of the loop.</p>
+  </div>
+</article>
+
+<footer>
+  <div class="wrap foot">
+    <p>Guides: <a href="/anki-while-driving">Anki while driving</a> · <a href="/japanese-audio-flashcards">Japanese audio flashcards</a> · <a href="/learn-japanese-while-driving">Learn Japanese while driving</a> · <a href="/hands-free-japanese-learning-app">Hands-free Japanese app</a> · <a href="/audio-spaced-repetition">Audio spaced repetition</a> · <a href="/pimsleur-alternative">Pimsleur alternative</a></p>
+    <p>© 2026 Kotoba · <a href="/?stay">Home</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

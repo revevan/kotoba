@@ -21,7 +21,7 @@
 - [x] Verify in Bing Webmaster Tools; submit sitemap — confirmed 2026-08-07: verified since ~Jun 20, both sitemap variants submitted, 143 impressions / 4 clicks. AI Performance beta shows 2 Copilot citations (baseline). IndexNow wasn't enabled — now wired into the repo instead: key file `public/fd19….txt` + `pnpm run indexnow` (pings api.indexnow.org with all sitemap URLs; run after each marketing-page deploy)
 - [x] Check robots.txt doesn't block AI crawlers — verified clean 2026-08-07 (`Allow: /` for all agents; only `/app/` disallowed, which is correct)
 - [x] Add schema to marketing page: `SoftwareApplication` (price: 0), `Organization`, `FAQPage` — done 2026-08-07, plus visible FAQ section (6 answer-first Q&As mirroring the schema) and driving/audio-flashcard phrasing in meta descriptions
-- [ ] Baseline AI prompt audit: fixed panel of ~15 prompts ("best app to learn japanese while driving", "audio only japanese flashcards", …) across ChatGPT / Claude / Perplexity / Gemini / AI Mode; record mentions + cited URLs (cited URLs = outreach list)
+- [x] Baseline AI prompt audit — done 2026-08-07, full writeup in docs/prompt-audit-2026-08.md. Headline: Claude 0/15, Gemini 0/2, but **ChatGPT already cites Kotoba** (2/5, incl. ranked #1 "closest match" on the voice-interactive prompt — only on search-triggering long-tail phrasings). Perplexity needs sign-in; AI Mode blocked under automation. New competitors found: Danki (iOS, drive mode, FSRS), JLPT Speak, Perapera, Jouzu, Audio Flash — comparison pages updated to include them honestly. Outreach list extracted (AlternativeTo retrieved in 5/8 searches → list there first)
 - [ ] Set up free AI-visibility monitoring: Ahrefs Brand Radar free tier + Parse free tier
 
 ### Phase 2 — Keyword tooling (~$0–7/mo, weeks 2–3)
@@ -35,11 +35,11 @@
 
 - [x] "Anki while driving? The audio-only alternative" — built 2026-08-07 as `public/anki-while-driving.html` (canonical /anki-while-driving; GH Pages serves .html extensionless). Article + FAQPage + Breadcrumb schema, links to Anki forum/AnkiDroid threads, disclosed authorship. Autocomplete-validated phrasing: "anki while driving", "anki audio only cards", "how to use anki while driving"
 - [x] "Japanese audio flashcards — hands-free and free" — built 2026-08-07 as `public/japanese-audio-flashcards.html` (canonical /japanese-audio-flashcards). Honest comparison table (Anki/Spotify/Pimsleur/Quizlet/Kotoba), FAQ mirrors autocomplete ("can you listen to flashcards like a playlist"). Both pages footer-linked from homepage; sitemap.xml updated with both URLs. Deployed 2026-08-07 (both URLs live, 200); IndexNow ping submitted, HTTP 202 — GSC impression check due ~2026-08-28
-- [ ] "How to learn Japanese vocabulary while driving" (best app to learn japanese while driving / practice japanese while driving)
-- [ ] "The hands-free Japanese learning app" (japanese app with hands free mode / hands free language learning app)
-- [ ] "Audio spaced repetition, explained" (audio spaced repetition / spaced repetition while driving — category-naming play)
-- [ ] "A Pimsleur alternative that actually hears you" (interactive pimsleur alternative / free pimsleur alternative japanese)
-- [ ] Each page: title/URL literally match the query; 40–80-word direct answer up top; question-form H2s; FAQ block
+- [x] "How to learn Japanese vocabulary while driving" — built 2026-08-07 as /learn-japanese-while-driving; honest 5-way comparison incl. Danki
+- [x] "The hands-free Japanese learning app" — built 2026-08-07 as /hands-free-japanese-learning-app; defines the 3-part hands-free test (audio out / voice in / voice control)
+- [x] "Audio spaced repetition, explained" — built 2026-08-07 as /audio-spaced-repetition; category-defining page, grading-fidelity comparison (Kotoba/Danki/Audio Flash/Anki auto-advance)
+- [x] "A Pimsleur alternative that actually hears you" — built 2026-08-07 as /pimsleur-alternative; credits Pimsleur honestly, names the can't-hear-you gap
+- [x] Each page: title/URL literally match the query; 40–80-word direct answer up top; question-form H2s; FAQ block — all six follow the template; all cross-linked + footer-linked sitewide; sitemap has all 7 URLs
 
 ### Phase 4 — GEO content & outreach (weeks 4–6)
 
