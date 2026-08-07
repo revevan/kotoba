@@ -34,11 +34,15 @@ CREATE TABLE IF NOT EXISTS progress (
 );
 
 -- One row per user per UTC day with at least one authenticated sync — powers
--- the admin stats page's daily-active counts. Written by PUT /sync.
+-- the admin stats page's daily-active counts. Written by PUT /sync. `studied`
+-- marks days with at least one graded review (from the blob's newest
+-- last_review), separating "opened the app" from "actually studied"; a row can
+-- have syncs = 0 when the studied day is marked retroactively after midnight.
 CREATE TABLE IF NOT EXISTS activity_days (
   user_id TEXT NOT NULL,
   day     TEXT NOT NULL,             -- 'YYYY-MM-DD' (UTC)
   syncs   INTEGER NOT NULL DEFAULT 1,
+  studied INTEGER NOT NULL DEFAULT 0,
   PRIMARY KEY (user_id, day)
 );
 CREATE INDEX IF NOT EXISTS idx_activity_days_day ON activity_days (day);

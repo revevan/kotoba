@@ -202,14 +202,36 @@ async function syncPut(request, env, cors) {
   )
     .bind(userId, data, updatedAt)
     .run();
-  // Activity ledger for the stats page: one row per user per UTC day.
+  // Activity ledger for the stats page: one row per user per UTC day, plus a
+  // studied flag on the day of the newest graded review. The flag is written
+  // to the review's own day (not today's) so a sync landing after UTC
+  // midnight still credits the right day.
   await env.DB.prepare(
     'INSERT INTO activity_days (user_id, day, syncs) VALUES (?, ?, 1) ' +
       'ON CONFLICT(user_id, day) DO UPDATE SET syncs = syncs + 1',
   )
     .bind(userId, new Date().toISOString().slice(0, 10))
     .run();
+  const studiedDay = newestReviewDay(body.data);
+  if (studiedDay) {
+    await env.DB.prepare(
+      'INSERT INTO activity_days (user_id, day, syncs, studied) VALUES (?, ?, 0, 1) ' +
+        'ON CONFLICT(user_id, day) DO UPDATE SET studied = 1',
+    )
+      .bind(userId, studiedDay)
+      .run();
+  }
   return json({ ok: true, updatedAt }, 200, cors);
+}
+
+/** UTC day ('YYYY-MM-DD') of the newest card review in a sync blob, or null. */
+function newestReviewDay(data) {
+  let max = 0;
+  for (const row of data?.cards ?? []) {
+    const t = row?.card?.last_review ? Date.parse(row.card.last_review) : 0;
+    if (t > max) max = t;
+  }
+  return max ? new Date(max).toISOString().slice(0, 10) : null;
 }
 
 // ---- Admin stats (in-app, gated to ADMIN_EMAILS accounts) ----
@@ -234,18 +256,30 @@ async function statsGet(request, env, cors) {
     'SELECT u.id, u.email, u.created_at, p.updated_at AS last_sync, p.data FROM users u ' +
       'LEFT JOIN progress p ON p.user_id = u.id ORDER BY u.created_at',
   ).all();
-  const since = new Date(now - 30 * DAY_MS).toISOString().slice(0, 10);
+  const dayFor = (msAgo) => new Date(now - msAgo).toISOString().slice(0, 10);
+  const since = dayFor(30 * DAY_MS);
   const { results: dayRows } = await env.DB.prepare(
-    'SELECT day, COUNT(*) AS active FROM activity_days WHERE day >= ? GROUP BY day ORDER BY day',
+    'SELECT day, COUNT(*) AS active, SUM(studied) AS studied FROM activity_days WHERE day >= ? GROUP BY day ORDER BY day',
   )
     .bind(since)
     .all();
   const { results: perUser } = await env.DB.prepare(
-    'SELECT user_id, COUNT(*) AS days FROM activity_days WHERE day >= ? GROUP BY user_id',
+    'SELECT user_id, COUNT(*) AS days, SUM(studied) AS studied_days FROM activity_days WHERE day >= ? GROUP BY user_id',
   )
     .bind(since)
     .all();
   const activeDaysByUser = new Map(perUser.map((r) => [r.user_id, r.days]));
+  const studiedDaysByUser = new Map(perUser.map((r) => [r.user_id, r.studied_days]));
+  // Distinct users with a studied day today / in the last 7 / 30 calendar days
+  // (UTC). Calendar-day windows, unlike the rolling-24h "active" tiles.
+  const studiedCounts = await env.DB.prepare(
+    'SELECT COUNT(DISTINCT CASE WHEN day >= ?1 THEN user_id END) AS s1, ' +
+      'COUNT(DISTINCT CASE WHEN day >= ?2 THEN user_id END) AS s7, ' +
+      'COUNT(DISTINCT user_id) AS s30 ' +
+      'FROM activity_days WHERE studied = 1 AND day >= ?3',
+  )
+    .bind(dayFor(0), dayFor(6 * DAY_MS), since)
+    .first();
 
   const rows = users.map((u) => {
     // Card stats come from the synced blob (cards + settings; ts-fsrs card
@@ -273,6 +307,7 @@ async function statsGet(request, env, cors) {
       reps,
       lastReviewAt: lastReviewAt || null,
       activeDays30: activeDaysByUser.get(u.id) ?? 0,
+      studiedDays30: studiedDaysByUser.get(u.id) ?? 0,
     };
   });
 
@@ -284,6 +319,9 @@ async function statsGet(request, env, cors) {
       activeToday: activeWithin(DAY_MS),
       active7d: activeWithin(7 * DAY_MS),
       active30d: activeWithin(30 * DAY_MS),
+      studiedToday: studiedCounts?.s1 ?? 0,
+      studied7d: studiedCounts?.s7 ?? 0,
+      studied30d: studiedCounts?.s30 ?? 0,
       users: rows,
       days: dayRows,
     },

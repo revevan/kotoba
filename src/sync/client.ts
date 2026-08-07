@@ -81,6 +81,7 @@ export interface StatsUser {
   reps: number;
   lastReviewAt: number | null;
   activeDays30: number;
+  studiedDays30: number;
 }
 
 export interface Stats {
@@ -89,8 +90,11 @@ export interface Stats {
   activeToday: number;
   active7d: number;
   active30d: number;
+  studiedToday: number;
+  studied7d: number;
+  studied30d: number;
   users: StatsUser[];
-  days: { day: string; active: number }[];
+  days: { day: string; active: number; studied: number }[];
 }
 
 export async function fetchStats(token: string): Promise<Stats> {

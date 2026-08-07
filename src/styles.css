@@ -115,6 +115,11 @@ button:disabled {
   font-size: 36px;
 }
 
+.admin-stats .stat .denom {
+  color: var(--dim);
+  font-size: 22px;
+}
+
 .day-bars {
   display: flex;
   align-items: flex-end;
@@ -126,17 +131,27 @@ button:disabled {
 .day-bar {
   flex: 1;
   height: 100%;
-  display: flex;
-  align-items: flex-end;
+  position: relative;
   background: var(--bg2);
   border-radius: 3px;
 }
 
+/* Two-tone: full-height "opened" bar behind, "studied" bar in front. */
 .day-bar span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
   min-height: 2px;
-  background: var(--accent);
   border-radius: 3px;
+}
+
+.day-bar .opened {
+  background: var(--faint);
+}
+
+.day-bar .studied {
+  background: var(--accent);
 }
 
 .user-table-wrap {

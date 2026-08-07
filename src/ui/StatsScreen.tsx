@@ -17,12 +17,13 @@ function relative(t: number | null): string {
 }
 
 /** Last 30 UTC days ending today, joined against the server's active counts. */
-function dayBars(stats: Stats): { day: string; active: number }[] {
-  const byDay = new Map(stats.days.map((d) => [d.day, d.active]));
+function dayBars(stats: Stats): { day: string; active: number; studied: number }[] {
+  const byDay = new Map(stats.days.map((d) => [d.day, d]));
   const out = [];
   for (let i = 29; i >= 0; i--) {
     const day = new Date(stats.generatedAt - i * DAY_MS).toISOString().slice(0, 10);
-    out.push({ day, active: byDay.get(day) ?? 0 });
+    const row = byDay.get(day);
+    out.push({ day, active: row?.active ?? 0, studied: row?.studied ?? 0 });
   }
   return out;
 }
@@ -64,24 +65,31 @@ export function StatsScreen() {
               <span class="label">signups</span>
             </div>
             <div class="stat">
-              <span class="num">{stats.activeToday}</span>
-              <span class="label">active today</span>
+              <span class="num">
+                {stats.studiedToday}<span class="denom">/{stats.activeToday}</span>
+              </span>
+              <span class="label">studied / opened today</span>
             </div>
             <div class="stat">
-              <span class="num">{stats.active7d}</span>
-              <span class="label">active 7d</span>
+              <span class="num">
+                {stats.studied7d}<span class="denom">/{stats.active7d}</span>
+              </span>
+              <span class="label">studied / opened 7d</span>
             </div>
             <div class="stat">
-              <span class="num">{stats.active30d}</span>
-              <span class="label">active 30d</span>
+              <span class="num">
+                {stats.studied30d}<span class="denom">/{stats.active30d}</span>
+              </span>
+              <span class="label">studied / opened 30d</span>
             </div>
           </div>
 
-          <p class="hint">Users syncing per day (last 30 days, UTC)</p>
+          <p class="hint">Per day: opened the app (dim) vs studied at least one card (accent) — last 30 days, UTC</p>
           <div class="day-bars">
             {bars.map((b) => (
-              <div key={b.day} class="day-bar" title={`${b.day}: ${b.active}`}>
-                <span style={`height:${Math.round((b.active / peak) * 100)}%`} />
+              <div key={b.day} class="day-bar" title={`${b.day}: ${b.studied} studied / ${b.active} opened`}>
+                {b.active > 0 && <span class="opened" style={`height:${Math.round((b.active / peak) * 100)}%`} />}
+                {b.studied > 0 && <span class="studied" style={`height:${Math.round((b.studied / peak) * 100)}%`} />}
               </div>
             ))}
           </div>
@@ -95,7 +103,8 @@ export function StatsScreen() {
                   <th>Last active</th>
                   <th>Cards</th>
                   <th>Reps</th>
-                  <th>Days/30</th>
+                  <th>Opened/30</th>
+                  <th>Studied/30</th>
                 </tr>
               </thead>
               <tbody>
@@ -107,14 +116,15 @@ export function StatsScreen() {
                     <td>{u.cards}</td>
                     <td>{u.reps}</td>
                     <td>{u.activeDays30}</td>
+                    <td>{u.studiedDays30}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
           <p class="hint">
-            "Last active" is the newest cloud sync; guests who never sign in aren't counted here (see Cloudflare
-            Analytics for raw traffic). Daily bars start filling from today onward.
+            "Opened" is any cloud sync (app load or session end); "studied" means at least one card graded that UTC
+            day. Guests who never sign in aren't counted here (see Cloudflare Analytics for raw traffic).
           </p>
         </>
       )}

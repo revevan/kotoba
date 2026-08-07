@@ -68,7 +68,7 @@
 
 ## Done
 
-- [x] Admin usage stats (2026-08-08): `GET /stats` on the API worker (gated to `ADMIN_EMAILS` = revevan) + in-app Stats screen (Settings → Stats, visible only to admin login). New D1 `activity_days` table logs one row per user per UTC day on sync → real daily-active counts going forward. Worker + migration deployed; app side awaits next push to main.
+- [x] Admin usage stats (2026-08-08): `GET /stats` on the API worker (gated to `ADMIN_EMAILS` = revevan) + in-app Stats screen (Settings → Stats, visible only to admin login). New D1 `activity_days` table logs one row per user per UTC day on sync → real daily-active counts going forward. Same-day follow-up: `studied` flag on `activity_days` (set from the sync blob's newest last_review) separates "opened the app" from "graded at least one card" — tiles show studied/opened, day bars are two-tone, per-user Opened/30 + Studied/30 columns. All deployed.
 - [x] "Missed it" demote button on the pass screen
 - [x] Home due count fixed to day-granularity dueness
 - [x] Migrated npm → pnpm
