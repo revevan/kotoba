@@ -28,10 +28,10 @@ runs by voice over AirPods or car Bluetooth.
 ## Develop
 
 ```sh
-npm install
-npm run dev          # http://localhost:5173 — mic + speech recognition work on localhost
-npm test             # vitest: matching, mora, state machine, scheduler, queue
-npm run build        # typecheck + production build to dist/
+pnpm install
+pnpm run dev          # http://localhost:5173 — mic + speech recognition work on localhost
+pnpm test             # vitest: matching, mora, state machine, scheduler, queue
+pnpm run build        # typecheck + production build to dist/
 ```
 
 Add `?mock=1` to the URL to type answers instead of speaking them — fastest way
@@ -44,10 +44,10 @@ so after something misbehaves you can reload with `?debug=1` and copy it out.
 ## Data & audio pipeline
 
 ```sh
-npm run build-decks               # JLPT CSVs (tools/sources) → public/decks/*.json
-npm run gen-audio                 # generate MP3s for ALL decks (slow, thousands of clips)
-npm run gen-audio n5-starter      # ...or just one deck
-npm run sync-audio-r2             # push the audio corpus to the Cloudflare R2 CDN
+pnpm run build-decks               # JLPT CSVs (tools/sources) → public/decks/*.json
+pnpm run gen-audio                 # generate MP3s for ALL decks (slow, thousands of clips)
+pnpm run gen-audio n5-starter      # ...or just one deck
+pnpm run sync-audio-r2             # push the audio corpus to the Cloudflare R2 CDN
 ```
 
 `gen-audio` is idempotent: `tools/audio-manifest.json` records a content hash per
@@ -72,11 +72,11 @@ to force pattern differentiation), `submit` runs the generation batch (Sonnet),
 rubric pass (weighting cloze recoverability most heavily) to decide what ships.
 
 ```sh
-npm run pipeline -- <deckId> plan     # cluster words → state/plan.json
-npm run pipeline -- <deckId> submit    # generation batch
-npm run pipeline -- <deckId> fetch     # poll → validate → dedup
-npm run pipeline -- <deckId> judge     # judge batch over valid sentences
-npm run publish-sentences              # approved candidates → public/sentences/*.json
+pnpm run pipeline -- <deckId> plan     # cluster words → state/plan.json
+pnpm run pipeline -- <deckId> submit    # generation batch
+pnpm run pipeline -- <deckId> fetch     # poll → validate → dedup
+pnpm run pipeline -- <deckId> judge     # judge batch over valid sentences
+pnpm run publish-sentences              # approved candidates → public/sentences/*.json
 ```
 
 ## Deploy
