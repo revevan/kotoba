@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Japanese Audio Flashcards — Hands-Free, Free, and Actually Interactive</title>
+  <meta name="description" content="Audio flashcards let you drill Japanese vocabulary entirely by ear — no screen. How they differ from vocab playlists and Anki decks with audio, and a free app that speaks, listens, and grades you hands-free." />
+  <link rel="canonical" href="https://kotobaapp.com/japanese-audio-flashcards" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <meta name="theme-color" content="#10101a" />
+  <meta property="og:title" content="Japanese Audio Flashcards — Hands-Free, Free, and Actually Interactive" />
+  <meta property="og:description" content="Drill Japanese vocabulary entirely by ear. How audio flashcards differ from vocab playlists, and a free app that speaks, listens, and grades you." />
+  <meta property="og:url" content="https://kotobaapp.com/japanese-audio-flashcards" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Kotoba" />
+  <meta property="og:image" content="https://kotobaapp.com/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Japanese Audio Flashcards — Hands-Free, Free, and Actually Interactive" />
+  <meta name="twitter:description" content="Drill Japanese vocabulary entirely by ear. How audio flashcards differ from vocab playlists, and a free app that speaks, listens, and grades you." />
+  <meta name="twitter:image" content="https://kotobaapp.com/og.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://kotobaapp.com/japanese-audio-flashcards#article",
+        "headline": "Japanese Audio Flashcards — Hands-Free, Free, and Actually Interactive",
+        "description": "What audio flashcards are, why passive vocab playlists don’t stick, and how to drill Japanese vocabulary entirely by ear with spaced repetition.",
+        "url": "https://kotobaapp.com/japanese-audio-flashcards",
+        "datePublished": "2026-08-07",
+        "dateModified": "2026-08-07",
+        "author": { "@type": "Organization", "@id": "https://kotobaapp.com/#org", "name": "Kotoba" },
+        "publisher": { "@type": "Organization", "@id": "https://kotobaapp.com/#org", "name": "Kotoba" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://kotobaapp.com/japanese-audio-flashcards#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What are audio flashcards?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Flashcards you review entirely by ear: the app speaks the prompt, you answer out loud, and the card is graded and rescheduled like any spaced-repetition deck — no screen, no tapping. They’re different from vocab playlists or podcasts, which play the same audio in a fixed order without ever testing you."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can you listen to flashcards like a playlist?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can export card audio from Anki or play JLPT word-list albums on Spotify or YouTube, but that’s passive listening, not flashcards — nothing asks you to recall anything, and every word repeats on a fixed schedule whether you know it or not. Retention comes from active recall, which needs an app that quizzes you and hears your answer."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are there audio flashcards for JLPT vocabulary?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Kotoba covers JLPT N5 through N3 — nearly 3,000 words with over 40,000 native-quality audio clips, each word taught inside a natural example sentence, with FSRS spaced-repetition scheduling. It’s free and runs in the browser."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do audio flashcards work for kanji?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No — kanji recognition is visual by nature. Audio flashcards train listening comprehension, recall, and pronunciation. Most learners pair them with a visual tool (Anki, WaniKani) at home and use audio flashcards for the hours their eyes are busy: driving, commuting, chores."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are Kotoba’s audio flashcards really free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — free and open source, with no ads, subscription, or app store. It’s a web app (PWA): progress is stored on your device, with optional passwordless email sign-in for cross-device sync."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Kotoba", "item": "https://kotobaapp.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Japanese audio flashcards", "item": "https://kotobaapp.com/japanese-audio-flashcards" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #10101a;
+      --band: #13131f;
+      --panel: #1e1e2e;
+      --border: #2c2c40;
+      --hairline: #34344a;
+      --text: #f0f0f5;
+      --body: #b8b8c8;
+      --muted: #9a9aae;
+      --faint: #6c6c80;
+      --accent: #7c7cf0;
+      --success: #6fdc8c;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); }
+    body {
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+    .display { font-family: 'Newsreader', Georgia, serif; font-weight: 400; }
+    .eyebrow {
+      font-size: 13px; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .eyebrow.accent { color: var(--accent); }
+
+    nav { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; padding-bottom: 20px; }
+    .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+    .brand .kanji { font-size: 22px; color: var(--accent); font-family: 'Hiragino Mincho ProN', 'Yu Mincho', serif; font-weight: 600; }
+    .brand .name { font-size: 17px; font-weight: 600; letter-spacing: .02em; }
+    .pill {
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      padding: 9px 18px; border: 1px solid var(--hairline); border-radius: 99px;
+      transition: color .15s ease, border-color .15s ease;
+    }
+    .pill:hover { border-color: var(--accent); color: var(--accent); }
+
+    .btn-primary {
+      display: inline-block; background: var(--accent); color: var(--bg);
+      font-weight: 700; text-decoration: none; border-radius: 12px;
+      font-size: 17px; padding: 15px 30px;
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .btn-primary:hover { filter: brightness(1.12); transform: translateY(-1px); }
+
+    article { padding-top: 40px; padding-bottom: 80px; max-width: 720px; }
+    article .eyebrow { margin-bottom: 16px; }
+    article h1 {
+      font-size: clamp(34px, 5vw, 52px); line-height: 1.1; letter-spacing: -.01em;
+      margin-bottom: 24px; text-wrap: balance;
+    }
+    .answer {
+      background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+      border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      font-size: 17px; line-height: 1.65; color: var(--text); text-wrap: pretty;
+    }
+    article h2 {
+      font-family: 'Newsreader', Georgia, serif; font-weight: 400;
+      font-size: clamp(24px, 3vw, 32px); line-height: 1.2;
+      margin: 48px 0 16px;
+    }
+    article p { font-size: 16px; line-height: 1.7; color: var(--body); margin-bottom: 18px; text-wrap: pretty; }
+    article ul { margin: 0 0 18px 20px; }
+    article li { font-size: 16px; line-height: 1.7; color: var(--body); margin-bottom: 10px; }
+    article a { color: var(--text); text-decoration-color: var(--accent); text-underline-offset: 3px; }
+    article a:hover { color: var(--accent); }
+    article strong { color: var(--text); }
+    .compare { width: 100%; border-collapse: collapse; margin: 8px 0 18px; font-size: 15px; }
+    .compare th, .compare td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--body); vertical-align: top; }
+    .compare th { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+    .compare td:first-child { color: var(--text); font-weight: 600; }
+    .compare .yes { color: var(--success); }
+    .compare .no { color: var(--faint); }
+    .table-scroll { overflow-x: auto; }
+    .cta-block {
+      margin: 44px 0; padding: 28px; text-align: center;
+      background: var(--band); border: 1px solid var(--border); border-radius: 16px;
+    }
+    .cta-block p { color: var(--muted); font-size: 15px; margin: 14px 0 0; }
+    .faq-item h3 { margin: 28px 0 8px; font-size: 19px; font-weight: 600; line-height: 1.35; }
+    .disclosure { font-size: 14px; color: var(--faint); font-style: italic; }
+
+    footer { border-top: 1px solid var(--panel); }
+    .foot {
+      padding-top: 32px; padding-bottom: 32px;
+      display: flex; flex-wrap: wrap; gap: 16px; align-items: baseline; justify-content: space-between;
+      font-size: 13px; color: var(--faint);
+    }
+    .foot p { line-height: 1.6; max-width: 56ch; }
+    .foot a { color: var(--muted); }
+    .foot a:hover { color: var(--accent); }
+  </style>
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "fc0f93f667a148359d469a95c172d5a9"}'></script>
+</head>
+<body>
+
+<nav class="wrap">
+  <a href="/?stay" class="brand">
+    <span class="kanji">言葉</span>
+    <span class="name">Kotoba</span>
+  </a>
+  <a href="/app/" class="pill">Open app</a>
+</nav>
+
+<article class="wrap">
+  <p class="eyebrow accent">Guide · Updated August 2026</p>
+  <h1 class="display">Japanese audio flashcards: drill vocabulary entirely by ear.</h1>
+
+  <p class="answer">
+    Audio flashcards are spaced-repetition flashcards you review without a screen: the app speaks
+    the prompt, you answer out loud, and it grades you and schedules the next review. That’s
+    different from vocab playlists or podcasts, which never test you.
+    <a href="/?stay">Kotoba</a> is a free web app built around exactly this loop for Japanese —
+    JLPT N5–N3, native audio, hands-free from the first word to the last.
+  </p>
+
+  <h2>What are audio flashcards?</h2>
+  <p>
+    A normal flashcard asks your eyes a question; an audio flashcard asks your ears. The whole
+    review loop happens in sound: a spoken prompt (“apple… in Japanese?”), a pause while you
+    recall and say the answer — <em>りんご</em> — then confirmation and an example sentence. Grading and
+    scheduling work like any SRS deck: words you know retreat into the future, words you fumble
+    come back soon. The point is that <strong>active recall survives</strong> — you’re still being tested on
+    every card — while your eyes and hands stay free for the road, the dishes, or the dog.
+  </p>
+
+  <h2>“Can’t I just listen to a vocab playlist?”</h2>
+  <p>
+    This is what most people find first: JLPT word-list albums on Spotify and YouTube, exported
+    Anki deck audio, “learn Japanese while you sleep” compilations. They all share the same
+    problem — <strong>they never ask you anything</strong>. Every word plays in a fixed order on a fixed
+    schedule whether you’ve known it for months or never learned it. Recognition (“oh, I’ve
+    heard that”) builds quickly; recall (producing the word yourself) doesn’t. Decades of
+    testing-effect research say the quiz <em>is</em> the learning. A playlist is a radio show about
+    your flashcards, not flashcards.
+  </p>
+
+  <h2>The options, honestly compared</h2>
+  <div class="table-scroll">
+  <table class="compare">
+    <tr><th></th><th>Audio-first</th><th>Tests recall</th><th>SRS scheduling</th><th>Hands-free</th><th>Cost</th></tr>
+    <tr><td>Anki deck with audio</td><td class="no">No — screen required</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td>Free</td></tr>
+    <tr><td>Spotify/YouTube vocab lists</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td>Free</td></tr>
+    <tr><td>Pimsleur-style audio course</td><td class="yes">Yes</td><td class="yes">Prompted, not graded</td><td class="no">Fixed lessons</td><td class="yes">Yes</td><td>$20+/mo</td></tr>
+    <tr><td>Quizlet “read aloud”</td><td class="no">No — screen required</td><td class="yes">Yes</td><td class="no">Limited</td><td class="no">No</td><td>Freemium</td></tr>
+    <tr><td>Kotoba</td><td class="yes">Yes</td><td class="yes">Yes — hears your answer</td><td class="yes">Yes (FSRS)</td><td class="yes">Yes</td><td>Free</td></tr>
+  </table>
+  </div>
+  <p>
+    Anki with audio fields is excellent at home — but it can’t run screen-free (we wrote up why in
+    <a href="/anki-while-driving">Anki while driving? Here’s the audio-only alternative</a>). Audio
+    courses like Pimsleur are genuinely hands-free but play the same fixed lessons to everyone,
+    with no memory of which words <em>you</em> keep missing.
+  </p>
+
+  <h2>Japanese audio flashcards you can use today</h2>
+  <p class="disclosure">Disclosure: this page is by the developer of Kotoba — the app below is mine.</p>
+  <p>
+    <a href="/?stay">Kotoba</a> is the audio-flashcard loop, built as its own product rather than
+    bolted onto a visual app. Tap <strong>Start</strong> once and the session runs itself: new words get a
+    slow spoken breakdown and a natural example sentence; review words get quizzed right before
+    you’d forget them (FSRS scheduling — the same modern algorithm Anki offers); your spoken
+    answers are graded by cloud speech recognition, and “repeat”, “skip”, and “pause” are voice
+    commands. As words mature, the difficulty climbs: eventually you hear the example sentence
+    with a beep where the word belongs and supply it yourself.
+  </p>
+  <ul>
+    <li><strong>JLPT N5–N3</strong>: nearly 3,000 words, 40,000+ native-quality audio clips</li>
+    <li><strong>Free</strong> — no ads, no subscription, no app store; it runs in your browser as a PWA</li>
+    <li>Alternate readings taught and accepted — “yes” is はい, but ええ counts too</li>
+    <li>Works offline once cached; progress stays on your device with optional email sync</li>
+  </ul>
+
+  <div class="cta-block">
+    <a href="/app/" class="btn-primary">Start the first deck free →</a>
+    <p>No account needed · The N5 starter deck is the right first week</p>
+  </div>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-item">
+    <h3>Can you listen to flashcards like a playlist?</h3>
+    <p>You can export Anki card audio or play JLPT albums, but that’s passive listening — nothing
+      tests you, and every word repeats whether you know it or not. If you want the playlist
+      <em>experience</em> with actual learning happening, that’s exactly the gap audio flashcards fill.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Are there audio flashcards for JLPT N5?</h3>
+    <p>Yes — Kotoba’s N5 starter deck (~120 essential words) and full N5 deck (~670 words) are the
+      recommended starting point, followed by N4 and N3. Every word comes with native audio and an
+      example sentence.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Do audio flashcards work for kanji?</h3>
+    <p>No — kanji recognition needs your eyes. Audio flashcards train listening, recall, and
+      pronunciation. The pairing that works: a visual tool (Anki, WaniKani) at home, audio
+      flashcards for the hours your eyes are busy.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Does it work with AirPods and car audio?</h3>
+    <p>Yes — that’s the primary use case. Any Bluetooth audio works; the mic on AirPods or your
+      car’s hands-free system carries your answers. Sessions keep working offline once audio is
+      cached, and when speech recognition has no signal Kotoba falls back to spoken self-grading.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Is it really free?</h3>
+    <p>Yes — free and open source. No ads, no premium tier, no app store. Optional passwordless
+      email sign-in syncs progress across devices.</p>
+  </div>
+</article>
+
+<footer>
+  <div class="wrap foot">
+    <p>Guides: <a href="/anki-while-driving">Anki while driving</a> · <a href="/japanese-audio-flashcards">Japanese audio flashcards</a></p>
+    <p>© 2026 Kotoba · <a href="/?stay">Home</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

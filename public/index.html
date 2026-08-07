@@ -15,13 +15,13 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kotoba — Hands-free Japanese vocabulary</title>
-  <meta name="description" content="Learn Japanese vocabulary by voice during your commute. Spaced repetition, no screen required — built for AirPods and car audio." />
+  <meta name="description" content="Learn Japanese vocabulary by voice while driving or commuting. Hands-free audio flashcards with spaced repetition — built for AirPods and car audio." />
   <link rel="canonical" href="https://kotobaapp.com" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <meta name="theme-color" content="#10101a" />
   <meta property="og:title" content="Kotoba — Hands-free Japanese vocabulary" />
-  <meta property="og:description" content="Learn Japanese vocabulary by voice during your commute. Spaced repetition, no screen required — built for AirPods and car audio." />
+  <meta property="og:description" content="Learn Japanese vocabulary by voice while driving or commuting. Hands-free audio flashcards with spaced repetition — built for AirPods and car audio." />
   <meta property="og:url" content="https://kotobaapp.com" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Kotoba" />
@@ -32,23 +32,100 @@
   <meta property="og:image:alt" content="Kotoba — learn Japanese by voice, hands-free, on your commute." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Kotoba — Hands-free Japanese vocabulary" />
-  <meta name="twitter:description" content="Learn Japanese vocabulary by voice during your commute. Spaced repetition, no screen required — built for AirPods and car audio." />
+  <meta name="twitter:description" content="Learn Japanese vocabulary by voice while driving or commuting. Hands-free audio flashcards with spaced repetition — built for AirPods and car audio." />
   <meta name="twitter:image" content="https://kotobaapp.com/og.png" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Kotoba",
-    "applicationCategory": "EducationalApplication",
-    "applicationSubCategory": "Language Learning",
-    "operatingSystem": "Web",
-    "description": "Hands-free Japanese vocabulary trainer for the commute. Voice-driven spaced repetition built for AirPods and car audio.",
-    "url": "https://kotobaapp.com",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://kotobaapp.com/#org",
+        "name": "Kotoba",
+        "url": "https://kotobaapp.com",
+        "logo": "https://kotobaapp.com/favicon.svg",
+        "sameAs": ["https://github.com/revevan/kotoba"]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://kotobaapp.com/#app",
+        "name": "Kotoba",
+        "applicationCategory": "EducationalApplication",
+        "applicationSubCategory": "Language Learning",
+        "operatingSystem": "Web",
+        "description": "Hands-free Japanese vocabulary trainer for driving and commuting. Voice-driven audio flashcards with spaced repetition — built for AirPods and car audio.",
+        "url": "https://kotobaapp.com",
+        "screenshot": "https://kotobaapp.com/og.png",
+        "publisher": { "@id": "https://kotobaapp.com/#org" },
+        "isAccessibleForFree": true,
+        "featureList": [
+          "Hands-free, voice-controlled sessions — tap Start once, run everything by voice",
+          "Audio flashcards graded by speech recognition",
+          "FSRS spaced repetition scheduling",
+          "JLPT N5–N3 vocabulary with 40,000+ native-quality audio clips",
+          "Works offline as a PWA; optional cross-device sync"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://kotobaapp.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can you really learn Japanese while driving?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — but not by listening alone. Retention comes from active recall, so Kotoba asks you for the word, hears your answer, and grades it: every rep is a real memory test. It's designed so your eyes never leave the road — after tapping Start once, the whole session, including “repeat”, “skip”, and self-grading, runs by voice."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is this different from Pimsleur or a podcast?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Audio courses and podcasts play the same fixed lessons to everyone. Kotoba is interactive: it tracks which words you know, quizzes each one right before you'd forget it (FSRS spaced repetition), and actually hears whether you said it correctly. Think audio flashcards, not a radio show. It's also completely free."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this like using Anki while driving?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "That's the idea — spaced-repetition flashcards you can run entirely hands-free. Anki has no audio-only or background mode, so it can't be used safely in the car. Kotoba speaks each prompt, listens for your spoken answer, grades it with speech recognition, and schedules reviews the same way an SRS deck would."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Kotoba free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Kotoba is free and open source — no subscription, no ads, no app store. It runs in your browser as a PWA; your progress lives on your device, with optional passwordless email sign-in if you want to sync across devices."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What vocabulary will I learn?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The JLPT lists: a curated N5 starter deck, full N5 (~670 words), N4 (~600), and N3 (1,640) — nearly 3,000 words with over 40,000 native-quality audio clips, each word taught inside a natural example sentence."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work without a signal?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sessions keep working offline once audio is cached — cell dead zones included. Speech recognition needs a connection, so when it's unavailable Kotoba degrades gracefully to reveal-and-tap self-grading instead of stalling."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -243,6 +320,11 @@
     .tag.live { background: rgba(111, 220, 140, .14); color: var(--success); }
     .tag.soon { background: rgba(154, 154, 174, .14); color: var(--muted); }
     .tag.beta { background: rgba(124, 124, 240, .16); color: var(--accent); }
+
+    /* FAQ */
+    .faq { max-width: 780px; display: flex; flex-direction: column; gap: 34px; }
+    .faq-item h3 { margin-bottom: 8px; font-size: 19px; font-weight: 600; line-height: 1.35; }
+    .faq-item p { font-size: 15px; line-height: 1.7; color: var(--body); text-wrap: pretty; }
 
     /* Final CTA */
     .final { padding-top: 100px; padding-bottom: 100px; text-align: center; }
@@ -447,6 +529,38 @@
   </div>
 </section>
 
+<!-- ============ FAQ ============ -->
+<section class="wrap section-pad">
+  <p class="eyebrow accent" style="margin-bottom:12px">Questions</p>
+  <h2 class="display" style="margin-bottom:44px;max-width:22ch">Asked and answered.</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <h3>Can you really learn Japanese while driving?</h3>
+      <p>Yes — but not by listening alone. Retention comes from active recall, so Kotoba asks you for the word, hears your answer, and grades it: every rep is a real memory test. It’s designed so your eyes never leave the road — after tapping Start once, the whole session, including “repeat”, “skip”, and self-grading, runs by voice.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How is this different from Pimsleur or a podcast?</h3>
+      <p>Audio courses and podcasts play the same fixed lessons to everyone. Kotoba is interactive: it tracks which words you know, quizzes each one right before you’d forget it (FSRS spaced repetition), and actually hears whether you said it correctly. Think audio flashcards, not a radio show. It’s also completely free.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is this like using Anki while driving?</h3>
+      <p>That’s the idea — spaced-repetition flashcards you can run entirely hands-free. Anki has no audio-only or background mode, so it can’t be used safely in the car. Kotoba speaks each prompt, listens for your spoken answer, grades it with speech recognition, and schedules reviews the same way an SRS deck would.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is Kotoba free?</h3>
+      <p>Yes. Kotoba is free and open source — no subscription, no ads, no app store. It runs in your browser as a PWA; your progress lives on your device, with optional passwordless email sign-in if you want to sync across devices.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What vocabulary will I learn?</h3>
+      <p>The JLPT lists: a curated N5 starter deck, full N5 (~670 words), N4 (~600), and N3 (1,640) — nearly 3,000 words with over 40,000 native-quality audio clips, each word taught inside a natural example sentence.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Does it work without a signal?</h3>
+      <p>Sessions keep working offline once audio is cached — cell dead zones included. Speech recognition needs a connection, so when it’s unavailable Kotoba degrades gracefully to reveal-and-tap self-grading instead of stalling.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============ Final CTA ============ -->
 <section class="final wrap">
   <p class="kanji jp">言葉</p>
@@ -458,6 +572,7 @@
 <footer>
   <div class="wrap foot">
     <p>JLPT word lists by <a href="https://www.tanos.co.uk/jlpt/">Jonathan Waller</a> (CC-BY). Free and open source — <a href="https://github.com/revevan/kotoba">GitHub</a>.</p>
+    <p>Guides: <a href="/anki-while-driving">Anki while driving</a> · <a href="/japanese-audio-flashcards">Japanese audio flashcards</a></p>
     <p>© 2026 Kotoba · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></p>
   </div>
 </footer>

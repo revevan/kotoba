@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anki While Driving? Here’s the Audio-Only Alternative</title>
+  <meta name="description" content="Anki has no audio-only or background mode, so it can’t run hands-free in the car. Here’s what people try instead — and a free spaced-repetition app built to be used entirely by voice while driving." />
+  <link rel="canonical" href="https://kotobaapp.com/anki-while-driving" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <meta name="theme-color" content="#10101a" />
+  <meta property="og:title" content="Anki While Driving? Here’s the Audio-Only Alternative" />
+  <meta property="og:description" content="Anki can’t run hands-free — no audio-only mode, no background playback. What actually works for spaced repetition in the car." />
+  <meta property="og:url" content="https://kotobaapp.com/anki-while-driving" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Kotoba" />
+  <meta property="og:image" content="https://kotobaapp.com/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Anki While Driving? Here’s the Audio-Only Alternative" />
+  <meta name="twitter:description" content="Anki can’t run hands-free — no audio-only mode, no background playback. What actually works for spaced repetition in the car." />
+  <meta name="twitter:image" content="https://kotobaapp.com/og.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://kotobaapp.com/anki-while-driving#article",
+        "headline": "Anki While Driving? Here’s the Audio-Only Alternative",
+        "description": "Why Anki can’t run hands-free, what people try instead, and how to do real spaced repetition entirely by voice in the car.",
+        "url": "https://kotobaapp.com/anki-while-driving",
+        "datePublished": "2026-08-07",
+        "dateModified": "2026-08-07",
+        "author": { "@type": "Organization", "@id": "https://kotobaapp.com/#org", "name": "Kotoba" },
+        "publisher": { "@type": "Organization", "@id": "https://kotobaapp.com/#org", "name": "Kotoba" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://kotobaapp.com/anki-while-driving#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can you use Anki while driving?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not safely. Anki has no audio-only mode, no background playback, and no voice input — every card needs you to look at the screen and tap a grade. The feature has been requested on the Anki forums and in AnkiDroid’s issue tracker for years but doesn’t exist. If you want spaced repetition in the car, you need an app designed to run by voice."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Anki have a background or audio-only mode?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Anki stops when the screen locks or the app is backgrounded. Community requests for background playback are open and unresolved, and the add-ons that attempted screen-free review have been abandoned."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a hands-free alternative to Anki for Japanese?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — Kotoba is a free web app built specifically for this: it speaks each prompt aloud, listens to your spoken answer, grades it with speech recognition, and schedules reviews with FSRS, the same modern algorithm recent Anki versions use. You tap Start once and run the whole session by voice."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if I’m not learning Japanese?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kotoba is Japanese-only, so it won’t help for other languages yet. The nearest options elsewhere are passive: audio courses like Pimsleur or Language Transfer, or exporting your Anki deck’s audio to a playlist — none of which quiz you or schedule reviews."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it safe to do flashcards while driving?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Only if the session never asks for your eyes or hands. Glancing at a screen to read a card or tap a grade is exactly the kind of distraction to avoid. A safe setup works like a phone call or podcast: everything through the speakers, everything answered by voice, and easy to ignore when traffic needs your full attention."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Kotoba", "item": "https://kotobaapp.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Anki while driving", "item": "https://kotobaapp.com/anki-while-driving" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #10101a;
+      --band: #13131f;
+      --panel: #1e1e2e;
+      --border: #2c2c40;
+      --hairline: #34344a;
+      --text: #f0f0f5;
+      --body: #b8b8c8;
+      --muted: #9a9aae;
+      --faint: #6c6c80;
+      --accent: #7c7cf0;
+      --success: #6fdc8c;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); }
+    body {
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+    .display { font-family: 'Newsreader', Georgia, serif; font-weight: 400; }
+    .eyebrow {
+      font-size: 13px; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .eyebrow.accent { color: var(--accent); }
+
+    nav { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; padding-bottom: 20px; }
+    .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+    .brand .kanji { font-size: 22px; color: var(--accent); font-family: 'Hiragino Mincho ProN', 'Yu Mincho', serif; font-weight: 600; }
+    .brand .name { font-size: 17px; font-weight: 600; letter-spacing: .02em; }
+    .pill {
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      padding: 9px 18px; border: 1px solid var(--hairline); border-radius: 99px;
+      transition: color .15s ease, border-color .15s ease;
+    }
+    .pill:hover { border-color: var(--accent); color: var(--accent); }
+
+    .btn-primary {
+      display: inline-block; background: var(--accent); color: var(--bg);
+      font-weight: 700; text-decoration: none; border-radius: 12px;
+      font-size: 17px; padding: 15px 30px;
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .btn-primary:hover { filter: brightness(1.12); transform: translateY(-1px); }
+
+    article { padding-top: 40px; padding-bottom: 80px; max-width: 720px; }
+    article .eyebrow { margin-bottom: 16px; }
+    article h1 {
+      font-size: clamp(34px, 5vw, 52px); line-height: 1.1; letter-spacing: -.01em;
+      margin-bottom: 24px; text-wrap: balance;
+    }
+    .answer {
+      background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+      border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+      font-size: 17px; line-height: 1.65; color: var(--text); text-wrap: pretty;
+    }
+    article h2 {
+      font-family: 'Newsreader', Georgia, serif; font-weight: 400;
+      font-size: clamp(24px, 3vw, 32px); line-height: 1.2;
+      margin: 48px 0 16px;
+    }
+    article p { font-size: 16px; line-height: 1.7; color: var(--body); margin-bottom: 18px; text-wrap: pretty; }
+    article ul { margin: 0 0 18px 20px; }
+    article li { font-size: 16px; line-height: 1.7; color: var(--body); margin-bottom: 10px; }
+    article a { color: var(--text); text-decoration-color: var(--accent); text-underline-offset: 3px; }
+    article a:hover { color: var(--accent); }
+    article strong { color: var(--text); }
+    .cta-block {
+      margin: 44px 0; padding: 28px; text-align: center;
+      background: var(--band); border: 1px solid var(--border); border-radius: 16px;
+    }
+    .cta-block p { color: var(--muted); font-size: 15px; margin: 14px 0 0; }
+    .faq-item h3 { margin: 28px 0 8px; font-size: 19px; font-weight: 600; line-height: 1.35; }
+    .disclosure { font-size: 14px; color: var(--faint); font-style: italic; }
+
+    footer { border-top: 1px solid var(--panel); }
+    .foot {
+      padding-top: 32px; padding-bottom: 32px;
+      display: flex; flex-wrap: wrap; gap: 16px; align-items: baseline; justify-content: space-between;
+      font-size: 13px; color: var(--faint);
+    }
+    .foot p { line-height: 1.6; max-width: 56ch; }
+    .foot a { color: var(--muted); }
+    .foot a:hover { color: var(--accent); }
+  </style>
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "fc0f93f667a148359d469a95c172d5a9"}'></script>
+</head>
+<body>
+
+<nav class="wrap">
+  <a href="/?stay" class="brand">
+    <span class="kanji">言葉</span>
+    <span class="name">Kotoba</span>
+  </a>
+  <a href="/app/" class="pill">Open app</a>
+</nav>
+
+<article class="wrap">
+  <p class="eyebrow accent">Guide · Updated August 2026</p>
+  <h1 class="display">Anki while driving? Here’s the audio-only alternative.</h1>
+
+  <p class="answer">
+    You can’t use Anki while driving — it has no audio-only mode, no background playback, and no
+    voice input, so every card needs your eyes and thumbs. If you want real spaced repetition in
+    the car, you need an app built to run by voice. For Japanese vocabulary, that app exists and
+    it’s free: <a href="/?stay">Kotoba</a> speaks each prompt, hears your answer, grades it, and
+    schedules the next review — hands-free from start to finish.
+  </p>
+
+  <h2>Can you use Anki while driving?</h2>
+  <p>
+    Not really, and it’s not for lack of people trying. Anki reviews are built around a loop of
+    <em>read the card → recall → flip → tap a grade</em>. Every step assumes a screen and a free
+    hand. Lock your phone or switch apps and the session simply stops — there is no background
+    mode. The requests are easy to find and years old: an open Anki forum thread asking for
+    <a href="https://forums.ankiweb.net/t/add-option-to-listen-with-screen-off-background-playback/57641">background
+    playback with the screen off</a>, another asking to
+    <a href="https://forums.ankiweb.net/t/play-card-audio-in-sequence-like-a-playlist/66189">play card audio
+    like a playlist</a>, and an AnkiDroid issue requesting
+    <a href="https://github.com/ankidroid/Anki-Android/issues/1717">voice-control support</a> that has been
+    open since roughly 2019. None have shipped.
+  </p>
+
+  <h2>The workarounds people try</h2>
+  <p>Each of these comes up in the forums, and each gives up the thing that makes Anki work:</p>
+  <ul>
+    <li><strong>Exporting card audio to a playlist.</strong> You get sound, but it plays every card in a fixed
+      order whether you know the word or not. No recall attempt, no grading, no scheduling — it’s a podcast
+      with extra steps.</li>
+    <li><strong>Text-to-speech add-ons.</strong> The add-ons that attempted eyes-free review are abandoned, and
+      even when they worked they still needed a tap to grade and flip each card.</li>
+    <li><strong>AnkiDroid gesture taps.</strong> Blind-tapping regions of a screen you’re not supposed to be
+      looking at, while driving, defeats the purpose entirely.</li>
+    <li><strong>“I just do my reps at red lights.”</strong> This one shows up more often than it should.
+      Please don’t.</li>
+  </ul>
+  <p>
+    The common thread: Anki’s scheduling is excellent, but its interface is fundamentally visual.
+    Retrofitting audio onto it loses the active recall that makes spaced repetition worth doing.
+  </p>
+
+  <h2>What a hands-free SRS actually needs</h2>
+  <p>
+    To keep the memory science and lose the screen, the whole review loop has to move to audio.
+    That means four things: the app <strong>speaks the prompt</strong> (“apple… in Japanese?”), it
+    <strong>listens to your spoken answer</strong>, it <strong>grades what it heard</strong> with speech
+    recognition rather than asking you to tap, and it <strong>schedules the next review</strong> with a real
+    SRS algorithm. Mid-session controls — repeat, skip, pause — have to be voice commands too.
+    That’s a different product, not an Anki add-on.
+  </p>
+
+  <h2>Kotoba: audio-only spaced repetition for Japanese</h2>
+  <p class="disclosure">Disclosure: this page is by the developer of Kotoba — the app below is mine.</p>
+  <p>
+    I built <a href="/?stay">Kotoba</a> because I wanted exactly this and it didn’t exist: a
+    spaced-repetition vocabulary trainer that runs entirely by ear. You dash-mount your phone
+    (or just use AirPods or car audio), tap <strong>Start</strong> once, and that’s the last tap. Kotoba
+    teaches each new word with a slow spoken breakdown, quizzes you days later right before
+    you’d forget it, hears your answer, and grades it with cloud speech recognition. Scheduling
+    uses <strong>FSRS</strong> — the same modern algorithm recent Anki versions offer — so your reviews
+    behave the way an Anki deck would.
+  </p>
+  <ul>
+    <li>Free, no ads, no subscription — it’s a web app (PWA), no app store needed</li>
+    <li>JLPT N5–N3 vocabulary: nearly 3,000 words, 40,000+ native-quality audio clips, every word
+      taught in a natural example sentence</li>
+    <li>Voice commands for everything mid-session: “repeat”, “skip”, “pause”, “got it”</li>
+    <li>Works offline once cached — cell dead zones included</li>
+  </ul>
+  <p>
+    The honest limits: it’s <strong>Japanese-only</strong>, it’s vocabulary (not grammar lectures), and
+    speech recognition needs a signal — when it drops, Kotoba degrades to spoken self-grading
+    instead of stalling. If you’re learning Japanese and your Anki reviews keep losing to your
+    commute, this is the tool for that hour.
+  </p>
+
+  <div class="cta-block">
+    <a href="/app/" class="btn-primary">Try Kotoba free →</a>
+    <p>No account needed · Works in your browser · Progress stays on your device</p>
+  </div>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faq-item">
+    <h3>Does Anki have a background or audio-only mode?</h3>
+    <p>No. Anki stops when the screen locks or the app is backgrounded, on both desktop and mobile.
+      Background playback and audio-only review are long-standing open feature requests, and the
+      community add-ons that attempted screen-free review are abandoned.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Can AnkiDroid read cards aloud while I drive?</h3>
+    <p>AnkiDroid can speak card text with TTS, but it still requires the screen on and a tap to flip
+      and grade every card. The issue asking for true voice control has been open since ~2019.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Is it safe to do flashcards while driving?</h3>
+    <p>Only if the session never asks for your eyes or hands — the moment an app needs a glance or a
+      tap, it’s a distraction. A safe setup behaves like a phone call: everything through the
+      speakers, everything answered by voice, and easy to ignore when traffic needs your full
+      attention. That constraint is the entire design brief behind Kotoba.</p>
+  </div>
+  <div class="faq-item">
+    <h3>What if I’m not learning Japanese?</h3>
+    <p>Kotoba won’t help you yet — it’s Japanese-only. For other languages the current options are
+      passive: audio courses like Pimsleur or Language Transfer, or exporting your deck’s audio to a
+      playlist. Neither quizzes you nor schedules reviews, which is the gap this page is about.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Will this replace my Anki deck?</h3>
+    <p>If your deck is Japanese vocabulary, it can — same spaced-repetition principle, FSRS
+      scheduling, JLPT word lists. If your deck is kanji recognition, grammar notes, or another
+      subject, keep Anki for home study and use Kotoba for the hours your eyes are busy. See also:
+      <a href="/japanese-audio-flashcards">Japanese audio flashcards, explained</a>.</p>
+  </div>
+</article>
+
+<footer>
+  <div class="wrap foot">
+    <p>Guides: <a href="/anki-while-driving">Anki while driving</a> · <a href="/japanese-audio-flashcards">Japanese audio flashcards</a></p>
+    <p>© 2026 Kotoba · <a href="/?stay">Home</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

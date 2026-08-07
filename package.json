@@ -18,7 +18,8 @@
     "pipeline": "tsx tools/pipeline/run.ts",
     "sync-audio-r2": "tsx tools/sync-audio-r2.ts",
     "feedback": "tsx tools/feedback.ts",
-    "reviews": "tsx tools/reviews.ts"
+    "reviews": "tsx tools/reviews.ts",
+    "indexnow": "node tools/indexnowPing.mjs"
   },
   "dependencies": {
     "@patdx/kuromoji": "^1.0.4",
