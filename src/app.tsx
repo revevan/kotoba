@@ -7,6 +7,7 @@ import { Landing } from './ui/Landing';
 import { HomeScreen } from './ui/HomeScreen';
 import { SessionScreen } from './ui/SessionScreen';
 import { SettingsScreen } from './ui/SettingsScreen';
+import { StatsScreen } from './ui/StatsScreen';
 
 export function App() {
   useEffect(() => {
@@ -22,6 +23,8 @@ export function App() {
     <SessionScreen />
   ) : screen.value === 'settings' ? (
     <SettingsScreen />
+  ) : screen.value === 'stats' ? (
+    <StatsScreen />
   ) : (
     <HomeScreen />
   );

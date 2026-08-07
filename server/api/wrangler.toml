@@ -16,6 +16,8 @@ NOTIFY_EMAIL = "revevan@gmail.com"
 # Accounts allowed on the content-review page (app origin /review/).
 # Comma-separated login emails; add the reviewer's email here.
 REVIEWER_EMAILS = "revevan@gmail.com,mikimikit@gmail.com"
+# Accounts allowed to load the in-app admin stats page (GET /stats).
+ADMIN_EMAILS = "revevan@gmail.com"
 
 [[d1_databases]]
 binding = "DB"

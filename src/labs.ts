@@ -32,6 +32,14 @@ export function conjEarlyAccess(email: string | null | undefined): boolean {
   return !!email && CONJ_EARLY_ACCESS.has(email.trim().toLowerCase());
 }
 
+// Maintainer accounts: shows the admin stats entry in Settings. Display-only —
+// the API's GET /stats enforces its own ADMIN_EMAILS allowlist server-side.
+const ADMIN_ACCESS = new Set(['revevan@gmail.com']);
+
+export function adminAccess(email: string | null | undefined): boolean {
+  return !!email && ADMIN_ACCESS.has(email.trim().toLowerCase());
+}
+
 /** Debug override: force one exercise type regardless of card maturity. */
 export const forcedRung: 'cloze' | 'shadow' | 'build' | null = (() => {
   if (!hasDom || !labsEnabled) {

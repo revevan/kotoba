@@ -6,7 +6,7 @@ import { loadHomeData } from '../session/controller';
 import { syncPush } from '../sync/sync';
 import { cloudSyncEnabled } from '../sync/config';
 import { logout } from '../sync/client';
-import { conjEarlyAccess } from '../labs';
+import { adminAccess, conjEarlyAccess } from '../labs';
 
 export function SettingsScreen() {
   const fileRef = useRef<HTMLInputElement>(null);
@@ -62,6 +62,7 @@ export function SettingsScreen() {
               <div class="row buttons">
                 <button onClick={() => void syncPush()}>Sync now</button>
                 <button onClick={() => void signOut()}>Sign out</button>
+                {adminAccess(auth.value.email) && <button onClick={() => (screen.value = 'stats')}>Stats</button>}
               </div>
             </>
           ) : (

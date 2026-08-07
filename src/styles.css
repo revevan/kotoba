@@ -110,6 +110,70 @@ button:disabled {
   font-size: 14px;
 }
 
+/* Admin stats screen (Settings → Stats) */
+.admin-stats .stat .num {
+  font-size: 36px;
+}
+
+.day-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 72px;
+  margin: 8px 0 20px;
+}
+
+.day-bar {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  background: var(--bg2);
+  border-radius: 3px;
+}
+
+.day-bar span {
+  width: 100%;
+  min-height: 2px;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+.user-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.user-table th,
+.user-table td {
+  padding: 8px 10px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+.user-table th {
+  color: var(--dim);
+  font-weight: 500;
+}
+
+.user-table tr:last-child td {
+  border-bottom: none;
+}
+
+.user-table .email {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .decks {
   display: flex;
   flex-direction: column;

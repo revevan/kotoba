@@ -71,6 +71,35 @@ export async function pushRemote(token: string, data: unknown): Promise<void> {
   if (!r.ok) throw new Error(`push failed (${r.status})`);
 }
 
+// ---- Admin stats (Settings → Stats, ADMIN_EMAILS accounts only) ----
+
+export interface StatsUser {
+  email: string;
+  createdAt: number;
+  lastSyncAt: number | null;
+  cards: number;
+  reps: number;
+  lastReviewAt: number | null;
+  activeDays30: number;
+}
+
+export interface Stats {
+  generatedAt: number;
+  totalUsers: number;
+  activeToday: number;
+  active7d: number;
+  active30d: number;
+  users: StatsUser[];
+  days: { day: string; active: number }[];
+}
+
+export async function fetchStats(token: string): Promise<Stats> {
+  const r = await call('/stats', {}, token);
+  if (r.status === 401 || r.status === 403) throw new Error('This account is not allowed to view stats.');
+  if (!r.ok) throw new Error(`Stats failed to load (${r.status}).`);
+  return (await r.json()) as Stats;
+}
+
 /** Submit a bug report / feature request from the in-app form. */
 export async function sendFeedback(type: 'bug' | 'feedback' | 'feature', message: string, contact?: string): Promise<void> {
   const context = `${location.pathname}${location.search} · ${navigator.userAgent}`.slice(0, 500);

@@ -3,7 +3,7 @@ import type { MachineState } from './session/machine';
 import type { DeckInfo, Word } from './types';
 import { loadAuth, persistAuth, type Auth } from './sync/client';
 
-export type Screen = 'home' | 'session' | 'settings';
+export type Screen = 'home' | 'session' | 'settings' | 'stats';
 
 export const screen = signal<Screen>('home');
 

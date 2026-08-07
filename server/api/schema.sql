@@ -33,6 +33,16 @@ CREATE TABLE IF NOT EXISTS progress (
   updated_at INTEGER NOT NULL
 );
 
+-- One row per user per UTC day with at least one authenticated sync — powers
+-- the admin stats page's daily-active counts. Written by PUT /sync.
+CREATE TABLE IF NOT EXISTS activity_days (
+  user_id TEXT NOT NULL,
+  day     TEXT NOT NULL,             -- 'YYYY-MM-DD' (UTC)
+  syncs   INTEGER NOT NULL DEFAULT 1,
+  PRIMARY KEY (user_id, day)
+);
+CREATE INDEX IF NOT EXISTS idx_activity_days_day ON activity_days (day);
+
 -- User-submitted bug reports / feature requests (from the in-app form).
 CREATE TABLE IF NOT EXISTS feedback (
   type       TEXT NOT NULL,      -- bug | feedback | feature

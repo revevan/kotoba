@@ -14,6 +14,7 @@
  *   POST /review        (Bearer, reviewer) { wordId, deck, verdict, flags?, note? } -> { ok, status }
  *   GET  /admin/reviews?status=open|fixed|all (Bearer ADMIN_SECRET) -> [ …rows ]
  *   POST /admin/reviews/:wordId/status (Bearer) { status, fixNote? } -> { ok, status }
+ *   GET  /stats         (Bearer, ADMIN_EMAILS)  -> { totalUsers, activeToday, …, users, days }
  *
  * Secrets / vars (wrangler):
  *   ADMIN_SECRET   (secret, gates /admin/*)
@@ -22,6 +23,7 @@
  *   ALLOWED_ORIGIN (var, the app origin, e.g. https://revevan.github.io)
  *   APP_NAME       (var, e.g. "Kotoba")
  *   REVIEWER_EMAILS (var, comma-separated — accounts allowed on /review/*)
+ *   ADMIN_EMAILS   (var, comma-separated — accounts allowed on GET /stats)
  *   DB             (D1 binding)
  */
 
@@ -91,6 +93,8 @@ export default {
           return await reviewPost(request, env, cors);
         case 'GET /admin/reviews':
           return await adminReviewList(request, env, cors);
+        case 'GET /stats':
+          return await statsGet(request, env, cors);
         default: {
           const m = /^POST \/admin\/feedback\/(\d+)\/resolve$/.exec(route);
           if (m) return await feedbackResolve(request, env, cors, Number(m[1]));
@@ -198,7 +202,94 @@ async function syncPut(request, env, cors) {
   )
     .bind(userId, data, updatedAt)
     .run();
+  // Activity ledger for the stats page: one row per user per UTC day.
+  await env.DB.prepare(
+    'INSERT INTO activity_days (user_id, day, syncs) VALUES (?, ?, 1) ' +
+      'ON CONFLICT(user_id, day) DO UPDATE SET syncs = syncs + 1',
+  )
+    .bind(userId, new Date().toISOString().slice(0, 10))
+    .run();
   return json({ ok: true, updatedAt }, 200, cors);
+}
+
+// ---- Admin stats (in-app, gated to ADMIN_EMAILS accounts) ----
+
+const DAY_MS = 86_400_000;
+
+/** Session user whose email is on the ADMIN_EMAILS allowlist, or null. */
+async function authAdminUser(request, env) {
+  const userId = await authUser(request, env);
+  if (!userId) return null;
+  const allowed = (env.ADMIN_EMAILS || '').split(',').map((s) => s.trim().toLowerCase()).filter(Boolean);
+  if (allowed.length === 0) return null;
+  const row = await env.DB.prepare('SELECT email FROM users WHERE id = ?').bind(userId).first();
+  return row && allowed.includes(row.email) ? row.email : null;
+}
+
+async function statsGet(request, env, cors) {
+  if (!(await authAdminUser(request, env))) return json({ error: 'forbidden' }, 403, cors);
+  const now = Date.now();
+
+  const { results: users } = await env.DB.prepare(
+    'SELECT u.id, u.email, u.created_at, p.updated_at AS last_sync, p.data FROM users u ' +
+      'LEFT JOIN progress p ON p.user_id = u.id ORDER BY u.created_at',
+  ).all();
+  const since = new Date(now - 30 * DAY_MS).toISOString().slice(0, 10);
+  const { results: dayRows } = await env.DB.prepare(
+    'SELECT day, COUNT(*) AS active FROM activity_days WHERE day >= ? GROUP BY day ORDER BY day',
+  )
+    .bind(since)
+    .all();
+  const { results: perUser } = await env.DB.prepare(
+    'SELECT user_id, COUNT(*) AS days FROM activity_days WHERE day >= ? GROUP BY user_id',
+  )
+    .bind(since)
+    .all();
+  const activeDaysByUser = new Map(perUser.map((r) => [r.user_id, r.days]));
+
+  const rows = users.map((u) => {
+    // Card stats come from the synced blob (cards + settings; ts-fsrs card
+    // objects carry reps and last_review).
+    let cards = 0;
+    let reps = 0;
+    let lastReviewAt = 0;
+    if (u.data) {
+      try {
+        for (const row of JSON.parse(u.data).cards ?? []) {
+          cards++;
+          reps += row.card?.reps ?? 0;
+          const t = row.card?.last_review ? Date.parse(row.card.last_review) : 0;
+          if (t > lastReviewAt) lastReviewAt = t;
+        }
+      } catch {
+        /* unreadable blob — report zeros */
+      }
+    }
+    return {
+      email: u.email,
+      createdAt: u.created_at,
+      lastSyncAt: u.last_sync ?? null,
+      cards,
+      reps,
+      lastReviewAt: lastReviewAt || null,
+      activeDays30: activeDaysByUser.get(u.id) ?? 0,
+    };
+  });
+
+  const activeWithin = (ms) => rows.filter((r) => r.lastSyncAt && now - r.lastSyncAt < ms).length;
+  return json(
+    {
+      generatedAt: now,
+      totalUsers: rows.length,
+      activeToday: activeWithin(DAY_MS),
+      active7d: activeWithin(7 * DAY_MS),
+      active30d: activeWithin(30 * DAY_MS),
+      users: rows,
+      days: dayRows,
+    },
+    200,
+    cors,
+  );
 }
 
 const FEEDBACK_TYPES = ['bug', 'feedback', 'feature'];

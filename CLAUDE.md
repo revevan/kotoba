@@ -40,7 +40,8 @@ TypeScript strict, `idb`, `wanakana`, `@patdx/kuromoji`.
   `src/data/`, `src/sync/`, `src/ui/` (screens), `src/platform/`
 - Backend: two Cloudflare Workers — `server/stt-proxy/worker.js` (Deepgram
   nova-2 + Claude grading, rate-limit bindings) and `server/api/worker.js`
-  (D1 `kotoba`, Resend login email, feedback, `REVIEWER_EMAILS` gate;
+  (D1 `kotoba`, Resend login email, feedback, `REVIEWER_EMAILS` gate,
+  `GET /stats` usage dashboard gated by `ADMIN_EMAILS`;
   schema in `server/api/schema.sql`)
 - Content pipeline in `tools/` (Anthropic Message Batches sentence pipeline in
   `tools/pipeline/`); outputs to `public/decks/`, `public/sentences/`, `public/audio/`
