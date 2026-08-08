@@ -4,6 +4,7 @@
 
 ## Now
 
+- [ ] ~2026-08-15: evaluate marketing-demo funnel — pull `/demo-start|mic|done.txt` path counts from CF zone analytics, compare homepage→app→signup against the 2026-08-08 baseline (~317 visits → 16 app opens → 4 signups /8d), decide next growth move
 - [ ] Conjugation practice: graduate from early access
 - [ ] SEO Phase 1 — Foundations (see below)
 
