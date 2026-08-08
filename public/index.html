@@ -415,8 +415,8 @@
       </div>
     </div>
     <div class="demo-controls" id="demo-controls" hidden>
-      <button class="btn-demo" id="demo-listen" type="button">▶ Hear a real session — 1 min</button>
-      <button class="btn-demo" id="demo-mic" type="button" hidden>🎤 And let it hear you</button>
+      <button class="btn-demo" id="demo-listen" type="button">Try a real session (without mic)</button>
+      <button class="btn-demo" id="demo-mic" type="button" hidden>Try a real session (with mic)</button>
     </div>
     <p class="demo-caption" id="demo-caption">A real exchange from a session — it hears whether you got it right.</p>
   </div>
@@ -785,7 +785,25 @@
     var micBtn = document.getElementById('demo-mic');
     if (SR && (window.isSecureContext !== false)) {
       micBtn.hidden = false;
-      micBtn.addEventListener('click', function () { runDemo(true); });
+      micBtn.addEventListener('click', function () {
+        if (running) return;
+        // Ask for the mic NOW, tied to the tap — otherwise the browser would
+        // only prompt at the first quiz, half a minute into the demo. The
+        // granted stream itself isn't used; speech recognition reuses the
+        // permission. Denied (or unavailable) → run the listen-only demo.
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          caption.textContent = 'Allow microphone access to start — or use the no-mic demo.';
+          navigator.mediaDevices.getUserMedia({ audio: true }).then(
+            function (stream) {
+              stream.getTracks().forEach(function (t) { t.stop(); });
+              runDemo(true);
+            },
+            function () { runDemo(false); } // denied — run the listen-only demo instead
+          );
+        } else {
+          runDemo(true);
+        }
+      });
     }
   })();
 </script>
