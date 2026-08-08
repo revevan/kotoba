@@ -68,6 +68,7 @@
 
 ## Done
 
+- [x] Marketing-page live demo (2026-08-08): the hero exchange box now runs a real mini session on tap — teach water/tomorrow → quiz, production R2 audio, optional on-device Web Speech mic (graceful fallback when denied). Funnel markers via `/demo-start|mic|done.txt` fetches, visible per-path in CF zone analytics. Context: funnel analysis showed ~5% homepage→app click-through vs 25% app→signup — the leak is "never tries a session". Baseline (last 8 days, human browsers): ~317 homepage visits → 16 app opens → 4 signups.
 - [x] Admin usage stats (2026-08-08): `GET /stats` on the API worker (gated to `ADMIN_EMAILS` = revevan) + in-app Stats screen (Settings → Stats, visible only to admin login). New D1 `activity_days` table logs one row per user per UTC day on sync → real daily-active counts going forward. Same-day follow-up: `studied` flag on `activity_days` (set from the sync blob's newest last_review) separates "opened the app" from "graded at least one card" — tiles show studied/opened, day bars are two-tone, per-user Opened/30 + Studied/30 columns. All deployed.
 - [x] "Missed it" demote button on the pass screen
 - [x] Home due count fixed to day-granularity dueness

@@ -247,6 +247,18 @@
     .bars.lg span { width: 4px; height: 22px; }
     .bars.lg { height: 26px; gap: 4px; }
     .demo-caption { margin: 12px 4px 0; font-size: 12px; color: var(--faint); text-align: center; }
+    .demo-controls { display: flex; gap: 10px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
+    .demo-controls[hidden] { display: none; }
+    .btn-demo {
+      font: inherit; font-size: 14px; font-weight: 600; color: var(--text);
+      background: var(--panel); border: 1px solid var(--hairline); border-radius: 99px;
+      padding: 10px 20px; cursor: pointer;
+      transition: color .15s ease, border-color .15s ease;
+    }
+    .btn-demo:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-demo:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .bub .end-cta { display: inline-block; margin-top: 10px; background: var(--accent); color: var(--bg);
+      font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 10px; padding: 10px 18px; }
 
     /* ============ Sections ============ */
     section.band { border-top: 1px solid var(--panel); background: var(--band); }
@@ -402,7 +414,11 @@
         </div>
       </div>
     </div>
-    <p class="demo-caption">A real exchange from a session — it hears whether you got it right.</p>
+    <div class="demo-controls" id="demo-controls" hidden>
+      <button class="btn-demo" id="demo-listen" type="button">▶ Hear a real session — 1 min</button>
+      <button class="btn-demo" id="demo-mic" type="button" hidden>🎤 And let it hear you</button>
+    </div>
+    <p class="demo-caption" id="demo-caption">A real exchange from a session — it hears whether you got it right.</p>
   </div>
 </header>
 
@@ -578,23 +594,199 @@
 </footer>
 
 <script>
-  // Hero "exchange" demo: bubbles appear in sequence, hold, then loop.
-  // Progressive enhancement — without JS (or with reduced motion) all four
-  // bubbles are simply visible, static.
+  // Hero "exchange" box, two modes:
+  //  1. Idle loop — the four static bubbles appear in sequence and repeat.
+  //     Progressive enhancement: without JS (or with reduced motion) they're
+  //     simply visible, static.
+  //  2. Live demo — on tap, the box runs a real mini session (teach → quiz)
+  //     with the production audio corpus, optionally listening through the
+  //     browser's on-device speech recognition. No account, no server STT.
   (function () {
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var box = document.getElementById('exchange');
-    var bubs = Array.prototype.slice.call(box.querySelectorAll('.bub'));
-    box.classList.add('animate');
-    var delays = [1600, 1800, 1600, 3800, 1200]; // hold time after each step (4 = all hidden)
-    var step = 0;
-    function tick() {
-      bubs.forEach(function (b, i) { b.classList.toggle('shown', step !== 4 && step >= i); });
-      var hold = delays[step];
-      step = (step + 1) % 5;
-      setTimeout(tick, hold);
+    var caption = document.getElementById('demo-caption');
+    var controls = document.getElementById('demo-controls');
+    var loopTimer = 0;
+    var looping = true;
+
+    // ---- Idle loop ----
+    if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      var bubs = Array.prototype.slice.call(box.querySelectorAll('.bub'));
+      box.classList.add('animate');
+      var delays = [1600, 1800, 1600, 3800, 1200]; // hold time after each step (4 = all hidden)
+      var step = 0;
+      var tick = function () {
+        if (!looping) return;
+        bubs.forEach(function (b, i) { b.classList.toggle('shown', step !== 4 && step >= i); });
+        var hold = delays[step];
+        step = (step + 1) % 5;
+        loopTimer = setTimeout(tick, hold);
+      };
+      tick();
     }
-    tick();
+
+    // ---- Live demo ----
+    var AUDIO = 'https://audio.kotobaapp.com/';
+    var WORDS = [
+      { id: 'n5-e3d391e7', en: 'water', kana: 'みず', accept: ['水', 'みず', 'ミズ'],
+        sen: { id: 's-b33405f7', ja: 'これは水です。', en: 'This is water.' } },
+      { id: 'n5-6b7cbce3', en: 'tomorrow', kana: 'あした', accept: ['明日', 'あした', 'あす', 'アシタ'],
+        sen: { id: 's-6d873fec', ja: '明日、仕事です。', en: 'I have work tomorrow.' } },
+    ];
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    var player = null; // single Audio element, unlocked by the start gesture
+    var running = false;
+
+    var ping = function (name) {
+      // Funnel markers: requests to these paths show up per-path in Cloudflare
+      // zone analytics — no analytics backend needed.
+      try { fetch('/' + name + '.txt?t=' + Date.now(), { cache: 'no-store' }); } catch (e) { /* non-critical */ }
+    };
+
+    var clear = function () {
+      Array.prototype.slice.call(box.querySelectorAll('.bub')).forEach(function (b) { b.remove(); });
+    };
+    var bubble = function (side, html) {
+      var b = document.createElement('div');
+      b.className = 'bub ' + side + ' shown';
+      b.innerHTML = html;
+      box.appendChild(b);
+      // Keep the box compact: cap the visible transcript at 4 bubbles.
+      var all = box.querySelectorAll('.bub');
+      if (all.length > 4) all[0].remove();
+      return b;
+    };
+    var appSays = function (html) { return bubble('app', '<p class="who">Kotoba says</p><div class="msg"><p>' + html + '</p></div>'); };
+    var listeningBubble = function (label) {
+      return bubble('you', '<div class="listening"><span class="word">' + label + '</span>' +
+        '<span class="bars"><span></span><span></span><span></span><span></span><span></span></span></div>');
+    };
+
+    var play = function (src) {
+      return new Promise(function (resolve) {
+        player.src = src;
+        player.onended = resolve;
+        player.onerror = resolve; // a missing clip shouldn't wedge the demo
+        player.play().catch(resolve);
+      });
+    };
+    var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+    var seq = function (items) {
+      // items: [clipName | {gap: ms}] — clip names are paths under AUDIO.
+      return items.reduce(function (p, it) {
+        return p.then(function () { return typeof it === 'string' ? play(AUDIO + it + '.mp3') : wait(it.gap); });
+      }, Promise.resolve());
+    };
+
+    /** One on-device recognition attempt (ja-JP), resolves transcript or ''. */
+    var listen = function (ms) {
+      return new Promise(function (resolve) {
+        var rec;
+        try { rec = new SR(); } catch (e) { return resolve(''); }
+        var done = false;
+        var finish = function (text) { if (!done) { done = true; try { rec.stop(); } catch (e) {} resolve(text); } };
+        rec.lang = 'ja-JP';
+        rec.interimResults = false;
+        rec.maxAlternatives = 4;
+        rec.onresult = function (ev) {
+          var alts = [];
+          var res = ev.results[ev.results.length - 1];
+          for (var i = 0; i < res.length; i++) alts.push(res[i].transcript);
+          finish(alts.join(' '));
+        };
+        rec.onerror = function () { finish(''); };
+        rec.onend = function () { finish(''); };
+        try { rec.start(); } catch (e) { return finish(''); }
+        setTimeout(function () { finish(''); }, ms);
+      });
+    };
+    var matches = function (heard, accept) {
+      var h = heard.replace(/[\s。、．，!?！？]/g, '');
+      return accept.some(function (a) { return h.indexOf(a) !== -1; });
+    };
+
+    var teach = function (w) {
+      appSays(w.en + ' … in Japanese … <span class="jp accent-jp">' + w.kana + '</span>');
+      return seq(['en/' + w.id, { gap: 200 }, 'phrases/in-japanese', { gap: 120 }, 'ja/' + w.id, { gap: 450 }, 'ja-slow/' + w.id, { gap: 450 }])
+        .then(function () {
+          appSays('Repeat after me: <span class="jp accent-jp">' + w.kana + '</span>');
+          return seq(['phrases/repeat-after-me', { gap: 120 }, 'ja/' + w.id]);
+        })
+        .then(function () {
+          var b = listeningBubble('your turn — say it out loud');
+          return wait(2600).then(function () { b.remove(); });
+        });
+    };
+
+    var quiz = function (w, useMic) {
+      appSays('How do you say — <em>' + w.en + '</em>?');
+      return seq(['phrases/how-do-you-say', { gap: 80 }, 'en/' + w.id])
+        .then(function () {
+          if (!useMic) {
+            var b = listeningBubble('your answer? say it aloud');
+            return wait(3200).then(function () { b.remove(); return null; });
+          }
+          var lb = listeningBubble('listening…');
+          return listen(5000).then(function (heard) { lb.remove(); return heard; });
+        })
+        .then(function (heard) {
+          if (heard === null) {
+            // No mic: just reveal the answer, like the app's self-grade beat.
+            appSays('The answer is — <span class="jp accent-jp">' + w.kana + '</span><p class="example">' +
+              '<span class="jp soft-jp">' + w.sen.ja + '</span> — ' + w.sen.en + '</p>');
+            return seq(['phrases/the-answer-is', { gap: 120 }, 'ja/' + w.id, { gap: 400 }, 'sen/' + w.sen.id, { gap: 300 }]);
+          }
+          var got = matches(heard, w.accept);
+          var shown = heard ? heard.split(' ')[0] : '';
+          if (shown) bubble('you', '<p class="who">It heard you</p><div class="msg"><p class="jp">「' + shown.slice(0, 20) + '」</p></div>');
+          if (got) {
+            appSays('<span class="ok">✓</span> That&rsquo;s it. <span class="jp accent-jp">' + w.kana + '</span><p class="example">' +
+              '<span class="jp soft-jp">' + w.sen.ja + '</span> — ' + w.sen.en + '</p>');
+            return seq(['phrases/correct', { gap: 80 }, 'ja/' + w.id, { gap: 400 }, 'sen/' + w.sen.id, { gap: 300 }]);
+          }
+          appSays('Not quite — the answer is <span class="jp accent-jp">' + w.kana + '</span><p class="example">' +
+            '<span class="jp soft-jp">' + w.sen.ja + '</span> — ' + w.sen.en + '</p>');
+          return seq(['phrases/not-quite', { gap: 80 }, 'phrases/the-answer-is', { gap: 120 }, 'ja/' + w.id, { gap: 400 }, 'sen/' + w.sen.id, { gap: 300 }]);
+        });
+    };
+
+    var runDemo = function (useMic) {
+      if (running) return;
+      running = true;
+      looping = false;
+      clearTimeout(loopTimer);
+      controls.hidden = true;
+      caption.textContent = useMic ? 'Live demo — sound on. It teaches two words, then quizzes you.'
+        : 'Live demo — sound on. Two words taught, then quizzed. Answer out loud anyway — that’s the point.';
+      player = new Audio(); // created inside the tap so iOS lets us chain plays
+      clear();
+      ping('demo-start');
+      if (useMic) ping('demo-mic');
+      WORDS.reduce(function (p, w) { return p.then(function () { return teach(w); }); }, Promise.resolve())
+        .then(function () {
+          appSays('Quiz time — from the top.');
+          return wait(900);
+        })
+        .then(function () { return WORDS.reduce(function (p, w) { return p.then(function () { return quiz(w, useMic); }); }, Promise.resolve()); })
+        .then(function () {
+          ping('demo-done');
+          appSays('That was a real session &mdash; two words of it. The full app tracks every word and brings each one back right before you’d forget it.' +
+            '<a class="end-cta" href="/app/">Start learning free &rarr;</a>');
+          return play(AUDIO + 'phrases/session-done.mp3');
+        })
+        .then(function () {
+          caption.textContent = 'Demo over — the real thing is one tap away. No account needed to try it.';
+          running = false;
+          controls.hidden = false;
+        });
+    };
+
+    controls.hidden = false;
+    document.getElementById('demo-listen').addEventListener('click', function () { runDemo(false); });
+    var micBtn = document.getElementById('demo-mic');
+    if (SR && (window.isSecureContext !== false)) {
+      micBtn.hidden = false;
+      micBtn.addEventListener('click', function () { runDemo(true); });
+    }
   })();
 </script>
 
