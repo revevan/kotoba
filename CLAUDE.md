@@ -21,7 +21,11 @@ pnpm run preview
 
 Content-pipeline scripts (see package.json): `build-decks`, `order-decks`,
 `gen-audio [deckId]`, `gen-sentences`, `pipeline -- <deckId> plan|submit|fetch|judge`,
-`publish-sentences`, `sync-audio-r2`, `feedback`, `reviews`. SEO: `indexnow`
+`publish-sentences`, `sync-audio-r2`, `feedback`, `reviews`.
+Social: `gen-shorts -- --queue` (or `-- <deckId> [--format=X] [--count=N]`) renders
+1080x1920 vocab shorts from corpus assets into `tools/shorts/out/` (review.html grid
++ batch.json for the uploader; Python/Pillow/ffmpeg, self-bootstrapping venv;
+needs the brew-cask Noto CJK JP fonts — see `tools/shorts/HANDOFF.md`). SEO: `indexnow`
 (pings Bing/IndexNow with live sitemap URLs — run after marketing-page deploys).
 
 ## Architecture

@@ -16,6 +16,7 @@
     "gen-sentences-local": "tsx tools/gen-sentences-local.ts",
     "publish-sentences": "tsx tools/publish-sentences.ts",
     "pipeline": "tsx tools/pipeline/run.ts",
+    "gen-shorts": "tools/shorts/run.sh",
     "sync-audio-r2": "tsx tools/sync-audio-r2.ts",
     "feedback": "tsx tools/feedback.ts",
     "reviews": "tsx tools/reviews.ts",

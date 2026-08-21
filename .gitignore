@@ -5,6 +5,10 @@ dev-dist/
 *.local
 *.tmp
 tools/pipeline/state/
+tools/shorts/.venv/
+tools/shorts/out/
+tools/shorts/client_secret.json
 .env
 public/audio/
 kotoba-language-export.txt
+.DS_Store
