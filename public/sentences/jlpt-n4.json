@@ -94,10 +94,10 @@
       "clozeEligible": false
     },
     {
-      "id": "s-8ac84faa",
-      "textJa": "彼と別れてから、一人で生活しています。",
-      "readingKana": "かれとわかれてから、ひとりでせいかつしています。",
-      "textEn": "Since I broke up with him, I've been living alone.",
+      "id": "s-85fbbb49",
+      "textJa": "彼と別れてから、誰とも付き合っていません。",
+      "readingKana": "かれとわかれてから、だれともつきあっていません。",
+      "textEn": "Since I broke up with him, I haven't dated anyone.",
       "clozeSurface": "別れて",
       "clozeReading": "わかれて"
     },

@@ -19111,9 +19111,9 @@
       "clozeEligible": false
     },
     {
-      "id": "s-e490f3aa",
-      "textJa": "正直に言うと、遅れる理由を忘れました。",
-      "readingKana": "しょうじきにいうと、おくれるりゆうをわすれました。",
+      "id": "s-f2f425b6",
+      "textJa": "正直に言うと、遅れた理由を忘れました。",
+      "readingKana": "しょうじきにいうと、おくれたりゆうをわすれました。",
       "textEn": "Honestly, I forgot the reason I'm late.",
       "clozeSurface": "正直",
       "clozeReading": "しょうじき"

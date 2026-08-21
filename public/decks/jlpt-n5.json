@@ -11730,19 +11730,19 @@
    "id": "n5-be77935b",
    "english": "during, while",
    "prompt": "during",
-   "kana": "じゅう",
+   "kana": "ちゅう",
    "written": [
     "中",
-    "じゅう",
-    "ちゅう"
+    "ちゅう",
+    "じゅう"
    ],
-   "romaji": "juu",
+   "romaji": "chuu",
    "mora": [
-    "ju",
+    "chu",
     "u"
    ],
    "moraKana": [
-    "じゅ",
+    "ちゅ",
     "う"
    ],
    "tags": [
@@ -11754,8 +11754,8 @@
    "alts": [
     {
      "id": "n5-75e15261",
-     "kana": "ちゅう",
-     "romaji": "chuu"
+     "kana": "じゅう",
+     "romaji": "juu"
     }
    ]
   },
