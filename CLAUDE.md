@@ -22,10 +22,15 @@ pnpm run preview
 Content-pipeline scripts (see package.json): `build-decks`, `order-decks`,
 `gen-audio [deckId]`, `gen-sentences`, `pipeline -- <deckId> plan|submit|fetch|judge`,
 `publish-sentences`, `sync-audio-r2`, `feedback`, `reviews`.
-Social: `gen-shorts -- --queue` (or `-- <deckId> [--format=X] [--count=N]`) renders
-1080x1920 vocab shorts from corpus assets into `tools/shorts/out/` (review.html grid
-+ batch.json for the uploader; Python/Pillow/ffmpeg, self-bootstrapping venv;
-needs the brew-cask Noto CJK JP fonts — see `tools/shorts/HANDOFF.md`). SEO: `indexnow`
+Social (shorts pipeline, `tools/shorts/`): `gen-shorts -- --queue [file]` renders
+1080x1920 vocab shorts (Python/Pillow/ffmpeg, self-bootstrapping venv, Noto CJK JP
+fonts). Fully automated in CI: `shorts-render.yml` (Mon) runs `plan.mjs` (curated
+queue + Claude-picked top-up, stages audio from R2) → render → `register.mjs`
+(MP4+poster to R2 `shorts/`, rows in D1 `shorts` as pending) → wife approves on
+`/review` (Shorts tab) → `shorts-upload.yml` (daily) runs `upload.mjs` (approved →
+YouTube private + scheduled 1/weekday 15:00Z, ≤6/day quota). Local:
+`upload-shorts -- --auth|--dry-run`. Secrets: GOOGLE_CLIENT_SECRET_JSON,
+GOOGLE_TOKEN_JSON, KOTOBA_ADMIN_SECRET, ANTHROPIC_API_KEY, R2_*. SEO: `indexnow`
 (pings Bing/IndexNow with live sitemap URLs — run after marketing-page deploys).
 
 ## Architecture

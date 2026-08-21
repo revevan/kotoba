@@ -15,6 +15,11 @@
  *   GET  /admin/reviews?status=open|fixed|all (Bearer ADMIN_SECRET) -> [ …rows ]
  *   POST /admin/reviews/:wordId/status (Bearer) { status, fixNote? } -> { ok, status }
  *   GET  /stats         (Bearer, ADMIN_EMAILS)  -> { totalUsers, activeToday, …, users, days }
+ *   GET  /review/shorts (Bearer, reviewer)         -> { shorts: [ …pending rows ] }
+ *   POST /review/shorts/:id (Bearer, reviewer) { verdict: approve|reject, note? } -> { ok, status }
+ *   GET  /admin/shorts?status=approved|rejected|all (Bearer ADMIN_SECRET) -> [ …rows ]
+ *   POST /admin/shorts  (Bearer ADMIN_SECRET) { items: [ …rendered ] } -> { ok, inserted }
+ *   POST /admin/shorts/:id/status (Bearer ADMIN_SECRET) { status, videoId?, publishAt? } -> { ok }
  *
  * Secrets / vars (wrangler):
  *   ADMIN_SECRET   (secret, gates /admin/*)
@@ -95,7 +100,17 @@ export default {
           return await adminReviewList(request, env, cors);
         case 'GET /stats':
           return await statsGet(request, env, cors);
+        case 'GET /review/shorts':
+          return await shortsReviewList(request, env, cors);
+        case 'GET /admin/shorts':
+          return await shortsAdminList(request, env, cors);
+        case 'POST /admin/shorts':
+          return await shortsAdminRegister(request, env, cors);
         default: {
+          const sr = /^POST \/review\/shorts\/([\w-]+)$/.exec(route);
+          if (sr) return await shortsReviewPost(request, env, cors, sr[1]);
+          const ss = /^POST \/admin\/shorts\/([\w-]+)\/status$/.exec(route);
+          if (ss) return await shortsAdminStatus(request, env, cors, ss[1]);
           const m = /^POST \/admin\/feedback\/(\d+)\/resolve$/.exec(route);
           if (m) return await feedbackResolve(request, env, cors, Number(m[1]));
           const r = /^POST \/admin\/reviews\/([\w-]+)\/status$/.exec(route);
@@ -459,6 +474,116 @@ async function adminReviewStatus(request, env, cors, wordId) {
     'UPDATE content_reviews SET status = ?, fix_note = COALESCE(?, fix_note), updated_at = ? WHERE word_id = ?',
   )
     .bind(status, fixNote, Date.now(), wordId)
+    .run();
+  if (!r.meta.changes) return json({ error: 'not-found' }, 404, cors);
+  return json({ ok: true, status }, 200, cors);
+}
+
+// ---- Shorts pipeline (reviewer approves rendered videos; CI registers/uploads) ----
+
+const SHORT_STATUSES = ['pending', 'approved', 'rejected', 'uploaded'];
+const SHORT_COLS =
+  'id, format, word_id, sentence_id, level, title, description, duration, video_url, poster_url, ' +
+  'status, note, reviewed_by, reviewed_at, video_id, publish_at, created_at, updated_at';
+
+const shortRow = (r) => ({
+  id: r.id,
+  format: r.format,
+  wordId: r.word_id,
+  sentenceId: r.sentence_id,
+  level: r.level,
+  title: r.title,
+  description: r.description,
+  duration: r.duration,
+  videoUrl: r.video_url,
+  posterUrl: r.poster_url,
+  status: r.status,
+  note: r.note,
+  reviewedBy: r.reviewed_by,
+  reviewedAt: r.reviewed_at,
+  videoId: r.video_id,
+  publishAt: r.publish_at,
+  createdAt: r.created_at,
+  updatedAt: r.updated_at,
+});
+
+async function shortsReviewList(request, env, cors) {
+  const reviewer = await authReviewer(request, env);
+  if (!reviewer) return json({ error: 'forbidden' }, 403, cors);
+  // Pending first (oldest first), plus the reviewer's own recent verdicts so
+  // the page can show "you approved N" and allow a change of mind.
+  const { results } = await env.DB.prepare(
+    `SELECT ${SHORT_COLS} FROM shorts WHERE status = 'pending' OR (status IN ('approved','rejected') AND reviewed_at > ?) ` +
+      'ORDER BY CASE status WHEN \'pending\' THEN 0 ELSE 1 END, created_at ASC LIMIT 500',
+  )
+    .bind(Date.now() - 7 * 86_400_000)
+    .all();
+  return json({ shorts: results.map(shortRow) }, 200, cors);
+}
+
+async function shortsReviewPost(request, env, cors, id) {
+  const reviewer = await authReviewer(request, env);
+  if (!reviewer) return json({ error: 'forbidden' }, 403, cors);
+  const body = await readJson(request);
+  const verdict = body.verdict === 'approve' || body.verdict === 'reject' ? body.verdict : null;
+  if (!verdict) return json({ error: 'bad-input' }, 400, cors);
+  const note = String(body.note ?? '').trim().slice(0, MAX_REVIEW_NOTE_CHARS) || null;
+  const status = verdict === 'approve' ? 'approved' : 'rejected';
+  // Verdicts only move pending/approved/rejected rows — never an uploaded one.
+  const r = await env.DB.prepare(
+    "UPDATE shorts SET status = ?, note = ?, reviewed_by = ?, reviewed_at = ?, updated_at = ? WHERE id = ? AND status != 'uploaded'",
+  )
+    .bind(status, note, reviewer, Date.now(), Date.now(), id)
+    .run();
+  if (!r.meta.changes) return json({ error: 'not-found' }, 404, cors);
+  return json({ ok: true, status }, 200, cors);
+}
+
+async function shortsAdminList(request, env, cors) {
+  if (!isAdmin(request, env)) return json({ error: 'unauthorized' }, 401, cors);
+  const want = new URL(request.url).searchParams.get('status') || 'approved';
+  const stmt =
+    want === 'all'
+      ? env.DB.prepare(`SELECT ${SHORT_COLS} FROM shorts ORDER BY created_at ASC LIMIT 5000`)
+      : env.DB.prepare(`SELECT ${SHORT_COLS} FROM shorts WHERE status = ? ORDER BY created_at ASC LIMIT 5000`).bind(want);
+  const { results } = await stmt.all();
+  return json(results.map(shortRow), 200, cors);
+}
+
+/** Register freshly rendered videos as pending. Existing ids are left alone
+ *  (a re-render never resets a verdict); returns how many were new. */
+async function shortsAdminRegister(request, env, cors) {
+  if (!isAdmin(request, env)) return json({ error: 'unauthorized' }, 401, cors);
+  const body = await readJson(request);
+  const items = Array.isArray(body.items) ? body.items.slice(0, 200) : [];
+  const now = Date.now();
+  let inserted = 0;
+  for (const it of items) {
+    const id = String(it.id ?? '');
+    if (!/^[\w-]{1,120}$/.test(id) || !it.videoUrl || !it.title) continue;
+    const r = await env.DB.prepare(
+      `INSERT OR IGNORE INTO shorts (${SHORT_COLS}) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NULL, NULL, NULL, NULL, NULL, ?, ?)`,
+    )
+      .bind(
+        id, String(it.format ?? ''), String(it.wordId ?? ''), String(it.sentenceId ?? ''), it.level ?? null,
+        String(it.title).slice(0, 200), String(it.description ?? '').slice(0, 5000), Number(it.duration) || null,
+        String(it.videoUrl), it.posterUrl ? String(it.posterUrl) : null, now, now,
+      )
+      .run();
+    inserted += r.meta.changes;
+  }
+  return json({ ok: true, inserted, received: items.length }, 200, cors);
+}
+
+async function shortsAdminStatus(request, env, cors, id) {
+  if (!isAdmin(request, env)) return json({ error: 'unauthorized' }, 401, cors);
+  const body = await readJson(request);
+  const status = SHORT_STATUSES.includes(body.status) ? body.status : null;
+  if (!status) return json({ error: 'bad-status' }, 400, cors);
+  const r = await env.DB.prepare(
+    'UPDATE shorts SET status = ?, video_id = COALESCE(?, video_id), publish_at = COALESCE(?, publish_at), updated_at = ? WHERE id = ?',
+  )
+    .bind(status, body.videoId ? String(body.videoId) : null, body.publishAt ? String(body.publishAt) : null, Date.now(), id)
     .run();
   if (!r.meta.changes) return json({ error: 'not-found' }, 404, cors);
   return json({ ok: true, status }, 200, cors);

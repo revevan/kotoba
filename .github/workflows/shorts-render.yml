@@ -1,0 +1,48 @@
+# Weekly shorts render: plan → render → publish to R2 → register for review.
+# Nothing here touches YouTube; approved items are uploaded by shorts-upload.yml.
+name: Shorts — render batch
+
+on:
+  schedule:
+    - cron: '0 3 * * 1'   # Mondays 03:00 UTC
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'How many shorts to plan this run'
+        default: '10'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: shorts-render
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Fonts (Noto CJK, same ttc paths the generator falls back to)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk fonts-noto-cjk-extra > /dev/null
+      - name: Plan (curated queue + Claude-picked top-up) and stage audio
+        run: node tools/shorts/plan.mjs --target "${{ github.event.inputs.target || '10' }}"
+        env:
+          KOTOBA_ADMIN_SECRET: ${{ secrets.KOTOBA_ADMIN_SECRET }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - name: Render
+        run: pnpm run gen-shorts -- --queue tools/shorts/out/plan-queue.json
+      - name: Publish to R2 and register as pending review
+        run: node tools/shorts/register.mjs
+        env:
+          KOTOBA_ADMIN_SECRET: ${{ secrets.KOTOBA_ADMIN_SECRET }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}

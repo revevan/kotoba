@@ -18,7 +18,7 @@ import { Player } from '../audio/player';
 import { prefetchAudio } from '../audio/prefetch';
 import { loadAuth, persistAuth, requestCode, verifyCode, type Auth } from '../sync/client';
 import { cloudSyncEnabled } from '../sync/config';
-import { fetchReviewState, submitReview, type ReviewRow, type ReviewSubmission } from './api';
+import { fetchReviewState, fetchShorts, submitReview, submitShortVerdict, type ReviewRow, type ReviewSubmission, type ShortRow } from './api';
 
 // ---- Card rows ----------------------------------------------------------
 
@@ -166,12 +166,15 @@ export function ReviewApp() {
   const [entries, setEntries] = useState<Entry[] | null>(null);
   const [reviews, setReviews] = useState<Map<string, ReviewRow>>(new Map());
   const [outbox, setOutbox] = useState<ReviewSubmission[]>(() => readJson(OUTBOX_KEY, []));
+  const [shorts, setShorts] = useState<ShortRow[]>([]);
+  const [mode, setMode] = useState<'words' | 'shorts'>('words');
 
   const boot = async (a: Auth | null) => {
     try {
-      const [loaded, rows] = await Promise.all([
+      const [loaded, rows, clips] = await Promise.all([
         entries ? Promise.resolve(entries) : loadEntries(),
         cloudSyncEnabled ? (a ? fetchReviewState(a.token) : Promise.resolve(null)) : Promise.resolve(readJson<ReviewRow[]>(LOCAL_KEY, [])),
+        cloudSyncEnabled && a ? fetchShorts(a.token).catch(() => [] as ShortRow[]) : Promise.resolve([] as ShortRow[]),
       ]);
       setEntries(loaded);
       if (rows === null) {
@@ -179,6 +182,7 @@ export function ReviewApp() {
         return;
       }
       setReviews(new Map(rows.map((r) => [r.wordId, r])));
+      setShorts(clips);
       setPhase('ready');
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
@@ -271,7 +275,117 @@ export function ReviewApp() {
       />
     );
   }
-  return <ReviewScreen entries={entries!} reviews={reviews} submit={submit} unsaved={outbox.length} email={auth?.email ?? null} />;
+  const judgeShort = async (id: string, verdict: 'approve' | 'reject', note?: string) => {
+    const status = verdict === 'approve' ? 'approved' : 'rejected';
+    setShorts((list) => list.map((sh) => (sh.id === id ? { ...sh, status, note: note ?? null, reviewedAt: Date.now() } : sh)));
+    if (auth) {
+      try {
+        await submitShortVerdict(auth.token, id, verdict, note);
+      } catch {
+        // Put it back so it isn't silently lost; the reviewer can retry.
+        setShorts((list) => list.map((sh) => (sh.id === id ? { ...sh, status: 'pending' } : sh)));
+      }
+    }
+  };
+
+  if (mode === 'shorts') {
+    return <ShortsScreen shorts={shorts} judge={judgeShort} onExit={() => setMode('words')} />;
+  }
+  return (
+    <ReviewScreen
+      entries={entries!}
+      reviews={reviews}
+      submit={submit}
+      unsaved={outbox.length}
+      email={auth?.email ?? null}
+      pendingShorts={shorts.filter((sh) => sh.status === 'pending').length}
+      onShorts={() => setMode('shorts')}
+    />
+  );
+}
+
+// ---- Shorts review --------------------------------------------------------
+// One rendered video at a time: watch it, then OK (→ YouTube upload queue) or
+// "needs a fix" with a note (→ Evan's evening triage; the corpus fix re-renders
+// it automatically). Nothing here touches the word-review queue.
+
+interface ShortsProps {
+  shorts: ShortRow[];
+  judge: (id: string, verdict: 'approve' | 'reject', note?: string) => void;
+  onExit: () => void;
+}
+
+function ShortsScreen({ shorts, judge, onExit }: ShortsProps) {
+  const pending = shorts.filter((sh) => sh.status === 'pending');
+  const current = pending[0] ?? null;
+  const [note, setNote] = useState('');
+  const [rejecting, setRejecting] = useState(false);
+  const done = shorts.filter((sh) => sh.status !== 'pending').length;
+
+  useEffect(() => {
+    setNote('');
+    setRejecting(false);
+  }, [current?.id]);
+
+  if (!current) {
+    return (
+      <div class="rv-center">
+        <div class="brand-kanji">言葉</div>
+        <h1>ショート動画、全部チェック済み 🎬</h1>
+        <p>No videos are waiting. {done > 0 && `You've reviewed ${done} recently.`}</p>
+        <button class="primary big" onClick={onExit}>← Back to words</button>
+      </div>
+    );
+  }
+
+  return (
+    <div class="rv-screen">
+      <header class="rv-head">
+        <div class="rv-head-left">
+          <span class="brand-kanji rv-brand">言葉</span>
+          <span class="rv-deck">Shorts · {current.format}{current.level ? ` · JLPT ${current.level}` : ''}</span>
+        </div>
+        <div class="rv-head-right">
+          <span class="rv-count">{pending.length} to go</span>
+        </div>
+      </header>
+      <div class="rv-card rv-short">
+        <video key={current.id} class="rv-video" src={current.videoUrl} poster={current.posterUrl ?? undefined} controls playsInline preload="metadata" />
+        <div class="rv-short-meta">
+          <div class="r-en">{current.title}</div>
+          <div class="r-sub rv-faint">{current.wordId} / {current.sentenceId}</div>
+        </div>
+        {rejecting && (
+          <textarea
+            class="rv-note"
+            placeholder="何が変？ — what's wrong (audio, text, the sentence itself…)"
+            value={note}
+            onInput={(e) => setNote((e.target as HTMLTextAreaElement).value)}
+            autoFocus
+          />
+        )}
+        <div class="rv-actions">
+          {!rejecting ? (
+            <>
+              <button class="ghost" onClick={() => setRejecting(true)}>直して (needs a fix)</button>
+              <button class="primary" onClick={() => judge(current.id, 'approve')}>OK — upload it</button>
+            </>
+          ) : (
+            <>
+              <button class="ghost" onClick={() => setRejecting(false)}>Cancel</button>
+              <button class="primary flagging" disabled={!note.trim()} onClick={() => judge(current.id, 'reject', note.trim())}>
+                Send fix note
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+      <footer class="rv-foot">
+        <span class="rv-faint">{done} reviewed recently</span>
+        <button class="ghost" onClick={onExit}>← Words</button>
+      </footer>
+    </div>
+  );
 }
 
 function Center({ msg, retry }: { msg: string; retry?: () => void }) {
@@ -349,9 +463,11 @@ interface ScreenProps {
   submit: (sub: ReviewSubmission) => void;
   unsaved: number;
   email: string | null;
+  pendingShorts: number;
+  onShorts: () => void;
 }
 
-function ReviewScreen({ entries, reviews, submit, unsaved, email }: ScreenProps) {
+function ReviewScreen({ entries, reviews, submit, unsaved, email, pendingShorts, onShorts }: ScreenProps) {
   const [started, setStarted] = useState(false);
   const [autoplay, setAutoplay] = useState(() => readJson('kotoba-review-autoplay', true));
   const [history, setHistory] = useState<string[]>([]);
@@ -420,6 +536,11 @@ function ReviewScreen({ entries, reviews, submit, unsaved, email }: ScreenProps)
         >
           {queue.length === 0 ? 'All caught up — browse anyway' : 'Start reviewing'}
         </button>
+        {pendingShorts > 0 && (
+          <button class="ghost" onClick={onShorts}>
+            🎬 {pendingShorts} short video{pendingShorts === 1 ? '' : 's'} waiting for your OK
+          </button>
+        )}
         {email && <p class="rv-faint">signed in as {email}</p>}
         {!cloudSyncEnabled && <p class="rv-err">Local mode — no API endpoint configured; verdicts stay on this device.</p>}
       </div>

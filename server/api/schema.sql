@@ -82,3 +82,31 @@ CREATE TABLE IF NOT EXISTS rate_limits (
   count    INTEGER NOT NULL,
   reset_at INTEGER NOT NULL
 );
+
+-- Faceless-shorts pipeline (tools/shorts + .github/workflows/shorts-*.yml).
+-- One row per rendered video. Lifecycle: the weekly render job registers rows
+-- as 'pending' (MP4 + poster on R2) → the reviewer page approves ('approved')
+-- or rejects ('rejected', note feeds the evening triage) → the daily upload
+-- job pushes approved rows to YouTube as private + scheduled ('uploaded',
+-- with the video id and publish_at slot).
+CREATE TABLE IF NOT EXISTS shorts (
+  id          TEXT PRIMARY KEY,   -- file stem: <format>_<wordId>_<sentenceId>
+  format      TEXT NOT NULL,
+  word_id     TEXT NOT NULL,
+  sentence_id TEXT NOT NULL,
+  level       TEXT,
+  title       TEXT NOT NULL,
+  description TEXT NOT NULL,
+  duration    REAL,
+  video_url   TEXT NOT NULL,
+  poster_url  TEXT,
+  status      TEXT NOT NULL,      -- pending | approved | rejected | uploaded
+  note        TEXT,               -- reviewer's note (on reject)
+  reviewed_by TEXT,
+  reviewed_at INTEGER,
+  video_id    TEXT,               -- YouTube video id once uploaded
+  publish_at  TEXT,               -- scheduled publish time (ISO, UTC)
+  created_at  INTEGER NOT NULL,
+  updated_at  INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_shorts_status ON shorts (status);

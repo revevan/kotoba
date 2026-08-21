@@ -293,3 +293,12 @@
     order: -1;
   }
 }
+
+/* ---- Shorts review ---- */
+.rv-short { align-items: center; }
+.rv-video {
+  width: min(100%, 360px); aspect-ratio: 9 / 16; background: #000;
+  border-radius: 12px; display: block; margin: 0 auto 14px;
+}
+.rv-short-meta { text-align: center; margin-bottom: 14px; }
+.rv-short .rv-note { width: 100%; }
