@@ -4,6 +4,7 @@
 
 ## Now
 
+- [ ] Shorts: Evan reviews the 15-video batch (`tools/shorts/out/review.html`), then set up the YouTube upload path — create the Data API project, **file the compliance-audit form immediately** (it gates publishing), check youtube-uploader-mcp for `publishAt` support, else write `tools/shorts/upload.mjs` driven by `out/batch.json`
 - [ ] ~2026-08-15: evaluate marketing-demo funnel — pull `/demo-start|mic|done.txt` path counts from CF zone analytics, compare homepage→app→signup against the 2026-08-08 baseline (~317 visits → 16 app opens → 4 signups /8d), decide next growth move
 - [ ] Conjugation practice: graduate from early access
 - [ ] SEO Phase 1 — Foundations (see below)
@@ -11,6 +12,12 @@
 ## Next
 
 - [ ] Promote labs rungs (shadow/build sentence modes, `?labs=1`) to release
+- [ ] Casual-register sentence variants: add plain-form/casual variants to the example-sentence pools (cloze/shadow rungs) so learners hear the polite↔casual mapping on words they know. Pipeline currently gates "casual plain-form conversation" to the N3 band (`tools/pipeline/config.ts`) — loosen per-band, generate variants through the existing pipeline → wife's /review audit → audio → R2. Origin: friend feedback 2026-08-14 ("always looking for casual Japanese, not ~masu form")
+
+## Ideas (future)
+
+- Scenario-themed decks: vocab + sentence decks around situations (doctor visit, barber, workplace small talk) — rides the existing deck/sentence/audio loop, NOT a dialogue library (saturated market, off-strategy per docs/keyword-research-2026-08.md)
+- **Unhinged deck** as the first scenario deck: totally unhinged words/phrases, doubles as the hook for shorts (deadpan format is already the style lock — an unhinged corpus feeds it natural material)
 
 ## SEO & AI search roadmap
 
@@ -29,7 +36,7 @@
 
 - [ ] Set up Google Search Console MCP (AminForou/mcp-gsc) so Claude can mine real query/impression data
 - [ ] Open DataForSEO account ($50 pay-as-you-go deposit, official MCP) + set spend alert
-- [ ] Validate Tier 1 keyword list via DataForSEO: volumes + distinct-SERP checks (~$1 total)
+- [ ] Validate Tier 1 keyword list via DataForSEO: volumes + distinct-SERP checks (~$1 total) — include casual-register phrasings ("casual japanese", "plain form japanese practice", "japanese apps only teach polite") to size the register-gap angle from friend feedback 2026-08-14
 - [ ] Optional: Keywords Everywhere Bronze ($84/yr, includes MCP + autocomplete overlay)
 
 ### Phase 3 — Tier 1 landing pages (static HTML on marketing site, NOT the SPA — AI crawlers can't run JS)
@@ -41,6 +48,7 @@
 - [x] "Audio spaced repetition, explained" — built 2026-08-07 as /audio-spaced-repetition; category-defining page, grading-fidelity comparison (Kotoba/Danki/Audio Flash/Anki auto-advance)
 - [x] "A Pimsleur alternative that actually hears you" — built 2026-08-07 as /pimsleur-alternative; credits Pimsleur honestly, names the can't-hear-you gap
 - [x] Each page: title/URL literally match the query; 40–80-word direct answer up top; question-form H2s; FAQ block — all six follow the template; all cross-linked + footer-linked sitewide; sitemap has all 7 URLs
+- [ ] Page candidate (pending Phase 2 keyword validation): "Why apps only teach you polite Japanese" — register-gap angle; ties into casual sentence variants once shipped
 
 ### Phase 4 — GEO content & outreach (weeks 4–6)
 
@@ -77,6 +85,8 @@
 
 ## Done
 
+- [x] Shorts batch v2 after Evan + native review (2026-08-17): killed the itadakimasu deadpan (EN TTS mispronounces "itadakimasu"); notrans format now speaks the EN gloss + sentence translation (transcript SEO); corpus fixes applied via apply-review/deck edits — 遅れる→遅れた (s-f2f425b6), 別れる sentence replaced with 誰とも付き合っていません (s-85fbbb49), 老い got a kanji `speak` override for pitch accent, 中 "during" primary reading swapped じゅう→ちゅう. Revised sentences have new ids → they'll re-queue at /review for her re-check. Batch is now 14 videos. NOTE: gen-audio also kicked off the pending N3/N4 conj-audio backlog; R2 sync runs after it finishes.
+- [x] Shorts generator ported into the repo (2026-08-11): `pnpm run gen-shorts` (tools/shorts/gen_shorts.py, Python/Pillow/ffmpeg, self-bootstrapping venv) renders 1080x1920 shorts from corpus assets — 4 formats (quiz/wotd/deadpan/notrans), idempotency manifest, out/review.html grid + out/batch.json (titles, descriptions, publishAt 5/week). Full curated queue (10 deadpan + 5 notrans) rendered; added EN word-wrap + kinsoku-aware JA wrap the prototype lacked. Style locked per HANDOFF.md: no motion, no driving copy.
 - [x] Marketing-page live demo (2026-08-08): the hero exchange box now runs a real mini session on tap — teach water/tomorrow → quiz, production R2 audio, optional on-device Web Speech mic (graceful fallback when denied). Funnel markers via `/demo-start|mic|done.txt` fetches, visible per-path in CF zone analytics. Context: funnel analysis showed ~5% homepage→app click-through vs 25% app→signup — the leak is "never tries a session". Baseline (last 8 days, human browsers): ~317 homepage visits → 16 app opens → 4 signups.
 - [x] Admin usage stats (2026-08-08): `GET /stats` on the API worker (gated to `ADMIN_EMAILS` = revevan) + in-app Stats screen (Settings → Stats, visible only to admin login). New D1 `activity_days` table logs one row per user per UTC day on sync → real daily-active counts going forward. Same-day follow-up: `studied` flag on `activity_days` (set from the sync blob's newest last_review) separates "opened the app" from "graded at least one card" — tiles show studied/opened, day bars are two-tone, per-user Opened/30 + Studied/30 columns. All deployed.
 - [x] "Missed it" demote button on the pass screen
