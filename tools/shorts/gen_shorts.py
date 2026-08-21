@@ -538,7 +538,7 @@ def write_review_html(items, path):
     cards = []
     for it in items:
         cards.append(f'''<div class="card">
-  <video src="{it['file']}" controls preload="metadata"></video>
+  <video src="{it['file']}" poster="thumbs/{it['file']}.jpg" controls preload="none"></video>
   <div class="meta">
     <div class="fmt">{it['format']} · {it['level']} · {it['duration']:.0f}s · {it['publishAt'][:10]}</div>
     <div class="title">{it['title']}</div>
@@ -657,6 +657,14 @@ def main():
                 'hashtags': HASHTAGS,
                 'publishAt': dates[i],
             })
+
+    thumbs = os.path.join(OUT_DIR, 'thumbs')
+    os.makedirs(thumbs, exist_ok=True)
+    for it in batch:
+        thumb = os.path.join(thumbs, f"{it['file']}.jpg")
+        if not os.path.exists(thumb):
+            run(['ffmpeg', '-y', '-ss', '1', '-i', os.path.join(OUT_DIR, it['file']),
+                 '-frames:v', '1', '-vf', 'scale=360:-2', thumb])
 
     json.dump(batch, open(os.path.join(OUT_DIR, 'batch.json'), 'w'),
               ensure_ascii=False, indent=1)
