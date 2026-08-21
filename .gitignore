@@ -12,3 +12,4 @@ tools/shorts/client_secret.json
 public/audio/
 kotoba-language-export.txt
 .DS_Store
+tools/shorts/token.json

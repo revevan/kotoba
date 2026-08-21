@@ -20,7 +20,8 @@
     "sync-audio-r2": "tsx tools/sync-audio-r2.ts",
     "feedback": "tsx tools/feedback.ts",
     "reviews": "tsx tools/reviews.ts",
-    "indexnow": "node tools/indexnowPing.mjs"
+    "indexnow": "node tools/indexnowPing.mjs",
+    "upload-shorts": "node tools/shorts/upload.mjs"
   },
   "dependencies": {
     "@patdx/kuromoji": "^1.0.4",
@@ -35,6 +36,7 @@
     "@aws-sdk/client-s3": "^3.1079.0",
     "@preact/preset-vite": "^2.9.0",
     "@types/node": "^25.9.3",
+    "googleapis": "^174.0.1",
     "msedge-tts": "^2.0.0",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0",

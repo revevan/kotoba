@@ -4,7 +4,7 @@
 
 ## Now
 
-- [ ] Shorts: Evan reviews the 15-video batch (`tools/shorts/out/review.html`), then set up the YouTube upload path — create the Data API project, **file the compliance-audit form immediately** (it gates publishing), check youtube-uploader-mcp for `publishAt` support, else write `tools/shorts/upload.mjs` driven by `out/batch.json`
+- [ ] Shorts → YouTube: **API compliance audit submitted 2026-08-21** (GCP project 1093840369284, client "Kotoba Shorts Uploader"); uploads via API stay locked-private until it passes (typically 1–3 weeks, watch revevan@gmail.com for follow-ups — likely ask: OAuth consent screenshot). Uploader is built: `pnpm run upload-shorts -- --auth` once, then `pnpm run upload-shorts` daily (≤6/day, state in out/upload-state.json). Meanwhile batch 1 can be scheduled by hand in YouTube Studio from out/batch.json. Evidence PDF in ~/Downloads/yt-audit-evidence.pdf
 - [ ] ~2026-08-15: evaluate marketing-demo funnel — pull `/demo-start|mic|done.txt` path counts from CF zone analytics, compare homepage→app→signup against the 2026-08-08 baseline (~317 visits → 16 app opens → 4 signups /8d), decide next growth move
 - [ ] Conjugation practice: graduate from early access
 - [ ] SEO Phase 1 — Foundations (see below)
