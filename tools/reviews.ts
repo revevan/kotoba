@@ -7,6 +7,10 @@
 //   npm run reviews -- --close n5-abc123     — close without re-check
 //   npm run reviews -- --verify n5-abc123    — mark verified directly
 //
+// Rejected shorts (the /review Shorts tab) are listed alongside open flags:
+//   npm run reviews -- --short-rerender <shortId>  — corpus fixed, same ids: re-render Monday + re-queue
+//   npm run reviews -- --short-drop <shortId>      — not coming back (sentence replaced / not worth it)
+//
 // Needs KOTOBA_ADMIN_SECRET in .env (matches the worker's ADMIN_SECRET secret).
 
 import { existsSync, readFileSync } from 'node:fs';
@@ -37,6 +41,19 @@ interface Row {
   note: string | null;
   status: string;
   fixNote: string | null;
+  updatedAt: number;
+}
+
+interface ShortRow {
+  id: string;
+  format: string;
+  wordId: string;
+  sentenceId: string;
+  title: string;
+  status: string;
+  note: string | null;
+  reviewedBy: string | null;
+  reviewedAt: number | null;
   updatedAt: number;
 }
 
@@ -82,6 +99,16 @@ async function main() {
   const headers = { Authorization: `Bearer ${secret}`, 'Content-Type': 'application/json' };
   const args = process.argv.slice(2);
 
+  const shortIdx = args.findIndex((a) => a === '--short-rerender' || a === '--short-drop');
+  if (shortIdx !== -1) {
+    const status = args[shortIdx] === '--short-rerender' ? 'rerender' : 'dropped';
+    const id = args[shortIdx + 1];
+    if (!id) throw new Error(`${args[shortIdx]} needs a short id`);
+    const r = await fetch(`${API}/admin/shorts/${id}/status`, { method: 'POST', headers, body: JSON.stringify({ status }) });
+    console.log(`${id} → ${await r.text()}`);
+    return;
+  }
+
   const actionIdx = args.findIndex((a) => a === '--fix' || a === '--close' || a === '--verify');
   if (actionIdx !== -1) {
     const status = { '--fix': 'fixed', '--close': 'closed', '--verify': 'verified' }[args[actionIdx]]!;
@@ -103,13 +130,30 @@ async function main() {
   const r = await fetch(`${API}/admin/reviews?status=${want}`, { headers });
   if (!r.ok) throw new Error(`list failed (${r.status})`);
   const rows = (await r.json()) as Row[];
+  const sr = want === 'open' ? await fetch(`${API}/admin/shorts?status=rejected`, { headers }) : null;
+  const shorts = sr?.ok ? ((await sr.json()) as ShortRow[]) : [];
 
-  if (rows.length === 0) {
+  if (rows.length === 0 && shorts.length === 0) {
     console.log(want === 'open' ? 'No open flags. 🎉' : `No reviews with status '${want}'.`);
     return;
   }
 
   const ctx = loadContext();
+  if (shorts.length > 0) {
+    console.log(`🎬 Rejected shorts (${shorts.length})\n`);
+    for (const sh of shorts) {
+      const w = ctx.get(sh.wordId);
+      const sen = w?.sentences.get(sh.sentenceId);
+      const when = new Date(sh.reviewedAt ?? sh.updatedAt).toISOString().slice(0, 16).replace('T', ' ');
+      console.log(`[rejected] ${sh.title}   ${sh.format} · ${sh.id} · ${when}`);
+      if (w) console.log(`  word: ${w.written[0]} (${w.kana}) — ${w.english}`);
+      if (sen) console.log(`  sentence: 「${sen.textJa}」 (${sen.textEn})`);
+      if (sh.note) console.log(`  note: ${sh.note.replace(/\n/g, '\n        ')}`);
+      console.log();
+    }
+    console.log('Resolve: npm run reviews -- --short-rerender <id>  (fixed, same ids)  ·  --short-drop <id>  (replaced / not worth it)\n');
+  }
+  if (rows.length === 0) return;
   for (const row of rows) {
     const w = ctx.get(row.wordId);
     const when = new Date(row.updatedAt).toISOString().slice(0, 16).replace('T', ' ');

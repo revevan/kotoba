@@ -52,7 +52,7 @@ export function r2Client(env) {
 }
 
 export async function r2Put(s3, key, body, contentType) {
-  await s3.send(new PutObjectCommand({ Bucket: R2_BUCKET, Key: key, Body: body, ContentType: contentType, CacheControl: 'public, max-age=31536000, immutable' }));
+  await s3.send(new PutObjectCommand({ Bucket: R2_BUCKET, Key: key, Body: body, ContentType: contentType, CacheControl: 'public, max-age=600' }));
   return `${AUDIO_BASE}/${key}`;
 }
 

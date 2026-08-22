@@ -122,11 +122,16 @@ async function fetchClip(sub, id) {
 async function main() {
   const existing = await adminApi(env, '/admin/shorts?status=all');
   const existingIds = new Set(existing.map((s) => s.id));
-  const usedWords = new Set(existing.map((s) => s.wordId));
+  // Words with a live short stay out of the picker; rejected/dropped ones may
+  // come back with a different (fixed) sentence — the exact same id never will.
+  const usedWords = new Set(existing.filter((s) => !['rejected', 'dropped'].includes(s.status)).map((s) => s.wordId));
   console.log(`${existingIds.size} shorts already registered`);
 
+  // Fixed-and-flagged-for-rerender items go first (same ids → same R2 keys).
+  const plan = existing.filter((s) => s.status === 'rerender').map((s) => ({ format: s.format, wordId: s.wordId, sentenceId: s.sentenceId }));
+  if (plan.length) console.log(`${plan.length} re-renders after corpus fixes`);
   const curated = JSON.parse(readFileSync(join(SHORTS_DIR, 'queue.json'), 'utf8'));
-  const plan = curated.filter((it) => !existingIds.has(idOf(it))).slice(0, target);
+  plan.push(...curated.filter((it) => !existingIds.has(idOf(it))).slice(0, Math.max(0, target - plan.length)));
   for (const it of plan) usedWords.add(it.wordId);
   console.log(`${plan.length} from curated queue`);
 

@@ -20,6 +20,7 @@
  *   GET  /admin/shorts?status=approved|rejected|all (Bearer ADMIN_SECRET) -> [ …rows ]
  *   POST /admin/shorts  (Bearer ADMIN_SECRET) { items: [ …rendered ] } -> { ok, inserted }
  *   POST /admin/shorts/:id/status (Bearer ADMIN_SECRET) { status, videoId?, publishAt? } -> { ok }
+ *     (status: pending|approved|rejected|uploaded|rerender|dropped)
  *
  * Secrets / vars (wrangler):
  *   ADMIN_SECRET   (secret, gates /admin/*)
@@ -481,7 +482,9 @@ async function adminReviewStatus(request, env, cors, wordId) {
 
 // ---- Shorts pipeline (reviewer approves rendered videos; CI registers/uploads) ----
 
-const SHORT_STATUSES = ['pending', 'approved', 'rejected', 'uploaded'];
+// 'rerender': maintainer fixed the corpus (same ids) → next render run re-renders
+// it and re-registering flips it back to 'pending'. 'dropped': triaged, not coming back.
+const SHORT_STATUSES = ['pending', 'approved', 'rejected', 'uploaded', 'rerender', 'dropped'];
 const SHORT_COLS =
   'id, format, word_id, sentence_id, level, title, description, duration, video_url, poster_url, ' +
   'status, note, reviewed_by, reviewed_at, video_id, publish_at, created_at, updated_at';
@@ -571,6 +574,15 @@ async function shortsAdminRegister(request, env, cors) {
       )
       .run();
     inserted += r.meta.changes;
+    if (!r.meta.changes) {
+      // Re-render of a fixed item: refresh metadata and put it back in the queue.
+      await env.DB.prepare(
+        "UPDATE shorts SET status = 'pending', title = ?, description = ?, duration = ?, video_url = ?, poster_url = ?, note = NULL, updated_at = ? WHERE id = ? AND status = 'rerender'",
+      )
+        .bind(String(it.title).slice(0, 200), String(it.description ?? '').slice(0, 5000), Number(it.duration) || null,
+          String(it.videoUrl), it.posterUrl ? String(it.posterUrl) : null, now, id)
+        .run();
+    }
   }
   return json({ ok: true, inserted, received: items.length }, 200, cors);
 }
