@@ -4,7 +4,7 @@
 
 ## Now
 
-- [ ] Shorts → YouTube: **API compliance audit submitted 2026-08-21** (GCP project 1093840369284, client "Kotoba Shorts Uploader"); API uploads stay locked-private until it passes (1–3 weeks; watch revevan@gmail.com — likely ask: OAuth consent screenshot, captured 2026-08-21). Pipeline is fully automated as of 2026-08-21 (render Mon → wife approves on /review Shorts tab → upload daily). First 14 videos are pending her review. Rejected shorts carry her note in D1 `shorts.note` — fold into `pnpm run reviews` triage.
+- [ ] Shorts → YouTube: **API compliance audit submitted 2026-08-21** (GCP project 1093840369284, client "Kotoba Shorts Uploader"); API uploads stay locked-private until it passes (1–3 weeks; watch revevan@gmail.com — likely ask: OAuth consent screenshot, captured 2026-08-21). Pipeline is fully automated as of 2026-08-21 (render Mon → wife approves on /review Shorts tab → upload daily). Rejected shorts show up in `pnpm run reviews` (resolve: `--short-rerender` / `--short-drop`). First 6 uploaded 2026-08-22, scheduled Aug 24–31 on @KotobaApp (stay private until the audit clears).
 - [ ] ~2026-08-15: evaluate marketing-demo funnel — pull `/demo-start|mic|done.txt` path counts from CF zone analytics, compare homepage→app→signup against the 2026-08-08 baseline (~317 visits → 16 app opens → 4 signups /8d), decide next growth move
 - [ ] Conjugation practice: graduate from early access
 - [ ] SEO Phase 1 — Foundations (see below)

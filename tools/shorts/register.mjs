@@ -2,12 +2,13 @@
 //
 //   node tools/shorts/register.mjs            (everything in out/batch.json)
 //
-// Idempotent: the worker ignores ids it already has, and R2 objects are
-// immutable by id, so re-running after a partial failure is safe.
+// Idempotent: the worker ignores ids it already has (except 'rerender' rows,
+// which get the new URLs and go back to pending), and R2 keys are
+// content-addressed, so re-running after a partial failure is safe.
 
 import { createReadStream, existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { OUT_DIR, R2_PREFIX, adminApi, loadEnv, r2Client, r2Put } from './lib.mjs';
+import { OUT_DIR, adminApi, contentKey, loadEnv, r2Client, r2Put } from './lib.mjs';
 
 const env = loadEnv();
 
@@ -25,8 +26,10 @@ async function main() {
     const id = it.file.replace(/\.mp4$/, '');
     const mp4 = join(OUT_DIR, it.file);
     const jpg = join(OUT_DIR, 'thumbs', `${it.file}.jpg`);
-    const videoUrl = await r2Put(s3, `${R2_PREFIX}/${id}.mp4`, createReadStream(mp4), 'video/mp4');
-    const posterUrl = existsSync(jpg) ? await r2Put(s3, `${R2_PREFIX}/${id}.jpg`, createReadStream(jpg), 'image/jpeg') : null;
+    const [videoUrl, posterUrl] = await Promise.all([
+      r2Put(s3, contentKey(id, mp4, 'mp4'), createReadStream(mp4), 'video/mp4'),
+      existsSync(jpg) ? r2Put(s3, contentKey(id, jpg, 'jpg'), createReadStream(jpg), 'image/jpeg') : null,
+    ]);
     items.push({
       id, format: it.format, wordId: it.wordId, sentenceId: it.sentenceId, level: it.level,
       title: it.title, description: it.description, duration: it.duration, videoUrl, posterUrl,

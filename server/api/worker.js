@@ -20,7 +20,7 @@
  *   GET  /admin/shorts?status=approved|rejected|all (Bearer ADMIN_SECRET) -> [ …rows ]
  *   POST /admin/shorts  (Bearer ADMIN_SECRET) { items: [ …rendered ] } -> { ok, inserted }
  *   POST /admin/shorts/:id/status (Bearer ADMIN_SECRET) { status, videoId?, publishAt? } -> { ok }
- *     (status: pending|approved|rejected|uploaded|rerender|dropped)
+ *     (checked against SHORT_TRANSITIONS; 409 bad-transition otherwise)
  *
  * Secrets / vars (wrangler):
  *   ADMIN_SECRET   (secret, gates /admin/*)
@@ -482,9 +482,23 @@ async function adminReviewStatus(request, env, cors, wordId) {
 
 // ---- Shorts pipeline (reviewer approves rendered videos; CI registers/uploads) ----
 
-// 'rerender': maintainer fixed the corpus (same ids) → next render run re-renders
-// it and re-registering flips it back to 'pending'. 'dropped': triaged, not coming back.
-const SHORT_STATUSES = ['pending', 'approved', 'rejected', 'uploaded', 'rerender', 'dropped'];
+// Lifecycle (every move is checked against SHORT_TRANSITIONS; 'uploaded' is terminal):
+//   pending   → approved | rejected            reviewer verdict (only from pending)
+//   approved  → uploading → uploaded           upload.mjs two-phase: reserve, insert, confirm
+//   uploading → approved                       reconcile: YouTube never got it, retry
+//   rejected  → rerender | dropped             evening triage (pnpm run reviews)
+//   rerender  → pending                        re-registered by the render job
+//   dropped   → rerender                       changed our mind
+const SHORT_STATUSES = ['pending', 'approved', 'rejected', 'uploading', 'uploaded', 'rerender', 'dropped'];
+const SHORT_TRANSITIONS = {
+  pending: ['approved', 'rejected', 'dropped'],
+  approved: ['uploading', 'rejected', 'rerender', 'dropped', 'pending'],
+  uploading: ['uploaded', 'approved'],
+  uploaded: [],
+  rejected: ['rerender', 'dropped', 'pending'],
+  rerender: ['pending', 'dropped'],
+  dropped: ['rerender', 'pending'],
+};
 const SHORT_COLS =
   'id, format, word_id, sentence_id, level, title, description, duration, video_url, poster_url, ' +
   'status, note, reviewed_by, reviewed_at, video_id, publish_at, created_at, updated_at';
@@ -532,13 +546,17 @@ async function shortsReviewPost(request, env, cors, id) {
   if (!verdict) return json({ error: 'bad-input' }, 400, cors);
   const note = String(body.note ?? '').trim().slice(0, MAX_REVIEW_NOTE_CHARS) || null;
   const status = verdict === 'approve' ? 'approved' : 'rejected';
-  // Verdicts only move pending/approved/rejected rows — never an uploaded one.
+  // Verdicts only apply to rows still awaiting review — a stale tab can't
+  // overwrite a triage decision (rerender/dropped) or an upload.
   const r = await env.DB.prepare(
-    "UPDATE shorts SET status = ?, note = ?, reviewed_by = ?, reviewed_at = ?, updated_at = ? WHERE id = ? AND status != 'uploaded'",
+    "UPDATE shorts SET status = ?, note = ?, reviewed_by = ?, reviewed_at = ?, updated_at = ? WHERE id = ? AND status = 'pending'",
   )
     .bind(status, note, reviewer, Date.now(), Date.now(), id)
     .run();
-  if (!r.meta.changes) return json({ error: 'not-found' }, 404, cors);
+  if (!r.meta.changes) {
+    const cur = await env.DB.prepare('SELECT status FROM shorts WHERE id = ?').bind(id).first();
+    return cur ? json({ error: 'not-pending', status: cur.status }, 409, cors) : json({ error: 'not-found' }, 404, cors);
+  }
   return json({ ok: true, status }, 200, cors);
 }
 
@@ -577,7 +595,8 @@ async function shortsAdminRegister(request, env, cors) {
     if (!r.meta.changes) {
       // Re-render of a fixed item: refresh metadata and put it back in the queue.
       await env.DB.prepare(
-        "UPDATE shorts SET status = 'pending', title = ?, description = ?, duration = ?, video_url = ?, poster_url = ?, note = NULL, updated_at = ? WHERE id = ? AND status = 'rerender'",
+        "UPDATE shorts SET status = 'pending', title = ?, description = ?, duration = ?, video_url = ?, " +
+          "poster_url = ?, note = NULL, updated_at = ? WHERE id = ? AND status = 'rerender'",
       )
         .bind(String(it.title).slice(0, 200), String(it.description ?? '').slice(0, 5000), Number(it.duration) || null,
           String(it.videoUrl), it.posterUrl ? String(it.posterUrl) : null, now, id)
@@ -592,12 +611,20 @@ async function shortsAdminStatus(request, env, cors, id) {
   const body = await readJson(request);
   const status = SHORT_STATUSES.includes(body.status) ? body.status : null;
   if (!status) return json({ error: 'bad-status' }, 400, cors);
+  const cur = await env.DB.prepare('SELECT status FROM shorts WHERE id = ?').bind(id).first();
+  if (!cur) return json({ error: 'not-found' }, 404, cors);
+  if (!SHORT_TRANSITIONS[cur.status]?.includes(status)) {
+    return json({ error: 'bad-transition', from: cur.status, to: status }, 409, cors);
+  }
+  // Optimistic: the WHERE re-checks the from-state so two runs can't both win.
   const r = await env.DB.prepare(
-    'UPDATE shorts SET status = ?, video_id = COALESCE(?, video_id), publish_at = COALESCE(?, publish_at), updated_at = ? WHERE id = ?',
+    'UPDATE shorts SET status = ?, video_id = COALESCE(?, video_id), publish_at = COALESCE(?, publish_at), ' +
+      'updated_at = ? WHERE id = ? AND status = ?',
   )
-    .bind(status, body.videoId ? String(body.videoId) : null, body.publishAt ? String(body.publishAt) : null, Date.now(), id)
+    .bind(status, body.videoId ? String(body.videoId) : null, body.publishAt ? String(body.publishAt) : null,
+      Date.now(), id, cur.status)
     .run();
-  if (!r.meta.changes) return json({ error: 'not-found' }, 404, cors);
+  if (!r.meta.changes) return json({ error: 'conflict' }, 409, cors);
   return json({ ok: true, status }, 200, cors);
 }
 

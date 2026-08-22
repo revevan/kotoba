@@ -28,8 +28,11 @@ fonts). Fully automated in CI: `shorts-render.yml` (Mon) runs `plan.mjs` (curate
 queue + Claude-picked top-up, stages audio from R2) → render → `register.mjs`
 (MP4+poster to R2 `shorts/`, rows in D1 `shorts` as pending) → wife approves on
 `/review` (Shorts tab) → `shorts-upload.yml` (daily) runs `upload.mjs` (approved →
-YouTube private + scheduled 1/weekday 15:00Z, ≤6/day quota). Local:
-`upload-shorts -- --auth|--dry-run`. Secrets: GOOGLE_CLIENT_SECRET_JSON,
+uploading → uploaded: YouTube private + scheduled 1/weekday 15:00Z, ≤6/day quota;
+stuck `uploading` rows are reconciled by marker tag next run). Rejected shorts
+surface in `pnpm run reviews`; resolve with `-- --short-rerender <id>` (corpus fixed,
+same ids → re-rendered Monday) or `-- --short-drop <id>`. Status moves are checked
+against `SHORT_TRANSITIONS` in the worker. Local: `upload-shorts -- --auth|--dry-run`. Secrets: GOOGLE_CLIENT_SECRET_JSON,
 GOOGLE_TOKEN_JSON, KOTOBA_ADMIN_SECRET, ANTHROPIC_API_KEY, R2_*. SEO: `indexnow`
 (pings Bing/IndexNow with live sitemap URLs — run after marketing-page deploys).
 

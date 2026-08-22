@@ -1,15 +1,15 @@
 // List and manage content-review verdicts from the /review page (kotoba-api).
 //
-//   npm run reviews                          — list open (flagged) items with word context
-//   npm run reviews -- --status fixed        — list items waiting on reviewer re-check
-//   npm run reviews -- --status all          — everything
-//   npm run reviews -- --fix n5-abc123 -m "regenerated ja clip"  — mark fixed (re-queues for re-check)
-//   npm run reviews -- --close n5-abc123     — close without re-check
-//   npm run reviews -- --verify n5-abc123    — mark verified directly
+//   pnpm run reviews                          — list open (flagged) items with word context
+//   pnpm run reviews -- --status fixed        — list items waiting on reviewer re-check
+//   pnpm run reviews -- --status all          — everything
+//   pnpm run reviews -- --fix n5-abc123 -m "regenerated ja clip"  — mark fixed (re-queues for re-check)
+//   pnpm run reviews -- --close n5-abc123     — close without re-check
+//   pnpm run reviews -- --verify n5-abc123    — mark verified directly
 //
 // Rejected shorts (the /review Shorts tab) are listed alongside open flags:
-//   npm run reviews -- --short-rerender <shortId>  — corpus fixed, same ids: re-render Monday + re-queue
-//   npm run reviews -- --short-drop <shortId>      — not coming back (sentence replaced / not worth it)
+//   pnpm run reviews -- --short-rerender <shortId>  — corpus fixed, same ids: re-render Monday + re-queue
+//   pnpm run reviews -- --short-drop <shortId>      — not coming back (sentence replaced / not worth it)
 //
 // Needs KOTOBA_ADMIN_SECRET in .env (matches the worker's ADMIN_SECRET secret).
 
@@ -151,7 +151,7 @@ async function main() {
       if (sh.note) console.log(`  note: ${sh.note.replace(/\n/g, '\n        ')}`);
       console.log();
     }
-    console.log('Resolve: npm run reviews -- --short-rerender <id>  (fixed, same ids)  ·  --short-drop <id>  (replaced / not worth it)\n');
+    console.log('Resolve: pnpm run reviews -- --short-rerender <id>  (fixed, same ids)  ·  --short-drop <id>  (replaced / not worth it)\n');
   }
   if (rows.length === 0) return;
   for (const row of rows) {
@@ -165,7 +165,7 @@ async function main() {
     if (row.fixNote) console.log(`  fix:  ${row.fixNote}`);
     console.log();
   }
-  console.log(`${rows.length} item(s). Mark: npm run reviews -- --fix <wordId> -m "what changed"`);
+  console.log(`${rows.length} item(s). Mark: pnpm run reviews -- --fix <wordId> -m "what changed"`);
 }
 
 main().catch((e) => {

@@ -1,6 +1,7 @@
 // Shared helpers for the shorts pipeline scripts (plan / register / upload).
 // Config comes from the repo-root .env locally and from process.env in CI.
 
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -51,8 +52,15 @@ export function r2Client(env) {
   });
 }
 
+/** Keys are content-addressed (`shorts/<id>.<sha1:8>.mp4`) so a re-render gets a
+ *  fresh URL instead of fighting browser/edge caches for the same key. */
+export function contentKey(id, path, ext) {
+  const h = createHash('sha1').update(readFileSync(path)).digest('hex').slice(0, 8);
+  return `${R2_PREFIX}/${id}.${h}.${ext}`;
+}
+
 export async function r2Put(s3, key, body, contentType) {
-  await s3.send(new PutObjectCommand({ Bucket: R2_BUCKET, Key: key, Body: body, ContentType: contentType, CacheControl: 'public, max-age=600' }));
+  await s3.send(new PutObjectCommand({ Bucket: R2_BUCKET, Key: key, Body: body, ContentType: contentType, CacheControl: 'public, max-age=31536000, immutable' }));
   return `${AUDIO_BASE}/${key}`;
 }
 

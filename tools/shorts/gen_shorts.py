@@ -343,8 +343,7 @@ def dur(path):
 def run(cmd):
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0:
-        sys.stderr.write(r.stderr[-3000:])
-        sys.exit(1)
+        raise RuntimeError(f'{cmd[0]} failed: {r.stderr[-1500:]}')
 
 
 def make_tick(path):
@@ -413,7 +412,7 @@ def lookup(corpus, word_id, sent_id):
         s = next((x for x in sents.get(word_id, []) if x['id'] == sent_id), None)
         if q and s:
             return q, s, level
-    sys.exit(f'word {word_id} / sentence {sent_id} not found in any deck')
+    raise LookupError(f'word {word_id} / sentence {sent_id} not found in any deck')
 
 
 def audio_paths(fmt, word_id, sent_id):
@@ -435,7 +434,7 @@ def render(fmt, q, s, level, tick, out_path, workdir):
     a = audio_paths(fmt, q['id'], s['id'])
     for key, path in a.items():
         if not os.path.exists(path):
-            sys.exit(f'missing audio {path} — run gen-audio / sync-audio-r2 first')
+            raise FileNotFoundError(f'missing audio {path} — run gen-audio / sync-audio-r2 first')
     d_ja, d_slow, d_sen = dur(a['ja']), dur(a['slow']), dur(a['sen'])
     ja, slow, sen = a['ja'], a['slow'], a['sen']
 
@@ -487,7 +486,7 @@ def render(fmt, q, s, level, tick, out_path, workdir):
             (frame_outro(), 2.2, []),
         ]
     else:
-        sys.exit(f'unknown format {fmt}')
+        raise ValueError(f'unknown format {fmt}')
 
     build(segments, out_path, workdir)
     return sum(x[1] for x in segments)
@@ -495,10 +494,21 @@ def render(fmt, q, s, level, tick, out_path, workdir):
 
 # ---------- titles / batch metadata ----------
 
+YT_TITLE_MAX = 100
+
+def clip_words(text, limit):
+    """Trim at a word boundary with an ellipsis so it fits in `limit` chars."""
+    if len(text) <= limit:
+        return text
+    cut = text[:limit - 1].rsplit(' ', 1)[0]
+    return cut + '…'
+
+
 def title_for(fmt, q, s, level):
     word = q['written'][0]
     if fmt == 'deadpan':
-        return f'{s["textEn"]} — a real JLPT {level} sentence'
+        suffix = f' — a real JLPT {level} sentence'
+        return clip_words(s['textEn'], YT_TITLE_MAX - len(suffix)) + suffix
     if fmt == 'notrans':
         return f'{word} ({q["romaji"]}) — English has no word for this'
     if fmt == 'quiz':
@@ -628,23 +638,30 @@ def main():
     with tempfile.TemporaryDirectory(prefix='kotoba-shorts-') as tmp:
         tick = f'{tmp}/tick.wav'
         make_tick(tick)
+        failed = 0
         for i, it in enumerate(items):
             fmt, wid, sid = it['format'], it['wordId'], it['sentenceId']
-            q, s, level = lookup(corpus, wid, sid)
             name = f'{fmt}_{wid}_{sid}.mp4'
             out_path = os.path.join(OUT_DIR, name)
-            h = item_hash(fmt, wid, sid)
-            if not args.force and manifest.get(name) == h and os.path.exists(out_path):
-                total = dur(out_path)
-                skipped += 1
-            else:
-                workdir = f'{tmp}/{i}'
-                os.makedirs(workdir, exist_ok=True)
-                total = render(fmt, q, s, level, tick, out_path, workdir)
-                manifest[name] = h
-                json.dump(manifest, open(MANIFEST, 'w'), indent=1)
-                rendered += 1
-                print(f'  {name} — {total:.1f}s')
+            try:
+                q, s, level = lookup(corpus, wid, sid)
+                h = item_hash(fmt, wid, sid)
+                force = args.force or it.get('force')
+                if not force and manifest.get(name) == h and os.path.exists(out_path):
+                    total = dur(out_path)
+                    skipped += 1
+                else:
+                    workdir = f'{tmp}/{i}'
+                    os.makedirs(workdir, exist_ok=True)
+                    total = render(fmt, q, s, level, tick, out_path, workdir)
+                    manifest[name] = h
+                    json.dump(manifest, open(MANIFEST, 'w'), indent=1)
+                    rendered += 1
+                    print(f'  {name} — {total:.1f}s')
+            except Exception as e:  # one bad item must not sink the batch
+                failed += 1
+                sys.stderr.write(f'  FAILED {name}: {e}\n')
+                continue
             batch.append({
                 'file': name,
                 'format': fmt,
@@ -669,8 +686,10 @@ def main():
     json.dump(batch, open(os.path.join(OUT_DIR, 'batch.json'), 'w'),
               ensure_ascii=False, indent=1)
     write_review_html(batch, os.path.join(OUT_DIR, 'review.html'))
-    print(f'{rendered} rendered, {skipped} up to date → {OUT_DIR}')
+    print(f'{rendered} rendered, {skipped} up to date, {failed} failed → {OUT_DIR}')
     print(f'review: {os.path.join(OUT_DIR, "review.html")}')
+    if failed and not batch:
+        sys.exit(1)  # nothing usable came out — fail the job loudly
 
 
 if __name__ == '__main__':

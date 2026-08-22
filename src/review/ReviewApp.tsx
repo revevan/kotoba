@@ -167,6 +167,7 @@ export function ReviewApp() {
   const [reviews, setReviews] = useState<Map<string, ReviewRow>>(new Map());
   const [outbox, setOutbox] = useState<ReviewSubmission[]>(() => readJson(OUTBOX_KEY, []));
   const [shorts, setShorts] = useState<ShortRow[]>([]);
+  const [shortsError, setShortsError] = useState('');
   const [mode, setMode] = useState<'words' | 'shorts'>('words');
 
   const boot = async (a: Auth | null) => {
@@ -174,7 +175,13 @@ export function ReviewApp() {
       const [loaded, rows, clips] = await Promise.all([
         entries ? Promise.resolve(entries) : loadEntries(),
         cloudSyncEnabled ? (a ? fetchReviewState(a.token) : Promise.resolve(null)) : Promise.resolve(readJson<ReviewRow[]>(LOCAL_KEY, [])),
-        cloudSyncEnabled && a ? fetchShorts(a.token).catch(() => [] as ShortRow[]) : Promise.resolve([] as ShortRow[]),
+        // A failure here must not hide the queue silently — it's reported on the start screen.
+        cloudSyncEnabled && a
+          ? fetchShorts(a.token).catch((e: unknown) => {
+              setShortsError(e instanceof Error ? e.message : String(e));
+              return [] as ShortRow[];
+            })
+          : Promise.resolve([] as ShortRow[]),
       ]);
       setEntries(loaded);
       if (rows === null) {
@@ -278,18 +285,30 @@ export function ReviewApp() {
   const judgeShort = async (id: string, verdict: 'approve' | 'reject', note?: string) => {
     const status = verdict === 'approve' ? 'approved' : 'rejected';
     setShorts((list) => list.map((sh) => (sh.id === id ? { ...sh, status, note: note ?? null, reviewedAt: Date.now() } : sh)));
-    if (auth) {
-      try {
-        await submitShortVerdict(auth.token, id, verdict, note);
-      } catch {
-        // Put it back so it isn't silently lost; the reviewer can retry.
-        setShorts((list) => list.map((sh) => (sh.id === id ? { ...sh, status: 'pending' } : sh)));
+    if (!auth) return;
+    try {
+      const result = await submitShortVerdict(auth.token, id, verdict, note);
+      if (result === 'not-pending') {
+        // Triage already moved this row (rerender/dropped); it's no longer ours to judge.
+        setShorts((list) => list.filter((sh) => sh.id !== id));
       }
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      if (msg === 'unauthorized' || msg === 'forbidden') {
+        // Same routing as word reviews: expired session → login, delisted → forbidden.
+        persistAuth(null);
+        setAuth(null);
+        setPhase(msg === 'forbidden' ? 'forbidden' : 'login');
+        return;
+      }
+      // Transient failure: put it back so it isn't silently lost, and say so.
+      setShorts((list) => list.map((sh) => (sh.id === id ? { ...sh, status: 'pending' } : sh)));
+      setShortsError(`Couldn't save that verdict (${msg}) — try again.`);
     }
   };
 
   if (mode === 'shorts') {
-    return <ShortsScreen shorts={shorts} judge={judgeShort} onExit={() => setMode('words')} />;
+    return <ShortsScreen shorts={shorts} error={shortsError} judge={judgeShort} onExit={() => setMode('words')} />;
   }
   return (
     <ReviewScreen
@@ -299,6 +318,7 @@ export function ReviewApp() {
       unsaved={outbox.length}
       email={auth?.email ?? null}
       pendingShorts={shorts.filter((sh) => sh.status === 'pending').length}
+      shortsError={shortsError}
       onShorts={() => setMode('shorts')}
     />
   );
@@ -311,11 +331,12 @@ export function ReviewApp() {
 
 interface ShortsProps {
   shorts: ShortRow[];
+  error: string;
   judge: (id: string, verdict: 'approve' | 'reject', note?: string) => void;
   onExit: () => void;
 }
 
-function ShortsScreen({ shorts, judge, onExit }: ShortsProps) {
+function ShortsScreen({ shorts, error, judge, onExit }: ShortsProps) {
   const pending = shorts.filter((sh) => sh.status === 'pending');
   const current = pending[0] ?? null;
   const [note, setNote] = useState('');
@@ -333,6 +354,7 @@ function ShortsScreen({ shorts, judge, onExit }: ShortsProps) {
         <div class="brand-kanji">言葉</div>
         <h1>ショート動画、全部チェック済み 🎬</h1>
         <p>No videos are waiting. {done > 0 && `You've reviewed ${done} recently.`}</p>
+        {error && <p class="rv-err">{error}</p>}
         <button class="primary big" onClick={onExit}>← Back to words</button>
       </div>
     );
@@ -350,6 +372,7 @@ function ShortsScreen({ shorts, judge, onExit }: ShortsProps) {
         </div>
       </header>
       <div class="rv-card rv-short">
+        {error && <p class="rv-err">{error}</p>}
         <video key={current.id} class="rv-video" src={current.videoUrl} poster={current.posterUrl ?? undefined} controls playsInline preload="metadata" />
         <div class="rv-short-meta">
           <div class="r-en">{current.title}</div>
@@ -464,10 +487,11 @@ interface ScreenProps {
   unsaved: number;
   email: string | null;
   pendingShorts: number;
+  shortsError: string;
   onShorts: () => void;
 }
 
-function ReviewScreen({ entries, reviews, submit, unsaved, email, pendingShorts, onShorts }: ScreenProps) {
+function ReviewScreen({ entries, reviews, submit, unsaved, email, pendingShorts, shortsError, onShorts }: ScreenProps) {
   const [started, setStarted] = useState(false);
   const [autoplay, setAutoplay] = useState(() => readJson('kotoba-review-autoplay', true));
   const [history, setHistory] = useState<string[]>([]);
@@ -541,6 +565,7 @@ function ReviewScreen({ entries, reviews, submit, unsaved, email, pendingShorts,
             🎬 {pendingShorts} short video{pendingShorts === 1 ? '' : 's'} waiting for your OK
           </button>
         )}
+        {shortsError && <p class="rv-err">Shorts queue didn't load: {shortsError} — reload to retry.</p>}
         {email && <p class="rv-faint">signed in as {email}</p>}
         {!cloudSyncEnabled && <p class="rv-err">Local mode — no API endpoint configured; verdicts stay on this device.</p>}
       </div>

@@ -51,7 +51,7 @@ export async function submitReview(token: string, sub: ReviewSubmission): Promis
 
 // ---- Shorts (rendered videos awaiting approval before YouTube upload) ----
 
-export type ShortStatus = 'pending' | 'approved' | 'rejected' | 'uploaded';
+export type ShortStatus = 'pending' | 'approved' | 'rejected' | 'uploading' | 'uploaded' | 'rerender' | 'dropped';
 
 export interface ShortRow {
   id: string;
@@ -79,6 +79,19 @@ export async function fetchShorts(token: string): Promise<ShortRow[]> {
   return ((await r.json()) as { shorts: ShortRow[] }).shorts;
 }
 
-export async function submitShortVerdict(token: string, id: string, verdict: 'approve' | 'reject', note?: string): Promise<void> {
-  await call(`/review/shorts/${id}`, token, { method: 'POST', body: JSON.stringify({ verdict, note }) });
+/** Resolves to the new status, or 'not-pending' when the row was already
+ *  decided elsewhere (triage moved it) — the caller just drops it from the queue. */
+export async function submitShortVerdict(
+  token: string, id: string, verdict: 'approve' | 'reject', note?: string,
+): Promise<ShortStatus | 'not-pending'> {
+  const r = await fetch(`${apiEndpoint}/review/shorts/${id}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ verdict, note }),
+  });
+  if (r.status === 401) throw new Error('unauthorized');
+  if (r.status === 403) throw new Error('forbidden');
+  if (r.status === 409) return 'not-pending';
+  if (!r.ok) throw new Error(`/review/shorts/${id} failed (${r.status})`);
+  return ((await r.json()) as { status: ShortStatus }).status;
 }

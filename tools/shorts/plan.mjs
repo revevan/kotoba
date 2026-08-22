@@ -13,12 +13,23 @@
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { parseArgs } from 'node:util';
 import Anthropic from '@anthropic-ai/sdk';
 import { AUDIO_BASE, OUT_DIR, REPO, SHORTS_DIR, adminApi, clipsFor, loadEnv } from './lib.mjs';
 
-const args = process.argv.slice(2).filter((a) => a !== '--');
-const target = Number(args[args.indexOf('--target') + 1] || 10);
-const auto = !args.includes('--no-auto');
+let args;
+try {
+  ({ values: args } = parseArgs({
+  args: process.argv.slice(2).filter((a) => a !== '--'),
+  options: { target: { type: 'string' }, 'no-auto': { type: 'boolean' } },
+  strict: true,
+  }));
+} catch (e) {
+  console.error(`${e.message}\nusage: plan.mjs [--target N] [--no-auto]`);
+  process.exit(2);
+}
+const target = Math.max(0, Number(args.target ?? 10) || 0);
+const auto = !args['no-auto'];
 const env = loadEnv();
 
 const DECKS = ['jlpt-n5', 'jlpt-n4', 'jlpt-n3'];
@@ -127,8 +138,11 @@ async function main() {
   const usedWords = new Set(existing.filter((s) => !['rejected', 'dropped'].includes(s.status)).map((s) => s.wordId));
   console.log(`${existingIds.size} shorts already registered`);
 
-  // Fixed-and-flagged-for-rerender items go first (same ids → same R2 keys).
-  const plan = existing.filter((s) => s.status === 'rerender').map((s) => ({ format: s.format, wordId: s.wordId, sentenceId: s.sentenceId }));
+  // Fixed-and-flagged-for-rerender items go first; `force` tells gen-shorts to
+  // ignore its manifest so a local rerun actually re-renders them.
+  const plan = existing
+    .filter((s) => s.status === 'rerender')
+    .map((s) => ({ format: s.format, wordId: s.wordId, sentenceId: s.sentenceId, force: true }));
   if (plan.length) console.log(`${plan.length} re-renders after corpus fixes`);
   const curated = JSON.parse(readFileSync(join(SHORTS_DIR, 'queue.json'), 'utf8'));
   plan.push(...curated.filter((it) => !existingIds.has(idOf(it))).slice(0, Math.max(0, target - plan.length)));
@@ -142,22 +156,29 @@ async function main() {
       plan.push(...(await autoSelect(target - plan.length, usedWords, existingIds)));
     }
   }
+  mkdirSync(OUT_DIR, { recursive: true });
   if (plan.length === 0) {
     console.log('nothing to render');
     writeFileSync(join(OUT_DIR, 'plan-queue.json'), '[]\n');
     return;
   }
 
+  // Stage audio per item; one broken item (clip missing on R2, id gone from
+  // the corpus) is skipped with a loud line rather than sinking the whole week.
+  const ready = [];
   let fetched = 0;
   for (const it of plan) {
-    for (const [sub, id] of clipsFor(it.format, it.wordId, it.sentenceId)) {
-      await fetchClip(sub, id);
-      fetched++;
+    try {
+      const clips = clipsFor(it.format, it.wordId, it.sentenceId);
+      await Promise.all(clips.map(([sub, id]) => fetchClip(sub, id)));
+      fetched += clips.length;
+      ready.push(it);
+    } catch (e) {
+      console.error(`  SKIP ${idOf(it)}: ${e.message}${it.force ? ' (rerender row — drop it with reviews --short-drop if the ids changed)' : ''}`);
     }
   }
-  mkdirSync(OUT_DIR, { recursive: true });
-  writeFileSync(join(OUT_DIR, 'plan-queue.json'), JSON.stringify(plan, null, 1) + '\n');
-  console.log(`planned ${plan.length} shorts (${fetched} clips staged) → out/plan-queue.json`);
+  writeFileSync(join(OUT_DIR, 'plan-queue.json'), JSON.stringify(ready, null, 1) + '\n');
+  console.log(`planned ${ready.length}/${plan.length} shorts (${fetched} clips staged) → out/plan-queue.json`);
 }
 
 main().catch((e) => {
