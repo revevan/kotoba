@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "gsc": {
+      "command": "/opt/homebrew/bin/uvx",
+      "args": ["mcp-search-console"],
+      "env": {
+        "GSC_CREDENTIALS_PATH": "/Users/evankennedy/projects/kotoba/.secrets/gsc-service-account.json",
+        "GSC_SKIP_OAUTH": "true"
+      }
+    }
+  }
+}

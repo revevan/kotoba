@@ -13,3 +13,6 @@ public/audio/
 kotoba-language-export.txt
 .DS_Store
 tools/shorts/token.json
+
+# GSC MCP service-account key
+.secrets/
