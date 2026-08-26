@@ -119,8 +119,8 @@
   },
   {
    "id": "n5-51d0ab4a",
-   "english": "mother (formal)",
-   "prompt": "mother (formal)",
+   "english": "mom; (someone's) mother",
+   "prompt": "mom",
    "kana": "おかあさん",
    "written": [
     "お母さん",
@@ -152,8 +152,8 @@
   },
   {
    "id": "n5-2cbdefb8",
-   "english": "father (formal)",
-   "prompt": "father (formal)",
+   "english": "dad; (someone's) father",
+   "prompt": "dad",
    "kana": "おとうさん",
    "speak": "お父さん",
    "written": [
@@ -217,7 +217,7 @@
   },
   {
    "id": "n5-810354ac",
-   "english": "older brother (formal)",
+   "english": "(someone's) older brother",
    "prompt": "older brother",
    "kana": "おにいさん",
    "written": [
@@ -252,8 +252,8 @@
   },
   {
    "id": "n5-a37813c9",
-   "english": "older sister (formal)",
-   "prompt": "older sister (formal)",
+   "english": "(someone's) older sister",
+   "prompt": "older sister",
    "kana": "おねえさん",
    "written": [
     "お姉さん",
@@ -952,6 +952,7 @@
    "english": "bank",
    "prompt": "bank",
    "kana": "ぎんこう",
+   "speak": "銀行",
    "written": [
     "銀行",
     "ぎんこう"
@@ -1033,6 +1034,7 @@
    "english": "wallet",
    "prompt": "wallet",
    "kana": "さいふ",
+   "speak": "財布",
    "written": [
     "財布",
     "さいふ"
@@ -1212,6 +1214,7 @@
    "english": "tall, high; expensive",
    "prompt": "tall",
    "kana": "たかい",
+   "speak": "高い",
    "written": [
     "高い",
     "たかい"
@@ -1564,6 +1567,7 @@
    "english": "hat; cap",
    "prompt": "hat",
    "kana": "ぼうし",
+   "speak": "帽子",
    "written": [
     "帽子",
     "ぼうし"
@@ -1840,6 +1844,7 @@
    "english": "movie, film",
    "prompt": "movie",
    "kana": "えいが",
+   "speak": "映画",
    "written": [
     "映画",
     "えいが"
@@ -1959,6 +1964,7 @@
    "english": "music",
    "prompt": "music",
    "kana": "おんがく",
+   "speak": "音楽",
    "written": [
     "音楽",
     "おんがく"
@@ -2720,6 +2726,7 @@
    "english": "a class",
    "prompt": "a class",
    "kana": "くらす",
+   "speak": "クラス",
    "written": [
     "クラス",
     "くらす"

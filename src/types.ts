@@ -18,6 +18,9 @@ export interface Sentence {
   id: string;
   /** Full sentence, normal kanji usage. */
   textJa: string;
+  /** TTS input override for the sen clip (see Word.speak) — orthography swaps
+   *  that fix pitch accent without changing the displayed text. */
+  speak?: string;
   /** Full hiragana reading. */
   readingKana: string;
   /** Natural English translation. */

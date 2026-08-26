@@ -79,10 +79,10 @@
       "clozeReading": "えいご"
     },
     {
-      "id": "s-c04feacf",
-      "textJa": "妹は英語を話します。",
-      "readingKana": "いもうとはえいごをはなします。",
-      "textEn": "My younger sister speaks English.",
+      "id": "s-2c42435c",
+      "textJa": "妹は英語です。",
+      "readingKana": "いもうとはえいごです。",
+      "textEn": "My sister speaks English.",
       "clozeSurface": "英語",
       "clozeReading": "えいご"
     }
@@ -151,10 +151,10 @@
       "clozeReading": "おにいさん"
     },
     {
-      "id": "s-6aa935ea",
-      "textJa": "弟とお兄さんです。",
-      "readingKana": "おとうととおにいさんです。",
-      "textEn": "My younger brother and older brother.",
+      "id": "s-da1c05ad",
+      "textJa": "お兄さんは大学の学生ですか。",
+      "readingKana": "おにいさんはだいがくのがくせいですか。",
+      "textEn": "Is your older brother a university student?",
       "clozeSurface": "お兄さん",
       "clozeReading": "おにいさん"
     }
@@ -169,18 +169,18 @@
       "clozeReading": "おねえさん"
     },
     {
-      "id": "s-da0ea652",
-      "textJa": "妹とお姉さんです。",
-      "readingKana": "いもうととおねえさんです。",
-      "textEn": "My younger sister and older sister.",
+      "id": "s-21bc2c9b",
+      "textJa": "お姉さんは学生ですか。",
+      "readingKana": "おねえさんはがくせいですか。",
+      "textEn": "Is your older sister a student?",
       "clozeSurface": "お姉さん",
       "clozeReading": "おねえさん"
     },
     {
-      "id": "s-c846fedd",
-      "textJa": "お兄さんとお姉さんです。",
-      "readingKana": "おにいさんとおねえさんです。",
-      "textEn": "My older brother and older sister.",
+      "id": "s-557f32d1",
+      "textJa": "お姉さんは英語の先生ですか。",
+      "readingKana": "おねえさんはえいごのせんせいですか。",
+      "textEn": "Is your older sister an English teacher?",
       "clozeSurface": "お姉さん",
       "clozeReading": "おねえさん"
     }
@@ -229,10 +229,10 @@
       "clozeReading": "ごご"
     },
     {
-      "id": "s-8e0c884a",
-      "textJa": "お姉さんは午後、学生です。",
-      "readingKana": "おねえさんはごご、がくせいです。",
-      "textEn": "My older sister has school in the afternoon.",
+      "id": "s-2a4080e0",
+      "textJa": "午後、姉は学校があります。",
+      "readingKana": "ごご、あねはがっこうがあります。",
+      "textEn": "My sister has school in the afternoon.",
       "clozeSurface": "午後",
       "clozeReading": "ごご"
     }
@@ -283,10 +283,10 @@
   ],
   "n5-ca5c6a1e": [
     {
-      "id": "s-c6c5cfad",
-      "textJa": "お母さんは英語の先生です。",
-      "readingKana": "おかあさんはえいごのせんせいです。",
-      "textEn": "My mom is an English teacher.",
+      "id": "s-0e2b83d8",
+      "textJa": "母は英語の先生です。",
+      "readingKana": "はははえいごのせんせいです。",
+      "textEn": "My mother is an English teacher.",
       "clozeSurface": "先生",
       "clozeReading": "せんせい"
     },
@@ -299,20 +299,20 @@
       "clozeReading": "せんせい"
     },
     {
-      "id": "s-40bb7afd",
-      "textJa": "お母さんは先生です。",
-      "readingKana": "おかあさんはせんせいです。",
-      "textEn": "My mom is a teacher.",
+      "id": "s-8abdc041",
+      "textJa": "兄は先生じゃないです。",
+      "readingKana": "あにはせんせいじゃないです。",
+      "textEn": "My older brother isn't a teacher.",
       "clozeSurface": "先生",
       "clozeReading": "せんせい"
     }
   ],
   "n5-f2549372": [
     {
-      "id": "s-fd4b4981",
-      "textJa": "あれは大学ですか。",
-      "readingKana": "あれはだいがくですか。",
-      "textEn": "Is that a university?",
+      "id": "s-0f636195",
+      "textJa": "妹は大学の学生です。",
+      "readingKana": "いもうとはだいがくのがくせいです。",
+      "textEn": "My younger sister is a university student.",
       "clozeSurface": "大学",
       "clozeReading": "だいがく"
     },
@@ -325,9 +325,9 @@
       "clozeReading": "だいがく"
     },
     {
-      "id": "s-f929a60f",
-      "textJa": "お兄さんは大学の先生です。",
-      "readingKana": "おにいさんはだいがくのせんせいです。",
+      "id": "s-d803632b",
+      "textJa": "兄は大学の先生です。",
+      "readingKana": "あにはだいがくのせんせいです。",
       "textEn": "My older brother is a university professor.",
       "clozeSurface": "大学",
       "clozeReading": "だいがく"
@@ -361,10 +361,10 @@
       "clozeReading": "ともだち"
     },
     {
-      "id": "s-2c922978",
-      "textJa": "友達は仕事中ですか。",
-      "readingKana": "ともだちはしごとちゅうですか。",
-      "textEn": "Is your friend at work right now?",
+      "id": "s-a69bf2bc",
+      "textJa": "友達は仕事ですか。",
+      "readingKana": "ともだちはしごとですか。",
+      "textEn": "Is your friend at work?",
       "clozeSurface": "友達",
       "clozeReading": "ともだち"
     },
@@ -431,9 +431,9 @@
       "clozeReading": "はん"
     },
     {
-      "id": "s-f2df916f",
-      "textJa": "仕事は朝九時半からです。",
-      "readingKana": "しごとはあさくじはんからです。",
+      "id": "s-94366aba",
+      "textJa": "仕事は朝九時半です。",
+      "readingKana": "しごとはあさくじはんです。",
       "textEn": "Work starts at 9:30 in the morning.",
       "clozeSurface": "半",
       "clozeReading": "はん"
@@ -553,13 +553,12 @@
       "clozeReading": "あれ"
     },
     {
-      "id": "s-d6099362",
-      "textJa": "あれは何ですか。",
-      "readingKana": "あれはなんですか。",
-      "textEn": "What is that over there?",
+      "id": "s-659eb9a3",
+      "textJa": "あれは留学生ですか。",
+      "readingKana": "あれはりゅうがくせいですか。",
+      "textEn": "Is that person over there an international student?",
       "clozeSurface": "あれ",
-      "clozeReading": "あれ",
-      "clozeEligible": false
+      "clozeReading": "あれ"
     }
   ],
   "n5-cd2f86ee": [
@@ -572,10 +571,10 @@
       "clozeReading": "いくら"
     },
     {
-      "id": "s-3c37372f",
-      "textJa": "これはいくらですか。",
-      "readingKana": "これはいくらですか。",
-      "textEn": "How much is this?",
+      "id": "s-5f6472bb",
+      "textJa": "電話はいくらですか。",
+      "readingKana": "でんわはいくらですか。",
+      "textEn": "How much is the phone?",
       "clozeSurface": "いくら",
       "clozeReading": "いくら"
     }
@@ -616,10 +615,10 @@
       "clozeReading": "おてあらい"
     },
     {
-      "id": "s-3442f369",
-      "textJa": "お手洗いはどこですか。",
-      "readingKana": "おてあらいはどこですか。",
-      "textEn": "Where is the restroom?",
+      "id": "s-0cc0e5bd",
+      "textJa": "お手洗いですか。",
+      "readingKana": "おてあらいですか。",
+      "textEn": "Are you looking for the restroom?",
       "clozeSurface": "お手洗い",
       "clozeReading": "おてあらい"
     }
@@ -647,7 +646,8 @@
       "readingKana": "おかあさんのかさです。",
       "textEn": "It's my mom's umbrella.",
       "clozeSurface": "傘",
-      "clozeReading": "かさ"
+      "clozeReading": "かさ",
+      "speak": "おかあさんの傘です。"
     }
   ],
   "n5-79cde3ad": [
@@ -657,7 +657,8 @@
       "readingKana": "あれはかばんです。",
       "textEn": "That's a bag.",
       "clozeSurface": "かばん",
-      "clozeReading": "かばん"
+      "clozeReading": "かばん",
+      "speak": "あれは鞄です。"
     },
     {
       "id": "s-a40e610d",
@@ -673,7 +674,8 @@
       "readingKana": "いもうとのかばんです。",
       "textEn": "It's my younger sister's bag.",
       "clozeSurface": "かばん",
-      "clozeReading": "かばん"
+      "clozeReading": "かばん",
+      "speak": "妹の鞄です。"
     }
   ],
   "n5-e047c54d": [
@@ -686,9 +688,9 @@
       "clozeReading": "きっさてん"
     },
     {
-      "id": "s-38b765ad",
-      "textJa": "友達は喫茶店です。",
-      "readingKana": "ともだちはきっさてんです。",
+      "id": "s-488d991e",
+      "textJa": "友達は喫茶店にいます。",
+      "readingKana": "ともだちはきっさてんにいます。",
       "textEn": "My friend is at the café.",
       "clozeSurface": "喫茶店",
       "clozeReading": "きっさてん"
@@ -704,9 +706,9 @@
       "clozeReading": "ぎんこう"
     },
     {
-      "id": "s-828b2fa8",
-      "textJa": "お父さんは銀行です。",
-      "readingKana": "おとうさんはぎんこうです。",
+      "id": "s-3a1c28fc",
+      "textJa": "お父さんは銀行にいます。",
+      "readingKana": "おとうさんはぎんこうにいます。",
       "textEn": "My dad is at the bank.",
       "clozeSurface": "銀行",
       "clozeReading": "ぎんこう"
@@ -849,7 +851,8 @@
       "readingKana": "これはわたしのじてんしゃです。",
       "textEn": "This is my bicycle.",
       "clozeSurface": "自転車",
-      "clozeReading": "じてんしゃ"
+      "clozeReading": "じてんしゃ",
+      "speak": "これは私のじてんしゃです。"
     },
     {
       "id": "s-1d895e3e",
@@ -857,7 +860,8 @@
       "readingKana": "じてんしゃはいくらですか。",
       "textEn": "How much is the bicycle?",
       "clozeSurface": "自転車",
-      "clozeReading": "じてんしゃ"
+      "clozeReading": "じてんしゃ",
+      "speak": "じてんしゃはいくらですか。"
     },
     {
       "id": "s-00b399f2",
@@ -865,7 +869,8 @@
       "readingKana": "あれはともだちのじてんしゃです。",
       "textEn": "That over there is my friend's bicycle.",
       "clozeSurface": "自転車",
-      "clozeReading": "じてんしゃ"
+      "clozeReading": "じてんしゃ",
+      "speak": "あれは友達のじてんしゃです。"
     }
   ],
   "n5-3761f07c": [
@@ -944,6 +949,22 @@
       "textEn": "Is the wallet expensive?",
       "clozeSurface": "高い",
       "clozeReading": "たかい"
+    },
+    {
+      "id": "s-f8dbce53",
+      "textJa": "兄は背が高いです。",
+      "readingKana": "あにはせがたかいです。",
+      "textEn": "My older brother is tall.",
+      "clozeSurface": "高い",
+      "clozeReading": "たかい"
+    },
+    {
+      "id": "s-749e0659",
+      "textJa": "東京タワーは高いです。",
+      "readingKana": "とうきょうたわあはたかいです。",
+      "textEn": "Tokyo Tower is tall.",
+      "clozeSurface": "高い",
+      "clozeReading": "たかい"
     }
   ],
   "n5-6e9eadcf": [
@@ -968,26 +989,26 @@
     {
       "id": "s-ab936438",
       "textJa": "これはテープです。",
-      "readingKana": "これはてーぷです。",
+      "readingKana": "これはてえぷです。",
       "textEn": "This is tape.",
       "clozeSurface": "テープ",
-      "clozeReading": "てーぷ"
+      "clozeReading": "てえぷ"
     },
     {
       "id": "s-65bedcae",
       "textJa": "テープはいくらですか。",
-      "readingKana": "てーぷはいくらですか。",
+      "readingKana": "てえぷはいくらですか。",
       "textEn": "How much is the tape?",
       "clozeSurface": "テープ",
-      "clozeReading": "てーぷ"
+      "clozeReading": "てえぷ"
     }
   ],
   "n5-cfde36eb": [
     {
-      "id": "s-9f4394c3",
-      "textJa": "どうも、先生。",
-      "readingKana": "どうも、せんせい。",
-      "textEn": "Thanks, teacher.",
+      "id": "s-08d93dbd",
+      "textJa": "コーヒー、どうも。",
+      "readingKana": "こうひい、どうも。",
+      "textEn": "Thanks for the coffee.",
       "clozeSurface": "どうも",
       "clozeReading": "どうも"
     },
@@ -1000,10 +1021,10 @@
       "clozeReading": "どうも"
     },
     {
-      "id": "s-1f63bb52",
-      "textJa": "喫茶店で、どうも。",
-      "readingKana": "きっさてんで、どうも。",
-      "textEn": "Thanks — at the café.",
+      "id": "s-d05d5803",
+      "textJa": "昨日はどうも。",
+      "readingKana": "きのうはどうも。",
+      "textEn": "Thanks for yesterday.",
       "clozeSurface": "どうも",
       "clozeReading": "どうも"
     }
@@ -1078,9 +1099,9 @@
       "clozeReading": "としょかん"
     },
     {
-      "id": "s-66c45390",
-      "textJa": "友達は図書館です。",
-      "readingKana": "ともだちはとしょかんです。",
+      "id": "s-4015c214",
+      "textJa": "友達は図書館にいます。",
+      "readingKana": "ともだちはとしょかんにいます。",
       "textEn": "My friend is at the library.",
       "clozeSurface": "図書館",
       "clozeReading": "としょかん"
@@ -1134,26 +1155,26 @@
     {
       "id": "s-fe4cac49",
       "textJa": "これは私のノートです。",
-      "readingKana": "これはわたしののーとです。",
+      "readingKana": "これはわたしののうとです。",
       "textEn": "This is my notebook.",
       "clozeSurface": "ノート",
-      "clozeReading": "のーと"
+      "clozeReading": "のうと"
     },
     {
       "id": "s-1446cc5f",
       "textJa": "ノートはいくらですか。",
-      "readingKana": "のーとはいくらですか。",
+      "readingKana": "のうとはいくらですか。",
       "textEn": "How much is the notebook?",
       "clozeSurface": "ノート",
-      "clozeReading": "のーと"
+      "clozeReading": "のうと"
     },
     {
       "id": "s-bba5315d",
       "textJa": "友達のノートです。",
-      "readingKana": "ともだちののーとです。",
+      "readingKana": "ともだちののうとです。",
       "textEn": "It's my friend's notebook.",
       "clozeSurface": "ノート",
-      "clozeReading": "のーと"
+      "clozeReading": "のうと"
     }
   ],
   "n5-ff720a94": [
@@ -1278,9 +1299,9 @@
       "clozeReading": "ゆうびんきょく"
     },
     {
-      "id": "s-4e92d493",
-      "textJa": "友達は郵便局です。",
-      "readingKana": "ともだちはゆうびんきょくです。",
+      "id": "s-f002a01e",
+      "textJa": "友達は郵便局にいます。",
+      "readingKana": "ともだちはゆうびんきょくにいます。",
       "textEn": "My friend is at the post office.",
       "clozeSurface": "郵便局",
       "clozeReading": "ゆうびんきょく"
@@ -1288,9 +1309,9 @@
   ],
   "n5-18bb555d": [
     {
-      "id": "s-5f66d093",
-      "textJa": "今、朝御飯です。",
-      "readingKana": "いま、あさごはんです。",
+      "id": "s-dcca62b0",
+      "textJa": "今、朝御飯の時間です。",
+      "readingKana": "いま、あさごはんのじかんです。",
       "textEn": "It's breakfast time now.",
       "clozeSurface": "朝御飯",
       "clozeReading": "あさごはん"
@@ -1330,10 +1351,10 @@
       "clozeReading": "あした"
     },
     {
-      "id": "s-e2bc47d8",
-      "textJa": "明日は大学です。",
-      "readingKana": "あしたはだいがくです。",
-      "textEn": "I have university tomorrow.",
+      "id": "s-b0acfad3",
+      "textJa": "明日、買い物に行きます。",
+      "readingKana": "あした、かいものにいきます。",
+      "textEn": "I'm going shopping tomorrow.",
       "clozeSurface": "明日",
       "clozeReading": "あした"
     }
@@ -1379,7 +1400,8 @@
       "readingKana": "あさごはんはいつですか。",
       "textEn": "When is breakfast?",
       "clozeSurface": "いつ",
-      "clozeReading": "いつ"
+      "clozeReading": "いつ",
+      "speak": "朝ごはんはいつですか。"
     }
   ],
   "n5-800ecd92": [
@@ -1402,10 +1424,10 @@
   ],
   "n5-b760061e": [
     {
-      "id": "s-23714433",
-      "textJa": "明日は映画です。",
-      "readingKana": "あしたはえいがです。",
-      "textEn": "There's a movie tomorrow.",
+      "id": "s-400fcf95",
+      "textJa": "明日は映画を観に行きます。",
+      "readingKana": "あしたはえいがをみにいきます。",
+      "textEn": "I'm going to see a movie tomorrow.",
       "clozeSurface": "映画",
       "clozeReading": "えいが"
     },
@@ -1570,26 +1592,26 @@
     {
       "id": "s-2a5e86e4",
       "textJa": "これはコーヒーです。",
-      "readingKana": "これはこーひーです。",
+      "readingKana": "これはこうひいです。",
       "textEn": "This is coffee.",
       "clozeSurface": "コーヒー",
-      "clozeReading": "こーひー"
+      "clozeReading": "こうひい"
     },
     {
       "id": "s-90aced7e",
       "textJa": "コーヒーはいくらですか。",
-      "readingKana": "こーひーはいくらですか。",
+      "readingKana": "こうひいはいくらですか。",
       "textEn": "How much is the coffee?",
       "clozeSurface": "コーヒー",
-      "clozeReading": "こーひー"
+      "clozeReading": "こうひい"
     },
     {
       "id": "s-74154ec7",
       "textJa": "コーヒーは高いです。",
-      "readingKana": "こーひーはたかいです。",
+      "readingKana": "こうひいはたかいです。",
       "textEn": "The coffee is expensive.",
       "clozeSurface": "コーヒー",
-      "clozeReading": "こーひー"
+      "clozeReading": "こうひい"
     }
   ],
   "n5-1f8742cc": [
@@ -1610,10 +1632,10 @@
       "clozeReading": "こんばん"
     },
     {
-      "id": "s-0bde1b85",
-      "textJa": "今晩ですか。",
-      "readingKana": "こんばんですか。",
-      "textEn": "Tonight?",
+      "id": "s-3655f367",
+      "textJa": "映画は今晩ですか。",
+      "readingKana": "えいがはこんばんですか。",
+      "textEn": "Is the movie tonight?",
       "clozeSurface": "今晩",
       "clozeReading": "こんばん"
     }
@@ -1648,18 +1670,26 @@
     {
       "id": "s-27d95385",
       "textJa": "スポーツの雑誌です。",
-      "readingKana": "すぽーつのざっしです。",
+      "readingKana": "すぽうつのざっしです。",
       "textEn": "It's a sports magazine.",
       "clozeSurface": "スポーツ",
-      "clozeReading": "すぽーつ"
+      "clozeReading": "すぽうつ"
     },
     {
       "id": "s-e19be9e7",
       "textJa": "スポーツの本ですか。",
-      "readingKana": "すぽーつのほんですか。",
+      "readingKana": "すぽうつのほんですか。",
       "textEn": "Is it a sports book?",
       "clozeSurface": "スポーツ",
-      "clozeReading": "すぽーつ"
+      "clozeReading": "すぽうつ"
+    },
+    {
+      "id": "s-fe887564",
+      "textJa": "何かスポーツをしますか。",
+      "readingKana": "なにかすぽうつをしますか。",
+      "textEn": "Do you play any sports?",
+      "clozeSurface": "スポーツ",
+      "clozeReading": "すぽうつ"
     }
   ],
   "n5-78aa9dce": [
@@ -1698,36 +1728,36 @@
       "clozeReading": "てれび"
     },
     {
-      "id": "s-3104ca4e",
-      "textJa": "テレビは高いです。",
-      "readingKana": "てれびはたかいです。",
-      "textEn": "The TV is expensive.",
+      "id": "s-8e765b99",
+      "textJa": "テレビで何を見ますか。",
+      "readingKana": "てれびでなにをみますか。",
+      "textEn": "What do you watch on TV?",
       "clozeSurface": "テレビ",
       "clozeReading": "てれび"
     }
   ],
   "n5-c29dae0c": [
     {
-      "id": "s-464451b2",
-      "textJa": "朝は時々、コーヒーです。",
-      "readingKana": "あさはときどき、こーひーです。",
-      "textEn": "Sometimes I have coffee in the morning.",
+      "id": "s-adc8bec5",
+      "textJa": "朝は時々、コーヒーを飲みます。",
+      "readingKana": "あさはときどき、こうひいをのみます。",
+      "textEn": "Sometimes I drink coffee in the morning.",
       "clozeSurface": "時々",
       "clozeReading": "ときどき"
     },
     {
-      "id": "s-64506e28",
-      "textJa": "時々、英語の映画です。",
-      "readingKana": "ときどき、えいごのえいがです。",
-      "textEn": "Sometimes it's an English movie.",
+      "id": "s-19cc581a",
+      "textJa": "時々、英語の映画を観ます。",
+      "readingKana": "ときどき、えいごのえいがをみます。",
+      "textEn": "Sometimes I watch English movies.",
       "clozeSurface": "時々",
       "clozeReading": "ときどき"
     },
     {
-      "id": "s-7e3a992f",
-      "textJa": "時々、お茶です。",
-      "readingKana": "ときどき、おちゃです。",
-      "textEn": "Sometimes it's tea.",
+      "id": "s-788f9800",
+      "textJa": "時々、お茶を飲みます。",
+      "readingKana": "ときどき、おちゃをのみます。",
+      "textEn": "Sometimes I drink tea.",
       "clozeSurface": "時々",
       "clozeReading": "ときどき"
     }
@@ -1768,9 +1798,9 @@
       "clozeReading": "にちようび"
     },
     {
-      "id": "s-033a9ad2",
-      "textJa": "日曜日は学校じゃないです。",
-      "readingKana": "にちようびはがっこうじゃないです。",
+      "id": "s-9f95e27b",
+      "textJa": "日曜日に学校はありません。",
+      "readingKana": "にちようびにがっこうはありません。",
       "textEn": "There's no school on Sunday.",
       "clozeSurface": "日曜日",
       "clozeReading": "にちようび"
@@ -1827,7 +1857,8 @@
       "readingKana": "いま、ばんごはんです。",
       "textEn": "It's dinnertime now.",
       "clozeSurface": "晩御飯",
-      "clozeReading": "ばんごはん"
+      "clozeReading": "ばんごはん",
+      "speak": "今、晩ごはんです。"
     },
     {
       "id": "s-074547e3",
@@ -1913,7 +1944,8 @@
       "readingKana": "まいばんですか。",
       "textEn": "Every night?",
       "clozeSurface": "毎晩",
-      "clozeReading": "まいばん"
+      "clozeReading": "まいばん",
+      "speak": "まいばんですか。"
     }
   ],
   "n5-e3d391e7": [
@@ -1934,10 +1966,10 @@
       "clozeReading": "みず"
     },
     {
-      "id": "s-dee8a2e2",
-      "textJa": "水は高いですか。",
-      "readingKana": "みずはたかいですか。",
-      "textEn": "Is water expensive?",
+      "id": "s-0c5dd229",
+      "textJa": "水はきれいですか。",
+      "readingKana": "みずはきれいですか。",
+      "textEn": "Is the water clean?",
       "clozeSurface": "水",
       "clozeReading": "みず"
     }
@@ -1986,36 +2018,36 @@
       "clozeReading": "いぬ"
     },
     {
-      "id": "s-dcc0b11d",
-      "textJa": "犬はあそこです。",
-      "readingKana": "いぬはあそこです。",
-      "textEn": "The dog is over there.",
+      "id": "s-a9560c76",
+      "textJa": "あなたの犬の名前は何ですか。",
+      "readingKana": "あなたのいぬのなまえはなんですか。",
+      "textEn": "What is your dog's name?",
       "clozeSurface": "犬",
       "clozeReading": "いぬ"
     }
   ],
   "n5-b7ef783f": [
     {
-      "id": "s-77e22085",
-      "textJa": "今日は買い物です。",
-      "readingKana": "きょうはかいものです。",
+      "id": "s-97cc6f58",
+      "textJa": "今日、買い物に行きます。",
+      "readingKana": "きょう、かいものにいきます。",
       "textEn": "I'm going shopping today.",
       "clozeSurface": "買い物",
       "clozeReading": "かいもの"
     },
     {
-      "id": "s-cd64ffdf",
-      "textJa": "明日、買い物です。",
-      "readingKana": "あした、かいものです。",
-      "textEn": "I'll go shopping tomorrow.",
+      "id": "s-e2ea6d73",
+      "textJa": "明日、買い物に行きませんか。",
+      "readingKana": "あした、かいものにいきませんか。",
+      "textEn": "Do you want to go shopping tomorrow?",
       "clozeSurface": "買い物",
       "clozeReading": "かいもの"
     },
     {
-      "id": "s-7fb6402d",
-      "textJa": "土曜日は買い物です。",
-      "readingKana": "どようびはかいものです。",
-      "textEn": "I go shopping on Saturday.",
+      "id": "s-d9bc692d",
+      "textJa": "買い物は好きですか。",
+      "readingKana": "かいものはすきですか。",
+      "textEn": "Do you like shopping?",
       "clozeSurface": "買い物",
       "clozeReading": "かいもの"
     }
@@ -2038,10 +2070,10 @@
       "clozeReading": "かようび"
     },
     {
-      "id": "s-e8e1e1ea",
-      "textJa": "明日は火曜日です。",
-      "readingKana": "あしたはかようびです。",
-      "textEn": "Tomorrow is Tuesday.",
+      "id": "s-3d3eb7e3",
+      "textJa": "火曜日はゴミの日です。",
+      "readingKana": "かようびはごみのひです。",
+      "textEn": "Tuesday is trash day.",
       "clozeSurface": "火曜日",
       "clozeReading": "かようび"
     }
@@ -2064,9 +2096,9 @@
       "clozeReading": "きのう"
     },
     {
-      "id": "s-b76cc4bc",
-      "textJa": "昨日、買い物でした。",
-      "readingKana": "きのう、かいものでした。",
+      "id": "s-1ee558e4",
+      "textJa": "昨日、買い物に行きました。",
+      "readingKana": "きのう、かいものにいきました。",
       "textEn": "I went shopping yesterday.",
       "clozeSurface": "昨日",
       "clozeReading": "きのう"
@@ -2082,10 +2114,10 @@
       "clozeReading": "きんようび"
     },
     {
-      "id": "s-8dd5e3ae",
-      "textJa": "金曜日は映画です。",
-      "readingKana": "きんようびはえいがです。",
-      "textEn": "There's a movie on Friday.",
+      "id": "s-cabb9d6a",
+      "textJa": "この金曜日は映画を観に行きます。",
+      "readingKana": "このきんようびはえいがをみにいきます。",
+      "textEn": "I'm going to see a movie this Friday.",
       "clozeSurface": "金曜日",
       "clozeReading": "きんようび"
     },
@@ -2142,10 +2174,10 @@
       "clozeReading": "げつようび"
     },
     {
-      "id": "s-256035b3",
-      "textJa": "明日は月曜日です。",
-      "readingKana": "あしたはげつようびです。",
-      "textEn": "Tomorrow is Monday.",
+      "id": "s-f2d733b4",
+      "textJa": "月曜日の朝は空いています。",
+      "readingKana": "げつようびのあさはあいています。",
+      "textEn": "I'm free Monday morning.",
       "clozeSurface": "月曜日",
       "clozeReading": "げつようび"
     }
@@ -2168,10 +2200,10 @@
       "clozeReading": "こうえん"
     },
     {
-      "id": "s-971d8bc0",
-      "textJa": "犬は公園です。",
-      "readingKana": "いぬはこうえんです。",
-      "textEn": "The dog is at the park.",
+      "id": "s-1e51c41f",
+      "textJa": "公園でピクニックをしませんか。",
+      "readingKana": "こうえんでぴくにっくをしませんか。",
+      "textEn": "Would you like to have a picnic at the park?",
       "clozeSurface": "公園",
       "clozeReading": "こうえん"
     }
@@ -2230,18 +2262,18 @@
   ],
   "n5-952a80fe": [
     {
-      "id": "s-c3369518",
-      "textJa": "これは御飯です。",
-      "readingKana": "これはごはんです。",
-      "textEn": "This is rice.",
+      "id": "s-0a6ebb0c",
+      "textJa": "私は御飯が大好きです。",
+      "readingKana": "わたしはごはんがだいすきです。",
+      "textEn": "I love rice.",
       "clozeSurface": "御飯",
       "clozeReading": "ごはん"
     },
     {
-      "id": "s-83ef5052",
-      "textJa": "御飯と魚です。",
-      "readingKana": "ごはんとさかなです。",
-      "textEn": "It's rice and fish.",
+      "id": "s-e2819a01",
+      "textJa": "ランチは御飯と魚です。",
+      "readingKana": "らんちはごはんとさかなです。",
+      "textEn": "Lunch is rice and fish.",
       "clozeSurface": "御飯",
       "clozeReading": "ごはん"
     },
@@ -2324,10 +2356,10 @@
       "clozeReading": "せんしゅう"
     },
     {
-      "id": "s-7cb21dec",
-      "textJa": "先週は学校でした。",
-      "readingKana": "せんしゅうはがっこうでした。",
-      "textEn": "I had school last week.",
+      "id": "s-de6f30f6",
+      "textJa": "先週はとても暑かった。",
+      "readingKana": "せんしゅうはとてもあつかった。",
+      "textEn": "Last week was really hot.",
       "clozeSurface": "先週",
       "clozeReading": "せんしゅう"
     }
@@ -2350,10 +2382,10 @@
       "clozeReading": "そこ"
     },
     {
-      "id": "s-8e5ee8c4",
-      "textJa": "そこは公園です。",
-      "readingKana": "そこはこうえんです。",
-      "textEn": "That place is a park.",
+      "id": "s-49e87fec",
+      "textJa": "そこのお店のパンは美味しいです。",
+      "readingKana": "そこのおみせのぱんはおいしいです。",
+      "textEn": "The bread at that shop is delicious.",
       "clozeSurface": "そこ",
       "clozeReading": "そこ"
     }
@@ -2368,27 +2400,27 @@
       "clozeReading": "つくえ"
     },
     {
-      "id": "s-0e02001c",
-      "textJa": "机はあそこです。",
-      "readingKana": "つくえはあそこです。",
-      "textEn": "The desk is over there.",
+      "id": "s-bd18ec2f",
+      "textJa": "あなたの机はあそこです。",
+      "readingKana": "あなたのつくえはあそこです。",
+      "textEn": "Your desk is over there.",
       "clozeSurface": "机",
       "clozeReading": "つくえ"
     },
     {
-      "id": "s-da07505f",
-      "textJa": "机はいくらですか。",
-      "readingKana": "つくえはいくらですか。",
-      "textEn": "How much is the desk?",
+      "id": "s-262901fa",
+      "textJa": "机の上を片付けてください。",
+      "readingKana": "つくえのうえをかたづけてください。",
+      "textEn": "Please tidy up your desk.",
       "clozeSurface": "机",
       "clozeReading": "つくえ"
     }
   ],
   "n5-524dd5c8": [
     {
-      "id": "s-db533f78",
-      "textJa": "これは友達の手紙です。",
-      "readingKana": "これはともだちのてがみです。",
+      "id": "s-e092bf19",
+      "textJa": "これは友達からの手紙です。",
+      "readingKana": "これはともだちからのてがみです。",
       "textEn": "This is a letter from my friend.",
       "clozeSurface": "手紙",
       "clozeReading": "てがみ"
@@ -2402,10 +2434,10 @@
       "clozeReading": "てがみ"
     },
     {
-      "id": "s-20823fff",
-      "textJa": "お母さんの手紙です。",
-      "readingKana": "おかあさんのてがみです。",
-      "textEn": "It's a letter from my mom.",
+      "id": "s-b58e9b2e",
+      "textJa": "手紙は届きましたか。",
+      "readingKana": "てがみはとどきましたか。",
+      "textEn": "Did the letter arrive?",
       "clozeSurface": "手紙",
       "clozeReading": "てがみ"
     }
@@ -2414,26 +2446,26 @@
     {
       "id": "s-e2f5b792",
       "textJa": "デパートはどこですか。",
-      "readingKana": "でぱーとはどこですか。",
+      "readingKana": "でぱあとはどこですか。",
       "textEn": "Where is the department store?",
       "clozeSurface": "デパート",
-      "clozeReading": "でぱーと"
+      "clozeReading": "でぱあと"
     },
     {
       "id": "s-8a5bda6e",
       "textJa": "デパートはあそこです。",
-      "readingKana": "でぱーとはあそこです。",
+      "readingKana": "でぱあとはあそこです。",
       "textEn": "The department store is over there.",
       "clozeSurface": "デパート",
-      "clozeReading": "でぱーと"
+      "clozeReading": "でぱあと"
     },
     {
       "id": "s-af31500d",
       "textJa": "今日はデパートで買い物です。",
-      "readingKana": "きょうはでぱーとでかいものです。",
+      "readingKana": "きょうはでぱあとでかいものです。",
       "textEn": "I'm shopping at the department store today.",
       "clozeSurface": "デパート",
-      "clozeReading": "でぱーと"
+      "clozeReading": "でぱあと"
     }
   ],
   "n5-d52f01a9": [
@@ -2446,10 +2478,10 @@
       "clozeReading": "どうして"
     },
     {
-      "id": "s-88c7f5e4",
-      "textJa": "どうして今日は学校ですか。",
-      "readingKana": "どうしてきょうはがっこうですか。",
-      "textEn": "Why do you have school today?",
+      "id": "s-2aaa2c81",
+      "textJa": "どうして夏はこんなに暑いのだろう。",
+      "readingKana": "どうしてなつはこんなにあついのだろう。",
+      "textEn": "Why is summer so hot?",
       "clozeSurface": "どうして",
       "clozeReading": "どうして"
     }
@@ -2472,10 +2504,10 @@
       "clozeReading": "ねこ"
     },
     {
-      "id": "s-77f95d24",
-      "textJa": "猫はうちです。",
-      "readingKana": "ねこはうちです。",
-      "textEn": "The cat is at home.",
+      "id": "s-0b7214b1",
+      "textJa": "私の猫の名前はタマです。",
+      "readingKana": "わたしのねこのなまえはたまです。",
+      "textEn": "My cat's name is Tama.",
       "clozeSurface": "猫",
       "clozeReading": "ねこ"
     }
@@ -2736,7 +2768,7 @@
     {
       "id": "s-1bacbaab",
       "textJa": "コーヒーは熱いです。",
-      "readingKana": "こーひーはあついです。",
+      "readingKana": "こうひいはあついです。",
       "textEn": "The coffee is hot.",
       "clozeSurface": "熱い",
       "clozeReading": "あつい"

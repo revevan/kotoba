@@ -166,9 +166,13 @@ function loadSentences(decks: Deck[]): Sentence[] {
 
 /** Split a sentence into the audio before and after the gapped target word. */
 function splitAtCloze(s: Sentence): { pre: string; post: string } | null {
-  const i = s.textJa.indexOf(s.clozeSurface);
+  // Prefer the speak override so pre/post keep its pitch fixes; fall back to
+  // textJa when the override rewrote the cloze surface itself (then the target
+  // word isn't in pre/post anyway — the beep replaces it).
+  const src = s.speak?.includes(s.clozeSurface) ? s.speak : s.textJa;
+  const i = src.indexOf(s.clozeSurface);
   if (i < 0) return null;
-  return { pre: s.textJa.slice(0, i).trim(), post: s.textJa.slice(i + s.clozeSurface.length).trim() };
+  return { pre: src.slice(0, i).trim(), post: src.slice(i + s.clozeSurface.length).trim() };
 }
 
 function collectJobs(decks: Deck[]): Job[] {
@@ -201,7 +205,7 @@ function collectJobs(decks: Deck[]): Job[] {
   // Example sentences: full natural clip, English, and the pre/post split that
   // the cloze beep plays between. (The beep itself is a static WAV, below.)
   for (const s of loadSentences(decks)) {
-    jobs.set(`sen/${s.id}.mp3`, { out: `sen/${s.id}.mp3`, text: s.textJa, voice: JA_VOICE });
+    jobs.set(`sen/${s.id}.mp3`, { out: `sen/${s.id}.mp3`, text: s.speak ?? s.textJa, voice: JA_VOICE });
     jobs.set(`sen-en/${s.id}.mp3`, { out: `sen-en/${s.id}.mp3`, text: s.textEn, voice: EN_VOICE });
     const split = splitAtCloze(s);
     if (split) {
