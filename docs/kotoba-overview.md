@@ -203,6 +203,12 @@ pages. Recognition has been tuned and validated to work well with AirPods.
 - Native-speaker review of the synonym folds and example sentences, then
   corrections.
 - A stats / progress screen (streaks, words learned, retention).
+- **Acquisition-source tracking:** capture `document.referrer` + `utm_source`
+  on first app load (e.g. ChatGPT referrals arrive with
+  `utm_source=chatgpt.com`), persist it with local state, and store it as an
+  `acquisition_source` column on signup — so "of the users who came from X,
+  how many signed up and stuck around" becomes a plain D1 query. Pair with a
+  session started/completed counter so first-session drop-off is measurable.
 - "Buy Me a Coffee" donation link.
 - More decks (themed sets, custom word lists) beyond the current N5→N3 lineup.
 - Continued real-commute field testing and iteration on the in-car experience.
