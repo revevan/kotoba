@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { pipeline } from 'node:stream/promises';
 import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
 import { ALL_FORMS, allSpeechSegments, conjugate, segKey, type ConjForm } from '../src/conj/engine';
+import { splitAtCloze } from '../src/audio/clozeSplit';
 import type { Deck, Sentence } from '../src/types';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -162,17 +163,6 @@ function loadSentences(decks: Deck[]): Sentence[] {
     for (const list of Object.values(pool)) out.push(...list);
   }
   return out;
-}
-
-/** Split a sentence into the audio before and after the gapped target word. */
-function splitAtCloze(s: Sentence): { pre: string; post: string } | null {
-  // Prefer the speak override so pre/post keep its pitch fixes; fall back to
-  // textJa when the override rewrote the cloze surface itself (then the target
-  // word isn't in pre/post anyway — the beep replaces it).
-  const src = s.speak?.includes(s.clozeSurface) ? s.speak : s.textJa;
-  const i = src.indexOf(s.clozeSurface);
-  if (i < 0) return null;
-  return { pre: src.slice(0, i).trim(), post: src.slice(i + s.clozeSurface.length).trim() };
 }
 
 function collectJobs(decks: Deck[]): Job[] {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { initialState, reduce, type Event, type Item, type ListenOutcome, type MachineState, type Step } from '../src/session/machine';
+import { initialState, reduce, type Effect, type Event, type Item, type ListenOutcome, type MachineState, type Step } from '../src/session/machine';
 
 const teach = (id: string): Item => ({ wordId: id, mode: 'teach' });
 const quiz = (id: string): Item => ({ wordId: id, mode: 'quiz' });
@@ -266,6 +266,80 @@ describe('session machine', () => {
       { type: 'play', kind: 'done' },
     ]);
     expect(run(s, playDone).effects).toEqual([{ type: 'ended' }]);
+  });
+});
+
+describe('SR errors never rate a card', () => {
+  // The P0 rule: an FSRS rating requires a real user signal (voice or tap). A
+  // network/STT failure must never grade the card — the old behavior rated
+  // Again on the error path and poisoned scheduling during outages.
+  const cloze = (id: string): Item => ({ wordId: id, mode: 'cloze', sentenceId: 's1' });
+
+  it('error in quiz listen reveals without rating; error in self-grade advances unrated', () => {
+    const s = run(start([quiz('w1'), quiz('w2')]), playDone, playDone, result('error'));
+    expect(s.state.phase).toBe('reveal-playing');
+    expect(s.effects.some((e) => e.type === 'rate')).toBe(false);
+
+    const s2 = run(s, playDone, result('error'));
+    expect(s2.effects.some((e) => e.type === 'rate')).toBe(false);
+    expect(s2.state.phase).toBe('quiz-playing'); // moved on to w2
+    expect(s2.state.idx).toBe(1);
+    expect(s2.state.srFailures).toBe(2);
+    expect(s2.state.counts.missed).toBe(0); // not counted as a miss either
+    expect(s2.state.queue.some((i) => i.practice)).toBe(false); // no re-drill
+  });
+
+  it('error in a sentence-rung listen reveals without rating', () => {
+    const s = run(start([cloze('w1')]), playDone, playDone, result('error'));
+    expect(s.state.phase).toBe('reveal-playing');
+    expect(s.effects).toEqual([{ type: 'play', kind: 'cloze-reveal', wordId: 'w1', sentenceId: 's1' }]);
+  });
+
+  it('error in a conjugation listen reveals without rating', () => {
+    const conj: Item = { wordId: 'v1', mode: 'conjugate', conj: { cardId: 'conj:te:ichidan', form: 'te', group: 'ichidan' } };
+    const s = run(start([conj]), playDone, playDone, result('error'));
+    expect(s.state.phase).toBe('reveal-playing');
+    expect(s.effects.some((e) => e.type === 'rate')).toBe(false);
+  });
+
+  it('mic lost during self-grade degrades and advances unrated', () => {
+    for (const outcome of ['denied', 'unavailable'] as const) {
+      const s = run(start([quiz('w1'), quiz('w2')]), playDone, playDone, result('nomatch'), playDone, result(outcome));
+      expect(s.state.degraded).toBe(true);
+      expect(s.effects.some((e) => e.type === 'rate')).toBe(false);
+      expect(s.state.idx).toBe(1);
+      expect(s.state.counts.missed).toBe(0);
+    }
+  });
+
+  it('self-grade "got it" after an SR-errored answer still rates good', () => {
+    const s = run(start([quiz('w1')]), playDone, playDone, result('error'), playDone, result('gotit'));
+    expect(s.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'good', mode: 'self' });
+  });
+
+  it('self-grade timeout through a WORKING pipeline still rates the default miss', () => {
+    // Real silence is a deliberate miss-by-default (see machine self-grade
+    // comment) — only failure outcomes are exempt from rating.
+    const s = run(start([quiz('w1'), quiz('w2')]), playDone, playDone, result('nomatch'), playDone, result('timeout'));
+    expect(s.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'again', mode: 'timeout' });
+  });
+
+  it('errors across answer and self-grade listens accumulate to degraded, all unrated', () => {
+    let s = run(start([quiz('w1'), quiz('w2'), quiz('w3')]), playDone);
+    const effects: Effect[] = [];
+    const collect = (ev: Event) => {
+      s = run(s, ev);
+      effects.push(...s.effects);
+    };
+    collect(playDone); // w1 prompt done → listening
+    collect(result('error')); // failure 1 → reveal
+    collect(playDone); // reveal done → self-grade
+    collect(result('error')); // failure 2 → advance unrated
+    expect(s.state.phase).toBe('quiz-playing');
+    collect(playDone); // w2 prompt done → listening
+    collect(result('error')); // failure 3 → degraded
+    expect(s.state.degraded).toBe(true);
+    expect(effects.some((e) => e.type === 'rate')).toBe(false);
   });
 });
 

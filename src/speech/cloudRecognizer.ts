@@ -1,6 +1,7 @@
 import { dlog } from '../debug/log';
 import type { ListenOptions, SRResult } from './recognizer';
 import { sttEndpoint } from './sttConfig';
+import { postSttForm } from './sttFetch';
 import { mapProxyResponse, rmsLevel, vadStep, type VadConfig, type VadState } from './sttResponse';
 
 /**
@@ -296,18 +297,14 @@ export async function cloudListen(opts: ListenOptions): Promise<SRResult> {
         form.append('lang', opts.lang);
         for (const hint of opts.hints ?? []) form.append('hint', hint);
         dlog('cstt', `POST ${Math.round(blob.size / 1024)}KB ${opts.lang} ${type} ${clipMs}ms peak=${peak.toFixed(3)}${opts.hints?.length ? ` hints=${opts.hints.length}` : ''}`);
-        const ctrl = new AbortController();
-        const httpTimer = setTimeout(() => ctrl.abort(), 8000);
-        const resp = await fetch(sttEndpoint, { method: 'POST', body: form, signal: ctrl.signal });
-        clearTimeout(httpTimer);
-        let body: Record<string, unknown> | null = null;
-        try {
-          body = (await resp.json()) as Record<string, unknown>;
-        } catch {
-          /* non-JSON body */
-        }
+        // The clip is recorded, so retries cost the user nothing (see sttFetch);
+        // a superseded/aborted listen stops the ladder via `cancelled`.
+        const { status, body } = await postSttForm(sttEndpoint, form, {
+          cancelled: () => settled || seq !== listenSeq,
+          log: (m) => dlog('cstt', m),
+        });
         dlog('cstt', `deepgram tx="${body?.transcript ?? ''}" conf=${body?.confidence ?? '?'} dur=${body?.duration ?? '?'}`);
-        finish(mapProxyResponse(resp.status, body));
+        finish(mapProxyResponse(status, body));
       } catch (e) {
         dlog('cstt', `transcribe failed: ${e}`);
         finish({ kind: 'error', code: 'network' });

@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { SessionRunner, type RunnerDeps } from '../src/session/runner';
 import type { ClipItem } from '../src/audio/clips';
 import type { ListenOptions, SRResult } from '../src/speech/recognizer';
+import { STT_TRANSCRIBE_BUDGET_MS } from '../src/speech/sttFetch';
 import type { Phase } from '../src/session/machine';
 import type { Sentence, Word } from '../src/types';
 
@@ -92,16 +93,17 @@ describe('SessionRunner robustness', () => {
     await vi.advanceTimersByTimeAsync(0); // play intro + teach → reach the listen
 
     expect(phases).toContain('teach-listening');
-    // Watchdog budget = timeout (5000) + utterance window (3200) + POST budget
-    // (8000) + slack (3000): it must NOT fire while a slow-but-valid
-    // transcription could still be in flight…
-    await vi.advanceTimersByTimeAsync(19000);
+    // Watchdog budget = timeout (5000) + utterance window (3200) + the full
+    // transcribe retry ladder + slack (3000): it must NOT fire while a
+    // slow-but-valid transcription could still be in flight…
+    const watchdogMs = 5000 + 3200 + STT_TRANSCRIBE_BUDGET_MS + 3000;
+    await vi.advanceTimersByTimeAsync(watchdogMs - 200);
     expect(phases[phases.length - 1]).toBe('teach-listening');
     // …but must force progress once the budget is exhausted (into teach part 2,
     // whose own wedged listen needs a second watchdog to reach done).
     await vi.advanceTimersByTimeAsync(201);
     expect(phases[phases.length - 1]).toBe('teach2-listening');
-    await vi.advanceTimersByTimeAsync(19201);
+    await vi.advanceTimersByTimeAsync(watchdogMs + 1);
     expect(phases[phases.length - 1]).toBe('done');
   });
 });

@@ -24,6 +24,7 @@ import { gradeShadow } from '../matching/shadow';
 import { expandWithReadings } from '../matching/reading';
 import { parseCommand } from '../speech/commands';
 import type { ListenFn } from '../speech/recognizer';
+import { STT_TRANSCRIBE_BUDGET_MS } from '../speech/sttFetch';
 import {
   currentItem,
   initialState,
@@ -284,11 +285,12 @@ export class SessionRunner {
     // A listen can legitimately outlive timeoutMs by a lot: speech can begin
     // just before the no-speech deadline, run a full utterance window plus
     // trailing silence (~3.2s base, ~15.6s for sentence-length listens), and
-    // the transcription POST has its own 8s budget. The watchdog is a last
-    // line of defense against a *wedged* recognizer, so it must sit beyond
-    // that worst case — not race a valid answer that's still being transcribed.
+    // the transcription POST has its own budget — imported from sttFetch so it
+    // always covers the full retry ladder. The watchdog is a last line of
+    // defense against a *wedged* recognizer, so it must sit beyond that worst
+    // case — not race a valid answer that's still being transcribed.
     const utteranceMs = long ? LONG_UTTERANCE.maxUtteranceMs + LONG_UTTERANCE.trailingSilenceMs : 3200;
-    const WATCHDOG_OVERHEAD_MS = utteranceMs + 8000 + 3000;
+    const WATCHDOG_OVERHEAD_MS = utteranceMs + STT_TRANSCRIBE_BUDGET_MS + 3000;
 
     // Last line of defense: if the listen somehow never produces an event
     // (recognizer wedged, exception below, …) force the session forward.

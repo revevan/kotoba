@@ -1,6 +1,7 @@
 import { formRegister, labelPromptSegments, meaningSegments, ruleFor, segKey, type ConjForm, type PatternGroup, type SpeechSeg } from '../conj/engine';
 import type { ItemConj } from '../session/machine';
 import type { Sentence, Word } from '../types';
+import { splitAtCloze } from './clozeSplit';
 
 export interface ClipItem {
   /** Omitted src = pure pause of gapMs. */
@@ -123,12 +124,15 @@ export function correctSequence(w: Word, sentence?: Sentence): ClipItem[] {
  * translation for comprehension support.
  */
 export function clozePromptSequence(sentence: Sentence, opts: { englishFirst?: boolean } = {}): ClipItem[] {
+  // Only the halves gen-audio synthesized exist — a cloze at the sentence edge
+  // has no pre (or post) clip, and requesting it is a guaranteed 404.
+  const split = splitAtCloze(sentence);
   return [
     { src: phraseClip('fill-the-blank'), gapMs: 150 },
     ...(opts.englishFirst ? [{ src: senEnClip(sentence.id), gapMs: 250 }] : []),
-    { src: senPreClip(sentence.id), gapMs: 50 },
+    ...(split?.pre ? [{ src: senPreClip(sentence.id), gapMs: 50 }] : []),
     { src: beepClip(), gapMs: 50 },
-    { src: senPostClip(sentence.id) },
+    ...(split?.post ? [{ src: senPostClip(sentence.id) }] : []),
   ];
 }
 
@@ -265,12 +269,14 @@ export function sessionClipUrls(words: Word[]): string[] {
     urls.add(jaSlowClip(w.id));
     urls.add(enClip(w.id));
     for (const a of w.alts ?? []) urls.add(jaClip(a.id));
-    // Warm the whole sentence pool — rotation may land on any of them.
+    // Warm the whole sentence pool — rotation may land on any of them. Same
+    // split gate as clozePromptSequence: only existing halves get warmed.
     for (const s of w.sentences ?? []) {
       urls.add(senClip(s.id));
       urls.add(senEnClip(s.id));
-      urls.add(senPreClip(s.id));
-      urls.add(senPostClip(s.id));
+      const split = splitAtCloze(s);
+      if (split?.pre) urls.add(senPreClip(s.id));
+      if (split?.post) urls.add(senPostClip(s.id));
     }
   }
   if (words.some((w) => w.sentences?.length)) urls.add(beepClip());

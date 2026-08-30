@@ -470,10 +470,10 @@ export function reduce(s: MachineState, ev: Event): Step {
 
     case 'self-grade-listening': {
       // A revealed answer is a miss by default; "got it" is the override for a
-      // correct answer the recognizer didn't catch. Silence or an SR error
-      // leaves it missed and moves on immediately — no waiting in limbo. But an
-      // *unrecognized utterance* is usually a garbled "got it" (they said
-      // something), so that gets one re-prompt before the miss is finalized.
+      // correct answer the recognizer didn't catch. Silence leaves it missed
+      // and moves on immediately — no waiting in limbo. But an *unrecognized
+      // utterance* is usually a garbled "got it" (they said something), so that
+      // gets one re-prompt before the miss is finalized.
       if (outcome === 'gotit') return gradeSelf(s, 'good', 'self');
       if (outcome === 'missed') return gradeSelf(s, 'again', 'self');
       if (outcome === 'cmd-repeat') return toReveal(s);
@@ -481,8 +481,14 @@ export function reduce(s: MachineState, ev: Event): Step {
       if (outcome === 'nomatch' && s.retries === 0) {
         return step({ ...s, phase: 'self-grade-reprompt-playing', retries: 1 }, { type: 'play', kind: 'self-grade-reprompt', wordId: currentItem(s)!.wordId });
       }
-      if (outcome === 'denied' || outcome === 'unavailable') s = degrade(s);
-      if (outcome === 'error') s = bumpSrFailure(s);
+      // An SR/mic failure is NOT a user signal: rating here graded cards Again
+      // on network outages and poisoned FSRS. Advance unrated — no rate, no
+      // re-drill, no miss count — the card's schedule is untouched, so it stays
+      // due and simply returns next session. (A degraded-mode tap window that
+      // expires still arrives as 'timeout' and rates the default miss below —
+      // long-standing tap-window semantics, revisit with the C2 rails.)
+      if (outcome === 'denied' || outcome === 'unavailable') return advance(degrade(s));
+      if (outcome === 'error') return advance(bumpSrFailure(s));
       if (outcome) return gradeSelf(s, 'again', 'timeout');
       break;
     }
