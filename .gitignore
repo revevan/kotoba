@@ -6,6 +6,7 @@ dev-dist/
 *.tmp
 tools/pipeline/state/
 tools/shorts/.venv/
+tools/shorts/__pycache__/
 tools/shorts/out/
 tools/shorts/client_secret.json
 .env
@@ -16,3 +17,6 @@ tools/shorts/token.json
 
 # GSC MCP service-account key
 .secrets/
+
+# private task list — lives locally only (repo is public)
+TODO.md
