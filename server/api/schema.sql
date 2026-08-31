@@ -33,6 +33,17 @@ CREATE TABLE IF NOT EXISTS progress (
   updated_at INTEGER NOT NULL
 );
 
+-- One-back safety snapshot per user, written by PUT /sync before it overwrites
+-- `progress` (rotated at most every 10 minutes, so a burst of pushes in one
+-- session can't cycle a good snapshot away). Recovery is manual:
+--   wrangler d1 execute kotoba --remote --command \
+--     "SELECT data FROM progress_prev WHERE user_id = '…'"
+CREATE TABLE IF NOT EXISTS progress_prev (
+  user_id    TEXT PRIMARY KEY,
+  data       TEXT NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
 -- One row per user per UTC day with at least one authenticated sync — powers
 -- the admin stats page's daily-active counts. Written by PUT /sync. `studied`
 -- marks days with at least one graded review (from the blob's newest

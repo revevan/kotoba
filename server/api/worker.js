@@ -38,6 +38,7 @@ const TOKEN_TTL_MS = 90 * 24 * 60 * 60 * 1000; // session lifetime
 const RESEND_COOLDOWN_MS = 45 * 1000; // min gap between codes per email
 const MAX_CODE_ATTEMPTS = 5;
 const MAX_BLOB_BYTES = 2_000_000;
+const SNAPSHOT_MIN_AGE_MS = 10 * 60 * 1000; // min age before progress_prev rotates
 
 export default {
   async fetch(request, env) {
@@ -212,6 +213,17 @@ async function syncPut(request, env, cors) {
   const data = JSON.stringify(body.data);
   if (data.length > MAX_BLOB_BYTES) return json({ error: 'too-large' }, 413, cors);
   const updatedAt = Number(body.updatedAt) || Date.now();
+  // Keep a one-back snapshot before overwriting, so a destructive client push
+  // (merge bug, accidental reset) is recoverable by hand from progress_prev.
+  // Only rotate when the stored blob has stood for 10+ minutes — rapid pushes
+  // within a session must not cycle the good snapshot away.
+  await env.DB.prepare(
+    'INSERT INTO progress_prev (user_id, data, updated_at) ' +
+      'SELECT user_id, data, updated_at FROM progress WHERE user_id = ?1 AND updated_at < ?2 ' +
+      'ON CONFLICT(user_id) DO UPDATE SET data = excluded.data, updated_at = excluded.updated_at',
+  )
+    .bind(userId, Date.now() - SNAPSHOT_MIN_AGE_MS)
+    .run();
   await env.DB.prepare(
     'INSERT INTO progress (user_id, data, updated_at) VALUES (?, ?, ?) ' +
       'ON CONFLICT(user_id) DO UPDATE SET data = excluded.data, updated_at = excluded.updated_at',

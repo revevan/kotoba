@@ -3,6 +3,7 @@ import { auth, deckIndex, deckProgress, dueCount, enabledDeckIds, enteredApp, lo
 import { GUEST_DECK_IDS, startSession, updateSetting } from '../session/controller';
 import { sendFeedback } from '../sync/client';
 import { cloudSyncEnabled } from '../sync/config';
+import { Notices } from './Notices';
 
 function FeedbackForm() {
   const [open, setOpen] = useState(false);
@@ -84,6 +85,8 @@ export function HomeScreen() {
       </header>
 
       {loadError.value && <p class="error">Couldn’t load decks: {loadError.value}</p>}
+
+      <Notices />
 
       <div class="stats">
         <div class="stat">

@@ -342,6 +342,29 @@ describe('SR errors never rate a card', () => {
     expect(s.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'again', mode: 'timeout' });
   });
 
+  it('degraded reveal carries the not-graded framing (no listen ever ran)', () => {
+    const s = run(start([quiz('w1')], true, true), playDone, playDone);
+    expect(s.state.phase).toBe('reveal-playing');
+    expect(s.state.srErrorReveal).toBe(true);
+  });
+
+  it('degraded tap window expiring advances unrated (C2: expiry is "no tap", not a miss)', () => {
+    // Degraded sessions reach self-grade on every card; if the user can't tap
+    // (driving), a rating here would mark the whole session wrong.
+    const s = run(start([quiz('w1'), quiz('w2')], true, true), playDone, playDone, playDone, result('timeout'));
+    expect(s.effects.some((e) => e.type === 'rate')).toBe(false);
+    expect(s.state.idx).toBe(1);
+    expect(s.state.counts.missed).toBe(0);
+    expect(s.state.queue.some((i) => i.practice)).toBe(false); // no re-drill either
+  });
+
+  it('degraded taps still grade normally', () => {
+    const gotit = run(start([quiz('w1')], true, true), playDone, playDone, playDone, { type: 'tap', cmd: 'gotit' });
+    expect(gotit.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'good', mode: 'self' });
+    const missed = run(start([quiz('w1')], true, true), playDone, playDone, playDone, { type: 'tap', cmd: 'missed' });
+    expect(missed.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'again', mode: 'self' });
+  });
+
   it('errors across answer and self-grade listens accumulate to degraded, all unrated', () => {
     let s = run(start([quiz('w1'), quiz('w2'), quiz('w3')]), playDone);
     const effects: Effect[] = [];

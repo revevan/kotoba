@@ -1,9 +1,8 @@
 import { render } from 'preact';
 import { App } from './app';
+import { initSW } from './platform/swUpdate';
 import './styles.css';
 
-if ('serviceWorker' in navigator) {
-  import('virtual:pwa-register').then(({ registerSW }) => registerSW({ immediate: true })).catch(() => {});
-}
+initSW();
 
 render(<App />, document.getElementById('app')!);

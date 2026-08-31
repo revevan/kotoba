@@ -7,10 +7,25 @@ import { syncPush } from '../sync/sync';
 import { cloudSyncEnabled } from '../sync/config';
 import { logout } from '../sync/client';
 import { adminAccess, conjEarlyAccess } from '../labs';
+import { applyUpdate, checkForUpdates, updateReady } from '../platform/swUpdate';
+
+declare const __BUILD_ID__: string;
 
 export function SettingsScreen() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [msg, setMsg] = useState('');
+  const [updateMsg, setUpdateMsg] = useState('');
+
+  const onCheckUpdates = async () => {
+    setUpdateMsg('Checking…');
+    const res = await checkForUpdates();
+    if (res === 'ready') {
+      setUpdateMsg('Update found — restarting…');
+      applyUpdate();
+    } else {
+      setUpdateMsg(res === 'none' ? 'You’re on the latest version.' : 'Updates aren’t available here.');
+    }
+  };
 
   const onImport = async (file: File) => {
     try {
@@ -184,6 +199,16 @@ export function SettingsScreen() {
       </div>
 
       {msg && <p class="hint">{msg}</p>}
+
+      <div class="row buttons">
+        <button onClick={() => (updateReady.value ? applyUpdate() : void onCheckUpdates())}>
+          {updateReady.value ? 'Restart to update' : 'Check for updates'}
+        </button>
+      </div>
+      <p class="hint">
+        Version {typeof __BUILD_ID__ === 'string' ? __BUILD_ID__ : 'dev'}
+        {updateMsg && ` · ${updateMsg}`}
+      </p>
     </div>
   );
 }
