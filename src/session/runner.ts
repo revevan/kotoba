@@ -14,6 +14,7 @@ import {
   revealSequence,
   shadowPromptSequence,
   shadowRevealSequence,
+  srErrorIntro,
   teach2Sequence,
   teachSequence,
 } from '../audio/clips';
@@ -84,6 +85,9 @@ const LISTEN_TIMEOUTS: Record<ListenKind, number> = {
  *  longer pause before we decide the speaker is done — a learner repeating a
  *  sentence pauses mid-clause in ways a one-word answer never does. */
 const LONG_UTTERANCE = { maxUtteranceMs: 14000, trailingSilenceMs: 1600 };
+
+/** Play kinds whose sequence opens with the "not quite" grading intro. */
+const REVEAL_KINDS = new Set<PlayKind>(['reveal', 'cloze-reveal', 'shadow-reveal', 'build-reveal', 'conj-reveal']);
 
 /**
  * Expected-answer terms to bias the cloud recognizer toward, gathered from the
@@ -172,7 +176,11 @@ export class SessionRunner {
       case 'play': {
         let outcome: 'done' | 'cancelled';
         try {
-          outcome = await this.deps.play(this.sequenceFor(eff.kind, eff.wordId, eff.sentenceId));
+          let seq = this.sequenceFor(eff.kind, eff.wordId, eff.sentenceId);
+          // An SR-failure reveal must not open with "Not quite." — nothing was
+          // graded; swap the intro for the connection-trouble phrase.
+          if (this.state.srErrorReveal && REVEAL_KINDS.has(eff.kind)) seq = srErrorIntro(seq);
+          outcome = await this.deps.play(seq);
         } catch (e) {
           // A playback failure must never strand the session.
           dlog('runner', `play ${eff.kind} threw: ${e}`);

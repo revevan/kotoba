@@ -29,6 +29,8 @@ const PHRASES: Record<string, string> = {
   'how-do-you-say': 'How do you say —',
   'correct': 'Correct!',
   'not-quite': 'Not quite.',
+  // SR-failure reveal intro: honest "couldn't judge it", not a fake miss.
+  'couldnt-check': "Couldn't check that one.",
   'the-answer-is': 'The answer is —',
   'knew-it': 'Say — got it — or — missed it.',
   'also-hear': 'You may also hear —',
@@ -81,6 +83,7 @@ const PHRASES_JA: Record<string, string> = {
   'how-do-you-say': '日本語でどう言いますか —',
   'correct': '正解！',
   'not-quite': '残念！',
+  'couldnt-check': '確認できませんでした。',
   'the-answer-is': '答えは —',
   'knew-it': 'got it、か、missed it、と言ってください。',
   'also-hear': 'こうも言います —',

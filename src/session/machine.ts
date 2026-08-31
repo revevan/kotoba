@@ -123,6 +123,9 @@ export interface MachineState {
   voiceEcho: boolean;
   counts: Counts;
   lastRecognized: string | null;
+  /** The current reveal was reached via an SR/mic failure, not a judged miss —
+   *  the UI and audio must not claim "not quite" (nothing was graded). */
+  srErrorReveal: boolean;
 }
 
 export type TapCommand = 'repeat' | 'skip' | 'pause' | 'resume' | 'gotit' | 'missed';
@@ -154,6 +157,7 @@ export function initialState(): MachineState {
     voiceEcho: true,
     counts: { taught: 0, correct: 0, missed: 0 },
     lastRecognized: null,
+    srErrorReveal: false,
   };
 }
 
@@ -165,7 +169,7 @@ const step = (state: MachineState, ...effects: Effect[]): Step => ({ state, effe
 
 function enterItem(s: MachineState): Step {
   // New item → clear the recognized-text echo so it never sticks to the next word.
-  s = { ...s, lastRecognized: null };
+  s = { ...s, lastRecognized: null, srErrorReveal: false };
   const item = currentItem(s);
   if (!item) {
     return step({ ...s, phase: 'done' }, { type: 'play', kind: 'done' });
@@ -236,8 +240,10 @@ function degrade(s: MachineState): MachineState {
 }
 
 /** Quiz/cloze answer didn't pass → reveal the answer, then self-grade. A cloze
- *  reveal plays the full natural sentence; a plain quiz just names the word. */
-function toReveal(s: MachineState): Step {
+ *  reveal plays the full natural sentence; a plain quiz just names the word.
+ *  `srError` marks a reveal caused by an SR/mic failure — same flow, but the
+ *  UI/audio swap "not quite" for a connection-trouble framing. */
+function toReveal(s: MachineState, srError = false): Step {
   const item = currentItem(s)!;
   const kind =
     item.mode === 'cloze' ? 'cloze-reveal'
@@ -245,7 +251,7 @@ function toReveal(s: MachineState): Step {
     : item.mode === 'build' ? 'build-reveal'
     : item.mode === 'conjugate' ? 'conj-reveal'
     : 'reveal';
-  return step({ ...s, phase: 'reveal-playing', retries: 0 }, { type: 'play', kind, wordId: item.wordId, sentenceId: item.sentenceId });
+  return step({ ...s, phase: 'reveal-playing', retries: 0, srErrorReveal: srError }, { type: 'play', kind, wordId: item.wordId, sentenceId: item.sentenceId });
 }
 
 /** Items between a miss and its re-drill — same spacing as the teach re-quiz. */
@@ -428,8 +434,8 @@ export function reduce(s: MachineState, ev: Event): Step {
       if (outcome === 'nomatch' || outcome === 'dontknow' || outcome === 'timeout' || outcome === 'speech') {
         return toReveal({ ...s, srFailures: 0 });
       }
-      if (outcome === 'error') return toReveal(bumpSrFailure(s));
-      if (outcome === 'denied' || outcome === 'unavailable') return toReveal(degrade(s));
+      if (outcome === 'error') return toReveal(bumpSrFailure(s), true);
+      if (outcome === 'denied' || outcome === 'unavailable') return toReveal(degrade(s), true);
       break;
     }
 
@@ -462,7 +468,7 @@ export function reduce(s: MachineState, ev: Event): Step {
       if (ev.type === 'playDone') {
         return step({ ...s, phase: 'self-grade-listening', retries: 0 }, { type: 'listen', kind: 'self-grade', wordId: currentItem(s)!.wordId });
       }
-      if (outcome === 'cmd-repeat') return toReveal(s);
+      if (outcome === 'cmd-repeat') return toReveal(s, s.srErrorReveal);
       if (outcome === 'cmd-skip') return gradeSelf(s, 'again', 'skip');
       if (outcome === 'gotit') return gradeSelf(s, 'good', 'self');
       if (outcome === 'missed') return gradeSelf(s, 'again', 'self');
@@ -476,7 +482,7 @@ export function reduce(s: MachineState, ev: Event): Step {
       // gets one re-prompt before the miss is finalized.
       if (outcome === 'gotit') return gradeSelf(s, 'good', 'self');
       if (outcome === 'missed') return gradeSelf(s, 'again', 'self');
-      if (outcome === 'cmd-repeat') return toReveal(s);
+      if (outcome === 'cmd-repeat') return toReveal(s, s.srErrorReveal);
       if (outcome === 'cmd-skip') return gradeSelf(s, 'again', 'skip');
       if (outcome === 'nomatch' && s.retries === 0) {
         return step({ ...s, phase: 'self-grade-reprompt-playing', retries: 1 }, { type: 'play', kind: 'self-grade-reprompt', wordId: currentItem(s)!.wordId });

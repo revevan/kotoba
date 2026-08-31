@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { splitAtCloze } from '../src/audio/clozeSplit';
-import { clozePromptSequence, sessionClipUrls } from '../src/audio/clips';
+import { clozePromptSequence, revealSequence, sessionClipUrls, shadowRevealSequence, srErrorIntro } from '../src/audio/clips';
 import type { Sentence, Word } from '../src/types';
 
 const sen = (over: Partial<Sentence> = {}): Sentence => ({
@@ -88,6 +88,20 @@ describe('clozePromptSequence', () => {
   it('englishFirst still leads with the translation clip', () => {
     const played = srcs(clozePromptSequence(sen(), { englishFirst: true }));
     expect(played[1]).toContain('sen-en/s1');
+  });
+});
+
+describe('srErrorIntro', () => {
+  it('swaps the "not quite" intro for the connection phrase, keeping the rest', () => {
+    const w = word([]);
+    const reveal = srErrorIntro(revealSequence(w));
+    expect(reveal[0].src).toContain('couldnt-check');
+    expect(reveal[0].gapMs).toBe(revealSequence(w)[0].gapMs);
+    expect(reveal.slice(1)).toEqual(revealSequence(w).slice(1));
+
+    const shadow = srErrorIntro(shadowRevealSequence(sen()));
+    expect(shadow[0].src).toContain('couldnt-check');
+    expect(shadow.some((i) => i.src?.includes('sen/s1'))).toBe(true);
   });
 });
 

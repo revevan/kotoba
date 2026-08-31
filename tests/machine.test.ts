@@ -317,6 +317,24 @@ describe('SR errors never rate a card', () => {
     expect(s.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'good', mode: 'self' });
   });
 
+  it('marks an error-caused reveal so the UI/audio can drop the "not quite" framing', () => {
+    const s = run(start([quiz('w1'), quiz('w2')]), playDone, playDone, result('error'));
+    expect(s.state.srErrorReveal).toBe(true);
+    // Repeat replays the reveal without losing the error framing…
+    const repeated = run(s, playDone, result('cmd-repeat'));
+    expect(repeated.state.srErrorReveal).toBe(true);
+    // …the flag survives into self-grade, and clears on the next item.
+    const advanced = run(repeated, playDone, result('error'));
+    expect(advanced.state.idx).toBe(1);
+    expect(advanced.state.srErrorReveal).toBe(false);
+  });
+
+  it('a judged miss reveals without the error framing', () => {
+    const s = run(start([quiz('w1')]), playDone, playDone, result('nomatch'));
+    expect(s.state.phase).toBe('reveal-playing');
+    expect(s.state.srErrorReveal).toBe(false);
+  });
+
   it('self-grade timeout through a WORKING pipeline still rates the default miss', () => {
     // Real silence is a deliberate miss-by-default (see machine self-grade
     // comment) — only failure outcomes are exempt from rating.

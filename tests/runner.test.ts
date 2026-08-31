@@ -86,6 +86,38 @@ describe('SessionRunner robustness', () => {
     expect(phases[phases.length - 1]).toBe('done');
   });
 
+  it('an SR-error reveal plays the connection phrase, not "not quite", and rates nothing', async () => {
+    const played: string[] = [];
+    const rateCalls: string[] = [];
+    const phases: Phase[] = [];
+    const runner = new SessionRunner({
+      play: async (items: ClipItem[]) => {
+        for (const i of items) if (i.src) played.push(i.src);
+        return 'done';
+      },
+      cancelPlay: () => {},
+      listen: async (): Promise<SRResult> => ({ kind: 'error', code: 'network' }),
+      abortListen: () => {},
+      srAvailable: () => true,
+      rate: async (_w, rating) => {
+        rateCalls.push(rating);
+      },
+      markLearned: async () => {},
+      setMic: () => {},
+      words: new Map([[word.id, word]]),
+      onChange: (s) => phases.push(s.phase),
+      onEnded: () => {},
+    });
+    runner.start([{ wordId: 'w1', mode: 'quiz' }], true);
+    for (let i = 0; i < 12; i++) await flush();
+
+    expect(phases).toContain('reveal-playing');
+    expect(phases[phases.length - 1]).toBe('done');
+    expect(played.some((s) => s.endsWith('couldnt-check.mp3'))).toBe(true);
+    expect(played.some((s) => s.endsWith('not-quite.mp3'))).toBe(false);
+    expect(rateCalls).toEqual([]); // never rate a card on a network failure
+  });
+
   it('watchdog forces progress when the listen never resolves at all', async () => {
     vi.useFakeTimers();
     const { runner, phases } = makeRunner(() => new Promise<SRResult>(() => {}));

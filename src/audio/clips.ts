@@ -258,10 +258,18 @@ export function conjRevealSequence(w: Word, conj: ItemConj): ClipItem[] {
 
 export const phraseSequence = (key: string): ClipItem[] => [{ src: phraseClip(key) }];
 
+/** Reveal intro for an SR/mic-failure reveal: every reveal sequence opens with
+ *  "Not quite." — a grading claim that's a lie when the answer was never
+ *  judged. Swap in "Couldn't check that one." and keep the rest of the reveal
+ *  (answer + self-grade prompt) intact. */
+export function srErrorIntro(seq: ClipItem[]): ClipItem[] {
+  return [{ ...seq[0], src: phraseClip('couldnt-check') }, ...seq.slice(1)];
+}
+
 /** Every audio URL a session item set can need — used to warm the cache. */
 export function sessionClipUrls(words: Word[]): string[] {
   const urls = new Set<string>();
-  for (const key of ['in-japanese', 'repeat-after-me', 'one-more-time', 'also-hear', 'how-do-you-say', 'correct', 'not-quite', 'the-answer-is', 'knew-it', 'session-start', 'session-done', 'paused', 'resuming', 'for-example', 'fill-the-blank', 'repeat-the-sentence', 'make-a-sentence']) {
+  for (const key of ['in-japanese', 'repeat-after-me', 'one-more-time', 'also-hear', 'how-do-you-say', 'correct', 'not-quite', 'couldnt-check', 'the-answer-is', 'knew-it', 'session-start', 'session-done', 'paused', 'resuming', 'for-example', 'fill-the-blank', 'repeat-the-sentence', 'make-a-sentence']) {
     urls.add(phraseClip(key));
   }
   for (const w of words) {
