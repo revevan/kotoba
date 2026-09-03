@@ -383,7 +383,9 @@ export function reduce(s: MachineState, ev: Event): Step {
 
     case 'quiz-playing':
       if (ev.type === 'playDone') {
-        if (s.degraded) return toReveal(s);
+        // Degraded: no listen ever ran, so the reveal must not claim "not
+        // quite" — nothing was graded (srError framing covers this).
+        if (s.degraded) return toReveal(s, true);
         return step({ ...s, phase: 'quiz-listening', retries: 0 }, { type: 'listen', kind: 'quiz-answer', wordId: currentItem(s)!.wordId });
       }
       if (outcome === 'cmd-repeat') return enterItem(s);
@@ -395,7 +397,7 @@ export function reduce(s: MachineState, ev: Event): Step {
     case 'build-playing':
     case 'conj-playing': {
       if (ev.type === 'playDone') {
-        if (s.degraded) return toReveal(s);
+        if (s.degraded) return toReveal(s, true);
         const item = currentItem(s)!;
         const kind: ListenKind =
           s.phase === 'cloze-playing' ? 'cloze-answer' : s.phase === 'shadow-playing' ? 'shadow-answer' : s.phase === 'build-playing' ? 'build-answer' : 'conj-answer';
@@ -490,11 +492,15 @@ export function reduce(s: MachineState, ev: Event): Step {
       // An SR/mic failure is NOT a user signal: rating here graded cards Again
       // on network outages and poisoned FSRS. Advance unrated — no rate, no
       // re-drill, no miss count — the card's schedule is untouched, so it stays
-      // due and simply returns next session. (A degraded-mode tap window that
-      // expires still arrives as 'timeout' and rates the default miss below —
-      // long-standing tap-window semantics, revisit with the C2 rails.)
+      // due and simply returns next session.
       if (outcome === 'denied' || outcome === 'unavailable') return advance(degrade(s));
       if (outcome === 'error') return advance(bumpSrFailure(s));
+      // Degraded mode is tap-only, and a driver whose recognizer just died
+      // can't tap at all — an expired window means "no tap", not "I missed
+      // it". Advance unrated; only explicit taps grade while degraded. In a
+      // voiced session, silence after the reveal stays the deliberate default
+      // miss (the user heard the answer and claimed nothing).
+      if (outcome === 'timeout' && s.degraded) return advance(s);
       if (outcome) return gradeSelf(s, 'again', 'timeout');
       break;
     }

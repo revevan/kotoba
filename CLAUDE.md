@@ -80,6 +80,19 @@ TypeScript strict, `idb`, `wanakana`, `@patdx/kuromoji`.
   `wrangler secret put`: `DEEPGRAM_API_KEY`, `RESEND_API_KEY`.
 - `public/audio/` and `dist/` are gitignored; audio lives in R2
   (`audio.kotobaapp.com`).
+- SW updates are prompt-based (C2): a deploy never hard-reloads a live session.
+  `src/platform/swUpdate.ts` applies silently on cold start, otherwise shows a
+  home-screen notice; Settings has a manual check. Ship user-visible changes
+  with a new entry at the top of `src/changelog.ts` (fresh id).
+- Audio is CacheFirst on unversioned URLs: **any re-recorded clip at an
+  existing URL requires bumping the `kotoba-audio-v*` cacheName** in
+  `vite.config.ts` AND appending the old name to `STALE_CACHES` in
+  `swUpdate.ts` (currently v2).
+- Sync blob rules (C2): additive-only schema, `version` field, unknown
+  top-level keys pass through old clients untouched, settings merge is
+  newer-wins via per-key stamps (`__meta` in the settings store). IDB upgrade
+  callbacks must stay `oldVersion`-aware (`src/data/db.ts`). Server keeps a
+  one-back blob snapshot in D1 `progress_prev`.
 - Deploy: push to `main` → `.github/workflows/deploy.yml` (pnpm install →
   test → build → GitHub Pages). CI runs the tests — don't push red.
 - `pnpm-workspace.yaml` sets `minimumReleaseAge: 10080` and disables build

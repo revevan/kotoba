@@ -38,7 +38,11 @@ export default defineConfig({
       },
     },
     VitePWA({
-      registerType: 'autoUpdate',
+      // 'prompt': a new SW installs but waits — no skipWaiting/clientsClaim, so
+      // a deploy can never hard-reload a live session mid-drive. The page
+      // decides when to apply (src/platform/swUpdate.ts: silent on cold start,
+      // a home-screen notice otherwise, manual check in Settings).
+      registerType: 'prompt',
       manifest: {
         name: 'Kotoba — Hands-Free Japanese',
         short_name: 'Kotoba',
@@ -69,7 +73,11 @@ export default defineConfig({
             urlPattern: ({ url }) => url.pathname.includes('/audio/') || (!!process.env.VITE_AUDIO_BASE_URL && url.href.startsWith(process.env.VITE_AUDIO_BASE_URL)),
             handler: 'CacheFirst',
             options: {
-              cacheName: 'kotoba-audio',
+              // CacheFirst on unversioned URLs never revalidates, so any clip
+              // re-recorded at an existing URL requires bumping this name (and
+              // adding the old one to STALE_CACHES in swUpdate.ts). v2:
+              // 2026-08-22 re-records of 224 n5-starter clips.
+              cacheName: 'kotoba-audio-v2',
               // Word clips (~4k) + sentence clips (~4 per sentence) — headroom so
               // CacheFirst eviction doesn't thrash the active deck's audio.
               expiration: { maxEntries: 12000 },
