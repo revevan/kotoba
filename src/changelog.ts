@@ -13,7 +13,7 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     id: '2026-09-safety-rails',
-    title: 'Smoother sessions',
+    title: 'Smoother sessions / bug fixes',
     points: [
       'Connection trouble no longer counts against you — if the app can’t hear the network, your card is left unchanged and it says so.',
       'Updates no longer restart the app mid-session. You’ll see a note here when a new version is ready.',

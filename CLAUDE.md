@@ -95,5 +95,15 @@ TypeScript strict, `idb`, `wanakana`, `@patdx/kuromoji`.
   one-back blob snapshot in D1 `progress_prev`.
 - Deploy: push to `main` → `.github/workflows/deploy.yml` (pnpm install →
   test → build → GitHub Pages). CI runs the tests — don't push red.
+- **Workers deploy via the global `wrangler` (v4, `~/.npm-global/bin`), always
+  with `--cwd` — never from the repo root and never via `npx wrangler`.**
+  Wrangler auto-loads the repo-root `.env`, whose zone-scoped `CF_API_TOKEN`
+  overrides the OAuth login and breaks every account call ("Failed to
+  automatically retrieve account IDs"); `npx` may hang downloading a fresh copy.
+  Canonical commands (all pre-approved in `.claude/settings.local.json`):
+  `wrangler --cwd server/api deploy`, `wrangler --cwd server/stt-proxy deploy`,
+  `wrangler --cwd server/api d1 execute kotoba --remote --file=schema.sql`
+  (schema.sql is additive/idempotent), `wrangler --cwd server/api tail`,
+  `… deployments list`, `… whoami`. `wrangler secret put` stays Evan-only.
 - `pnpm-workspace.yaml` sets `minimumReleaseAge: 10080` and disables build
   scripts for `msedge-tts`.
