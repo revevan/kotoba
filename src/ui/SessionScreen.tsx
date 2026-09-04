@@ -37,12 +37,16 @@ const SR_ERROR_BADGE: Partial<Record<Phase, { text: string; cls: string }>> = {
   'self-grade-listening': { text: 'NOT GRADED — say “got it” if you knew it', cls: 'reveal' },
 };
 
+// A prompt that couldn't load: the session is parked, not listening, and will
+// replay it — the phase badge ("QUESTION") would suggest an answer is expected.
+const OFFLINE_BADGE = { text: 'CONNECTION LOST — retrying…', cls: 'offline' };
+
 export function SessionScreen() {
   const s = sessionState.value;
   const word = sessionWord.value;
   if (!s) return null;
 
-  const badge = (s.srErrorReveal ? SR_ERROR_BADGE[s.phase] : undefined) ?? PHASE_BADGE[s.phase];
+  const badge = s.offline ? OFFLINE_BADGE : ((s.srErrorReveal ? SR_ERROR_BADGE[s.phase] : undefined) ?? PHASE_BADGE[s.phase]);
   const showAnswer = ['teach-playing', 'teach-listening', 'teach2-playing', 'teach2-listening', 'correct-playing', 'reveal-playing', 'self-grade-listening', 'self-grade-reprompt-playing'].includes(s.phase);
   const isQuizzing = s.phase === 'quiz-playing' || s.phase === 'quiz-listening' || s.phase === 'build-playing' || s.phase === 'build-listening' || s.phase === 'conj-playing' || s.phase === 'conj-listening';
   const clozing = s.phase === 'cloze-playing' || s.phase === 'cloze-listening';
@@ -68,6 +72,7 @@ export function SessionScreen() {
       </header>
 
       {s.degraded && <p class="degraded">Voice recognition unavailable — use the buttons</p>}
+      {s.offline && <p class="hint">Audio couldn’t load. The question replays when the connection is back. Nothing is graded meanwhile.</p>}
       {s.srErrorReveal && selfGrading && <p class="hint">Couldn’t reach the server, so this one isn’t counted — it’ll come back.</p>}
       {prefetchProgress.value && (
         <p class="hint">

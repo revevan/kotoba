@@ -9,14 +9,14 @@
 import { signal } from '@preact/signals';
 import { screen } from '../state';
 import { dlog } from '../debug/log';
+import { STALE_AUDIO_CACHES } from '../audio/audioCache';
 
 /** A new build is installed and waiting; applyUpdate() restarts into it. */
 export const updateReady = signal(false);
 
-/** Runtime caches superseded by a renamed successor (see vite.config.ts —
- * every kotoba-audio bump appends the old name here). Deleted at startup so
- * stale audio doesn't sit in storage forever. */
-const STALE_CACHES = ['kotoba-audio'];
+/** Runtime caches superseded by a renamed successor (see audioCache.ts).
+ * Deleted at startup so stale audio doesn't sit in storage forever. */
+const STALE_CACHES = STALE_AUDIO_CACHES;
 
 // How long after load a detected update may still auto-apply. Past this the
 // user is settled in and a surprise reload would be rude.

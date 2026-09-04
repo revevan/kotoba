@@ -1,5 +1,6 @@
 import type { Sentence, Word } from '../types';
 import type { ClipItem } from '../audio/clips';
+import type { PlayOutcome } from '../audio/player';
 import {
   buildPromptSequence,
   buildRevealSequence,
@@ -43,8 +44,11 @@ import {
 } from './machine';
 
 export interface RunnerDeps {
-  play(items: ClipItem[]): Promise<'done' | 'cancelled'>;
+  play(items: ClipItem[]): Promise<PlayOutcome>;
   cancelPlay(): void;
+  /** Spoken "connection lost" cue for the first hold of an outage. Bundled with
+   *  the app shell so it plays with no network. Omitted = silent holds. */
+  cueClip?: ClipItem[];
   listen: ListenFn;
   abortListen(): void;
   srAvailable(): boolean;
@@ -65,6 +69,10 @@ export interface RunnerDeps {
   onChange(state: MachineState, word: Word | undefined): void;
   onEnded(counts: Counts): void;
 }
+
+/** Don't repeat the connection-lost cue within this window: a minute of
+ *  flapping signal should be heard once, not on every drop. */
+export const CUE_COOLDOWN_MS = 90_000;
 
 const LISTEN_TIMEOUTS: Record<ListenKind, number> = {
   'teach-echo': 5000,
@@ -120,8 +128,28 @@ export class SessionRunner {
   private state = initialState();
   private listenGen = 0;
   private stopped = false;
+  private holdTimer: ReturnType<typeof setTimeout> | null = null;
+  private holdGen = 0;
+  private lastCueAt = -Infinity;
+  // An `online` event arrived while a retry (or the cue) was in flight: if that
+  // attempt still fails, the next hold retries immediately instead of waiting.
+  private onlineNudge = false;
+  // Connectivity back mid-hold → retry now instead of waiting out the timer.
+  private onOnline = (): void => {
+    if (!this.holdTimer) {
+      this.onlineNudge = this.state.offline !== false;
+      return;
+    }
+    clearTimeout(this.holdTimer);
+    this.holdTimer = null;
+    this.holdGen++;
+    dlog('runner', 'online event — retrying held prompt');
+    this.dispatch({ type: 'holdDone' });
+  };
 
-  constructor(private deps: RunnerDeps) {}
+  constructor(private deps: RunnerDeps) {
+    if (typeof window !== 'undefined') window.addEventListener('online', this.onOnline);
+  }
 
   start(queue: Item[], voiceEcho: boolean): void {
     this.dispatch({ type: 'start', queue, voiceEcho, degraded: !this.deps.srAvailable() });
@@ -135,6 +163,7 @@ export class SessionRunner {
   stop(): void {
     this.stopped = true;
     this.interrupt();
+    if (typeof window !== 'undefined') window.removeEventListener('online', this.onOnline);
   }
 
   getState(): MachineState {
@@ -143,6 +172,10 @@ export class SessionRunner {
 
   private interrupt(): void {
     this.listenGen++;
+    this.holdGen++;
+    this.onlineNudge = false;
+    if (this.holdTimer) clearTimeout(this.holdTimer);
+    this.holdTimer = null;
     this.deps.cancelPlay();
     this.deps.abortListen();
   }
@@ -174,7 +207,7 @@ export class SessionRunner {
   private async execute(eff: Effect): Promise<void> {
     switch (eff.type) {
       case 'play': {
-        let outcome: 'done' | 'cancelled';
+        let outcome: PlayOutcome;
         try {
           let seq = this.sequenceFor(eff.kind, eff.wordId, eff.sentenceId);
           // An SR-failure reveal must not open with "Not quite." — nothing was
@@ -186,7 +219,35 @@ export class SessionRunner {
           dlog('runner', `play ${eff.kind} threw: ${e}`);
           outcome = 'done';
         }
-        if (outcome === 'done' && !this.stopped) this.dispatch({ type: 'playDone' });
+        if (this.stopped) return;
+        if (outcome === 'done') {
+          this.onlineNudge = false;
+          this.dispatch({ type: 'playDone' });
+        } else if (outcome === 'silent') {
+          this.dispatch({ type: 'playSilent' });
+        }
+        return;
+      }
+      case 'hold': {
+        const gen = ++this.holdGen;
+        if (this.holdTimer) clearTimeout(this.holdTimer);
+        this.holdTimer = null;
+        if (eff.cue && this.deps.cueClip && Date.now() - this.lastCueAt > CUE_COOLDOWN_MS) {
+          this.lastCueAt = Date.now();
+          try {
+            await this.deps.play(this.deps.cueClip);
+          } catch {
+            /* the cue is best-effort */
+          }
+          if (gen !== this.holdGen || this.stopped) return;
+        }
+        const ms = this.onlineNudge ? 0 : eff.ms;
+        this.onlineNudge = false;
+        this.holdTimer = setTimeout(() => {
+          this.holdTimer = null;
+          if (gen !== this.holdGen || this.stopped) return;
+          this.dispatch({ type: 'holdDone' });
+        }, ms);
         return;
       }
       case 'listen':

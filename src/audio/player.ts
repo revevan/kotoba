@@ -32,7 +32,82 @@ function silentWavDataUri(): string {
 
 const SILENCE = silentWavDataUri();
 
-export type PlayOutcome = 'done' | 'cancelled';
+/**
+ * 'silent' = the connection failed somewhere in the sequence (see
+ * sequenceOutcome) — the listener cannot have heard the whole thing, and the
+ * session must hold rather than open the mic on a prompt nobody heard.
+ */
+export type PlayOutcome = 'done' | 'silent' | 'cancelled';
+
+/** What became of one clip with a src. */
+export type ClipResult =
+  | 'played' // reached 'ended'
+  | 'play-error' // loaded but the element errored/stalled — not a connection signal
+  | 'missing' // 404: the clip doesn't exist (content gap, skip it)
+  | 'network-failed'; // fetch threw / timed out / non-OK: the connection is gone
+
+/**
+ * A missing clip is content, not connection: the sequence still counts as
+ * played. Any network failure — even after earlier clips played — makes the
+ * sequence silent, because the user cannot have heard all of it (Evan's case:
+ * "how do you say…" plays, the English word never arrives, the mic must NOT open).
+ */
+export function sequenceOutcome(results: ClipResult[]): 'done' | 'silent' {
+  return results.some((r) => r === 'network-failed') ? 'silent' : 'done';
+}
+
+/** Per-clip fetch budget. Cached clips resolve instantly; a dead cell zone
+ *  tends to hang rather than fail, and the hold must land quickly. */
+export const CLIP_FETCH_BUDGET_MS = 4000;
+
+type Resolved =
+  | { kind: 'blob'; objectUrl: string; from: 'cache' | 'network' }
+  | { kind: 'direct' } // no fetch available — let the element load the URL itself
+  | { kind: 'missing' }
+  | { kind: 'network-failed' };
+
+const tail = (url: string) => url.split('/').slice(-2).join('/');
+
+async function fromCache(url: string): Promise<Blob | null> {
+  try {
+    if (typeof caches === 'undefined') return null;
+    // Precache entries carry a ?__WB_REVISION__ key; runtime entries don't.
+    const res = await caches.match(url, { ignoreSearch: true });
+    if (!res) return null;
+    const blob = await res.blob();
+    // An opaque (no-cors) entry has an empty body — treat as a miss.
+    return blob.size > 0 ? blob : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Load a clip as a blob URL: Cache API first (works even when the service
+ * worker isn't controlling the page), then a budgeted network fetch (which the
+ * SW's CacheFirst route stores as a side effect). Streaming a URL straight into
+ * the media element bypassed all of this on iOS — cached clips still failed
+ * offline — and gave no way to tell "missing" from "no connection".
+ */
+export async function resolveClip(url: string, budgetMs = CLIP_FETCH_BUDGET_MS): Promise<Resolved> {
+  if (url.startsWith('data:') || url.startsWith('blob:')) return { kind: 'direct' };
+  const cached = await fromCache(url);
+  if (cached) return { kind: 'blob', objectUrl: URL.createObjectURL(cached), from: 'cache' };
+  if (typeof fetch !== 'function') return { kind: 'direct' };
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), budgetMs);
+  try {
+    const res = await fetch(url, { mode: 'cors', signal: ctl.signal });
+    if (res.status === 404) return { kind: 'missing' };
+    if (!res.ok) return { kind: 'network-failed' };
+    const blob = await res.blob();
+    return { kind: 'blob', objectUrl: URL.createObjectURL(blob), from: 'network' };
+  } catch {
+    return { kind: 'network-failed' };
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 /**
  * Single HTMLAudioElement playback queue. iOS only trusts an element that was
@@ -45,7 +120,7 @@ export class Player {
   // the service worker's runtime cache stores them without quota padding.
   private generation = 0;
   private timer: ReturnType<typeof setTimeout> | null = null;
-  private gapResolve: ((o: PlayOutcome) => void) | null = null;
+  private gapResolve: ((o: 'done' | 'cancelled') => void) | null = null;
 
   /** Called when the OS pauses playback out from under us (phone call, Siri,
    *  CarPlay ducking). Without it the clip's 'ended' never fires and the
@@ -62,18 +137,41 @@ export class Player {
 
   async play(items: ClipItem[]): Promise<PlayOutcome> {
     const gen = ++this.generation;
-    for (const item of items) {
-      if (gen !== this.generation) return 'cancelled';
-      if (item.src) {
-        const outcome = await this.playOne(item.src, gen);
-        if (outcome === 'cancelled') return 'cancelled';
-      }
-      if (item.gapMs) {
-        const outcome = await this.wait(item.gapMs, gen);
-        if (outcome === 'cancelled') return 'cancelled';
-      }
+    // Resolve every clip up front, in parallel: the outcome is known before
+    // the first sound, and inter-clip gaps no longer include network latency.
+    const resolved = await Promise.all(items.map((it) => (it.src ? resolveClip(it.src) : null)));
+    const revoke = () => {
+      for (const r of resolved) if (r?.kind === 'blob') URL.revokeObjectURL(r.objectUrl);
+    };
+    if (gen !== this.generation) {
+      revoke();
+      return 'cancelled';
     }
-    return gen === this.generation ? 'done' : 'cancelled';
+    this.logResolved(items, resolved);
+    const results: ClipResult[] = [];
+    try {
+      for (let i = 0; i < items.length; i++) {
+        if (gen !== this.generation) return 'cancelled';
+        const item = items[i];
+        const r = resolved[i];
+        if (item.src && r) {
+          if (r.kind === 'missing' || r.kind === 'network-failed') {
+            results.push(r.kind);
+          } else {
+            const outcome = await this.playOne(r.kind === 'blob' ? r.objectUrl : item.src, item.src, gen);
+            if (outcome === 'cancelled') return 'cancelled';
+            results.push(outcome);
+          }
+        }
+        if (item.gapMs) {
+          const outcome = await this.wait(item.gapMs, gen);
+          if (outcome === 'cancelled') return 'cancelled';
+        }
+      }
+      return gen === this.generation ? sequenceOutcome(results) : 'cancelled';
+    } finally {
+      revoke();
+    }
   }
 
   cancel(): void {
@@ -85,7 +183,29 @@ export class Player {
     this.el.pause();
   }
 
-  private playOne(src: string, gen: number): Promise<PlayOutcome> {
+  /** One summary line per sequence (the debug ring buffer is small), plus a
+   *  line per clip that didn't resolve — those are the ones worth reading. */
+  private logResolved(items: ClipItem[], resolved: (Resolved | null)[]): void {
+    const n = { cache: 0, network: 0, direct: 0, missing: 0, failed: 0 };
+    resolved.forEach((r, i) => {
+      if (!r) return;
+      if (r.kind === 'blob') n[r.from]++;
+      else if (r.kind === 'direct') n.direct++;
+      else if (r.kind === 'missing') {
+        n.missing++;
+        dlog('player', `missing (404): ${tail(items[i].src!)}`);
+      } else {
+        n.failed++;
+        dlog('player', `network-failed: ${tail(items[i].src!)}`);
+      }
+    });
+    const parts = Object.entries(n)
+      .filter(([, c]) => c > 0)
+      .map(([k, c]) => `${k} ${c}`);
+    dlog('player', `seq ${parts.join(', ') || 'no clips'}`);
+  }
+
+  private playOne(src: string, label: string, gen: number): Promise<ClipResult | 'cancelled'> {
     return new Promise((resolve) => {
       const el = this.el;
       // Stall guard: play() can hang forever without ended/error/pause firing
@@ -99,9 +219,9 @@ export class Player {
         if (el.currentTime === 0) {
           stalls++;
           if (stalls >= 3) {
-            dlog('player', `clip stalled (no playback progress): ${src.split('/').slice(-2).join('/')}`);
+            dlog('player', `clip stalled (no playback progress): ${tail(label)}`);
             cleanup();
-            resolve(gen === this.generation ? 'done' : 'cancelled');
+            resolve(gen === this.generation ? 'play-error' : 'cancelled');
           }
         } else {
           stalls = 0;
@@ -117,16 +237,16 @@ export class Player {
       };
       const onEnded = () => {
         cleanup();
-        resolve(gen === this.generation ? 'done' : 'cancelled');
+        resolve(gen === this.generation ? 'played' : 'cancelled');
       };
       const onError = () => {
-        // Missing/failed clip: skip it rather than wedge the session. The
-        // finished guard silences the late play()-rejection that can land
-        // after a stall already resolved this clip.
+        // A clip that loaded but won't decode/play: skip it rather than wedge
+        // the session. The finished guard silences the late play()-rejection
+        // that can land after a stall already resolved this clip.
         if (finished) return;
-        dlog('player', `clip failed (${el.error?.code ?? 'play-rejected'}): ${src.split('/').slice(-2).join('/')}`);
+        dlog('player', `clip failed (${el.error?.code ?? 'play-rejected'}): ${tail(label)}`);
         cleanup();
-        resolve(gen === this.generation ? 'done' : 'cancelled');
+        resolve(gen === this.generation ? 'play-error' : 'cancelled');
       };
       const onPause = () => {
         if (gen !== this.generation) {
@@ -137,7 +257,7 @@ export class Player {
         // Still the live generation and not at clip end: the OS paused us
         // (interruption). Surface it instead of hanging the sequence.
         if (el.ended) return; // natural end — onEnded settles this clip
-        dlog('player', `interrupted (external pause): ${el.currentSrc.split('/').slice(-2).join('/')}`);
+        dlog('player', `interrupted (external pause): ${tail(label)}`);
         cleanup();
         resolve('cancelled');
         this.onInterrupt?.();
@@ -150,9 +270,9 @@ export class Player {
     });
   }
 
-  private wait(ms: number, gen: number): Promise<PlayOutcome> {
+  private wait(ms: number, gen: number): Promise<'done' | 'cancelled'> {
     return new Promise((resolve) => {
-      const finish = (o: PlayOutcome) => {
+      const finish = (o: 'done' | 'cancelled') => {
         if (this.gapResolve === finish) this.gapResolve = null;
         resolve(o);
       };

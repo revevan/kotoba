@@ -97,11 +97,23 @@ const PHRASES_JA: Record<string, string> = {
 };
 
 interface Job {
-  out: string; // path relative to public/audio
+  out: string; // path relative to `base` (default public/audio)
   text: string;
   voice: string;
   rate?: string;
+  /** Override for clips that live OUTSIDE the audio corpus (see CUES). */
+  base?: string;
 }
+
+const jobPath = (job: Job) => join(job.base ?? audioDir, job.out);
+
+/** Shell-bundled cues: committed under public/cues/ (not gitignored, not synced
+ *  to R2) and precached by the service worker, so they play with no network.
+ *  Keep this list tiny — every entry ships in the app bundle. */
+const CUES: Record<string, string> = {
+  'connection-lost': "Connection lost. I'll keep trying.",
+};
+const cuesDir = join(root, 'public', 'cues');
 
 function hashOf(job: Job): string {
   return createHash('sha1').update(`${job.voice}|${job.rate ?? ''}|${job.text}`).digest('hex');
@@ -170,6 +182,9 @@ function loadSentences(decks: Deck[]): Sentence[] {
 
 function collectJobs(decks: Deck[]): Job[] {
   const jobs = new Map<string, Job>();
+  for (const [key, text] of Object.entries(CUES)) {
+    jobs.set(`cues/${key}.mp3`, { out: `cues/${key}.mp3`, text, voice: EN_VOICE, base: join(root, 'public') });
+  }
   for (const [key, text] of Object.entries(PHRASES)) {
     jobs.set(`phrases/${key}.mp3`, { out: `phrases/${key}.mp3`, text, voice: EN_VOICE });
   }
@@ -241,13 +256,17 @@ function collectJobs(decks: Deck[]): Job[] {
 }
 
 async function main() {
-  const only = process.argv.slice(2);
-  const decks = loadDecks(only);
+  const args = process.argv.slice(2);
+  // --cues: only the shell-bundled cues (public/cues/), never the corpus.
+  const cuesOnly = args.includes('--cues');
+  const only = args.filter((a) => !a.startsWith('--'));
+  const decks = cuesOnly ? [] : loadDecks(only);
   console.log(`decks: ${decks.map((d) => d.id).join(', ')}`);
 
   const manifest: Record<string, string> = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, 'utf8')) : {};
   const jobs = collectJobs(decks).filter((job) => {
-    const path = join(audioDir, job.out);
+    if (cuesOnly && !job.base) return false;
+    const path = jobPath(job);
     return !(existsSync(path) && manifest[job.out] === hashOf(job));
   });
   console.log(`to generate: ${jobs.length} clips`);
@@ -255,6 +274,7 @@ async function main() {
   for (const sub of ['ja', 'ja-slow', 'en', 'mora', 'phrases', 'phrases-ja', 'sen', 'sen-en', 'sen-pre', 'sen-post', 'ja-conj', 'en-conj']) {
     mkdirSync(join(audioDir, sub), { recursive: true });
   }
+  mkdirSync(cuesDir, { recursive: true });
   writeBeep(); // cloze gap filler — a static tone, not TTS
 
   // One TTS connection per (voice, rate) config; clips generated sequentially
@@ -274,7 +294,7 @@ async function main() {
   let done = 0;
   let failed = 0;
   for (const job of jobs) {
-    const outPath = join(audioDir, job.out);
+    const outPath = jobPath(job);
     const tmpPath = `${outPath}.tmp`;
     let attempts = 0;
     for (;;) {

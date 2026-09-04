@@ -12,6 +12,15 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    id: '2026-09-connection-loss',
+    title: 'Works without signal',
+    points: [
+      'Session audio is saved on your phone as you start, so dead zones mid-commute no longer cut it off.',
+      'If a question can’t load, you’ll hear “connection lost” and the app waits and retries instead of guessing. Nothing is graded while it waits.',
+      'A missed connection never counts against a card.',
+    ],
+  },
+  {
     id: '2026-09-safety-rails',
     title: 'Smoother sessions / bug fixes',
     points: [

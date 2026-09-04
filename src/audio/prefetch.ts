@@ -1,12 +1,14 @@
+import { AUDIO_CACHE_NAME } from './audioCache';
+
 /**
  * Warm the runtime audio cache with everything this session needs, so a dead
- * cell zone mid-commute can't stall playback. Uses the same cache name as the
- * service worker's CacheFirst route for /audio/.
+ * cell zone mid-commute can't stall playback. Writes to the same cache the
+ * service worker's CacheFirst route reads (and the player checks directly).
  */
 export async function prefetchAudio(urls: string[], onProgress?: (done: number, total: number) => void): Promise<void> {
   if (!('caches' in window)) return;
   try {
-    const cache = await caches.open('kotoba-audio');
+    const cache = await caches.open(AUDIO_CACHE_NAME);
     const missing: string[] = [];
     for (const url of urls) {
       if (!(await cache.match(url))) missing.push(url);

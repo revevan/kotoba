@@ -56,6 +56,9 @@ export type RateMode = 'auto' | 'self' | 'skip' | 'timeout';
 export type Effect =
   | { type: 'play'; kind: PlayKind; wordId?: string; sentenceId?: string }
   | { type: 'listen'; kind: ListenKind; wordId?: string; sentenceId?: string }
+  // Connection lost mid-prompt: wait `ms` then retry the same prompt (holdDone).
+  // `cue` = first hold of this outage → the runner plays the connection-lost cue.
+  | { type: 'hold'; ms: number; cue: boolean }
   | { type: 'rate'; wordId: string; rating: 'good' | 'again'; mode: RateMode; recognized?: string }
   // A new word's teach step finished → it counts as studied and enters the schedule.
   | { type: 'learned'; wordId: string }
@@ -126,6 +129,10 @@ export interface MachineState {
   /** The current reveal was reached via an SR/mic failure, not a judged miss —
    *  the UI and audio must not claim "not quite" (nothing was graded). */
   srErrorReveal: boolean;
+  /** Connection lost while a prompt was loading: 'holding' = waiting to retry
+   *  (no listen runs), 'retrying' = the replay is in flight. Cleared the moment
+   *  anything plays, or on the next item. */
+  offline: false | 'holding' | 'retrying';
 }
 
 export type TapCommand = 'repeat' | 'skip' | 'pause' | 'resume' | 'gotit' | 'missed';
@@ -133,6 +140,9 @@ export type TapCommand = 'repeat' | 'skip' | 'pause' | 'resume' | 'gotit' | 'mis
 export type Event =
   | { type: 'start'; queue: Item[]; voiceEcho: boolean; degraded?: boolean }
   | { type: 'playDone' }
+  // The sequence hit a network failure (player 'silent'): nothing reliable was heard.
+  | { type: 'playSilent' }
+  | { type: 'holdDone' }
   | { type: 'listenResult'; outcome: ListenOutcome; recognized?: string }
   | { type: 'tap'; cmd: TapCommand };
 
@@ -142,6 +152,24 @@ export interface Step {
 }
 
 const SR_FAILURE_LIMIT = 3;
+
+/** How long a held prompt waits before replaying (the runner retries sooner on
+ *  the browser's `online` event or a Repeat tap). */
+export const HOLD_RETRY_MS = 10_000;
+
+/** Phases whose play is a prompt the user must hear before anything else can
+ *  happen. A silent one holds; every other silent play just moves on. */
+const PROMPT_PHASES = new Set<Phase>([
+  'intro',
+  'teach-playing',
+  'teach2-playing',
+  'quiz-playing',
+  'cloze-playing',
+  'shadow-playing',
+  'build-playing',
+  'conj-playing',
+  'resume-playing',
+]);
 
 /** Outcomes that represent a spoken answer worth echoing on screen. */
 const WORD_ATTEMPT_OUTCOMES = new Set<ListenOutcome>(['match', 'nomatch', 'dontknow', 'speech']);
@@ -158,6 +186,7 @@ export function initialState(): MachineState {
     counts: { taught: 0, correct: 0, missed: 0 },
     lastRecognized: null,
     srErrorReveal: false,
+    offline: false,
   };
 }
 
@@ -169,7 +198,7 @@ const step = (state: MachineState, ...effects: Effect[]): Step => ({ state, effe
 
 function enterItem(s: MachineState): Step {
   // New item → clear the recognized-text echo so it never sticks to the next word.
-  s = { ...s, lastRecognized: null, srErrorReveal: false };
+  s = { ...s, lastRecognized: null, srErrorReveal: false, offline: false };
   const item = currentItem(s);
   if (!item) {
     return step({ ...s, phase: 'done' }, { type: 'play', kind: 'done' });
@@ -228,6 +257,35 @@ function pause(s: MachineState): Step {
 
 function resume(s: MachineState): Step {
   return step({ ...s, phase: 'resume-playing' }, { type: 'play', kind: 'resuming' });
+}
+
+/** A prompt could not be heard: park the session (mic stays closed) and retry
+ *  later. The cue plays only on the first hold of an outage — retries and
+ *  Repeat taps are silent, so flapping signal doesn't nag. */
+function hold(s: MachineState): Step {
+  return step({ ...s, offline: 'holding' }, { type: 'hold', ms: HOLD_RETRY_MS, cue: s.offline === false });
+}
+
+/** Re-emit the play the current phase entered with. Stays `offline` ('retrying')
+ *  so a second silent attempt is recognised as the same outage (no second cue);
+ *  the first playDone clears it. */
+function replayCurrent(s: MachineState): Step {
+  const base: MachineState = { ...s, offline: false };
+  let next: Step;
+  switch (s.phase) {
+    case 'intro':
+      next = step(base, { type: 'play', kind: 'intro' });
+      break;
+    case 'teach2-playing':
+      next = toTeach2(base);
+      break;
+    case 'resume-playing':
+      next = resume(base);
+      break;
+    default:
+      next = enterItem(base);
+  }
+  return { state: { ...next.state, offline: 'retrying' }, effects: next.effects };
 }
 
 function bumpSrFailure(s: MachineState): MachineState {
@@ -316,6 +374,22 @@ export function reduce(s: MachineState, ev: Event): Step {
     s = { ...s, lastRecognized: ev.recognized };
   }
 
+  // Connection loss. Something played ⇒ the outage is over. A silent PROMPT
+  // holds (never opens the mic on a question nobody heard); a silent REVEAL
+  // advances unrated (the answer was never heard, so silence afterwards is not
+  // a miss — the card stays due); any other silent play is just a skipped
+  // phrase and behaves like playDone.
+  if (ev.type === 'playDone' && s.offline) s = { ...s, offline: false };
+  if (ev.type === 'playSilent') {
+    if (PROMPT_PHASES.has(s.phase)) return hold(s);
+    if (s.phase === 'reveal-playing') return advance({ ...s, offline: false });
+    s = { ...s, offline: false };
+    ev = { type: 'playDone' };
+  }
+  if (ev.type === 'holdDone') {
+    return s.offline === 'holding' && PROMPT_PHASES.has(s.phase) ? replayCurrent(s) : step(s);
+  }
+
   // Taps behave like the equivalent voice command in the current phase.
   const outcome: ListenOutcome | null =
     ev.type === 'tap'
@@ -332,6 +406,14 @@ export function reduce(s: MachineState, ev: Event): Step {
   }
   if (outcome === 'cmd-resume' && (s.phase === 'paused' || s.phase === 'pause-playing')) {
     return resume(s);
+  }
+  // While holding: Repeat retries now; Skip moves on UNRATED (the question was
+  // never heard, so the usual skip = "again" would be a rating from thin air).
+  if (s.offline && PROMPT_PHASES.has(s.phase)) {
+    if (outcome === 'cmd-repeat') return replayCurrent(s);
+    if (outcome === 'cmd-skip' && s.phase !== 'intro' && s.phase !== 'resume-playing') {
+      return s.phase === 'teach-playing' || s.phase === 'teach2-playing' ? skipTeach(s) : advance(s);
+    }
   }
 
   switch (s.phase) {

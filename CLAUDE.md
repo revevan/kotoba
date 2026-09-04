@@ -85,9 +85,17 @@ TypeScript strict, `idb`, `wanakana`, `@patdx/kuromoji`.
   home-screen notice; Settings has a manual check. Ship user-visible changes
   with a new entry at the top of `src/changelog.ts` (fresh id).
 - Audio is CacheFirst on unversioned URLs: **any re-recorded clip at an
-  existing URL requires bumping the `kotoba-audio-v*` cacheName** in
-  `vite.config.ts` AND appending the old name to `STALE_CACHES` in
-  `swUpdate.ts` (currently v2).
+  existing URL requires a cache-name bump** — edit `src/audio/audioCache.ts`
+  only (rename `AUDIO_CACHE_NAME`, append the old name to
+  `STALE_AUDIO_CACHES`; currently v2). `vite.config.ts`, `prefetch.ts` and
+  `swUpdate.ts` all import it; a test guards against literals.
+- Clips are loaded by the player via Cache API → budgeted `fetch` → blob URL
+  (never streamed into the element), so cached audio plays offline on iOS and a
+  network failure is distinguishable from a 404. A prompt that hits a network
+  failure **holds** (`offline` in the machine: cue + banner, no listen, replay
+  every 10s / on `online` / Repeat) and a silent reveal advances unrated. The
+  "connection lost" cue lives in `public/cues/` (committed, precached with the
+  shell, never in R2): `pnpm run gen-audio -- --cues` regenerates it.
 - Sync blob rules (C2): additive-only schema, `version` field, unknown
   top-level keys pass through old clients untouched, settings merge is
   newer-wins via per-key stamps (`__meta` in the settings store). IDB upgrade

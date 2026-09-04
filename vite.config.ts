@@ -3,6 +3,7 @@ import { rmSync } from 'node:fs';
 import { defineConfig } from 'vite';
 import preact from '@preact/preset-vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import { AUDIO_CACHE_NAME } from './src/audio/audioCache';
 
 // Stamped into the boot log line so device logs identify the running build.
 function buildId(): string {
@@ -61,7 +62,9 @@ export default defineConfig({
       workbox: {
         // App shell only; audio/decks are cached at runtime so the 36MB corpus
         // is never part of the precache.
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        // cues/ holds the few clips that must play with NO network (the
+        // connection-lost cue) — bundled with the shell, never in R2.
+        globPatterns: ['**/*.{js,css,html,svg,png,woff2}', 'cues/*.mp3'],
         globIgnores: ['audio/**', 'decks/**', 'icons/**'],
         // Serve the SPA shell for /app/* navigations (including /app?debug=1).
         // Marketing page at / is not handled by the SW — it goes to the network.
@@ -73,11 +76,9 @@ export default defineConfig({
             urlPattern: ({ url }) => url.pathname.includes('/audio/') || (!!process.env.VITE_AUDIO_BASE_URL && url.href.startsWith(process.env.VITE_AUDIO_BASE_URL)),
             handler: 'CacheFirst',
             options: {
-              // CacheFirst on unversioned URLs never revalidates, so any clip
-              // re-recorded at an existing URL requires bumping this name (and
-              // adding the old one to STALE_CACHES in swUpdate.ts). v2:
-              // 2026-08-22 re-records of 224 n5-starter clips.
-              cacheName: 'kotoba-audio-v2',
+              // CacheFirst on unversioned URLs never revalidates — the bump
+              // procedure for re-recorded clips lives in src/audio/audioCache.ts.
+              cacheName: AUDIO_CACHE_NAME,
               // Word clips (~4k) + sentence clips (~4 per sentence) — headroom so
               // CacheFirst eviction doesn't thrash the active deck's audio.
               expiration: { maxEntries: 12000 },

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { initialState, reduce, type Effect, type Event, type Item, type ListenOutcome, type MachineState, type Step } from '../src/session/machine';
+import { HOLD_RETRY_MS, initialState, reduce, type Effect, type Event, type Item, type ListenOutcome, type MachineState, type Step } from '../src/session/machine';
 
 const teach = (id: string): Item => ({ wordId: id, mode: 'teach' });
 const quiz = (id: string): Item => ({ wordId: id, mode: 'quiz' });
@@ -486,5 +486,121 @@ describe('conjugation items', () => {
     const s = run(start([conj('v1')], true, true), playDone, playDone);
     expect(s.state.phase).toBe('reveal-playing');
     expect(s.effects).toEqual([{ type: 'play', kind: 'conj-reveal', wordId: 'v1' }]);
+  });
+});
+
+describe('connection loss (silent plays)', () => {
+  const playSilent: Event = { type: 'playSilent' };
+  const holdDone: Event = { type: 'holdDone' };
+  const tap = (cmd: 'repeat' | 'skip' | 'pause' | 'resume'): Event => ({ type: 'tap', cmd });
+  const rates = (s: Step) => s.effects.filter((e) => e.type === 'rate');
+
+  it('a silent quiz prompt holds instead of listening', () => {
+    const s = run(start([quiz('w1')]), playDone, playSilent);
+    expect(s.state.phase).toBe('quiz-playing');
+    expect(s.state.offline).toBe('holding');
+    expect(s.effects).toEqual([{ type: 'hold', ms: HOLD_RETRY_MS, cue: true }]);
+  });
+
+  it('holdDone replays the same prompt, still marked offline (retrying)', () => {
+    const s = run(start([quiz('w1')]), playDone, playSilent, holdDone);
+    expect(s.state.offline).toBe('retrying');
+    expect(s.effects).toEqual([{ type: 'play', kind: 'quiz-prompt', wordId: 'w1' }]);
+  });
+
+  it('a second silent attempt holds again without a second cue', () => {
+    const s = run(start([quiz('w1')]), playDone, playSilent, holdDone, playSilent);
+    expect(s.state.offline).toBe('holding');
+    expect(s.effects).toEqual([{ type: 'hold', ms: HOLD_RETRY_MS, cue: false }]);
+  });
+
+  it('the retry playing clears offline and listens as normal', () => {
+    const s = run(start([quiz('w1')]), playDone, playSilent, holdDone, playDone);
+    expect(s.state.offline).toBe(false);
+    expect(s.state.phase).toBe('quiz-listening');
+    expect(s.effects[0]?.type).toBe('listen');
+  });
+
+  it('Repeat while holding retries now', () => {
+    const s = run(start([quiz('w1')]), playDone, playSilent, tap('repeat'));
+    expect(s.state.offline).toBe('retrying');
+    expect(s.effects).toEqual([{ type: 'play', kind: 'quiz-prompt', wordId: 'w1' }]);
+  });
+
+  it('Skip while holding advances unrated — no rate, no re-drill, no miss', () => {
+    const s = run(start([quiz('w1'), quiz('w2')]), playDone, playSilent, tap('skip'));
+    expect(s.state.idx).toBe(1);
+    expect(s.state.offline).toBe(false);
+    expect(rates(s)).toEqual([]);
+    expect(s.state.counts.missed).toBe(0);
+    expect(s.state.queue.some((i) => i.practice)).toBe(false);
+  });
+
+  it('a silent teach holds: no echo listen and the word is never marked learned', () => {
+    const s = run(start([teach('w1')]), playDone, playSilent);
+    expect(s.state.offline).toBe('holding');
+    expect(s.effects.some((e) => e.type === 'learned' || e.type === 'listen')).toBe(false);
+  });
+
+  it('a silent teach2 holds and replays only the context half', () => {
+    const s = run(start([teach('w1')]), playDone, playDone, result('speech'), playSilent, holdDone);
+    expect(s.state.phase).toBe('teach2-playing');
+    expect(s.effects).toEqual([{ type: 'play', kind: 'teach2', wordId: 'w1' }]);
+  });
+
+  it('a silent intro holds and replays the intro', () => {
+    const held = run(start([quiz('w1')]), playSilent);
+    expect(held.state.phase).toBe('intro');
+    expect(held.state.offline).toBe('holding');
+    expect(run(held, holdDone).effects).toEqual([{ type: 'play', kind: 'intro' }]);
+  });
+
+  it('a silent reveal advances unrated — the answer was never heard', () => {
+    const s = run(start([quiz('w1'), quiz('w2')]), playDone, playDone, result('nomatch'), playSilent);
+    expect(s.state.idx).toBe(1);
+    expect(rates(s)).toEqual([]);
+    expect(s.state.counts.missed).toBe(0);
+    expect(s.state.queue.some((i) => i.practice)).toBe(false);
+  });
+
+  it('the airplane-mode chain cannot start: a silent prompt never reaches self-grade', () => {
+    // Before: silent prompt → listen → timeout → silent reveal → self-grade timeout → rated Again.
+    const s = run(start([quiz('w1'), quiz('w2')]), playDone, playSilent, result('timeout'), playSilent, result('timeout'));
+    expect(s.state.phase).toBe('quiz-playing');
+    expect(s.state.idx).toBe(0);
+    expect(s.state.offline).toBe('holding');
+    expect(rates(s)).toEqual([]);
+  });
+
+  it('a silent correct clip still rates good — the answer was judged', () => {
+    const s = run(start([quiz('w1'), quiz('w2')]), playDone, playDone, result('match'), playSilent);
+    expect(s.effects[0]).toEqual({ type: 'rate', wordId: 'w1', rating: 'good', mode: 'auto' });
+    expect(s.state.idx).toBe(1);
+    expect(s.state.offline).toBe(false);
+  });
+
+  it('a silent pause phrase still lands in paused', () => {
+    const s = run(start([quiz('w1')]), playDone, tap('pause'), playSilent);
+    expect(s.state.phase).toBe('paused');
+    expect(s.state.offline).toBe(false);
+  });
+
+  it('holdDone outside a hold is a no-op', () => {
+    const s = run(start([quiz('w1')]), playDone, holdDone);
+    expect(s.state.phase).toBe('quiz-playing');
+    expect(s.effects).toEqual([]);
+  });
+
+  it('pausing while holding works, and Resume replays the prompt online', () => {
+    const s = run(start([quiz('w1')]), playDone, playSilent, tap('pause'), playDone, tap('resume'), playDone);
+    expect(s.state.phase).toBe('quiz-playing');
+    expect(s.state.offline).toBe(false);
+    expect(s.effects).toEqual([{ type: 'play', kind: 'quiz-prompt', wordId: 'w1' }]);
+  });
+
+  it('a new item always starts online', () => {
+    const s = run(start([quiz('w1'), quiz('w2')]), playDone, playSilent, holdDone, playDone, result('match'), playDone);
+    expect(s.state.idx).toBe(1);
+    expect(s.state.offline).toBe(false);
   });
 });

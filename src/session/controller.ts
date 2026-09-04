@@ -3,7 +3,7 @@
 
 import { Player } from '../audio/player';
 import { toRomaji } from 'wanakana';
-import { conjClipUrls, sessionClipUrls, setPhraseLocale } from '../audio/clips';
+import { conjClipUrls, connectionLostCue, sessionClipUrls, setPhraseLocale } from '../audio/clips';
 import { CONJ_DECK_ID, FORM_LABELS, FORM_MEANINGS, conjugate, formRegister, isConjCardId, ruleFor } from '../conj/engine';
 import { prefetchAudio } from '../audio/prefetch';
 import { getAllCards, getCard, logReview, putCard } from '../data/db';
@@ -288,6 +288,7 @@ export async function startSession(): Promise<void> {
   runner = new SessionRunner({
     play: (items) => player.play(items),
     cancelPlay: () => player.cancel(),
+    cueClip: connectionLostCue(),
     listen: mockMode ? mockListen : cloudSttEnabled ? cloudListen : listen,
     abortListen: mockMode ? mockAbort : cloudSttEnabled ? cloudAbort : abortListening,
     srAvailable: () => mockMode || (cloudSttEnabled ? cloudSrAvailable() : srAvailable()),
