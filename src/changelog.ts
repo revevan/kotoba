@@ -2,6 +2,10 @@
 // dismissible card until it's been seen (per device, localStorage). Add a new
 // entry (fresh id) with each user-visible release — this is the "don't
 // surprise users" surface for rung promotions, conj graduation, etc.
+//
+// Title convention (Evan, 2026-09-03): frame release cards as "Bug fixes" —
+// a feature-sounding title makes people think something changed that they
+// need to relearn. Put the specifics in the points.
 
 export interface ChangelogEntry {
   /** Stable unique id; the dismissal marker. Convention: YYYY-MM-slug. */
@@ -13,7 +17,7 @@ export interface ChangelogEntry {
 export const CHANGELOG: ChangelogEntry[] = [
   {
     id: '2026-09-connection-loss',
-    title: 'Works without signal',
+    title: 'Bug fixes',
     points: [
       'Session audio is saved on your phone as you start, so dead zones mid-commute no longer cut it off.',
       'If a question can’t load, you’ll hear “connection lost” and the app waits and retries instead of guessing. Nothing is graded while it waits.',
